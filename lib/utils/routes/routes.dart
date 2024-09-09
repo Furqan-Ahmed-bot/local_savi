@@ -6,4 +6,8 @@ class RouteName {
   static const String login = '/login';
   static const String otpverification = '/otpverification';
   static const String tablecalender = '/tablecalender';
+
+  static const String homeScreenPath = '/homeScreenPath';
+  static const String jobsScreenPath = '/jobsScreenPath';
+  static const String notificationsScreenPath = '/notificationsScreenPath';
 }

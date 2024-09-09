@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:local_saviors/utils/routes/routes.dart';
+import 'package:local_saviors/utils/routes/screen_bindings.dart';
 
 import 'utils/routes/routes_name.dart';
 
@@ -35,6 +37,8 @@ class MyApp extends StatelessWidget {
           ),
           // home: MainScreen(),
           getPages: AppRoutes.appRoutes(),
+          initialBinding: ScreenBindings(),
+          initialRoute: RouteName.splashScreen,
         );
       },
     );

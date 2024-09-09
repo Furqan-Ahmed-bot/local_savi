@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
+import 'package:local_saviors/utils/routes/routes.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/text_fields.dart';
 import '../../../utils/images/image_assets.dart';
@@ -86,7 +87,9 @@ class LoginScreen extends StatelessWidget {
                   height: 40,
                   width: 0.9.sw,
                   title: 'Sign In',
-                  onPress: () {}),
+                  onPress: () {
+                    Get.toNamed(RouteName.homeScreenPath);
+                  }),
               30.verticalSpace,
               Center(
                 child: InkWell(
