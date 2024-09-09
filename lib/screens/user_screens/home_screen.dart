@@ -125,7 +125,7 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(RouteName.jobsScreenPath);
+                          Get.toNamed(RouteName.bestPerformerScreenPath);
                         },
                         child: Text(
                           "View All",
@@ -147,68 +147,78 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                       children: List.generate(
                           3,
                           (index) => Expanded(
-                                child: Container(
-                                  width: 0.25.sw,
-                                  margin: EdgeInsets.only(right: 12.w),
-                                  padding:
-                                      EdgeInsets.symmetric(vertical: 15.sp),
-                                  decoration: BoxDecoration(
-                                      color: ColorUtils.white,
-                                      borderRadius:
-                                          BorderRadius.circular(10.sp),
-                                      border: Border.all(
-                                          width: 1.w,
-                                          color: ColorUtils.borderColor)),
-                                  child: Column(
-                                    children: [
-                                      15.h.verticalSpace,
-                                      ClipRRect(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(
+                                        RouteName.bestPerformerDetailScreenPath,
+                                        arguments: "Best Performer");
+                                  },
+                                  child: Container(
+                                    width: 0.25.sw,
+                                    margin: EdgeInsets.only(right: 12.w),
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 15.sp),
+                                    decoration: BoxDecoration(
+                                        color: ColorUtils.white,
                                         borderRadius:
-                                            BorderRadius.circular(50.r),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                  width: 1.w,
-                                                  color:
-                                                      ColorUtils.borderColor)),
-                                          child: Image.asset(
-                                            ImageAssets.oliverImg,
-                                            scale: 2,
+                                            BorderRadius.circular(10.sp),
+                                        border: Border.all(
+                                            width: 1.w,
+                                            color: ColorUtils.borderColor)),
+                                    child: Column(
+                                      children: [
+                                        15.h.verticalSpace,
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(50.r),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                border: Border.all(
+                                                    width: 1.w,
+                                                    color: ColorUtils
+                                                        .borderColor)),
+                                            child: Image.asset(
+                                              controller.dummyData[index]
+                                                  ['image'],
+                                              scale: 2,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      10.h.verticalSpace,
-                                      Text(
-                                        "Oliver Mark",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16.sp),
-                                      ),
-                                      5.h.verticalSpace,
-                                      Text(
-                                        "New Yoru",
-                                        style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      8.h.verticalSpace,
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            ImageAssets.starIcon,
-                                            scale: 2,
-                                          ),
-                                          7.w.horizontalSpace,
-                                          Text(
-                                            "(4.5)",
-                                            style: TextStyle(),
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                        10.h.verticalSpace,
+                                        Text(
+                                          controller.dummyData[index]['name'],
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16.sp),
+                                        ),
+                                        5.h.verticalSpace,
+                                        Text(
+                                          controller.dummyData[index]
+                                              ["country"],
+                                          style: TextStyle(
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                        8.h.verticalSpace,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              ImageAssets.starIcon,
+                                              scale: 2,
+                                            ),
+                                            7.w.horizontalSpace,
+                                            Text(
+                                              controller.dummyData[index]
+                                                  ["rating"],
+                                              style: TextStyle(),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               )),
@@ -237,7 +247,13 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                   ),
                   16.h.verticalSpace,
                   Column(
-                    children: List.generate(2, (index) => activeJobCard()),
+                    children: List.generate(
+                        2,
+                        (index) => GestureDetector(
+                            onTap: () {
+                              Get.toNamed(RouteName.jobPostedScreenPath);
+                            },
+                            child: activeJobCard())),
                   )
                 ],
               ),

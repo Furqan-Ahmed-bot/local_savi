@@ -10,4 +10,15 @@ class RouteName {
   static const String homeScreenPath = '/homeScreenPath';
   static const String jobsScreenPath = '/jobsScreenPath';
   static const String notificationsScreenPath = '/notificationsScreenPath';
+  static const String bestPerformerScreenPath = '/bestPerformerScreenPath';
+  static const String bestPerformerDetailScreenPath =
+      '/bestPerformerDetailScreenPath';
+  static const String userRequestScreenPath = '/userRequestScreenPath';
+  static const String messagesScreenPath = '/messagesScreenPaths';
+  static const String bottomNavBarScreenPath = '/bottomNavBarScreenPath';
+  static const String inviteUserScreenPath = '/inviteUserScreenPath';
+  static const String userprofileScreenPath = '/userprofileScreenPath';
+  static const String jobPostedScreenPath = '/jobPostedScreenPath';
+  static const String ratingAndReviewsScreenPath =
+      '/ratingAndReviewsScreenPath';
 }

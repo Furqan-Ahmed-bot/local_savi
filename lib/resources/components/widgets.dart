@@ -3,6 +3,662 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
+import 'package:local_saviors/utils/routes/routes.dart';
+
+Widget ratingReviewCard({
+  required String image,
+  required String name,
+  required String dateTime,
+  required String desc,
+  bool isReply = false,
+}) {
+  return Container(
+    padding: EdgeInsets.all(15.sp),
+    margin: EdgeInsets.only(bottom: 12.h),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10.r),
+      border: Border.all(
+          width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5)),
+      color: ColorUtils.white,
+    ),
+    child: Column(
+      children: [
+        Row(
+          children: [
+            Image.asset(
+              image,
+              scale: 2,
+            ),
+            11.w.horizontalSpace,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18.sp,
+                  ),
+                ),
+                // 6.h.verticalSpace,
+                Text(
+                  dateTime,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.sp,
+                      color: ColorUtils.txtGrey),
+                ),
+              ],
+            ),
+          ],
+        ),
+        11.h.verticalSpace,
+        Text(
+          desc,
+          style: TextStyle(fontSize: 14.sp, color: ColorUtils.txtGreyDark),
+        ),
+        25.h.verticalSpace,
+        isReply
+            ? Divider(
+                color: ColorUtils.borderColor.withOpacity(0.5),
+              )
+            : SizedBox.shrink(),
+        isReply
+            ? Padding(
+                padding: EdgeInsets.only(left: 30.w, top: 14.h),
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(
+                              ImageAssets.oliverImg,
+                              scale: 2,
+                            ),
+                            11.w.horizontalSpace,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  "Oliver Mark",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 18.sp,
+                                  ),
+                                ),
+                                // 6.h.verticalSpace,
+                                Text(
+                                  "Today | 02:35 pm",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.sp,
+                                      color: ColorUtils.txtGrey),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        11.h.verticalSpace,
+                        Text(
+                          "Lorem ipsum dolor sit amet consectetur adipiscing elit odio, mattis quam tortor taciti.",
+                          style: TextStyle(
+                              fontSize: 14.sp, color: ColorUtils.txtGreyDark),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            : SizedBox.shrink()
+      ],
+    ),
+  );
+}
+
+Widget userRequestCard({
+  required bool isVerified,
+  required String image,
+  required String name,
+  required String rating,
+}) {
+  return Column(
+    children: [
+      Divider(
+        color: ColorUtils.borderColor.withOpacity(0.5),
+      ),
+      20.h.verticalSpace,
+      Container(
+        width: 1.0.sw,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(RouteName.bestPerformerDetailScreenPath,
+                    arguments: "User Request");
+              },
+              child: Row(
+                children: [
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(100.r),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100.r),
+                              border: Border.all(
+                                  width: 1.w,
+                                  color:
+                                      ColorUtils.borderColor.withOpacity(0.5))),
+                          child: Image.asset(
+                            image,
+                            scale: 2,
+                          ),
+                        ),
+                      ),
+                      isVerified
+                          ? Positioned(
+                              right: 0,
+                              child: Image.asset(
+                                ImageAssets.verifiedIcon,
+                                scale: 2,
+                              ))
+                          : const SizedBox(),
+                    ],
+                  ),
+                  20.w.horizontalSpace,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        name,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 16.sp),
+                      ),
+                      5.h.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            ImageAssets.starIcon,
+                            scale: 2,
+                          ),
+                          7.w.horizontalSpace,
+                          Text(
+                            rating,
+                            style: TextStyle(),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                Container(
+                  // width: 120.w,
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(right: 10.w),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+                  decoration: BoxDecoration(
+                      color: ColorUtils.white,
+                      borderRadius: BorderRadius.circular(10.sp),
+                      border: Border.all(
+                          width: 1.w,
+                          color: ColorUtils.borderColor.withOpacity(0.5))),
+                  child: Text(
+                    "Reject",
+                    style: TextStyle(fontSize: 16.sp, color: ColorUtils.black),
+                  ),
+                ),
+                10.w.horizontalSpace,
+                Container(
+                  // width: 120.w,
+                  alignment: Alignment.center,
+                  // margin: EdgeInsets.only(right: 10.w),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+
+                  decoration: BoxDecoration(
+                      color: ColorUtils.red,
+                      borderRadius: BorderRadius.circular(10.sp),
+                      border: Border.all(
+                          width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
+                  child: Text(
+                    "Accept",
+                    style: TextStyle(fontSize: 16.sp, color: ColorUtils.white),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      )
+    ],
+  );
+}
+
+Widget inviteUserCard({
+  required bool isVerified,
+  required String image,
+  required String name,
+  required String rating,
+}) {
+  return Column(
+    children: [
+      Divider(
+        color: ColorUtils.borderColor.withOpacity(0.5),
+      ),
+      20.h.verticalSpace,
+      Container(
+        width: 1.0.sw,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100.r),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100.r),
+                            border: Border.all(
+                                width: 1.w,
+                                color:
+                                    ColorUtils.borderColor.withOpacity(0.5))),
+                        child: Image.asset(
+                          image,
+                          scale: 2,
+                        ),
+                      ),
+                    ),
+                    isVerified
+                        ? Positioned(
+                            right: 0,
+                            child: Image.asset(
+                              ImageAssets.verifiedIcon,
+                              scale: 2,
+                            ))
+                        : const SizedBox(),
+                  ],
+                ),
+                20.w.horizontalSpace,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      name,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 16.sp),
+                    ),
+                    5.h.verticalSpace,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          ImageAssets.starIcon,
+                          scale: 2,
+                        ),
+                        7.w.horizontalSpace,
+                        Text(
+                          rating,
+                          style: TextStyle(),
+                        )
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+            Container(
+              // width: 120.w,
+              alignment: Alignment.center,
+              // margin: EdgeInsets.only(right: 10.w),
+              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+
+              decoration: BoxDecoration(
+                  color: ColorUtils.red,
+                  borderRadius: BorderRadius.circular(10.sp),
+                  border: Border.all(
+                      width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
+              child: Row(
+                children: [
+                  Image.asset(
+                    ImageAssets.applyJobs,
+                    color: ColorUtils.white,
+                    scale: 2,
+                  ),
+                  5.w.horizontalSpace,
+                  Text(
+                    "Invite",
+                    style: TextStyle(fontSize: 16.sp, color: ColorUtils.white),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      )
+    ],
+  );
+}
+
+Widget messageUserCard({
+  required bool isVerified,
+  required String image,
+  required String name,
+  required String date,
+  required String desc,
+}) {
+  return Container(
+    padding: EdgeInsets.all(15.sp),
+    margin: EdgeInsets.only(bottom: 16.h),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.r),
+        border: Border.all(
+          width: 1.w,
+          color: ColorUtils.borderColor,
+        ),
+        color: ColorUtils.white),
+    width: 1.0.sw,
+    child: Row(
+      children: [
+        Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(100.r),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100.r),
+                    border: Border.all(
+                        width: 1.w,
+                        color: ColorUtils.borderColor.withOpacity(0.5))),
+                child: Image.asset(
+                  image,
+                  scale: 2,
+                ),
+              ),
+            ),
+            isVerified
+                ? Positioned(
+                    right: 0,
+                    child: Image.asset(
+                      ImageAssets.verifiedIcon,
+                      scale: 2,
+                    ))
+                : const SizedBox(),
+          ],
+        ),
+        20.w.horizontalSpace,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 0.5.sw,
+                  child: Text(
+                    name,
+                    style:
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+                  ),
+                ),
+                Text(
+                  date,
+                  style: TextStyle(
+                      color: ColorUtils.borderColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.sp),
+                ),
+              ],
+            ),
+            5.h.verticalSpace,
+            Container(
+              width: 0.65.sw,
+              child: Text(
+                desc,
+                style: TextStyle(fontSize: 16.sp),
+              ),
+            )
+          ],
+        )
+      ],
+    ),
+  );
+}
+
+Widget bestPerformerCard({
+  required bool isVerified,
+  required String image,
+  required String name,
+  required String rating,
+}) {
+  return Column(
+    children: [
+      Divider(
+        color: ColorUtils.borderColor.withOpacity(0.5),
+      ),
+      20.h.verticalSpace,
+      Container(
+        width: 1.0.sw,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(RouteName.bestPerformerDetailScreenPath,
+                    arguments: "Best Performer");
+              },
+              child: Row(
+                children: [
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(100.r),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100.r),
+                              border: Border.all(
+                                  width: 1.w,
+                                  color:
+                                      ColorUtils.borderColor.withOpacity(0.5))),
+                          child: Image.asset(
+                            image,
+                            scale: 2,
+                          ),
+                        ),
+                      ),
+                      isVerified
+                          ? Positioned(
+                              right: 0,
+                              child: Image.asset(
+                                ImageAssets.verifiedIcon,
+                                scale: 2,
+                              ))
+                          : const SizedBox(),
+                    ],
+                  ),
+                  20.w.horizontalSpace,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        name,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 16.sp),
+                      ),
+                      5.h.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            ImageAssets.starIcon,
+                            scale: 2,
+                          ),
+                          7.w.horizontalSpace,
+                          Text(
+                            rating,
+                            style: TextStyle(),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.sp),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
+              child: Image.asset(
+                ImageAssets.msgIcon,
+                scale: 2,
+              ),
+            )
+          ],
+        ),
+      )
+    ],
+  );
+}
+
+Widget shortlistUserCard({
+  required bool isVerified,
+  required String image,
+  required String name,
+  required String rating,
+}) {
+  return Column(
+    children: [
+      Container(
+        padding: EdgeInsets.all(15.sp),
+        margin: EdgeInsets.only(bottom: 16.h),
+        width: 1.0.sw,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.r),
+            border: Border.all(
+              width: 1.w,
+              color: ColorUtils.borderColor.withOpacity(0.5),
+            ),
+            color: ColorUtils.white),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(RouteName.bestPerformerDetailScreenPath,
+                    arguments: "Shortlist User");
+              },
+              child: Row(
+                children: [
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(100.r),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100.r),
+                              border: Border.all(
+                                  width: 1.w,
+                                  color:
+                                      ColorUtils.borderColor.withOpacity(0.5))),
+                          child: Image.asset(
+                            image,
+                            scale: 2,
+                          ),
+                        ),
+                      ),
+                      isVerified
+                          ? Positioned(
+                              right: 0,
+                              child: Image.asset(
+                                ImageAssets.verifiedIcon,
+                                scale: 2,
+                              ))
+                          : const SizedBox(),
+                    ],
+                  ),
+                  20.w.horizontalSpace,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        name,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 16.sp),
+                      ),
+                      5.h.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            ImageAssets.starIcon,
+                            scale: 2,
+                          ),
+                          7.w.horizontalSpace,
+                          Text(
+                            rating,
+                            style: TextStyle(),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                Container(
+                  // width: 120.w,
+                  alignment: Alignment.center,
+                  // margin: EdgeInsets.only(right: 10.w),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+
+                  decoration: BoxDecoration(
+                      color: ColorUtils.red,
+                      borderRadius: BorderRadius.circular(10.sp),
+                      border: Border.all(
+                          width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
+                  child: Text(
+                    "Select for job",
+                    style: TextStyle(fontSize: 14.sp, color: ColorUtils.white),
+                  ),
+                ),
+                12.w.horizontalSpace,
+                Container(
+                  padding: EdgeInsets.all(10.sp),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
+                  child: Image.asset(
+                    ImageAssets.msgIcon,
+                    scale: 2,
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+      )
+    ],
+  );
+}
 
 Widget activeJobCard() {
   return Container(
@@ -186,16 +842,21 @@ Widget appbar({
                   scale: 2,
                 ),
               )
-            : Container(
-                margin: EdgeInsets.only(left: 20.w),
-                padding: EdgeInsets.all(8.sp),
-                height: 40.h,
-                width: 40.w,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
-                child: Image.asset(
-                  ImageAssets.backArrow,
-                  scale: 2,
+            : GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  margin: EdgeInsets.only(left: 20.w),
+                  padding: EdgeInsets.all(8.sp),
+                  height: 40.h,
+                  width: 40.w,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                  child: Image.asset(
+                    ImageAssets.backArrow,
+                    scale: 2,
+                  ),
                 ),
               ),
         title != ""

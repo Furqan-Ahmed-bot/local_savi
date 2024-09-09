@@ -9,6 +9,7 @@ class ColorUtils {
   static Color purple = const Color(0xff2A1C39);
   static Color navyBlue = const Color(0xff011f44);
   static Color yellow = const Color(0xffffce00);
+  static Color yellowLightBG = const Color(0xffFED68E);
   static Color red = const Color(0xffE50000);
   static Color danger = const Color(0xffff585c);
   static Color blue = const Color(0xff0066ff);
@@ -22,7 +23,8 @@ class ColorUtils {
   static Color lightBlue = const Color(0xff29abff);
   static Color lightBlack = const Color(0xff262A34);
   static Color txtWhite = const Color(0xffffffff).withOpacity(0.5);
-  static Color txtGrey = const Color(0xffffffff).withOpacity(0.5);
+  static Color txtGrey = const Color(0xff9BA8BB);
+  static Color txtGreyDark = const Color(0xff48576E);
 
   static Color redCatch = const Color(0xffd92828);
   static Color green = const Color(0xff43AF39);
