@@ -29,12 +29,16 @@ class ImageAssets {
   static String forwardArrow = 'assets/icons/forward_arrow.png';
   static String viewDetailIcon = 'assets/icons/view_detail_icon.png';
   static String applyJobs = 'assets/icons/apply_job.png';
+  static String jobBigIcon = 'assets/icons/job_big_icon.png';
   static String requestGroupImgs = 'assets/icons/requests_group.png';
   static String usersIcon = 'assets/icons/users.png';
   static String homeIcon = 'assets/icons/home_icon.png';
   static String messagesIcon = 'assets/icons/messages_icon.png';
   static String profileIcon = 'assets/icons/profile_icon.png';
   static String oliverDetailImg = 'assets/icons/oliver_detail_img.png';
+  static String greenVerifiedIcon = 'assets/icons/green_verified_icon.png';
+  static String deleteIcon = 'assets/icons/delete_icon.png';
+
   static String oliverCertificateImg = 'assets/images/oliver_certificate.png';
   static String mapimg = 'assets/images/map_img.png';
   static String william1 = 'assets/images/william_1.png';

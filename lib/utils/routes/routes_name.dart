@@ -8,11 +8,14 @@ import 'package:local_saviors/screens/user_screens/best_performer_detail_screen.
 import 'package:local_saviors/screens/user_screens/best_performer_screen.dart';
 import 'package:local_saviors/screens/user_screens/home_screen.dart';
 import 'package:local_saviors/screens/user_screens/invite_user_screen.dart';
+import 'package:local_saviors/screens/user_screens/job_completed_screen.dart';
 import 'package:local_saviors/screens/user_screens/jobs_screen.dart';
 import 'package:local_saviors/screens/user_screens/message_dashboard_screen.dart';
 import 'package:local_saviors/screens/user_screens/notification_screen.dart';
+import 'package:local_saviors/screens/user_screens/ongoing_job_detail_screen.dart';
 import 'package:local_saviors/screens/user_screens/posted_job_screen.dart';
 import 'package:local_saviors/screens/user_screens/rating_and_review_screen.dart';
+import 'package:local_saviors/screens/user_screens/upcoming_job_detail_screen.dart';
 import 'package:local_saviors/screens/user_screens/user_profile_screen.dart';
 import 'package:local_saviors/screens/user_screens/user_request_screen.dart';
 import 'package:local_saviors/utils/routes/screen_bindings.dart';
@@ -25,6 +28,24 @@ class AppRoutes {
         GetPage(
           name: RouteName.homeScreenPath,
           page: () => HomeScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.upcomingJobDetailScreenPath,
+          page: () => UpcomingJobDetailScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.ongoingJobDetailScreenPath,
+          page: () => OngoingJobDetailScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.jobCompletedScreenPath,
+          page: () => JobCompletedScreen(),
           binding: ScreenBindings(),
           transitionDuration: Duration(milliseconds: 250),
         ),

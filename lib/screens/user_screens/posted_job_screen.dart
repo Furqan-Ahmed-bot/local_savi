@@ -14,7 +14,7 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
     return myBackGround(
         child: Column(
       children: [
-        appbar(isMenu: false, title: "Posted Job", actions: [
+        appbar(isMenu: false, title: "Job Details", actions: [
           GestureDetector(
             onTap: () {
               // Get.toNamed(RouteName.notificationsScreenPath);
@@ -326,6 +326,7 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
               children: List.generate(
                   controller.listOfBestPerformers.length,
                   (index) => shortlistUserCard(
+                      context: context,
                       isVerified: controller.listOfBestPerformers[index]
                           ['isVerified'],
                       image: controller.listOfBestPerformers[index]['image'],

@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           // home: MainScreen(),
           getPages: AppRoutes.appRoutes(),
           initialBinding: ScreenBindings(),
-          initialRoute: RouteName.splashScreen,
+          initialRoute: RouteName.jobCompletedScreenPath,
         );
       },
     );

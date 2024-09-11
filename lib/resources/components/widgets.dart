@@ -541,6 +541,8 @@ Widget shortlistUserCard({
   required String image,
   required String name,
   required String rating,
+  required context,
+  bool showSelectJobButton = true,
 }) {
   return Column(
     children: [
@@ -561,7 +563,9 @@ Widget shortlistUserCard({
             GestureDetector(
               onTap: () {
                 Get.toNamed(RouteName.bestPerformerDetailScreenPath,
-                    arguments: "Shortlist User");
+                    arguments: showSelectJobButton
+                        ? "Shortlist User"
+                        : "Employee Profile");
               },
               child: Row(
                 children: [
@@ -624,24 +628,127 @@ Widget shortlistUserCard({
             ),
             Row(
               children: [
-                Container(
-                  // width: 120.w,
-                  alignment: Alignment.center,
-                  // margin: EdgeInsets.only(right: 10.w),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+                showSelectJobButton
+                    ? GestureDetector(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  insetPadding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  backgroundColor: ColorUtils.dialogeBGColor,
+                                  content: SizedBox(
+                                    width: 1.0.sw,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        20.h.verticalSpace,
+                                        Image.asset(
+                                          ImageAssets.jobBigIcon,
+                                          scale: 2,
+                                        ),
+                                        20.h.verticalSpace,
+                                        Text(
+                                          "Select For Job!",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: ColorUtils.black,
+                                            fontSize: 22.sp,
+                                          ),
+                                        ),
+                                        24.h.verticalSpace,
+                                        Text(
+                                          "Are you sure you want select William Roy for your job?",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: ColorUtils.black,
+                                            fontSize: 14.sp,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: [
+                                    Container(
+                                      width: 1.0.sw,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 15.h),
+                                              decoration: BoxDecoration(
+                                                  color: ColorUtils.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.r),
+                                                  border: Border.all(
+                                                      width: 1.w,
+                                                      color: ColorUtils
+                                                          .borderColor)),
+                                              child: Text("Yes, Select"),
+                                            ),
+                                          ),
+                                          20.w.horizontalSpace,
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Get.back();
+                                              },
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 15.h),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.r),
+                                                  color: ColorUtils.red,
+                                                ),
+                                                child: Text(
+                                                  "No",
+                                                  style: TextStyle(
+                                                      color: ColorUtils.white),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                );
+                              });
+                        },
+                        child: Container(
+                          // width: 120.w,
+                          alignment: Alignment.center,
+                          // margin: EdgeInsets.only(right: 10.w),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h, horizontal: 15.w),
 
-                  decoration: BoxDecoration(
-                      color: ColorUtils.red,
-                      borderRadius: BorderRadius.circular(10.sp),
-                      border: Border.all(
-                          width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
-                  child: Text(
-                    "Select for job",
-                    style: TextStyle(fontSize: 14.sp, color: ColorUtils.white),
-                  ),
-                ),
-                12.w.horizontalSpace,
+                          decoration: BoxDecoration(
+                              color: ColorUtils.red,
+                              borderRadius: BorderRadius.circular(10.sp),
+                              border: Border.all(
+                                  width: 1.w,
+                                  color: ColorUtils.red.withOpacity(0.5))),
+                          child: Text(
+                            "Select for job",
+                            style: TextStyle(
+                                fontSize: 14.sp, color: ColorUtils.white),
+                          ),
+                        ),
+                      )
+                    : SizedBox.shrink(),
+                showSelectJobButton
+                    ? 12.w.horizontalSpace
+                    : 0.w.horizontalSpace,
                 Container(
                   padding: EdgeInsets.all(10.sp),
                   decoration: BoxDecoration(
