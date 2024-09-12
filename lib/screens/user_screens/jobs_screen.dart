@@ -6,6 +6,7 @@ import 'package:local_saviors/controllers/user_controllers/jobs_screen_controlle
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
+import 'package:local_saviors/utils/routes/routes.dart';
 
 class JobsScreen extends GetWidget<JobsScreenController> {
   @override
@@ -42,6 +43,7 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                         (index) => GestureDetector(
                               onTap: () {
                                 controller.selectedIndex.value = index;
+                                controller.update();
                               },
                               child: Container(
                                 width: 120.w,
@@ -77,9 +79,125 @@ class JobsScreen extends GetWidget<JobsScreenController> {
               ),
             ),
             20.h.verticalSpace,
-            Column(
-              children: List.generate(3, (index) => activeJobCard()),
-            )
+            GetBuilder<JobsScreenController>(
+                builder: (controller) => controller
+                            .names[controller.selectedIndex.value] ==
+                        "Open"
+                    ? Column(
+                        children: List.generate(
+                            3,
+                            (index) => GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(RouteName.jobPostedScreenPath);
+                                },
+                                child: activeJobCard())),
+                      )
+                    : controller.names[controller.selectedIndex.value] ==
+                            "Upcoming"
+                        ? Column(
+                            children: List.generate(
+                                3,
+                                (index) => GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(RouteName
+                                          .upcomingJobDetailScreenPath);
+                                    },
+                                    child: activeJobCard())),
+                          )
+                        : controller.names[controller.selectedIndex.value] ==
+                                "Ongoing"
+                            ? Column(
+                                children: List.generate(
+                                    3,
+                                    (index) => GestureDetector(
+                                        onTap: () {
+                                          Get.toNamed(RouteName
+                                              .ongoingJobDetailScreenPath);
+                                        },
+                                        child: activeJobCard())),
+                              )
+                            : controller.names[
+                                        controller.selectedIndex.value] ==
+                                    "Completed"
+                                ? Column(
+                                    children: List.generate(
+                                        3,
+                                        (index) => GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(RouteName
+                                                  .jobCompletedScreenPath);
+                                            },
+                                            child: activeJobCard())),
+                                  )
+                                : Column(
+                                    children: List.generate(
+                                        controller.listOfCancelledCard.length,
+                                        (index) => GestureDetector(
+                                              onTap: () {
+                                                Get.toNamed(
+                                                    RouteName
+                                                        .cancelledJobScreenPath,
+                                                    arguments: {
+                                                      "isPending": controller
+                                                                  .listOfCancelledCard[
+                                                              index]["status"] ==
+                                                          "Pending"
+                                                    });
+                                              },
+                                              child: Container(
+                                                width: 1.0.sw,
+                                                margin: EdgeInsets.only(
+                                                    bottom: 16.h),
+                                                padding: EdgeInsets.all(10.sp),
+                                                decoration: BoxDecoration(
+                                                  color: ColorUtils.white,
+                                                  border: Border.all(
+                                                      width: 1.w,
+                                                      color: ColorUtils
+                                                          .borderColor),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.r),
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Container(
+                                                          width: 0.43.sw,
+                                                          child: Text(
+                                                            "Job Details",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 16.sp,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          "${controller.listOfCancelledCard[index]["status"]} | ${controller.listOfCancelledCard[index]["date"]}",
+                                                          style: TextStyle(
+                                                              fontSize: 12.sp,
+                                                              color: ColorUtils
+                                                                  .borderColor),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    6.h.verticalSpace,
+                                                    Text(
+                                                        "${controller.listOfCancelledCard[index]["desc"]}"),
+                                                    12.h.verticalSpace,
+                                                  ],
+                                                ),
+                                              ),
+                                            )),
+                                  )),
           ],
         ),
       )

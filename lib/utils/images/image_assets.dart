@@ -38,6 +38,13 @@ class ImageAssets {
   static String oliverDetailImg = 'assets/icons/oliver_detail_img.png';
   static String greenVerifiedIcon = 'assets/icons/green_verified_icon.png';
   static String deleteIcon = 'assets/icons/delete_icon.png';
+  static String deleteBigIcon = 'assets/icons/delete_big_icon.png';
+  static String pendingIcon = 'assets/icons/pending_icon.png';
+  static String cancelIcon = 'assets/icons/cancel_icon.png';
+  static String payNowIcon = 'assets/icons/pay_now_icon.png';
+  static String jobDoneIcon = 'assets/icons/job_done_icon.png';
+  static String shareIcon = 'assets/icons/share_icon.png';
+  static String cutIcon = 'assets/icons/cut_icon.png';
 
   static String oliverCertificateImg = 'assets/images/oliver_certificate.png';
   static String mapimg = 'assets/images/map_img.png';

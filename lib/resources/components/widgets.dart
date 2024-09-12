@@ -63,7 +63,7 @@ Widget ratingReviewCard({
             ? Divider(
                 color: ColorUtils.borderColor.withOpacity(0.5),
               )
-            : SizedBox.shrink(),
+            : const SizedBox.shrink(),
         isReply
             ? Padding(
                 padding: EdgeInsets.only(left: 30.w, top: 14.h),
@@ -112,7 +112,7 @@ Widget ratingReviewCard({
                   ],
                 ),
               )
-            : SizedBox.shrink()
+            : const SizedBox.shrink()
       ],
     ),
   );
@@ -190,7 +190,7 @@ Widget userRequestCard({
                           7.w.horizontalSpace,
                           Text(
                             rating,
-                            style: TextStyle(),
+                            style: const TextStyle(),
                           )
                         ],
                       )
@@ -312,7 +312,7 @@ Widget inviteUserCard({
                         7.w.horizontalSpace,
                         Text(
                           rating,
-                          style: TextStyle(),
+                          style: const TextStyle(),
                         )
                       ],
                     )
@@ -511,7 +511,7 @@ Widget bestPerformerCard({
                           7.w.horizontalSpace,
                           Text(
                             rating,
-                            style: TextStyle(),
+                            style: const TextStyle(),
                           )
                         ],
                       )
@@ -538,6 +538,8 @@ Widget bestPerformerCard({
 
 Widget shortlistUserCard({
   required bool isVerified,
+  bool showMessageButton = true,
+  bool isJobCompleted = false,
   required String image,
   required String name,
   required String rating,
@@ -617,7 +619,7 @@ Widget shortlistUserCard({
                           7.w.horizontalSpace,
                           Text(
                             rating,
-                            style: TextStyle(),
+                            style: const TextStyle(),
                           )
                         ],
                       )
@@ -691,7 +693,7 @@ Widget shortlistUserCard({
                                                       width: 1.w,
                                                       color: ColorUtils
                                                           .borderColor)),
-                                              child: Text("Yes, Select"),
+                                              child: const Text("Yes, Select"),
                                             ),
                                           ),
                                           20.w.horizontalSpace,
@@ -745,19 +747,36 @@ Widget shortlistUserCard({
                           ),
                         ),
                       )
-                    : SizedBox.shrink(),
+                    : const SizedBox.shrink(),
                 showSelectJobButton
                     ? 12.w.horizontalSpace
                     : 0.w.horizontalSpace,
-                Container(
-                  padding: EdgeInsets.all(10.sp),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
-                  child: Image.asset(
-                    ImageAssets.msgIcon,
-                    scale: 2,
-                  ),
-                )
+                showMessageButton
+                    ? Container(
+                        padding: EdgeInsets.all(10.sp),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColorUtils.yellowLightBG),
+                        child: Image.asset(
+                          ImageAssets.msgIcon,
+                          scale: 2,
+                        ),
+                      )
+                    : isJobCompleted
+                        ? Row(
+                            children: [
+                              Image.asset(
+                                ImageAssets.greenVerifiedIcon,
+                                scale: 2,
+                              ),
+                              10.w.horizontalSpace,
+                              Text(
+                                "Job Completed",
+                                style: TextStyle(fontSize: 16.sp),
+                              )
+                            ],
+                          )
+                        : const SizedBox.shrink(),
               ],
             ),
           ],
@@ -799,7 +818,8 @@ Widget activeJobCard() {
           ],
         ),
         6.h.verticalSpace,
-        Text('Lorem ipsum dolor sit amet consectetur adipiscing elit odio.'),
+        const Text(
+            'Lorem ipsum dolor sit amet consectetur adipiscing elit odio.'),
         12.h.verticalSpace,
         Divider(
           color: ColorUtils.borderColor.withOpacity(0.5),

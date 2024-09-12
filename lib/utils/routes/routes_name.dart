@@ -6,6 +6,7 @@ import 'package:local_saviors/screens/general_screens/user_role_screens/select_r
 import 'package:local_saviors/screens/general_screens/user_role_screens/select_role_two.dart';
 import 'package:local_saviors/screens/user_screens/best_performer_detail_screen.dart';
 import 'package:local_saviors/screens/user_screens/best_performer_screen.dart';
+import 'package:local_saviors/screens/user_screens/canceled_job_screen.dart';
 import 'package:local_saviors/screens/user_screens/home_screen.dart';
 import 'package:local_saviors/screens/user_screens/invite_user_screen.dart';
 import 'package:local_saviors/screens/user_screens/job_completed_screen.dart';
@@ -14,6 +15,7 @@ import 'package:local_saviors/screens/user_screens/message_dashboard_screen.dart
 import 'package:local_saviors/screens/user_screens/notification_screen.dart';
 import 'package:local_saviors/screens/user_screens/ongoing_job_detail_screen.dart';
 import 'package:local_saviors/screens/user_screens/posted_job_screen.dart';
+import 'package:local_saviors/screens/user_screens/rate_employee_screen.dart';
 import 'package:local_saviors/screens/user_screens/rating_and_review_screen.dart';
 import 'package:local_saviors/screens/user_screens/upcoming_job_detail_screen.dart';
 import 'package:local_saviors/screens/user_screens/user_profile_screen.dart';
@@ -40,6 +42,18 @@ class AppRoutes {
         GetPage(
           name: RouteName.ongoingJobDetailScreenPath,
           page: () => OngoingJobDetailScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.cancelledJobScreenPath,
+          page: () => CancelledJobScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.rateEmployeeScreenPath,
+          page: () => RateEmployeeScreen(),
           binding: ScreenBindings(),
           transitionDuration: Duration(milliseconds: 250),
         ),

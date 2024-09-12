@@ -9,4 +9,32 @@ class JobsScreenController extends GetxController {
     "Completed",
     "Cancelled"
   ];
+
+  List listOfCancelledCard = [
+    {
+      "status": "Pending",
+      "date": "July 20",
+      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
+    },
+    {
+      "status": "Job Cancelled",
+      "date": "July 20",
+      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
+    },
+    {
+      "status": "Job Cancelled",
+      "date": "July 20",
+      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
+    },
+    {
+      "status": "Job Cancelled",
+      "date": "July 20",
+      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
+    },
+    {
+      "status": "Job Cancelled",
+      "date": "July 20",
+      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
+    },
+  ];
 }

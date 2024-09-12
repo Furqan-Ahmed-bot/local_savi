@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 
-class OngoingJobDetailScreenController extends GetxController {
-  RxBool isReached = false.obs;
+class CancelledJobScreenController extends GetxController {
+  RxBool isPending = false.obs;
+
   List dummyData = [
     {
       "title": "Work Type",
@@ -24,4 +25,10 @@ class OngoingJobDetailScreenController extends GetxController {
       "value": "204 N Auburn Ave, Farmington, New York, 87401",
     },
   ];
+
+  @override
+  void onInit() {
+    isPending.value = Get.arguments["isPending"] ?? false;
+    super.onInit();
+  }
 }

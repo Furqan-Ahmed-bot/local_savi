@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:local_saviors/controllers/user_controllers/best_performer_detail_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/best_performer_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/bottom_nav_bar_screen_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/cancelled_job_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/home_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/invite_user_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/job_completed_screen_controller.dart';
@@ -10,6 +11,7 @@ import 'package:local_saviors/controllers/user_controllers/message_dashboard_scr
 import 'package:local_saviors/controllers/user_controllers/notification_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/ongoing_job_detail_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/posted_job_screen_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/rate_employee_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/rating_and_review_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/upcoming_job_detail_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/user_profile_screen_controller.dart';
@@ -33,5 +35,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => UpcomingJobDetailScreenController());
     Get.lazyPut(() => OngoingJobDetailScreenController());
     Get.lazyPut(() => JobCompletedScreenController());
+    Get.lazyPut(() => CancelledJobScreenController());
+    Get.lazyPut(() => RateEmployeeScreenController());
   }
 }
