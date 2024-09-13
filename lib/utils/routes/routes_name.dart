@@ -7,6 +7,7 @@ import 'package:local_saviors/screens/general_screens/user_role_screens/select_r
 import 'package:local_saviors/screens/user_screens/best_performer_detail_screen.dart';
 import 'package:local_saviors/screens/user_screens/best_performer_screen.dart';
 import 'package:local_saviors/screens/user_screens/canceled_job_screen.dart';
+import 'package:local_saviors/screens/user_screens/dispute_payment_screen.dart';
 import 'package:local_saviors/screens/user_screens/home_screen.dart';
 import 'package:local_saviors/screens/user_screens/invite_user_screen.dart';
 import 'package:local_saviors/screens/user_screens/job_completed_screen.dart';
@@ -54,6 +55,12 @@ class AppRoutes {
         GetPage(
           name: RouteName.rateEmployeeScreenPath,
           page: () => RateEmployeeScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.disputePaymentScreenPath,
+          page: () => DisputePaymentScreen(),
           binding: ScreenBindings(),
           transitionDuration: Duration(milliseconds: 250),
         ),

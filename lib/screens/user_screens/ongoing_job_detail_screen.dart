@@ -342,7 +342,8 @@ class OngoingJobDetailScreen
                               10.w.horizontalSpace,
                               GestureDetector(
                                 onTap: () {
-                                  // Get.back();
+                                  Get.toNamed(
+                                      RouteName.disputePaymentScreenPath);
                                 },
                                 child: Container(
                                   alignment: Alignment.center,

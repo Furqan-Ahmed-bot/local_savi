@@ -3,6 +3,7 @@ import 'package:local_saviors/controllers/user_controllers/best_performer_detail
 import 'package:local_saviors/controllers/user_controllers/best_performer_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/bottom_nav_bar_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/cancelled_job_screen_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/dispute_payment_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/home_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/invite_user_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/job_completed_screen_controller.dart';
@@ -37,5 +38,6 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => JobCompletedScreenController());
     Get.lazyPut(() => CancelledJobScreenController());
     Get.lazyPut(() => RateEmployeeScreenController());
+    Get.lazyPut(() => DisputePaymentScreenController());
   }
 }
