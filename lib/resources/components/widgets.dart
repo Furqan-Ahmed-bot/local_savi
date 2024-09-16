@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
@@ -786,7 +787,7 @@ Widget shortlistUserCard({
   );
 }
 
-Widget activeJobCard() {
+Widget activeJobCard({String status = ""}) {
   return Container(
     width: 1.0.sw,
     margin: EdgeInsets.only(bottom: 16.h),
@@ -820,11 +821,11 @@ Widget activeJobCard() {
         6.h.verticalSpace,
         const Text(
             'Lorem ipsum dolor sit amet consectetur adipiscing elit odio.'),
-        12.h.verticalSpace,
+        6.h.verticalSpace,
         Divider(
           color: ColorUtils.borderColor.withOpacity(0.5),
         ),
-        12.h.verticalSpace,
+        6.h.verticalSpace,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -907,7 +908,34 @@ Widget activeJobCard() {
               ],
             ),
           ],
-        )
+        ),
+        if (status != "")
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Divider(
+                color: ColorUtils.borderColor.withOpacity(0.5),
+              ),
+              6.h.verticalSpace,
+              Row(
+                children: [
+                  Text(
+                    "Status: ",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                  ),
+                  Text(
+                    status,
+                    style: TextStyle(
+                        fontSize: 14.sp,
+                        color: status == "Completed"
+                            ? ColorUtils.green
+                            : ColorUtils.blue),
+                  ),
+                ],
+              )
+            ],
+          )
       ],
     ),
   );
@@ -1002,6 +1030,153 @@ Widget appbar({
                   width: 80.w,
                 )
               ],
+        )
+      ],
+    ),
+  );
+}
+
+Widget applyJobCard() {
+  return Container(
+    width: 1.0.sw,
+    margin: EdgeInsets.only(bottom: 16.h),
+    padding: EdgeInsets.all(10.sp),
+    decoration: BoxDecoration(
+      color: ColorUtils.white,
+      border: Border.all(width: 1.w, color: ColorUtils.borderColor),
+      borderRadius: BorderRadius.circular(10.r),
+    ),
+    child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: 0.43.sw,
+              child: Text(
+                "Lorem ipsum dolor sit...",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.sp,
+                    overflow: TextOverflow.ellipsis),
+              ),
+            ),
+            Text(
+              "July 20",
+              style: TextStyle(fontSize: 12.sp, color: ColorUtils.borderColor),
+            )
+          ],
+        ),
+        6.h.verticalSpace,
+        const Text(
+            'Lorem ipsum dolor sit amet consectetur adipiscing elit odio.'),
+        12.h.verticalSpace,
+        Divider(
+          color: ColorUtils.borderColor.withOpacity(0.5),
+        ),
+        // 12.h.verticalSpace,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Job Budget",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: ColorUtils.blue,
+                    fontSize: 12.sp,
+                  ),
+                ),
+                6.h.verticalSpace,
+                Text(
+                  "\$50.00",
+                  style: TextStyle(
+                    color: ColorUtils.black,
+                    fontSize: 16.sp,
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              height: 40.h,
+              width: 1.w,
+              decoration: BoxDecoration(
+                color: ColorUtils.borderColor.withOpacity(0.5),
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Job Time",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: ColorUtils.blue,
+                    fontSize: 12.sp,
+                  ),
+                ),
+                6.h.verticalSpace,
+                Text(
+                  "03:00 pm",
+                  style: TextStyle(
+                    color: ColorUtils.black,
+                    fontSize: 16.sp,
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              height: 40.h,
+              width: 1.w,
+              decoration: BoxDecoration(
+                color: ColorUtils.borderColor.withOpacity(0.5),
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Job Date",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: ColorUtils.blue,
+                    fontSize: 12.sp,
+                  ),
+                ),
+                6.h.verticalSpace,
+                Text(
+                  "May 18, 2024",
+                  style: TextStyle(
+                    color: ColorUtils.black,
+                    fontSize: 16.sp,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        Divider(
+          color: ColorUtils.borderColor.withOpacity(0.5),
+        ),
+        // 10.verticalSpace,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset(
+              ImageAssets.saveIcon,
+              scale: 2,
+            ),
+            RoundButton(
+              title: "Apply Job",
+              onPress: () {},
+              // horizonalPad: 20.w,
+              width: 150.w,
+              buttonColor: ColorUtils.red,
+            )
+          ],
         )
       ],
     ),

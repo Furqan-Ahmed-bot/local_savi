@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:local_saviors/screens/professional_screens/p_home_screen.dart';
 import 'package:local_saviors/screens/general_screens/user_role_screens/select_role_one.dart';
 import 'package:local_saviors/screens/general_screens/user_role_screens/select_role_two.dart';
+import 'package:local_saviors/screens/professional_screens/p_jobs_screen.dart';
+import 'package:local_saviors/screens/professional_screens/p_message_dashboard_screen.dart';
+import 'package:local_saviors/screens/professional_screens/p_saved_jobs_screen.dart';
 import 'package:local_saviors/screens/user_screens/best_performer_detail_screen.dart';
 import 'package:local_saviors/screens/user_screens/best_performer_screen.dart';
 import 'package:local_saviors/screens/user_screens/canceled_job_screen.dart';
@@ -76,11 +79,11 @@ class AppRoutes {
           binding: ScreenBindings(),
           transitionDuration: Duration(milliseconds: 250),
         ),
-        GetPage(
-          name: RouteName.bottomNavBarScreenPath,
-          page: () => BottomAppBar(),
-          binding: ScreenBindings(),
-        ),
+        // GetPage(
+        //   name: RouteName.bottomNavBarScreenPath,
+        //   page: () => NavbarScreen(),
+        //   binding: ScreenBindings(),
+        // ),
         GetPage(
           name: RouteName.messagesScreenPath,
           page: () => MessageDashboardScreen(),
@@ -168,5 +171,33 @@ class AppRoutes {
         //   transitionDuration: Duration(milliseconds: 250),
         //   // transition: Transition.leftToRightWithFade,
         // ),
+
+/////professionals
+        ///
+        ///
+        GetPage(
+          name: RouteName.pHomeScreenPath,
+          page: () => PHomeScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.pMessageDashboardScreenPath,
+          page: () => PMessageDashboardScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.pSavedJobsScreenPath,
+          page: () => PSavedJobsScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.pJobsScreenPath,
+          page: () => PJobsScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
       ];
 }

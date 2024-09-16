@@ -12,48 +12,49 @@ class UserProfileScreen extends GetWidget<UserProfileScreenController> {
     return myBackGround(
         child: Column(
       children: [
-        appbar(isMenu: false, title: "My Profile", actions: [
-          GestureDetector(
-            onTap: () {
-              // Get.toNamed(RouteName.notificationsScreenPath);
-            },
-            child: Container(
-              margin: EdgeInsets.only(right: 20.w),
-              padding: EdgeInsets.all(8.sp),
-              height: 40.h,
-              width: 40.w,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
-              child: Image.asset(
-                ImageAssets.editIcon,
-                color: ColorUtils.red,
-                scale: 2,
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              // Get.toNamed(RouteName.notificationsScreenPath);
-            },
-            child: Container(
-              margin: EdgeInsets.only(right: 20.w),
-              padding: EdgeInsets.all(8.sp),
-              height: 40.h,
-              width: 40.w,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
-              child: Image.asset(
-                ImageAssets.notificationicon,
-                color: ColorUtils.red,
-                scale: 2,
-              ),
-            ),
-          ),
-        ]),
+        // appbar(isMenu: false, title: "My Profile", actions: [
+        //   GestureDetector(
+        //     onTap: () {
+        //       // Get.toNamed(RouteName.notificationsScreenPath);
+        //     },
+        //     child: Container(
+        //       margin: EdgeInsets.only(right: 20.w),
+        //       padding: EdgeInsets.all(8.sp),
+        //       height: 40.h,
+        //       width: 40.w,
+        //       decoration: BoxDecoration(
+        //           shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+        //       child: Image.asset(
+        //         ImageAssets.editIcon,
+        //         color: ColorUtils.red,
+        //         scale: 2,
+        //       ),
+        //     ),
+        //   ),
+        //   GestureDetector(
+        //     onTap: () {
+        //       // Get.toNamed(RouteName.notificationsScreenPath);
+        //     },
+        //     child: Container(
+        //       margin: EdgeInsets.only(right: 20.w),
+        //       padding: EdgeInsets.all(8.sp),
+        //       height: 40.h,
+        //       width: 40.w,
+        //       decoration: BoxDecoration(
+        //           shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+        //       child: Image.asset(
+        //         ImageAssets.notificationicon,
+        //         color: ColorUtils.red,
+        //         scale: 2,
+        //       ),
+        //     ),
+        //   ),
+        // ]),
+
         Expanded(
             child: ListView(
-          padding:
-              EdgeInsets.only(left: 20.w, right: 20.w, top: 46.h, bottom: 30.h),
+          padding: EdgeInsets.only(
+              left: 20.w, right: 20.w, top: 46.h, bottom: 110.h),
           children: [
             Column(
               children: [

@@ -1,4 +1,8 @@
 import 'package:get/get.dart';
+import 'package:local_saviors/controllers/professional_controllers/p_home_controller.dart';
+import 'package:local_saviors/controllers/professional_controllers/p_jobs_controller.dart';
+import 'package:local_saviors/controllers/professional_controllers/p_message_dashboard_controller.dart';
+import 'package:local_saviors/controllers/professional_controllers/p_saved_jobs_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/best_performer_detail_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/best_performer_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/bottom_nav_bar_screen_controller.dart';
@@ -39,5 +43,11 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => CancelledJobScreenController());
     Get.lazyPut(() => RateEmployeeScreenController());
     Get.lazyPut(() => DisputePaymentScreenController());
+
+    ///professional
+    Get.lazyPut(() => PHomeController());
+    Get.lazyPut(() => PMessageDashboardController());
+    Get.lazyPut(() => PSavedJobsController());
+    Get.lazyPut(() => PJobsController());
   }
 }

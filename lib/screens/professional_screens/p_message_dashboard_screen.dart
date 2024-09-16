@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:local_saviors/controllers/user_controllers/message_dashboard_screen_controller.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:local_saviors/controllers/professional_controllers/p_message_dashboard_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
-import 'package:local_saviors/utils/color_utils.dart';
-import 'package:local_saviors/utils/images/image_assets.dart';
-import 'package:local_saviors/utils/routes/routes.dart';
 
-class MessageDashboardScreen
-    extends GetWidget<MessageDashboardScreenController> {
+class PMessageDashboardScreen extends GetWidget<PMessageDashboardController> {
   @override
   Widget build(BuildContext context) {
     return myBackGround(

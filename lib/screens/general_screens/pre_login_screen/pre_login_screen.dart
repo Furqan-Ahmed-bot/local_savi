@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:local_saviors/screens/general_screens/login_screen/login_screen.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/round_button.dart';
 import '../../../utils/images/image_assets.dart';
-import '../login_screen/login_screen.dart';
 
 class PreLoginScreen extends StatelessWidget {
   const PreLoginScreen({super.key});
@@ -80,7 +80,7 @@ class PreLoginScreen extends StatelessWidget {
                 width: 0.9.sw,
                 title: 'Sign-In With Email Address',
                 onPress: () {
-                  Get.to(() => LoginScreen());
+                  Get.to(LoginScreen());
                 },
                 buttonColor: Colors.transparent,
               ),

@@ -135,12 +135,12 @@ class AuthTextField extends StatelessWidget {
                         : (suffixIcon != null
                             ? Padding(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: 0.051.sw,
-                                ),
+                                    // horizontal: 0.051.sw,
+                                    ),
                                 // padding: const EdgeInsets.all(8.0),
                                 child: Image.asset(
                                   suffixIcon ?? '',
-                                  scale: 4,
+                                  scale: 2.5,
                                 ),
                               )
                             : null),

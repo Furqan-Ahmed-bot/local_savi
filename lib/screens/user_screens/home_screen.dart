@@ -13,28 +13,28 @@ class HomeScreen extends GetWidget<HomeScreenController> {
     return myBackGround(
         child: Column(
       children: [
-        appbar(isMenu: true, title: "", actions: [
-          GestureDetector(
-            onTap: () {
-              Get.toNamed(RouteName.notificationsScreenPath);
-            },
-            child: Container(
-              margin: EdgeInsets.only(right: 20.w),
-              padding: EdgeInsets.all(8.sp),
-              height: 40.h,
-              width: 40.w,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
-              child: Image.asset(
-                ImageAssets.notificationicon,
-                scale: 2,
-              ),
-            ),
-          ),
-        ]),
+        // appbar(isMenu: true, title: "", actions: [
+        //   GestureDetector(
+        //     onTap: () {
+        //       Get.toNamed(RouteName.notificationsScreenPath);
+        //     },
+        //     child: Container(
+        //       margin: EdgeInsets.only(right: 20.w),
+        //       padding: EdgeInsets.all(8.sp),
+        //       height: 40.h,
+        //       width: 40.w,
+        //       decoration: BoxDecoration(
+        //           shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+        //       child: Image.asset(
+        //         ImageAssets.notificationicon,
+        //         scale: 2,
+        //       ),
+        //     ),
+        //   ),
+        // ]),
         Expanded(
           child: ListView(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
+            padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 110.h),
             children: [
               Column(
                 children: [

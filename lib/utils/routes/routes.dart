@@ -29,4 +29,11 @@ class RouteName {
       '/upcomingJobDetailScreenPath';
   static const String ratingAndReviewsScreenPath =
       '/ratingAndReviewsScreenPath';
+
+//professional
+  static const String pHomeScreenPath = '/pHomeScreenPath';
+  static const String pSavedJobsScreenPath = '/pSavedJobsScreenPath';
+  static const String pJobsScreenPath = '/pJobsScreenPath';
+  static const String pMessageDashboardScreenPath =
+      '/pMessageDashboardScreenPath';
 }

@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:local_saviors/resources/components/bottom_navbar.dart';
+import 'package:local_saviors/resources/components/p_bottom_nav_bar.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
-import 'package:local_saviors/utils/routes/routes.dart';
+import 'package:local_saviors/utils/constant.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/text_fields.dart';
 import '../../../utils/images/image_assets.dart';
@@ -88,7 +90,10 @@ class LoginScreen extends StatelessWidget {
                   width: 0.9.sw,
                   title: 'Sign In',
                   onPress: () {
-                    Get.toNamed(RouteName.homeScreenPath);
+                    // Get.toNamed(RouteName.homeScreenPath);
+                    role.value == "user"
+                        ? Get.to(() => NavbarScreen())
+                        : Get.to(PBottomNavBar());
                   }),
               30.verticalSpace,
               Center(

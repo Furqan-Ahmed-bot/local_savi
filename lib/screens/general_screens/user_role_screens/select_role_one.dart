@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:local_saviors/screens/general_screens/pre_login_screen/pre_login_screen.dart';
 import 'package:local_saviors/screens/general_screens/user_role_screens/select_role_two.dart';
+import 'package:local_saviors/utils/constant.dart';
 import '../../../resources/components/select_role_widet.dart';
 import '../../../utils/images/image_assets.dart';
 
@@ -58,7 +60,10 @@ class SelectUserRoleOne extends StatelessWidget {
               ),
               40.verticalSpace,
               SelectRoleWidget(
-                onTap: () {},
+                onTap: () {
+                  role.value = "user";
+                  Get.to(PreLoginScreen());
+                },
                 title: 'Continue as a Job Provider',
                 icon: ImageAssets.jobprovider,
               ),

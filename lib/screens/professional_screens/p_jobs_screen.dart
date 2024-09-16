@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:local_saviors/controllers/user_controllers/jobs_screen_controller.dart';
+import 'package:local_saviors/controllers/professional_controllers/p_jobs_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
-import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
-class JobsScreen extends GetWidget<JobsScreenController> {
+class PJobsScreen extends GetWidget<PJobsController> {
   @override
   Widget build(BuildContext context) {
     return myBackGround(
@@ -79,18 +78,20 @@ class JobsScreen extends GetWidget<JobsScreenController> {
               ),
             ),
             20.h.verticalSpace,
-            GetBuilder<JobsScreenController>(
+            GetBuilder<PJobsController>(
                 builder: (controller) => controller
                             .names[controller.selectedIndex.value] ==
-                        "Open"
+                        "Applied"
                     ? Column(
                         children: List.generate(
                             3,
                             (index) => GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(RouteName.jobPostedScreenPath);
+                                  // Get.toNamed(RouteName.jobPostedScreenPath);
                                 },
-                                child: activeJobCard())),
+                                child: activeJobCard(
+                                    status: controller.names[
+                                        controller.selectedIndex.value]))),
                       )
                     : controller.names[controller.selectedIndex.value] ==
                             "Upcoming"
@@ -99,10 +100,12 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                                 3,
                                 (index) => GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(RouteName
-                                          .upcomingJobDetailScreenPath);
+                                      // Get.toNamed(RouteName
+                                      // .upcomingJobDetailScreenPath);
                                     },
-                                    child: activeJobCard())),
+                                    child: activeJobCard(
+                                        status: controller.names[
+                                            controller.selectedIndex.value]))),
                           )
                         : controller.names[controller.selectedIndex.value] ==
                                 "Ongoing"
@@ -111,10 +114,12 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                                     3,
                                     (index) => GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(RouteName
-                                              .ongoingJobDetailScreenPath);
+                                          // Get.toNamed(RouteName
+                                          //     .ongoingJobDetailScreenPath);
                                         },
-                                        child: activeJobCard())),
+                                        child: activeJobCard(
+                                            status: controller.names[controller
+                                                .selectedIndex.value]))),
                               )
                             : controller.names[
                                         controller.selectedIndex.value] ==
@@ -124,10 +129,13 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                                         3,
                                         (index) => GestureDetector(
                                             onTap: () {
-                                              Get.toNamed(RouteName
-                                                  .jobCompletedScreenPath);
+                                              // Get.toNamed(RouteName
+                                              //     .jobCompletedScreenPath);
                                             },
-                                            child: activeJobCard())),
+                                            child: activeJobCard(
+                                                status: controller.names[
+                                                    controller.selectedIndex
+                                                        .value]))),
                                   )
                                 : Column(
                                     children: List.generate(

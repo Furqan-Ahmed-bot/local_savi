@@ -45,6 +45,15 @@ class ImageAssets {
   static String jobDoneIcon = 'assets/icons/job_done_icon.png';
   static String shareIcon = 'assets/icons/share_icon.png';
   static String cutIcon = 'assets/icons/cut_icon.png';
+  static String drawerhome = 'assets/icons/drawerhome.png';
+  static String drawerprofile = 'assets/icons/drawerprofile.png';
+  static String drawerwallet = 'assets/icons/drawerwallet.png';
+  static String bottomhome = 'assets/icons/bottomhome.png';
+  static String bottomjob = 'assets/icons/bottomjob.png';
+  static String bottomsaved = 'assets/icons/bottomsaved.png';
+  static String bottomchat = 'assets/icons/bottomchat.png';
+  static String filterIcon = 'assets/icons/filter_icon.png';
+  static String saveIcon = 'assets/icons/save_icon.png';
 
   static String oliverCertificateImg = 'assets/images/oliver_certificate.png';
   static String mapimg = 'assets/images/map_img.png';
