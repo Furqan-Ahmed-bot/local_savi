@@ -8,9 +8,6 @@ import 'package:local_saviors/screens/professional_screens/p_home_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_jobs_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_message_dashboard_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_saved_jobs_screen.dart';
-import 'package:local_saviors/screens/user_screens/jobs_screen.dart';
-import 'package:local_saviors/screens/user_screens/message_dashboard_screen.dart';
-import 'package:local_saviors/screens/user_screens/user_profile_screen.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 import '../../utils/color_utils.dart';
@@ -137,7 +134,7 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                             40.verticalSpace,
                             GestureDetector(
                               onTap: () {
-                                // Get.to(() => myGoalsScreen());
+                                Get.toNamed(RouteName.pMyProfileScreenPath);
                               },
                               child: Row(
                                 children: [
@@ -264,7 +261,7 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                         actions: [
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed(RouteName.notificationsScreenPath);
+                              Get.toNamed(RouteName.pNotificaitonScreenPath);
                             },
                             child: Container(
                               margin: EdgeInsets.only(right: 20.w),
@@ -314,7 +311,7 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                               GestureDetector(
                                 onTap: () {
                                   Get.toNamed(
-                                      RouteName.notificationsScreenPath);
+                                      RouteName.pNotificaitonScreenPath);
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(right: 20.w),
@@ -365,7 +362,7 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                   GestureDetector(
                                     onTap: () {
                                       Get.toNamed(
-                                          RouteName.notificationsScreenPath);
+                                          RouteName.pNotificaitonScreenPath);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(right: 20.w),
@@ -416,7 +413,7 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                   GestureDetector(
                                     onTap: () {
                                       Get.toNamed(
-                                          RouteName.notificationsScreenPath);
+                                          RouteName.pNotificaitonScreenPath);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(right: 20.w),

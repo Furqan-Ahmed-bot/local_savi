@@ -54,6 +54,8 @@ class ImageAssets {
   static String bottomchat = 'assets/icons/bottomchat.png';
   static String filterIcon = 'assets/icons/filter_icon.png';
   static String saveIcon = 'assets/icons/save_icon.png';
+  static String bigCross = 'assets/icons/big_cross.png';
+  static String sendIcon = 'assets/icons/send_icon.png';
 
   static String oliverCertificateImg = 'assets/images/oliver_certificate.png';
   static String mapimg = 'assets/images/map_img.png';

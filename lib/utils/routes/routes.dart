@@ -34,6 +34,11 @@ class RouteName {
   static const String pHomeScreenPath = '/pHomeScreenPath';
   static const String pSavedJobsScreenPath = '/pSavedJobsScreenPath';
   static const String pJobsScreenPath = '/pJobsScreenPath';
+  static const String pJobsDetailScreenPath = '/pJobsDetailScreenPath';
+  static const String pCanceJobReasonScreenPath = '/pCanceJobReasonScreenPath';
+  static const String pJobProviderScreenPath = '/pJobProviderScreenPath';
+  static const String pNotificaitonScreenPath = '/pNotificaitonScreenPath';
+  static const String pMyProfileScreenPath = '/pMyProfileScreenPath';
   static const String pMessageDashboardScreenPath =
       '/pMessageDashboardScreenPath';
 }

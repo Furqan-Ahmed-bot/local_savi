@@ -87,7 +87,13 @@ class PJobsScreen extends GetWidget<PJobsController> {
                             3,
                             (index) => GestureDetector(
                                 onTap: () {
-                                  // Get.toNamed(RouteName.jobPostedScreenPath);
+                                  Get.toNamed(RouteName.pJobsDetailScreenPath,
+                                      arguments: {
+                                        "showBottomButton": false,
+                                        "status": "Job Open",
+                                        "showActionButton": false,
+                                        "bottomButtonText": ""
+                                      });
                                 },
                                 child: activeJobCard(
                                     status: controller.names[
@@ -100,8 +106,14 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                 3,
                                 (index) => GestureDetector(
                                     onTap: () {
-                                      // Get.toNamed(RouteName
-                                      // .upcomingJobDetailScreenPath);
+                                      Get.toNamed(
+                                          RouteName.pJobsDetailScreenPath,
+                                          arguments: {
+                                            "showBottomButton": true,
+                                            "status": "Job Open",
+                                            "showActionButton": false,
+                                            "bottomButtonText": "Cancel Job"
+                                          });
                                     },
                                     child: activeJobCard(
                                         status: controller.names[
@@ -114,8 +126,14 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                     3,
                                     (index) => GestureDetector(
                                         onTap: () {
-                                          // Get.toNamed(RouteName
-                                          //     .ongoingJobDetailScreenPath);
+                                          Get.toNamed(
+                                              RouteName.pJobsDetailScreenPath,
+                                              arguments: {
+                                                "showBottomButton": true,
+                                                "status": "Ongoing",
+                                                "showActionButton": false,
+                                                "bottomButtonText": "On The Way"
+                                              });
                                         },
                                         child: activeJobCard(
                                             status: controller.names[controller
@@ -129,8 +147,15 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                         3,
                                         (index) => GestureDetector(
                                             onTap: () {
-                                              // Get.toNamed(RouteName
-                                              //     .jobCompletedScreenPath);
+                                              Get.toNamed(
+                                                  RouteName
+                                                      .pJobsDetailScreenPath,
+                                                  arguments: {
+                                                    "showBottomButton": false,
+                                                    "status": "Completed",
+                                                    "showActionButton": false,
+                                                    "bottomButtonText": ""
+                                                  });
                                             },
                                             child: activeJobCard(
                                                 status: controller.names[
@@ -149,7 +174,8 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                                       "isPending": controller
                                                                   .listOfCancelledCard[
                                                               index]["status"] ==
-                                                          "Pending"
+                                                          "Pending",
+                                                      "showCharge": false,
                                                     });
                                               },
                                               child: Container(

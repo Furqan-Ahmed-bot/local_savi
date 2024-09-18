@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_home_controller.dart';
 import 'package:local_saviors/resources/components/text_fields.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
+import 'package:local_saviors/utils/routes/routes.dart';
 
 class PHomeScreen extends GetWidget<PHomeController> {
   @override
@@ -27,7 +27,19 @@ class PHomeScreen extends GetWidget<PHomeController> {
                     ),
                     20.h.verticalSpace,
                     Column(
-                      children: List.generate(3, (index) => applyJobCard()),
+                      children: List.generate(
+                          3,
+                          (index) => InkWell(
+                              onTap: () {
+                                Get.toNamed(RouteName.pJobsDetailScreenPath,
+                                    arguments: {
+                                      "showBottomButton": true,
+                                      "status": "Job Open",
+                                      "showActionButton": true,
+                                      "bottomButtonText": "Apply Now"
+                                    });
+                              },
+                              child: applyJobCard(context: context))),
                     )
                   ],
                 )

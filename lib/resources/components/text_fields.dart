@@ -20,9 +20,11 @@ class AuthTextField extends StatelessWidget {
   final String? Function(String?)? validation;
   final VoidCallback? onTap;
   final double? radius;
+  final double borderWidth;
   final int? minLine;
   final int? maxLine;
   final Color? hintColor;
+  final Color borderColor;
   final TextStyle? textStyle;
   final EdgeInsetsGeometry? padding;
 
@@ -35,9 +37,11 @@ class AuthTextField extends StatelessWidget {
     this.nextFocus,
     this.validation,
     this.icon,
+    this.borderColor = Colors.transparent,
     this.hintColor,
     this.iconH,
     this.iconW,
+    this.borderWidth = 0,
     this.readOnly = false,
     this.controller,
     this.onTap,
@@ -69,6 +73,7 @@ class AuthTextField extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(7.r),
+              border: Border.all(width: borderWidth, color: borderColor),
               boxShadow: [
                 BoxShadow(
                   blurRadius: 20,

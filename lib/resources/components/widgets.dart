@@ -787,6 +787,114 @@ Widget shortlistUserCard({
   );
 }
 
+Widget pJobDetailUserCard({
+  required bool isVerified,
+  required String image,
+  required String name,
+  required String city,
+  required String postedDate,
+  required context,
+}) {
+  return Column(
+    children: [
+      Container(
+        padding: EdgeInsets.all(15.sp),
+        margin: EdgeInsets.only(bottom: 16.h),
+        width: 1.0.sw,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.r),
+            border: Border.all(
+              width: 1.w,
+              color: ColorUtils.borderColor.withOpacity(0.5),
+            ),
+            color: ColorUtils.white),
+        child: Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(RouteName.pJobProviderScreenPath);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(100.r),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100.r),
+                              border: Border.all(
+                                  width: 1.w,
+                                  color:
+                                      ColorUtils.borderColor.withOpacity(0.5))),
+                          child: Image.asset(
+                            image,
+                            scale: 2,
+                          ),
+                        ),
+                      ),
+                      isVerified
+                          ? Positioned(
+                              right: 0,
+                              child: Image.asset(
+                                ImageAssets.verifiedIcon,
+                                scale: 2,
+                              ))
+                          : const SizedBox(),
+                    ],
+                  ),
+                  20.w.horizontalSpace,
+                  Container(
+                    width: 0.65.sw,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              name,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 16.sp),
+                            ),
+                            5.h.verticalSpace,
+                            Text(
+                              city,
+                              style: const TextStyle(),
+                            )
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          // mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Job Posted",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 16.sp),
+                            ),
+                            5.h.verticalSpace,
+                            Text(
+                              postedDate,
+                              style: const TextStyle(),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )
+    ],
+  );
+}
+
 Widget activeJobCard({String status = ""}) {
   return Container(
     width: 1.0.sw,
@@ -1036,7 +1144,7 @@ Widget appbar({
   );
 }
 
-Widget applyJobCard() {
+Widget applyJobCard({required context}) {
   return Container(
     width: 1.0.sw,
     margin: EdgeInsets.only(bottom: 16.h),
@@ -1171,7 +1279,83 @@ Widget applyJobCard() {
             ),
             RoundButton(
               title: "Apply Job",
-              onPress: () {},
+              onPress: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        backgroundColor: ColorUtils.dialogeBGColor,
+                        content: SizedBox(
+                          width: 1.0.sw,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              20.h.verticalSpace,
+                              Container(
+                                padding: EdgeInsets.all(23.sp),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: ColorUtils.jobIconBG),
+                                child: Image.asset(
+                                  ImageAssets.jobDoneIcon,
+                                  scale: 2,
+                                ),
+                              ),
+                              20.h.verticalSpace,
+                              Text(
+                                "Thank You!",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: ColorUtils.black,
+                                  fontSize: 22.sp,
+                                ),
+                              ),
+                              20.h.verticalSpace,
+                              Text(
+                                "Your request has been submitted",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: ColorUtils.black,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        actions: [
+                          Container(
+                            width: 1.0.sw,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.close(1);
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 15.h, horizontal: 30.w),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      color: ColorUtils.red,
+                                    ),
+                                    child: Text(
+                                      "Go Back",
+                                      style: TextStyle(color: ColorUtils.white),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      );
+                    });
+              },
               // horizonalPad: 20.w,
               width: 150.w,
               buttonColor: ColorUtils.red,

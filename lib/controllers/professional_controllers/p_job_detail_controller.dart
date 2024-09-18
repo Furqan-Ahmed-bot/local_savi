@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
 
-class CancelledJobScreenController extends GetxController {
-  RxBool isPending = false.obs;
-  RxBool showCharge = true.obs;
+class PJobDetailController extends GetxController {
+  RxBool showBottomButton = false.obs;
+  RxBool showActionButton = false.obs;
+  RxString status = "".obs;
+  RxString buttonText = "".obs;
 
   List dummyData = [
     {
@@ -29,8 +31,11 @@ class CancelledJobScreenController extends GetxController {
 
   @override
   void onInit() {
-    isPending.value = Get.arguments["isPending"] ?? false;
-    showCharge.value = Get.arguments["showCharge"] ?? true;
+    showActionButton.value = Get.arguments['showActionButton'] ?? false;
+    showBottomButton.value = Get.arguments['showBottomButton'] ?? false;
+    status.value = Get.arguments['status'] ?? "";
+    buttonText.value = Get.arguments['bottomButtonText'] ?? "";
+
     super.onInit();
   }
 }

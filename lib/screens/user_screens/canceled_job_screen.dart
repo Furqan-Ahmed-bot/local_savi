@@ -101,35 +101,50 @@ class CancelledJobScreen extends GetWidget<CancelledJobScreenController> {
             Divider(
               color: ColorUtils.borderColor.withOpacity(0.5),
             ),
-            12.h.verticalSpace,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(right: 20.w),
-                  child: Text(
-                    "Cancellation Charged",
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                Flexible(
-                  child: Text(
-                    "\$ 32.20 (15%)",
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            12.h.verticalSpace,
-            Divider(
-              color: ColorUtils.borderColor.withOpacity(0.5),
+            Obx(
+              () => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  controller.showCharge.value
+                      ? 12.h.verticalSpace
+                      : 0.h.verticalSpace,
+                  controller.showCharge.value
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 20.w),
+                              child: Text(
+                                "Cancellation Charged",
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              child: Text(
+                                "\$ 32.20 (15%)",
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : 0.h.verticalSpace,
+                  controller.showCharge.value
+                      ? 12.h.verticalSpace
+                      : 0.h.verticalSpace,
+                  controller.showCharge.value
+                      ? Divider(
+                          color: ColorUtils.borderColor.withOpacity(0.5),
+                        )
+                      : 0.h.verticalSpace,
+                ],
+              ),
             ),
             20.h.verticalSpace,
             Text(

@@ -1,11 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:get/get.dart';
+import 'package:local_saviors/screens/professional_screens/p_cancel_job_reason_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_home_screen.dart';
 import 'package:local_saviors/screens/general_screens/user_role_screens/select_role_one.dart';
 import 'package:local_saviors/screens/general_screens/user_role_screens/select_role_two.dart';
+import 'package:local_saviors/screens/professional_screens/p_job_detail_screen.dart';
+import 'package:local_saviors/screens/professional_screens/p_job_provider_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_jobs_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_message_dashboard_screen.dart';
+import 'package:local_saviors/screens/professional_screens/p_my_profile_screen.dart';
+import 'package:local_saviors/screens/professional_screens/p_notification_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_saved_jobs_screen.dart';
 import 'package:local_saviors/screens/user_screens/best_performer_detail_screen.dart';
 import 'package:local_saviors/screens/user_screens/best_performer_screen.dart';
@@ -196,6 +201,36 @@ class AppRoutes {
         GetPage(
           name: RouteName.pJobsScreenPath,
           page: () => PJobsScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.pJobsDetailScreenPath,
+          page: () => PJobDetailScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.pCanceJobReasonScreenPath,
+          page: () => PCancelJobReasonScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.pJobProviderScreenPath,
+          page: () => PJobProviderScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.pNotificaitonScreenPath,
+          page: () => PNotificationScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.pMyProfileScreenPath,
+          page: () => PMyProfileScreen(),
           binding: ScreenBindings(),
           transitionDuration: Duration(milliseconds: 250),
         ),
