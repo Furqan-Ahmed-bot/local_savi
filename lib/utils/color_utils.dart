@@ -27,6 +27,7 @@ class ColorUtils {
   static Color txtWhite = const Color(0xffffffff).withOpacity(0.5);
   static Color txtGrey = const Color(0xff9BA8BB);
   static Color txtGreyDark = const Color(0xff48576E);
+  static Color txtLightGrey = const Color(0xffA5A5A5);
 
   static Color redCatch = const Color(0xffd92828);
   static Color green = const Color(0xff43AF39);

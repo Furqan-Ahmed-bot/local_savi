@@ -3,6 +3,18 @@ import 'package:get/get.dart';
 class PMyProfileController extends GetxController {
   List dummyData = [
     {
+      "title": "Completed Jobs",
+      "value": "54",
+    },
+    {
+      "title": "Work Type",
+      "value": "Professional",
+    },
+    {
+      "title": "Skills",
+      "value": "Interior Design",
+    },
+    {
       "title": "Age",
       "value": "22 years old",
     },

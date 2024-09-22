@@ -3,7 +3,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_my_profile_controller.dart';
-import 'package:local_saviors/resources/components/text_fields.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
@@ -13,16 +12,6 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        color: ColorUtils.white,
-        padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
-        height: 100.h,
-        child: AuthTextField(
-            borderWidth: 1.0.w,
-            borderColor: ColorUtils.borderColor,
-            suffixIcon: ImageAssets.sendIcon,
-            hint: "Type your reviews"),
-      ),
       body: myBackGround(
           child: Column(
         children: [
@@ -76,7 +65,7 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                   12.h.verticalSpace,
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed(RouteName.ratingAndReviewsScreenPath);
+                      Get.toNamed(RouteName.pRatingReviewsScreenPath);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

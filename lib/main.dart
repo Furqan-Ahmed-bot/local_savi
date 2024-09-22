@@ -9,6 +9,8 @@ import 'package:local_saviors/utils/routes/screen_bindings.dart';
 
 import 'utils/routes/routes_name.dart';
 
+final navigationKey = GlobalKey<NavigatorState>();
+
 void main() {
   runApp(const MyApp());
 }

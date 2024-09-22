@@ -120,29 +120,20 @@ class _NavbarScreenState extends State<NavbarScreen> {
                               ],
                             ),
                             60.verticalSpace,
-                            Row(
-                              children: [
-                                40.horizontalSpace,
-                                Image.asset(ImageAssets.drawerhome),
-                                20.horizontalSpace,
-                                Text(
-                                  "Home",
-                                  style: TextStyle(color: Colors.black),
-                                )
-                              ],
-                            ),
-                            40.verticalSpace,
                             GestureDetector(
                               onTap: () {
-                                // Get.to(() => myGoalsScreen());
+                                Get.back();
                               },
                               child: Row(
                                 children: [
                                   40.horizontalSpace,
-                                  Image.asset(ImageAssets.drawerprofile),
+                                  Image.asset(
+                                    ImageAssets.drawerHome,
+                                    scale: 2,
+                                  ),
                                   20.horizontalSpace,
                                   Text(
-                                    "My Profile",
+                                    "Home",
                                     style: TextStyle(color: Colors.black),
                                   )
                                 ],
@@ -156,7 +147,10 @@ class _NavbarScreenState extends State<NavbarScreen> {
                               child: Row(
                                 children: [
                                   40.horizontalSpace,
-                                  Image.asset(ImageAssets.drawerwallet),
+                                  Image.asset(
+                                    ImageAssets.drawerWallet,
+                                    scale: 2,
+                                  ),
                                   20.horizontalSpace,
                                   Text(
                                     "My Wallet",
@@ -168,12 +162,37 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             40.verticalSpace,
                             GestureDetector(
                               onTap: () {
-                                // Get.to(() => myFriendsScreen());
+                                // Get.to(() => goalsHistoryScreen());
                               },
                               child: Row(
                                 children: [
                                   40.horizontalSpace,
-                                  Image.asset(ImageAssets.drawerwallet),
+                                  Image.asset(
+                                    ImageAssets.drawerPaymentMethod,
+                                    scale: 3,
+                                  ),
+                                  20.horizontalSpace,
+                                  Text(
+                                    "Payment Method",
+                                    style: TextStyle(color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            ),
+                            40.verticalSpace,
+                            GestureDetector(
+                              onTap: () {
+                                // Get.to(() => myFriendsScreen());
+                                Get.back();
+                                Get.toNamed(RouteName.notificationsScreenPath);
+                              },
+                              child: Row(
+                                children: [
+                                  40.horizontalSpace,
+                                  Image.asset(
+                                    ImageAssets.drawerNotification,
+                                    scale: 2,
+                                  ),
                                   20.horizontalSpace,
                                   Text(
                                     "Notifications",
@@ -185,12 +204,37 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             40.verticalSpace,
                             GestureDetector(
                               onTap: () {
-                                // Get.to(() => settingsScreen());
+                                // Get.to(() => goalsHistoryScreen());
                               },
                               child: Row(
                                 children: [
                                   40.horizontalSpace,
-                                  Image.asset(ImageAssets.drawerwallet),
+                                  Image.asset(
+                                    ImageAssets.drawerPaymentHistory,
+                                    scale: 3,
+                                  ),
+                                  20.horizontalSpace,
+                                  Text(
+                                    "Payment History",
+                                    style: TextStyle(color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            ),
+                            40.verticalSpace,
+                            GestureDetector(
+                              onTap: () {
+                                // Get.to(() => settingsScreen());
+                                Get.back();
+                                Get.toNamed(RouteName.pHelpFeedbackScreenPath);
+                              },
+                              child: Row(
+                                children: [
+                                  40.horizontalSpace,
+                                  Image.asset(
+                                    ImageAssets.drawerHelp,
+                                    scale: 2,
+                                  ),
                                   20.horizontalSpace,
                                   Text(
                                     "Help & Feedback",
@@ -203,11 +247,16 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             GestureDetector(
                               onTap: () {
                                 // Get.to(() => settingsScreen());
+                                Get.back();
+                                Get.toNamed(RouteName.settingScreenPath);
                               },
                               child: Row(
                                 children: [
                                   40.horizontalSpace,
-                                  Image.asset(ImageAssets.drawerwallet),
+                                  Image.asset(
+                                    ImageAssets.drawerSetting,
+                                    scale: 2,
+                                  ),
                                   20.horizontalSpace,
                                   Text(
                                     "Settings",
@@ -216,18 +265,150 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                 ],
                               ),
                             ),
+                            40.verticalSpace,
                             GestureDetector(
                               onTap: () {
-                                // logOutDialog(context);
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        insetPadding: EdgeInsets.symmetric(
+                                            horizontal: 20.w),
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        backgroundColor:
+                                            ColorUtils.dialogeBGColor,
+                                        content: SizedBox(
+                                          width: 1.0.sw,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              20.h.verticalSpace,
+                                              Container(
+                                                padding: EdgeInsets.all(23.sp),
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color:
+                                                        ColorUtils.jobIconBG),
+                                                child: Image.asset(
+                                                  ImageAssets.logoutBigIcon,
+                                                  scale: 2,
+                                                ),
+                                              ),
+                                              20.h.verticalSpace,
+                                              Text(
+                                                "Logout!",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: ColorUtils.black,
+                                                  fontSize: 22.sp,
+                                                ),
+                                              ),
+                                              24.h.verticalSpace,
+                                              Text(
+                                                "Are you sure you want to Logout?",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: ColorUtils.black,
+                                                  fontSize: 14.sp,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: [
+                                          Container(
+                                            width: 1.0.sw,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      Get.offAllNamed(RouteName
+                                                          .selectRoleOne);
+                                                    },
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 15.h),
+                                                      decoration: BoxDecoration(
+                                                          color:
+                                                              ColorUtils.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.r),
+                                                          border: Border.all(
+                                                              width: 1.w,
+                                                              color: ColorUtils
+                                                                  .borderColor)),
+                                                      child: const Text(
+                                                          "Yes, Select"),
+                                                    ),
+                                                  ),
+                                                ),
+                                                20.w.horizontalSpace,
+                                                Expanded(
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      Get.back();
+                                                    },
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 15.h),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.r),
+                                                        color: ColorUtils.red,
+                                                      ),
+                                                      child: Text(
+                                                        "No",
+                                                        style: TextStyle(
+                                                            color: ColorUtils
+                                                                .white),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      );
+                                    });
                               },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Logout",
-                                    style: TextStyle(color: Colors.black),
-                                  )
-                                ],
+                              child: Container(
+                                width: 0.55.sw,
+                                padding: EdgeInsets.symmetric(vertical: 20.h),
+                                decoration: BoxDecoration(
+                                    color: ColorUtils.red,
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(20.r),
+                                        bottomRight: Radius.circular(20.r))),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    40.horizontalSpace,
+                                    Image.asset(
+                                      ImageAssets.drawerLogout,
+                                      scale: 2,
+                                    ),
+                                    20.horizontalSpace,
+                                    Text(
+                                      "Logout",
+                                      style: TextStyle(color: Colors.white),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                             20.verticalSpace,

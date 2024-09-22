@@ -39,6 +39,18 @@ class RouteName {
   static const String pJobProviderScreenPath = '/pJobProviderScreenPath';
   static const String pNotificaitonScreenPath = '/pNotificaitonScreenPath';
   static const String pMyProfileScreenPath = '/pMyProfileScreenPath';
+  static const String pRatingReviewsScreenPath = '/pRatingReviewsScreenPath';
+  static const String pHelpFeedbackScreenPath = '/pHelpFeedbackScreenPath';
+  static const String psearchResultScreenPath = '/psearchResultScreenPath';
+  static const String psearchFilterScreenPath = '/psearchFilterScreenPath';
   static const String pMessageDashboardScreenPath =
       '/pMessageDashboardScreenPath';
+
+  //settings
+  static const String settingScreenPath = '/settingScreenPath';
+  static const String aboutScreenPath = '/aboutScreenPath';
+  static const String privacyPolicyScreenPath = '/privacyPolicyScreenPath';
+  static const String changePassScreenPath = '/changePassScreenPath';
+  static const String termsAndConditionScreenPath =
+      '/termsAndConditionScreenPath';
 }

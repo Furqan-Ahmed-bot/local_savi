@@ -2,6 +2,8 @@
 
 import 'package:get/get.dart';
 import 'package:local_saviors/screens/professional_screens/p_cancel_job_reason_screen.dart';
+import 'package:local_saviors/screens/professional_screens/p_filter_screen.dart';
+import 'package:local_saviors/screens/professional_screens/p_help_and_feedback_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_home_screen.dart';
 import 'package:local_saviors/screens/general_screens/user_role_screens/select_role_one.dart';
 import 'package:local_saviors/screens/general_screens/user_role_screens/select_role_two.dart';
@@ -11,7 +13,14 @@ import 'package:local_saviors/screens/professional_screens/p_jobs_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_message_dashboard_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_my_profile_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_notification_screen.dart';
+import 'package:local_saviors/screens/professional_screens/p_rating_and_reviews_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_saved_jobs_screen.dart';
+import 'package:local_saviors/screens/professional_screens/p_search_result_screen.dart';
+import 'package:local_saviors/screens/settings_screens/about_screen.dart';
+import 'package:local_saviors/screens/settings_screens/change_pass_screen.dart';
+import 'package:local_saviors/screens/settings_screens/privacy_policy_screen.dart';
+import 'package:local_saviors/screens/settings_screens/setting_screen.dart';
+import 'package:local_saviors/screens/settings_screens/terms_condition_screen.dart';
 import 'package:local_saviors/screens/user_screens/best_performer_detail_screen.dart';
 import 'package:local_saviors/screens/user_screens/best_performer_screen.dart';
 import 'package:local_saviors/screens/user_screens/canceled_job_screen.dart';
@@ -231,6 +240,60 @@ class AppRoutes {
         GetPage(
           name: RouteName.pMyProfileScreenPath,
           page: () => PMyProfileScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.pRatingReviewsScreenPath,
+          page: () => PRatingAndReviewsScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.pHelpFeedbackScreenPath,
+          page: () => PHelpAndFeedbackScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.psearchFilterScreenPath,
+          page: () => PFilterScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.psearchResultScreenPath,
+          page: () => PSearchResultScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.settingScreenPath,
+          page: () => SettingScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.aboutScreenPath,
+          page: () => AboutScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.termsAndConditionScreenPath,
+          page: () => TermsConditionScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.privacyPolicyScreenPath,
+          page: () => PrivacyPolicyScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.changePassScreenPath,
+          page: () => ChangePassScreen(),
           binding: ScreenBindings(),
           transitionDuration: Duration(milliseconds: 250),
         ),
