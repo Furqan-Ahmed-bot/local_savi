@@ -19,7 +19,7 @@ class BestPerformerDetailScreen
           () => appbar(isMenu: false, title: controller.title.value, actions: [
             GestureDetector(
               onTap: () {
-                // Get.toNamed(RouteName.notificationsScreenPath);
+                Get.toNamed(RouteName.chatScreenPath);
               },
               child: Container(
                 margin: EdgeInsets.only(right: 20.w),

@@ -621,13 +621,18 @@ Widget bestPerformerCard({
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(10.sp),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
-              child: Image.asset(
-                ImageAssets.msgIcon,
-                scale: 2,
+            InkWell(
+              onTap: () {
+                Get.toNamed(RouteName.chatScreenPath);
+              },
+              child: Container(
+                padding: EdgeInsets.all(10.sp),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
+                child: Image.asset(
+                  ImageAssets.msgIcon,
+                  scale: 2,
+                ),
               ),
             )
           ],
@@ -853,14 +858,19 @@ Widget shortlistUserCard({
                     ? 12.w.horizontalSpace
                     : 0.w.horizontalSpace,
                 showMessageButton
-                    ? Container(
-                        padding: EdgeInsets.all(10.sp),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: ColorUtils.yellowLightBG),
-                        child: Image.asset(
-                          ImageAssets.msgIcon,
-                          scale: 2,
+                    ? InkWell(
+                        onTap: () {
+                          Get.toNamed(RouteName.chatScreenPath);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(10.sp),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: ColorUtils.yellowLightBG),
+                          child: Image.asset(
+                            ImageAssets.msgIcon,
+                            scale: 2,
+                          ),
                         ),
                       )
                     : isJobCompleted
