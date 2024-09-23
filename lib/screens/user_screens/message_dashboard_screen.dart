@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/user_controllers/message_dashboard_screen_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
-import 'package:local_saviors/utils/color_utils.dart';
-import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
 class MessageDashboardScreen
@@ -42,13 +40,22 @@ class MessageDashboardScreen
               Column(
                 children: List.generate(
                     controller.listOfMessageUsers.length,
-                    (index) => messageUserCard(
-                        isVerified: controller.listOfMessageUsers[index]
-                            ['isVerified'],
-                        date: controller.listOfMessageUsers[index]['date'],
-                        image: controller.listOfMessageUsers[index]['image'],
-                        name: controller.listOfMessageUsers[index]['name'],
-                        desc: controller.listOfMessageUsers[index]['desc'])),
+                    (index) => InkWell(
+                          onTap: () {
+                            Get.toNamed(RouteName.chatScreenPath);
+                          },
+                          child: messageUserCard(
+                              isVerified: controller.listOfMessageUsers[index]
+                                  ['isVerified'],
+                              date: controller.listOfMessageUsers[index]
+                                  ['date'],
+                              image: controller.listOfMessageUsers[index]
+                                  ['image'],
+                              name: controller.listOfMessageUsers[index]
+                                  ['name'],
+                              desc: controller.listOfMessageUsers[index]
+                                  ['desc']),
+                        )),
               ),
             ]))
       ],

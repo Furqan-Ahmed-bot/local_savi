@@ -21,9 +21,12 @@ import 'package:local_saviors/controllers/user_controllers/best_performer_detail
 import 'package:local_saviors/controllers/user_controllers/best_performer_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/bottom_nav_bar_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/cancelled_job_screen_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/chat_screen_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/create_job_post_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/dispute_payment_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/home_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/invite_user_screen_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/job_cancel_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/job_completed_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/jobs_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/message_dashboard_screen_controller.dart';
@@ -32,6 +35,8 @@ import 'package:local_saviors/controllers/user_controllers/ongoing_job_detail_sc
 import 'package:local_saviors/controllers/user_controllers/posted_job_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/rate_employee_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/rating_and_review_screen_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/reschedule_card_screen_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/reschedule_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/upcoming_job_detail_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/user_profile_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/user_request_screen_controller.dart';
@@ -57,6 +62,11 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => CancelledJobScreenController());
     Get.lazyPut(() => RateEmployeeScreenController());
     Get.lazyPut(() => DisputePaymentScreenController());
+    Get.lazyPut(() => ChatScreenController());
+    Get.lazyPut(() => JobCancelScreenController());
+    Get.lazyPut(() => RescheduleScreenController());
+    Get.lazyPut(() => RescheduleCardScreenController());
+    Get.lazyPut(() => CreateJobPostScreenController());
 
     ///professional
     Get.lazyPut(() => PHomeController());

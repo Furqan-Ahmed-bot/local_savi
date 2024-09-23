@@ -1,10 +1,110 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
+
+Widget getSenderView(
+        {CustomClipper? clipper, BuildContext? context, String? text}) =>
+    Column(
+      children: [
+        ChatBubble(
+          clipper: clipper,
+          alignment: Alignment.topRight,
+          margin: EdgeInsets.only(top: 20.h),
+          backGroundColor: ColorUtils.chatBgColor,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            width: 0.6.sw,
+            child: Text(
+              text.toString(),
+              style: TextStyle(
+                  color: ColorUtils.textColor,
+                  // fontFamily: Font.interRegular,
+                  fontSize: 12.sp),
+              textAlign: TextAlign.left,
+            ),
+          ),
+        ),
+        5.verticalSpace,
+        SizedBox(
+            width: 0.4.sw,
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                // Spacer(),
+                Text(
+                  "03:35 pm",
+                  style: TextStyle(
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            )),
+        20.verticalSpace,
+      ],
+    );
+
+Widget getReceiverView(
+        {CustomClipper? clipper, BuildContext? context, String? text}) =>
+    Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Image.asset(
+          ImageAssets.oliverImg,
+          scale: 2,
+        ),
+        10.horizontalSpace,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              "Oliver Mark",
+              softWrap: true,
+              style: TextStyle(
+                  height: 0.5, fontSize: 16, fontWeight: FontWeight.w400),
+            ),
+            ChatBubble(
+              clipper: clipper,
+              backGroundColor: ColorUtils.white,
+              margin: EdgeInsets.only(top: 20.h),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                width: 0.6.sw,
+                child: Text(
+                  text.toString(),
+                  style: TextStyle(
+                      color: ColorUtils.textColor,
+                      // fontFamily: Font.interRegular,
+                      fontSize: 12.sp),
+                ),
+              ),
+            ),
+            5.verticalSpace,
+            SizedBox(
+              width: 0.65.sw,
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Spacer(),
+                  Text(
+                    "03:35 pm",
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ],
+    );
 
 Widget ratingReviewCard({
   required String image,

@@ -6,6 +6,7 @@ import 'package:local_saviors/controllers/user_controllers/upcoming_job_detail_s
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
+import 'package:local_saviors/utils/routes/routes.dart';
 
 class UpcomingJobDetailScreen
     extends GetWidget<UpcomingJobDetailScreenController> {
@@ -177,23 +178,28 @@ class UpcomingJobDetailScreen
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(vertical: 15.h),
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.white,
-                                  borderRadius: BorderRadius.circular(10.r),
-                                  border: Border.all(
-                                      width: 1.w,
-                                      color: ColorUtils.borderColor)),
-                              child: Text("Cancel Job"),
+                            child: InkWell(
+                              onTap: () {
+                                Get.toNamed(RouteName.jobCancelScreenPath);
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(vertical: 15.h),
+                                decoration: BoxDecoration(
+                                    color: ColorUtils.white,
+                                    borderRadius: BorderRadius.circular(10.r),
+                                    border: Border.all(
+                                        width: 1.w,
+                                        color: ColorUtils.borderColor)),
+                                child: Text("Cancel Job"),
+                              ),
                             ),
                           ),
                           30.w.horizontalSpace,
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                Get.back();
+                                Get.toNamed(RouteName.rescheduleJobScreenPath);
                               },
                               child: Container(
                                 alignment: Alignment.center,

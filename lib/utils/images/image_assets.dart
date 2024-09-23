@@ -56,6 +56,12 @@ class ImageAssets {
   static String saveIcon = 'assets/icons/save_icon.png';
   static String bigCross = 'assets/icons/big_cross.png';
   static String sendIcon = 'assets/icons/send_icon.png';
+  static String attachIcon = 'assets/icons/attach_icon.png';
+  static String paypal = 'assets/icons/paypal.png';
+  static String masterCard = 'assets/icons/master_card.png';
+  static String applePay = 'assets/icons/apple_pay.png';
+  static String googlePay = 'assets/icons/google_pay.png';
+  static String addCircleRed = 'assets/icons/add_circle.png';
   static String helpFeedback1 = 'assets/icons/help_feedback1.png';
   static String helpFeedback2 = 'assets/icons/help_feedback2.png';
   static String helpFeedbackCUt = 'assets/icons/help_feedback_cut.png';

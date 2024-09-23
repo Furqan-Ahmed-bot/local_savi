@@ -6,6 +6,7 @@ class ColorUtils {
   static Color borderColor = const Color(0xFFB2C2DC);
   static Color dialogeBGColor = const Color(0xFFEEF1F8);
   static Color trakNowbgColor = const Color(0xFFC8D5EB);
+  static Color chatBgColor = const Color(0xFFFED68E);
   static Color jobIconBG = const Color(0xFFFED68E);
   static Color textColor = const Color(0xFF3E2525);
   static Color purple = const Color(0xff2A1C39);
