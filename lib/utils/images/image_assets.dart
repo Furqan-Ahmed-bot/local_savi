@@ -25,6 +25,7 @@ class ImageAssets {
   static String verifiedBigIcon = 'assets/icons/verified_big_icon.png';
   static String msgIcon = 'assets/icons/msg_icon.png';
   static String editIcon = 'assets/icons/edit_icon.png';
+  static String congratulationsIcon = 'assets/icons/congratulations.png';
   static String threeDots = 'assets/icons/three_dots.png';
   static String forwardArrow = 'assets/icons/forward_arrow.png';
   static String viewDetailIcon = 'assets/icons/view_detail_icon.png';

@@ -694,6 +694,22 @@ class _NavbarScreenState extends State<NavbarScreen> {
                         bottomBarItem2(1),
                       ],
                     ),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed(RouteName.createJobPostScreenPath);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10.sp),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            color: ColorUtils.red),
+                        child: Icon(
+                          Icons.add,
+                          color: ColorUtils.white,
+                          size: 30.sp,
+                        ),
+                      ),
+                    ),
 
                     Row(
                       children: [
