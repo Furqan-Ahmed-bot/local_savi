@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_message_dashboard_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
+import 'package:local_saviors/utils/routes/routes.dart';
 
 class PMessageDashboardScreen extends GetWidget<PMessageDashboardController> {
   @override
@@ -38,13 +40,22 @@ class PMessageDashboardScreen extends GetWidget<PMessageDashboardController> {
               Column(
                 children: List.generate(
                     controller.listOfMessageUsers.length,
-                    (index) => messageUserCard(
-                        isVerified: controller.listOfMessageUsers[index]
-                            ['isVerified'],
-                        date: controller.listOfMessageUsers[index]['date'],
-                        image: controller.listOfMessageUsers[index]['image'],
-                        name: controller.listOfMessageUsers[index]['name'],
-                        desc: controller.listOfMessageUsers[index]['desc'])),
+                    (index) => InkWell(
+                          onTap: () {
+                            Get.toNamed(RouteName.pchatScreenPath);
+                          },
+                          child: messageUserCard(
+                              isVerified: controller.listOfMessageUsers[index]
+                                  ['isVerified'],
+                              date: controller.listOfMessageUsers[index]
+                                  ['date'],
+                              image: controller.listOfMessageUsers[index]
+                                  ['image'],
+                              name: controller.listOfMessageUsers[index]
+                                  ['name'],
+                              desc: controller.listOfMessageUsers[index]
+                                  ['desc']),
+                        )),
               ),
             ]))
       ],

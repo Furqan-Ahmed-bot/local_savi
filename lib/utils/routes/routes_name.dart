@@ -2,6 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:local_saviors/screens/professional_screens/p_cancel_job_reason_screen.dart';
+import 'package:local_saviors/screens/professional_screens/p_chat_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_filter_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_help_and_feedback_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_home_screen.dart';
@@ -89,6 +90,12 @@ class AppRoutes {
         GetPage(
           name: RouteName.createJobPostScreenPath,
           page: () => CreateJobPostScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.pchatScreenPath,
+          page: () => PChatScreen(),
           binding: ScreenBindings(),
           transitionDuration: Duration(milliseconds: 250),
         ),

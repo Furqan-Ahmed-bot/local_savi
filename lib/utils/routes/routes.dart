@@ -48,6 +48,7 @@ class RouteName {
   static const String pHelpFeedbackScreenPath = '/pHelpFeedbackScreenPath';
   static const String psearchResultScreenPath = '/psearchResultScreenPath';
   static const String psearchFilterScreenPath = '/psearchFilterScreenPath';
+  static const String pchatScreenPath = '/pchatScreenPath';
   static const String pMessageDashboardScreenPath =
       '/pMessageDashboardScreenPath';
 

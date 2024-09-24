@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_cancel_job_reason_controller.dart';
+import 'package:local_saviors/controllers/professional_controllers/p_chat_screen_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_filter_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_help_and_feedback_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_home_controller.dart';
@@ -81,6 +82,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => PHelpAndFeedbackController());
     Get.lazyPut(() => PRatingAndReviewsScreenController());
     Get.lazyPut(() => PFilterController());
+    Get.lazyPut(() => PChatScreenController());
     Get.lazyPut(() => PSearchResultController());
 
     //settings
