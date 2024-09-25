@@ -42,6 +42,9 @@ import 'package:local_saviors/controllers/user_controllers/upcoming_job_detail_s
 import 'package:local_saviors/controllers/user_controllers/user_profile_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/user_request_screen_controller.dart';
 
+import '../../controllers/professional_controllers/add_bank_controller.dart';
+import '../../controllers/professional_controllers/wallet_controller.dart';
+
 class ScreenBindings extends Bindings {
   @override
   void dependencies() {
@@ -91,5 +94,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => PrivacyPolicyController());
     Get.lazyPut(() => TermsConditionController());
     Get.lazyPut(() => ChangePassController());
+    Get.lazyPut(() => WalletController());
+    Get.lazyPut(() => AddBankController());
   }
 }

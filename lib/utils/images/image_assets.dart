@@ -98,4 +98,11 @@ class ImageAssets {
   static String img2 = 'assets/images/img_2.png';
   static String img3 = 'assets/images/img_3.png';
   static String userProfileImg = 'assets/images/user_profile_img.png';
+  static String wallet = 'assets/images/purse.png';
+  static String bank1 = 'assets/icons/bank1.png';
+  static String bank2 = 'assets/icons/bank2.png';
+  static String bank3 = 'assets/icons/bank3.png';
+  static String add = 'assets/icons/addicon.png';
+  static String dollar = 'assets/icons/dollar.png';
+  static String password = 'assets/icons/password.png';
 }

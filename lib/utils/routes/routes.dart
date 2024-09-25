@@ -51,6 +51,8 @@ class RouteName {
   static const String pchatScreenPath = '/pchatScreenPath';
   static const String pMessageDashboardScreenPath =
       '/pMessageDashboardScreenPath';
+  static const String walletScreen = '/walletScreen';
+  static const String addBankScreen = '/addBankScreen';
 
   //settings
   static const String settingScreenPath = '/settingScreenPath';

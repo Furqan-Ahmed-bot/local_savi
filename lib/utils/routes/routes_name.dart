@@ -46,6 +46,8 @@ import 'package:local_saviors/screens/user_screens/user_profile_screen.dart';
 import 'package:local_saviors/screens/user_screens/user_request_screen.dart';
 import 'package:local_saviors/utils/routes/screen_bindings.dart';
 
+import '../../screens/professional_screens/p_select_bank_screen.dart';
+import '../../screens/professional_screens/p_wallet_screen.dart';
 import '../../screens/splash/splash_view.dart';
 import 'routes.dart';
 
@@ -336,6 +338,18 @@ class AppRoutes {
         GetPage(
           name: RouteName.changePassScreenPath,
           page: () => ChangePassScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.walletScreen,
+          page: () => WalletScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.addBankScreen,
+          page: () => SelectBankScreen(),
           binding: ScreenBindings(),
           transitionDuration: Duration(milliseconds: 250),
         ),

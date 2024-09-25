@@ -81,7 +81,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   width: 0.9.sw,
                   title: 'Continue',
                   onPress: () {
-                    // Get.to(()=> OtpVerificationScreen());
+                    Get.to(() => OtpVerificationScreen());
                   }),
             ],
           ),

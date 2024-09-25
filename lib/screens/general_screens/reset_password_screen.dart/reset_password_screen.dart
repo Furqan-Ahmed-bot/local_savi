@@ -3,20 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:local_saviors/resources/components/bottom_navbar.dart';
-import 'package:local_saviors/resources/components/p_bottom_nav_bar.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/utils/color_utils.dart';
-import 'package:local_saviors/utils/constant.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/text_fields.dart';
 import '../../../utils/images/image_assets.dart';
-import '../create_profile_screen/create_profile_screen.dart';
-import '../forget_password_screen/forget_password.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class ResetPasswordScreen extends StatelessWidget {
+  const ResetPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +21,7 @@ class LoginScreen extends StatelessWidget {
         elevation: 0,
         leading: BackButtonWidget(
           onTap: () {
+            Get.back();
             Get.back();
           },
         ),
@@ -58,86 +53,44 @@ class LoginScreen extends StatelessWidget {
               ),
               50.verticalSpace,
               Text(
-                'Welcome Back',
+                'Reset Password',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               20.verticalSpace,
               Text(
-                'Sign in to Continue!',
+                'Set your new password',
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 14,
                 ),
               ),
               20.verticalSpace,
               Container(
-                color: Colors.red,
+                color: ColorUtils.red,
                 height: 5,
                 width: 50,
               ),
               40.verticalSpace,
-              AuthTextField(
-                hint: 'Email Address / Phone Number',
-                icon: ImageAssets.emailicon,
-                hintColor: Color(0xffA5A5A5),
-              ),
-              20.verticalSpace,
               AuthTextField(
                 hint: 'Password',
                 icon: ImageAssets.password,
                 hintColor: Color(0xffA5A5A5),
               ),
               20.verticalSpace,
+              AuthTextField(
+                hint: 'Reset Password',
+                icon: ImageAssets.password,
+                hintColor: Color(0xffA5A5A5),
+              ),
+              40.verticalSpace,
               RoundButton(
                   buttonColor: Color(0xffE50000),
                   height: 40,
                   width: 0.9.sw,
-                  title: 'Sign In',
+                  title: 'Reset',
                   onPress: () {
-                    // Get.toNamed(RouteName.homeScreenPath);
-                    role.value == "user"
-                        ? Get.to(() => NavbarScreen())
-                        : Get.to(PBottomNavBar());
+                    Get.back();
+                    Get.back();
                   }),
-              30.verticalSpace,
-              Center(
-                child: InkWell(
-                  onTap: () {
-                    Get.to(() => ForgetPasswordScreen());
-                  },
-                  child: Text(
-                    'Forgot your Password?',
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline),
-                  ),
-                ),
-              ),
-              120.verticalSpace,
-              GestureDetector(
-                onTap: () {
-                  // Get.to(() => CreateProfileScreen());
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Didn’t have an account?',
-                      style: GoogleFonts.poppins(
-                          fontSize: 14.sp, color: Colors.black),
-                    ),
-                    SizedBox(width: 2.w),
-                    Text(
-                      'Sign Up',
-                      style: GoogleFonts.inter(
-                          fontSize: 16.sp,
-                          color: ColorUtils.red,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline),
-                    ),
-                  ],
-                ),
-              )
             ],
           ),
         ),

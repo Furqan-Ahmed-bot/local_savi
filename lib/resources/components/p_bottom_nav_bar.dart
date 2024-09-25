@@ -164,6 +164,7 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                             40.verticalSpace,
                             GestureDetector(
                               onTap: () {
+                                Get.toNamed(RouteName.walletScreen);
                                 // Get.to(() => goalsHistoryScreen());
                               },
                               child: Row(
