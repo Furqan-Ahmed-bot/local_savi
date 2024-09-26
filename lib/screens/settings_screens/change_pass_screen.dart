@@ -1,5 +1,6 @@
+// ignore_for_file: use_key_in_widget_constructors, implementation_imports
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/setting_controllers/change_pass_controller.dart';

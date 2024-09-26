@@ -142,6 +142,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             40.verticalSpace,
                             GestureDetector(
                               onTap: () {
+                                Get.toNamed(RouteName.providerWalletScreen);
                                 // Get.to(() => goalsHistoryScreen());
                               },
                               child: Row(
@@ -162,6 +163,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             40.verticalSpace,
                             GestureDetector(
                               onTap: () {
+                                Get.toNamed(RouteName.paymentMethodScreen);
                                 // Get.to(() => goalsHistoryScreen());
                               },
                               child: Row(
@@ -204,6 +206,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             40.verticalSpace,
                             GestureDetector(
                               onTap: () {
+                                Get.toNamed(RouteName.paymentHistoryScreen);
                                 // Get.to(() => goalsHistoryScreen());
                               },
                               child: Row(

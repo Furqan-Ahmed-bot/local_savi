@@ -53,6 +53,9 @@ class RouteName {
       '/pMessageDashboardScreenPath';
   static const String walletScreen = '/walletScreen';
   static const String addBankScreen = '/addBankScreen';
+  static const String providerWalletScreen = '/providerwalletScreen';
+  static const String paymentHistoryScreen = '/paymenthistoryScreen';
+  static const String paymentMethodScreen = '/paymentmethodScreen';
 
   //settings
   static const String settingScreenPath = '/settingScreenPath';

@@ -14,9 +14,11 @@ import 'package:local_saviors/screens/professional_screens/p_jobs_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_message_dashboard_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_my_profile_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_notification_screen.dart';
+import 'package:local_saviors/screens/professional_screens/p_payment_method_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_rating_and_reviews_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_saved_jobs_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_search_result_screen.dart';
+import 'package:local_saviors/screens/professional_screens/wallet_screen.dart';
 import 'package:local_saviors/screens/settings_screens/about_screen.dart';
 import 'package:local_saviors/screens/settings_screens/change_pass_screen.dart';
 import 'package:local_saviors/screens/settings_screens/privacy_policy_screen.dart';
@@ -46,6 +48,7 @@ import 'package:local_saviors/screens/user_screens/user_profile_screen.dart';
 import 'package:local_saviors/screens/user_screens/user_request_screen.dart';
 import 'package:local_saviors/utils/routes/screen_bindings.dart';
 
+import '../../screens/professional_screens/p_payment_history.dart';
 import '../../screens/professional_screens/p_select_bank_screen.dart';
 import '../../screens/professional_screens/p_wallet_screen.dart';
 import '../../screens/splash/splash_view.dart';
@@ -350,6 +353,25 @@ class AppRoutes {
         GetPage(
           name: RouteName.addBankScreen,
           page: () => SelectBankScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.providerWalletScreen,
+          page: () => ProviderWalletScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.paymentHistoryScreen,
+          page: () => ProviderPaymentHistoryScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+
+        GetPage(
+          name: RouteName.paymentMethodScreen,
+          page: () => PaymentMethodScreen(),
           binding: ScreenBindings(),
           transitionDuration: Duration(milliseconds: 250),
         ),

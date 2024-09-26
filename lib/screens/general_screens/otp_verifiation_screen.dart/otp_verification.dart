@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_typing_uninitialized_variables, prefer_interpolation_to_compose_strings, use_full_hex_values_for_flutter_colors, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_typing_uninitialized_variables, prefer_interpolation_to_compose_strings, use_full_hex_values_for_flutter_colors, avoid_print, prefer_const_constructors_in_immutables
 
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';

@@ -13,6 +13,8 @@ import 'package:local_saviors/controllers/professional_controllers/p_notificatio
 import 'package:local_saviors/controllers/professional_controllers/p_rating_and_reviews_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_saved_jobs_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_search_result_controller.dart';
+import 'package:local_saviors/controllers/professional_controllers/payment_history_controller.dart';
+import 'package:local_saviors/controllers/professional_controllers/payment_method_controller.dart';
 import 'package:local_saviors/controllers/setting_controllers/about_controller.dart';
 import 'package:local_saviors/controllers/setting_controllers/change_pass_controller.dart';
 import 'package:local_saviors/controllers/setting_controllers/privacy_policy_controller.dart';
@@ -41,6 +43,7 @@ import 'package:local_saviors/controllers/user_controllers/reschedule_screen_con
 import 'package:local_saviors/controllers/user_controllers/upcoming_job_detail_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/user_profile_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/user_request_screen_controller.dart';
+import 'package:local_saviors/screens/professional_screens/p_payment_method_screen.dart';
 
 import '../../controllers/professional_controllers/add_bank_controller.dart';
 import '../../controllers/professional_controllers/wallet_controller.dart';
@@ -96,5 +99,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => ChangePassController());
     Get.lazyPut(() => WalletController());
     Get.lazyPut(() => AddBankController());
+    Get.lazyPut(() => PaymentHistoryController());
+    Get.lazyPut(() => PaymentMethodController());
   }
 }

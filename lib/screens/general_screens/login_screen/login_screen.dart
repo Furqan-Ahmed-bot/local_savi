@@ -12,7 +12,6 @@ import 'package:local_saviors/utils/constant.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/text_fields.dart';
 import '../../../utils/images/image_assets.dart';
-import '../create_profile_screen/create_profile_screen.dart';
 import '../forget_password_screen/forget_password.dart';
 
 class LoginScreen extends StatelessWidget {
