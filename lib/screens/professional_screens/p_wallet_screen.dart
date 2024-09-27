@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +11,8 @@ import 'package:local_saviors/utils/images/image_assets.dart';
 import '../../utils/routes/routes.dart';
 
 class WalletScreen extends GetWidget<WalletController> {
+  final ValueNotifier<int> ci = ValueNotifier(0);
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +38,49 @@ class WalletScreen extends GetWidget<WalletController> {
                     Get.toNamed(RouteName.addBankScreen);
                   },
                 ),
+                10.verticalSpace,
+                Divider(),
+
+                ValueListenableBuilder(
+                    valueListenable: ci,
+                    builder: (_, v, c) {
+                      return CustomTabBar.tabBar(
+                        context,
+                        options: [
+                          'Credit',
+                          'Debit',
+                        ],
+                        currentIndex: v,
+                        onChanged: (i) {
+                          currentIndex = i;
+                          controller.updateIndex(currentIndex);
+
+                          ci.value = i;
+                          print(i);
+                        },
+                      );
+                    }),
+
+                10.verticalSpace,
+
+                Divider(),
+
+                Obx(
+                  () => Container(
+                    height: 0.52.sh,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.symmetric(vertical: 30.h),
+                      itemBuilder: (_, i) => transactionTile(context),
+                      separatorBuilder: (_, i) => Divider(
+                        height: 26.h,
+                        thickness: 1.h,
+                        color: const Color(0XFFBAC7DC),
+                      ),
+                      itemCount: controller.currentIndex == 0 ? 4 : 6,
+                    ),
+                  ),
+                )
                 // buildTransctions(context),
               ],
             ),
@@ -166,41 +211,41 @@ Widget transactionTile(BuildContext context) {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 60.h,
-            width: 60.w,
-            child: Image.asset(
-              ImageAssets.applyJobs,
-              fit: BoxFit.cover,
-            ),
-          ),
-          11.w.horizontalSpace,
+          // SizedBox(
+          //   height: 60.h,
+          //   width: 60.w,
+          //   child: Image.asset(
+          //     ImageAssets.applyJobs,
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
+          // 11.w.horizontalSpace,
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Transfer',
+                'Job: Lorem ipsum dolor sit amet..',
                 style: TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               9.h.verticalSpace,
               Text(
-                'Aug 25, 2022 | 10:00 AM',
+                'Refund - Aug 25, 2022 | 10:00 AM',
                 style: TextStyle(),
               ),
             ],
           ),
         ],
       ),
+      Spacer(),
       Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(' \$32.00',
               style: TextStyle(
-                fontWeight: FontWeight.w500,
-              )),
-          9.h.verticalSpace,
+                  fontWeight: FontWeight.bold, color: ColorUtils.blue)),
+          11.h.verticalSpace,
           Text(
             'Credit',
             style: TextStyle(
@@ -211,4 +256,61 @@ Widget transactionTile(BuildContext context) {
       ),
     ],
   );
+}
+
+class CustomTabBar {
+  static Widget tabBar(
+    BuildContext context, {
+    required List<String> options,
+    required int currentIndex,
+    required Function(int) onChanged,
+  }) {
+    return Row(
+      children: List.generate(
+        options.length,
+        (i) => tab(context,
+            label: options[i],
+            onTap: () => onChanged(i),
+            isSelected: currentIndex == i),
+      ),
+    );
+  }
+
+  static Widget tab(
+    BuildContext context, {
+    required String label,
+    VoidCallback? onTap,
+    required bool isSelected,
+  }) {
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: AnimatedContainer(
+            height: 40,
+            duration: const Duration(milliseconds: 600),
+            decoration: BoxDecoration(
+              color: isSelected ? ColorUtils.red : Colors.white,
+              borderRadius: BorderRadius.circular(
+                10.r,
+              ),
+              border: Border.all(
+                color: isSelected ? const Color(0X333A3A3C) : Colors.white,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  color: isSelected ? Colors.white : ColorUtils.black,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

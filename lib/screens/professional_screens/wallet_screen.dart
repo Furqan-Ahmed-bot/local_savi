@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, sized_box_for_whitespace, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +9,8 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 
 class ProviderWalletScreen extends GetWidget<WalletController> {
+  final ValueNotifier<int> ci = ValueNotifier(0);
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,37 +25,58 @@ class ProviderWalletScreen extends GetWidget<WalletController> {
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 0.055.sw,
-              vertical: 30.h,
+              vertical: 20.h,
             ),
             child: Column(
               children: [
                 buildWalletBalanceCard(
                   context,
                   balance: '\$15,658.2',
-                  // onTransfer: () {
-                  //   Get.toNamed(RouteName.addBankScreen);
-                  // },
                 ),
                 20.verticalSpace,
+                Divider(),
+
+                // Credit and Debit Buttons
+                ValueListenableBuilder(
+                    valueListenable: ci,
+                    builder: (_, v, c) {
+                      return CustomTabBar.tabBar(
+                        context,
+                        options: [
+                          'Credit',
+                          'Debit',
+                        ],
+                        currentIndex: v,
+                        onChanged: (i) {
+                          currentIndex = i;
+                          controller.updateIndex(currentIndex);
+
+                          ci.value = i;
+                          print(i);
+                        },
+                      );
+                    }),
+
+                10.verticalSpace,
 
                 Divider(),
 
-                Container(
-                  height: 0.64.sh,
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.symmetric(vertical: 30.h),
-                    itemBuilder: (_, i) => transactionTile(context),
-                    separatorBuilder: (_, i) => Divider(
-                      height: 26.h,
-                      thickness: 1.h,
-                      color: const Color(0XFFBAC7DC),
+                Obx(
+                  () => Container(
+                    height: 0.53.sh,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.symmetric(vertical: 30.h),
+                      itemBuilder: (_, i) => transactionTile(context),
+                      separatorBuilder: (_, i) => Divider(
+                        height: 26.h,
+                        thickness: 1.h,
+                        color: const Color(0XFFBAC7DC),
+                      ),
+                      itemCount: controller.currentIndex == 0 ? 4 : 6,
                     ),
-                    itemCount: 9,
                   ),
                 )
-
-                // buildTransctions(context),
               ],
             ),
           ),
@@ -211,4 +234,61 @@ Widget transactionTile(BuildContext context) {
       ),
     ],
   );
+}
+
+class CustomTabBar {
+  static Widget tabBar(
+    BuildContext context, {
+    required List<String> options,
+    required int currentIndex,
+    required Function(int) onChanged,
+  }) {
+    return Row(
+      children: List.generate(
+        options.length,
+        (i) => tab(context,
+            label: options[i],
+            onTap: () => onChanged(i),
+            isSelected: currentIndex == i),
+      ),
+    );
+  }
+
+  static Widget tab(
+    BuildContext context, {
+    required String label,
+    VoidCallback? onTap,
+    required bool isSelected,
+  }) {
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: AnimatedContainer(
+            height: 40,
+            duration: const Duration(milliseconds: 600),
+            decoration: BoxDecoration(
+              color: isSelected ? ColorUtils.red : Colors.white,
+              borderRadius: BorderRadius.circular(
+                10.r,
+              ),
+              border: Border.all(
+                color: isSelected ? const Color(0X333A3A3C) : Colors.white,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  color: isSelected ? Colors.white : ColorUtils.black,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
