@@ -1,19 +1,20 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_typing_uninitialized_variables, unnecessary_new, prefer_final_fields, avoid_unnecessary_containers
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
+import 'package:local_saviors/screens/general_screens/create_profile_screen/phone_textform_widget/phone_textformwidget.dart';
 import 'package:local_saviors/screens/general_screens/otp_verifiation_screen.dart/otp_verification.dart';
 import 'package:local_saviors/utils/color_utils.dart';
-import '../../../resources/components/back_appbar_button.dart';
-import '../../../resources/components/drop_down_widget.dart';
-import '../../../resources/components/text_fields.dart';
+import '../../../resources/components/bottom_navbar.dart';
+import '../../../resources/components/p_bottom_nav_bar.dart';
+import '../../../utils/constant.dart';
 import '../../../utils/images/image_assets.dart';
+import 'textfromfield_widget/textformfield_widget.dart';
 
 class CreateProfileScreen extends StatefulWidget {
   const CreateProfileScreen({super.key});
@@ -24,7 +25,7 @@ class CreateProfileScreen extends StatefulWidget {
 
 class _CreateProfileScreenState extends State<CreateProfileScreen> {
   TextEditingController _datecontroller = new TextEditingController();
-
+  String? _selectedGender = 'Male';
   List<String> gender = ['Male', 'Female'];
   File? _image;
   final picker = ImagePicker();
@@ -37,9 +38,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
+      } else {}
     });
   }
 
@@ -74,37 +73,38 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: BackButtonWidget(
-          onTap: () {
-            Get.back();
-          },
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFFD6EFFF), // Light blue shade for the top
+            Color(0xFFFFFFFF), // White shade for the bottom
+          ],
         ),
       ),
-      body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFD6EFFF), // Light blue shade for the top
-              Color(0xFFFFFFFF), // White shade for the bottom
-            ],
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Create Profile',
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
-        child: SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                110.verticalSpace,
+                10.verticalSpace,
                 Center(
                   child: Stack(
                     alignment: Alignment.center,
@@ -145,64 +145,74 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                     ],
                   ),
                 ),
-                20.verticalSpace,
+                30.verticalSpace,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       height: 0.07.sh,
-                      width: 0.44.sw, // can customize height
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      width: 0.42.sw, // can customize height
+
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
                       decoration: BoxDecoration(
+                        border: Border.all(color: Color(0xffDBE2EC)),
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
                       ),
                       child: TextFormField(
                         decoration: InputDecoration(
                           hintText: 'First Name',
-
-                          labelStyle: TextStyle(
-                            color: ColorUtils.red,
+                          prefixIcon: Container(
+                            child: Image.asset(
+                              ImageAssets.firstname,
+                              scale: 1.1,
+                            ),
+                          ),
+                          hintStyle: TextStyle(
+                            color: Color(0xffA5A5A5),
                             fontSize: 15.0,
                             letterSpacing: 0,
                           ),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.only(
-                              bottom: 14,
+                              bottom: 12,
                               top:
                                   0.0), // this can adjust the label and text position
-                          filled: true,
-                          fillColor: Colors.transparent, //or transparent
+                          //or transparent
                         ),
                         textAlignVertical: TextAlignVertical.bottom,
                       ),
                     ),
                     Container(
                       height: 0.07.sh,
-                      width: 0.44.sw, // can customize height
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      width: 0.42.sw, // can customize height
+
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
                       decoration: BoxDecoration(
+                        border: Border.all(color: Color(0xffDBE2EC)),
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
                       ),
                       child: TextFormField(
                         decoration: InputDecoration(
-                          hintText: 'First Name',
-
-                          labelStyle: TextStyle(
-                            color: ColorUtils.red,
+                          hintText: 'Last Name',
+                          prefixIcon: Container(
+                            child: Image.asset(
+                              ImageAssets.firstname,
+                              scale: 1.1,
+                            ),
+                          ),
+                          hintStyle: TextStyle(
+                            color: Color(0xffA5A5A5),
                             fontSize: 15.0,
                             letterSpacing: 0,
                           ),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.only(
-                              bottom: 14,
+                              bottom: 12,
                               top:
                                   0.0), // this can adjust the label and text position
-                          filled: true,
-                          fillColor: Colors.transparent, //or transparent
+                          //or transparent
                         ),
                         textAlignVertical: TextAlignVertical.bottom,
                       ),
@@ -212,113 +222,141 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 40.verticalSpace,
                 LabelTextFormFieldWidget(
                   controller: _datecontroller,
-                  height: 60,
+                  height: 50,
                   labeltext: 'Date of Birth',
                   issufficsenable: true,
-                  suffixicon: ImageAssets.appleicon,
+                  suffixicon: ImageAssets.smallcalendar,
                   ontap: () {
                     _selectDate(context);
                   },
                 ),
                 40.verticalSpace,
-                MyDropdownWidget(
-                  title: 'Select Gender',
-                  onChanged: (value) {},
-                  options: gender,
-                  selectedValue: 'Male',
+                Container(
+                  height: 0.07.sh,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Color(0xffDBE2EC)),
+                    color: Colors.white,
+                  ),
+                  child: DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      suffixIcon: Container(
+                        child: Image.asset(
+                          ImageAssets.arrowDown,
+                          scale: 2,
+                        ),
+                      ),
+                      hintText: 'Select Gender',
+                      hintStyle: TextStyle(
+                        color: Color(0xffA5A5A5),
+                      ), // Use hintText instead of labelText
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.only(bottom: 0, top: 7.0),
+                    ),
+                    value: _selectedGender,
+                    icon: SizedBox.shrink(),
+                    items: ['Male', 'Female', 'Other']
+                        .map((gender) => DropdownMenuItem(
+                              value: gender,
+                              child: Text(
+                                gender,
+                                style: TextStyle(color: Color(0xffA5A5A5)),
+                              ),
+                            ))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedGender = value;
+                      });
+                    },
+                  ),
                 ),
-                20.verticalSpace,
-                AuthTextField(
-                  hintColor: Color(0xffA5A5A5),
-                  hint: 'Address',
-                  label: '',
+                40.verticalSpace,
+                LabelTextFormFieldWidget(
+                  controller: _datecontroller,
+                  height: 50,
+                  labeltext: 'Address',
+                  issufficsenable: false,
+                  ontap: () {
+                    _selectDate(context);
+                  },
                 ),
-                AuthTextField(
-                  hintColor: Color(0xffA5A5A5),
-                  maxLine: 5,
-                  hint: 'About',
-                  label: '',
+                40.verticalSpace,
+                LabelTextFormFieldWidget(
+                  controller: _datecontroller,
+                  height: 50,
+                  labeltext: 'Location',
+                  issufficsenable: true,
+                  suffixicon: ImageAssets.userlocation,
+                  ontap: () {
+                    _selectDate(context);
+                  },
                 ),
+                40.verticalSpace,
+                LabelTextFormFieldWidget(
+                  maxlines: 5,
+                  controller: _datecontroller,
+                  labeltext: 'About',
+                  issufficsenable: false,
+                  ontap: () {
+                    _selectDate(context);
+                  },
+                ),
+                40.verticalSpace,
+                Container(
+                  height: 0.07.sh,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Color(0xffDBE2EC)),
+                    color: Colors.white,
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      prefixIcon: Container(
+                        child: Image.asset(
+                          ImageAssets.emailname,
+                          scale: 1.1,
+                        ),
+                      ),
+                      hintText: 'Last Name',
+
+                      hintStyle: TextStyle(
+                        color: Color(0xffA5A5A5),
+                        fontSize: 15.0,
+                        letterSpacing: 0,
+                      ),
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.only(
+                          bottom: 13,
+                          top:
+                              0.0), // this can adjust the label and text position
+                      filled: true,
+                      fillColor: Colors.transparent, //or transparent
+                    ),
+                    textAlignVertical: TextAlignVertical.bottom,
+                  ),
+                ),
+                40.verticalSpace,
+                phoneTextFormFieldWidget(),
+                40.verticalSpace,
                 RoundButton(
                     buttonColor: Color(0xffE50000),
                     height: 40,
                     width: 0.9.sw,
                     title: 'Continue',
                     onPress: () {
-                      Get.to(() => OtpVerificationScreen());
+                      role.value == "user"
+                          ? Get.to(() => NavbarScreen())
+                          : Get.to(PBottomNavBar());
                     }),
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class LabelTextFormFieldWidget extends StatelessWidget {
-  LabelTextFormFieldWidget({
-    this.height = 100,
-    this.width = 200,
-    this.controller,
-    this.labeltext = 'Label text',
-    this.suffixicon,
-    this.issufficsenable = false,
-    this.maxlines = 1,
-    this.ontap,
-    this.onChange,
-    this.onSubmitted,
-    super.key,
-  });
-  double height;
-  double width;
-  final TextEditingController? controller;
-  String labeltext;
-  bool issufficsenable;
-  final suffixicon;
-  int maxlines;
-  final Function()? ontap;
-  final Function(String)? onChange;
-  final Function(String)? onSubmitted;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: height, // can customize height
-      alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(horizontal: 18),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-      ),
-      child: TextFormField(
-        onFieldSubmitted: onSubmitted,
-        onChanged: onChange,
-        controller: controller,
-        maxLines: maxlines,
-        decoration: InputDecoration(
-          suffixIcon: issufficsenable
-              ? InkWell(
-                  onTap: ontap,
-                  child: Image.asset(
-                    suffixicon,
-                    scale: 1.4,
-                  ))
-              : null,
-          labelText: labeltext,
-          labelStyle: TextStyle(
-            color: ColorUtils.red,
-            fontSize: 18.0,
-            letterSpacing: 0,
-          ),
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.only(
-              bottom: 8,
-              top: 0.0), // this can adjust the label and text position
-          filled: true,
-          fillColor: Colors.transparent, //or transparent
-        ),
-        textAlignVertical: TextAlignVertical.bottom,
       ),
     );
   }

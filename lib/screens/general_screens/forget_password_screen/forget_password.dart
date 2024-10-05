@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/screens/general_screens/otp_verifiation_screen.dart/otp_verification.dart';
+import 'package:local_saviors/utils/constant.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/text_fields.dart';
 import '../../../utils/images/image_assets.dart';
@@ -81,6 +82,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   width: 0.9.sw,
                   title: 'Continue',
                   onPress: () {
+                    isProfileCreated = false;
                     Get.to(() => OtpVerificationScreen());
                   }),
             ],

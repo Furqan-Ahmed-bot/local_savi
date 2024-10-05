@@ -12,7 +12,9 @@ import 'package:local_saviors/utils/constant.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/text_fields.dart';
 import '../../../utils/images/image_assets.dart';
+import '../create_profile_screen/create_profile_screen.dart';
 import '../forget_password_screen/forget_password.dart';
+import '../signup_screen/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -76,13 +78,15 @@ class LoginScreen extends StatelessWidget {
               40.verticalSpace,
               AuthTextField(
                 hint: 'Email Address / Phone Number',
-                icon: ImageAssets.emailicon,
+                icon: ImageAssets.emailname,
+                scale: 1,
                 hintColor: Color(0xffA5A5A5),
               ),
               20.verticalSpace,
               AuthTextField(
                 hint: 'Password',
                 icon: ImageAssets.password,
+                scale: 1,
                 hintColor: Color(0xffA5A5A5),
               ),
               20.verticalSpace,
@@ -115,7 +119,7 @@ class LoginScreen extends StatelessWidget {
               120.verticalSpace,
               GestureDetector(
                 onTap: () {
-                  // Get.to(() => CreateProfileScreen());
+                  Get.to(() => SignupScreen());
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

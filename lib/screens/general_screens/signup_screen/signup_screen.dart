@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
-import 'package:local_saviors/utils/color_utils.dart';
+import 'package:local_saviors/screens/general_screens/otp_verifiation_screen.dart/otp_verification.dart';
+import 'package:local_saviors/utils/constant.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/text_fields.dart';
 import '../../../utils/images/image_assets.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,6 @@ class ResetPasswordScreen extends StatelessWidget {
         elevation: 0,
         leading: BackButtonWidget(
           onTap: () {
-            Get.back();
             Get.back();
           },
         ),
@@ -53,44 +53,52 @@ class ResetPasswordScreen extends StatelessWidget {
               ),
               50.verticalSpace,
               Text(
-                'Reset Password',
+                'Sign Up',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               20.verticalSpace,
               Text(
-                'Set your new password',
+                'Create New Account!',
                 style: TextStyle(
                   fontSize: 14,
                 ),
               ),
               20.verticalSpace,
               Container(
-                color: ColorUtils.red,
+                color: Colors.red,
                 height: 5,
                 width: 50,
               ),
               40.verticalSpace,
               AuthTextField(
-                hint: 'Password',
-                icon: ImageAssets.password,
+                hint: 'Email Address / Phone Number',
+                icon: ImageAssets.emailname,
+                scale: 1,
                 hintColor: Color(0xffA5A5A5),
               ),
               20.verticalSpace,
               AuthTextField(
-                hint: 'Reset Password',
-                icon: ImageAssets.password,
+                hint: 'Password',
+                icon: ImageAssets.lockIcon,
+                scale: 1.7,
                 hintColor: Color(0xffA5A5A5),
               ),
-              40.verticalSpace,
+              20.verticalSpace,
+              AuthTextField(
+                hint: 'Confirm Password',
+                icon: ImageAssets.lockIcon,
+                scale: 1.7,
+                hintColor: Color(0xffA5A5A5),
+              ),
+              50.verticalSpace,
               RoundButton(
                   buttonColor: Color(0xffE50000),
                   height: 40,
                   width: 0.9.sw,
-                  title: 'Reset',
+                  title: 'Sign Up',
                   onPress: () {
-                    Get.back();
-                    Get.back();
-                    Get.back();
+                    isProfileCreated = true;
+                    Get.to(() => OtpVerificationScreen());
                   }),
             ],
           ),

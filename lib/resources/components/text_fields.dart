@@ -16,6 +16,7 @@ class AuthTextField extends StatelessWidget {
   final String? initialValue;
   final double? iconW;
   final TextInputType? type;
+
   final FocusNode? focus;
   final FocusNode? nextFocus;
   final bool readOnly;
@@ -24,6 +25,7 @@ class AuthTextField extends StatelessWidget {
   final VoidCallback? onTap;
   final double? radius;
   final double borderWidth;
+  final double scale;
   final int? minLine;
   final int? maxLine;
   final Color? hintColor;
@@ -51,6 +53,7 @@ class AuthTextField extends StatelessWidget {
     this.initialValue,
     this.suffixIcon,
     this.radius,
+    this.scale = 1.6,
     this.minLine,
     this.maxLine,
     this.textStyle,
@@ -124,7 +127,7 @@ class AuthTextField extends StatelessWidget {
                               // width: iconW,
                               child: Image.asset(
                                 icon ?? '',
-                                scale: 1.6,
+                                scale: scale,
                               ),
                             ),
                           ),

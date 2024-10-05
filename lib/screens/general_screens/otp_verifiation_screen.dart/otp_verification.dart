@@ -6,7 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
+import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_screen.dart';
 import 'package:local_saviors/utils/color_utils.dart';
+import 'package:local_saviors/utils/constant.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
@@ -123,7 +125,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   width: 0.9.sw,
                   title: 'Continue',
                   onPress: () {
-                    Get.to(() => ResetPasswordScreen());
+                    if (isProfileCreated == true) {
+                      Get.to(() => CreateProfileScreen());
+                    } else {
+                      Get.to(() => ResetPasswordScreen());
+                    }
                   }),
               40.verticalSpace,
               Center(

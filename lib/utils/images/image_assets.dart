@@ -105,4 +105,8 @@ class ImageAssets {
   static String add = 'assets/icons/addicon.png';
   static String dollar = 'assets/icons/dollar.png';
   static String password = 'assets/icons/password.png';
+  static String smallcalendar = 'assets/icons/cal.png';
+  static String userlocation = 'assets/icons/userlocation.png';
+  static String firstname = 'assets/icons/firstname.png';
+  static String emailname = 'assets/icons/mail.png';
 }
