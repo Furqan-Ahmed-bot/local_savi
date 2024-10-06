@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -1424,7 +1426,7 @@ Widget applyJobCard({required context}) {
                               ),
                               20.h.verticalSpace,
                               Text(
-                                "Your request has been submitted",
+                                "Your Application has been submitted",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: ColorUtils.black,

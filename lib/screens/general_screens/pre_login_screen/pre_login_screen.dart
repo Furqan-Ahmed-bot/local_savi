@@ -78,7 +78,7 @@ class PreLoginScreen extends StatelessWidget {
                   scale: 1.5,
                 ),
                 width: 0.9.sw,
-                title: 'Sign-In With Email Address',
+                title: 'Email Address/Phone Number',
                 onPress: () {
                   Get.to(LoginScreen());
                 },
@@ -135,12 +135,12 @@ class PreLoginScreen extends StatelessWidget {
                 },
                 buttonColor: Colors.transparent,
               ),
-              40.verticalSpace,
+              Spacer(),
               Center(
                 child: Column(
                   children: [
                     Text(
-                      'By signing-in, you agree to our',
+                      'By sign-in, you agree to our',
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -156,7 +156,8 @@ class PreLoginScreen extends StatelessWidget {
                     )
                   ],
                 ),
-              )
+              ),
+              15.verticalSpace
             ],
           ),
         ),

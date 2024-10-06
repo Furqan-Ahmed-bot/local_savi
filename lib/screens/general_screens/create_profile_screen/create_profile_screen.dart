@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/phone_textform_widget/phone_textformwidget.dart';
-import 'package:local_saviors/screens/general_screens/otp_verifiation_screen.dart/otp_verification.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import '../../../resources/components/bottom_navbar.dart';
 import '../../../resources/components/p_bottom_nav_bar.dart';
@@ -53,7 +52,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
         return Theme(
           data: ThemeData.light().copyWith(
             // Customize the theme here
-            primaryColor: Colors.purple, // Change primary color
+            primaryColor: Colors.red, // Change primary color
             //accentColor: Colors.green, // Change accent color
             // colorScheme:
             //     ColorScheme.light(primary: themecolor), // Change color scheme
@@ -275,7 +274,6 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 ),
                 40.verticalSpace,
                 LabelTextFormFieldWidget(
-                  controller: _datecontroller,
                   height: 50,
                   labeltext: 'Address',
                   issufficsenable: false,
@@ -285,7 +283,6 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 ),
                 40.verticalSpace,
                 LabelTextFormFieldWidget(
-                  controller: _datecontroller,
                   height: 50,
                   labeltext: 'Location',
                   issufficsenable: true,
@@ -297,7 +294,6 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 40.verticalSpace,
                 LabelTextFormFieldWidget(
                   maxlines: 5,
-                  controller: _datecontroller,
                   labeltext: 'About',
                   issufficsenable: false,
                   ontap: () {
@@ -322,7 +318,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                           scale: 1.1,
                         ),
                       ),
-                      hintText: 'Last Name',
+                      hintText: 'Email',
 
                       hintStyle: TextStyle(
                         color: Color(0xffA5A5A5),
@@ -353,6 +349,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                           ? Get.to(() => NavbarScreen())
                           : Get.to(PBottomNavBar());
                     }),
+                25.verticalSpace
               ],
             ),
           ),

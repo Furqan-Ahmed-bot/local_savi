@@ -76,7 +76,7 @@ class SelectUserRoleOne extends StatelessWidget {
                 title: 'Continue as a Job Performer',
                 icon: ImageAssets.performer,
               ),
-              80.verticalSpace,
+              Spacer(),
               Center(
                 child: Column(
                   children: [
@@ -97,7 +97,8 @@ class SelectUserRoleOne extends StatelessWidget {
                     )
                   ],
                 ),
-              )
+              ),
+              15.verticalSpace
             ],
           ),
         ),

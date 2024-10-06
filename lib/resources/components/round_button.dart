@@ -15,7 +15,7 @@ class RoundButton extends StatelessWidget {
       this.borderwigth = 0.8,
       this.width = 60,
       this.iconpadding = 20,
-      this.textcontainerwidth = 0.50,
+      this.textcontainerwidth = 0.55,
       this.height = 50,
       this.loading = false,
       this.isBorderEnable = false,

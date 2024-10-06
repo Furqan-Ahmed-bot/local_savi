@@ -12,7 +12,6 @@ import 'package:local_saviors/utils/constant.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/text_fields.dart';
 import '../../../utils/images/image_assets.dart';
-import '../create_profile_screen/create_profile_screen.dart';
 import '../forget_password_screen/forget_password.dart';
 import '../signup_screen/signup_screen.dart';
 
@@ -116,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              120.verticalSpace,
+              Spacer(),
               GestureDetector(
                 onTap: () {
                   Get.to(() => SignupScreen());
@@ -125,7 +124,7 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Didn’t have an account?',
+                      'Don’t have an account?',
                       style: GoogleFonts.poppins(
                           fontSize: 14.sp, color: Colors.black),
                     ),
@@ -140,7 +139,8 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
+              15.verticalSpace
             ],
           ),
         ),

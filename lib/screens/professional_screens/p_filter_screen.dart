@@ -1,5 +1,6 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_filter_controller.dart';
@@ -73,11 +74,18 @@ class PFilterScreen extends GetWidget<PFilterController> {
                           color: ColorUtils.black),
                     ),
                     10.verticalSpace,
-                    EditText(
-                        hintText: "06/29/2024",
-                        context: context,
-                        suffixIcon: ImageAssets.calendar,
-                        bordercolor: Colors.transparent),
+                    Obx(
+                      () => EditText(
+                          readonly: true,
+                          controller: controller.dateController.value,
+                          hintText: "06/29/2024",
+                          context: context,
+                          ONTAP: () {
+                            controller.selectDate(context);
+                          },
+                          suffixIcon: ImageAssets.calendar,
+                          bordercolor: Colors.transparent),
+                    ),
                     10.verticalSpace,
                     Text(
                       "Job Time",

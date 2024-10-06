@@ -24,7 +24,7 @@ class OtpVerificationScreen extends StatefulWidget {
 }
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
-  final int _duration = 10;
+  final int _duration = 60;
 
   final CountDownController _controller = CountDownController();
 
