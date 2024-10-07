@@ -1420,7 +1420,7 @@ Widget applyJobCard({required context}) {
                                 "Thank You!",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: ColorUtils.black,
+                                  color: ColorUtils.black, 
                                   fontSize: 22.sp,
                                 ),
                               ),

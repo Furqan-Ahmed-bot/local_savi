@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unrelated_type_equality_checks, avoid_unnecessary_containers, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unrelated_type_equality_checks, avoid_unnecessary_containers, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,368 +38,365 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
               child: Scaffold(
                 key: _key,
                 drawer: Container(
-                  child: Drawer(
-                    width: 300,
-                    child: Container(
-                      height: 1.sh,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          colors: [
-                            Color(0xFFD6EFFF), // Light blue shade for the top
-                            Color(0xFFFFFFFF),
-                          ],
+                  child: Stack(clipBehavior: Clip.none, children: [
+                    Drawer(
+                      width: 300,
+                      child: Container(
+                        height: 1.sh,
+                        width: 200,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            colors: [
+                              Color(0xFFD6EFFF), // Light blue shade for the top
+                              Color(0xFFFFFFFF),
+                            ],
+                          ),
                         ),
-                      ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                30.verticalSpace,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.close(1);
-                                      },
-                                      child: SizedBox(
-                                        height: 40,
-                                        width: 40,
-                                        child: Icon(
-                                          Icons.close,
-                                          color: Colors.white,
-                                        ),
-                                      ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  70.verticalSpace,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image(
+                                        image: AssetImage(
+                                            ImageAssets.oliverDetailImg),
+                                        height: 90,
+                                      )
+                                      // Container(
+                                      //   height: 140.h,
+                                      //   width: 140.w,
+                                      //   decoration: BoxDecoration(
+                                      //     border: Border.all(
+                                      //         color: Colors.white, width: 5),
+                                      //     shape: BoxShape.circle,
+                                      //   ),
+                                      //   child: CircleAvatar(
+                                      //     backgroundImage:
+                                      //         AssetImage("assets/profile.png"),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                  16.verticalSpace,
+                                  Center(
+                                    child: Text(
+                                      'Oliver Mark',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
                                     ),
-                                    20.horizontalSpace,
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image(
-                                      image: AssetImage(
-                                          ImageAssets.oliverDetailImg),
-                                      height: 90,
-                                    )
-                                    // Container(
-                                    //   height: 140.h,
-                                    //   width: 140.w,
-                                    //   decoration: BoxDecoration(
-                                    //     border: Border.all(
-                                    //         color: Colors.white, width: 5),
-                                    //     shape: BoxShape.circle,
-                                    //   ),
-                                    //   child: CircleAvatar(
-                                    //     backgroundImage:
-                                    //         AssetImage("assets/profile.png"),
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
-                                16.verticalSpace,
-                                Center(
-                                  child: Text(
-                                    'Oliver Mark',
+                                  ),
+                                  Text(
+                                    'oliver.mark@domain.com',
                                     style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                                Text(
-                                  'oliver.mark@domain.com',
-                                  style: TextStyle(
-                                      fontSize: 15, color: Colors.black),
-                                )
-                              ],
-                            ),
-                            60.verticalSpace,
-                            GestureDetector(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Row(
-                                children: [
-                                  40.horizontalSpace,
-                                  Image.asset(
-                                    ImageAssets.drawerHome,
-                                    scale: 2,
-                                  ),
-                                  20.horizontalSpace,
-                                  Text(
-                                    "Home",
-                                    style: TextStyle(color: Colors.black),
+                                        fontSize: 15, color: Colors.black),
                                   )
                                 ],
                               ),
-                            ),
-                            40.verticalSpace,
-                            GestureDetector(
-                              onTap: () {
-                                Get.back();
-
-                                Get.toNamed(RouteName.pMyProfileScreenPath);
-                              },
-                              child: Row(
-                                children: [
-                                  40.horizontalSpace,
-                                  Image.asset(
-                                    ImageAssets.drawerProfile,
-                                    scale: 2,
-                                  ),
-                                  20.horizontalSpace,
-                                  Text(
-                                    "My Profile",
-                                    style: TextStyle(color: Colors.black),
-                                  )
-                                ],
-                              ),
-                            ),
-                            40.verticalSpace,
-                            GestureDetector(
-                              onTap: () {
-                                Get.toNamed(RouteName.walletScreen);
-                                // Get.to(() => goalsHistoryScreen());
-                              },
-                              child: Row(
-                                children: [
-                                  40.horizontalSpace,
-                                  Image.asset(
-                                    ImageAssets.drawerWallet,
-                                    scale: 2,
-                                  ),
-                                  20.horizontalSpace,
-                                  Text(
-                                    "My Wallet",
-                                    style: TextStyle(color: Colors.black),
-                                  )
-                                ],
-                              ),
-                            ),
-                            40.verticalSpace,
-                            GestureDetector(
-                              onTap: () {
-                                Get.back();
-
-                                Get.toNamed(RouteName.pNotificaitonScreenPath);
-                              },
-                              child: Row(
-                                children: [
-                                  40.horizontalSpace,
-                                  Image.asset(
-                                    ImageAssets.drawerNotification,
-                                    scale: 2,
-                                  ),
-                                  20.horizontalSpace,
-                                  Text(
-                                    "Notifications",
-                                    style: TextStyle(color: Colors.black),
-                                  )
-                                ],
-                              ),
-                            ),
-                            40.verticalSpace,
-                            GestureDetector(
-                              onTap: () {
-                                Get.back();
-
-                                Get.toNamed(RouteName.pHelpFeedbackScreenPath);
-                              },
-                              child: Row(
-                                children: [
-                                  40.horizontalSpace,
-                                  Image.asset(
-                                    ImageAssets.drawerHelp,
-                                    scale: 2,
-                                  ),
-                                  20.horizontalSpace,
-                                  Text(
-                                    "Help & Feedback",
-                                    style: TextStyle(color: Colors.black),
-                                  )
-                                ],
-                              ),
-                            ),
-                            40.verticalSpace,
-                            GestureDetector(
-                              onTap: () {
-                                // Get.to(() => settingsScreen());
-                                Get.back();
-                                Get.toNamed(RouteName.settingScreenPath);
-                              },
-                              child: Row(
-                                children: [
-                                  40.horizontalSpace,
-                                  Image.asset(
-                                    ImageAssets.drawerSetting,
-                                    scale: 2,
-                                  ),
-                                  20.horizontalSpace,
-                                  Text(
-                                    "Settings",
-                                    style: TextStyle(color: Colors.black),
-                                  )
-                                ],
-                              ),
-                            ),
-                            40.verticalSpace,
-                            GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        insetPadding: EdgeInsets.symmetric(
-                                            horizontal: 20.w),
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        backgroundColor:
-                                            ColorUtils.dialogeBGColor,
-                                        content: SizedBox(
-                                          width: 1.0.sw,
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              20.h.verticalSpace,
-                                              Container(
-                                                padding: EdgeInsets.all(23.sp),
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color:
-                                                        ColorUtils.jobIconBG),
-                                                child: Image.asset(
-                                                  ImageAssets.logoutBigIcon,
-                                                  scale: 2,
-                                                ),
-                                              ),
-                                              20.h.verticalSpace,
-                                              Text(
-                                                "Logout!",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: ColorUtils.black,
-                                                  fontSize: 22.sp,
-                                                ),
-                                              ),
-                                              24.h.verticalSpace,
-                                              Text(
-                                                "Are you sure you want to Logout?",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: ColorUtils.black,
-                                                  fontSize: 14.sp,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        actions: [
-                                          Container(
-                                            width: 1.0.sw,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      Get.offAllNamed(RouteName
-                                                          .selectRoleOne);
-                                                    },
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              vertical: 15.h),
-                                                      decoration: BoxDecoration(
-                                                          color:
-                                                              ColorUtils.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.r),
-                                                          border: Border.all(
-                                                              width: 1.w,
-                                                              color: ColorUtils
-                                                                  .borderColor)),
-                                                      child: const Text(
-                                                          "Yes, Select"),
-                                                    ),
-                                                  ),
-                                                ),
-                                                20.w.horizontalSpace,
-                                                Expanded(
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      Get.back();
-                                                    },
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              vertical: 15.h),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.r),
-                                                        color: ColorUtils.red,
-                                                      ),
-                                                      child: Text(
-                                                        "No",
-                                                        style: TextStyle(
-                                                            color: ColorUtils
-                                                                .white),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      );
-                                    });
-                              },
-                              child: Container(
-                                width: 0.55.sw,
-                                padding: EdgeInsets.symmetric(vertical: 20.h),
-                                decoration: BoxDecoration(
-                                    color: ColorUtils.red,
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(20.r),
-                                        bottomRight: Radius.circular(20.r))),
+                              60.verticalSpace,
+                              GestureDetector(
+                                onTap: () {
+                                  Get.back();
+                                },
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     40.horizontalSpace,
                                     Image.asset(
-                                      ImageAssets.drawerLogout,
+                                      ImageAssets.drawerHome,
                                       scale: 2,
                                     ),
                                     20.horizontalSpace,
                                     Text(
-                                      "Logout",
-                                      style: TextStyle(color: Colors.white),
+                                      "Home",
+                                      style: TextStyle(color: Colors.black),
                                     )
                                   ],
                                 ),
                               ),
-                            ),
-                            20.verticalSpace,
-                          ],
+                              40.verticalSpace,
+                              GestureDetector(
+                                onTap: () {
+                                  Get.back();
+
+                                  Get.toNamed(RouteName.pMyProfileScreenPath);
+                                },
+                                child: Row(
+                                  children: [
+                                    40.horizontalSpace,
+                                    Image.asset(
+                                      ImageAssets.drawerProfile,
+                                      scale: 2,
+                                    ),
+                                    20.horizontalSpace,
+                                    Text(
+                                      "My Profile",
+                                      style: TextStyle(color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              40.verticalSpace,
+                              GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(RouteName.walletScreen);
+                                  // Get.to(() => goalsHistoryScreen());
+                                },
+                                child: Row(
+                                  children: [
+                                    40.horizontalSpace,
+                                    Image.asset(
+                                      ImageAssets.drawerWallet,
+                                      scale: 2,
+                                    ),
+                                    20.horizontalSpace,
+                                    Text(
+                                      "My Wallet",
+                                      style: TextStyle(color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              40.verticalSpace,
+                              GestureDetector(
+                                onTap: () {
+                                  Get.back();
+
+                                  Get.toNamed(
+                                      RouteName.pNotificaitonScreenPath);
+                                },
+                                child: Row(
+                                  children: [
+                                    40.horizontalSpace,
+                                    Image.asset(
+                                      ImageAssets.drawerNotification,
+                                      scale: 2,
+                                    ),
+                                    20.horizontalSpace,
+                                    Text(
+                                      "Notifications",
+                                      style: TextStyle(color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              40.verticalSpace,
+                              GestureDetector(
+                                onTap: () {
+                                  Get.back();
+
+                                  Get.toNamed(
+                                      RouteName.pHelpFeedbackScreenPath);
+                                },
+                                child: Row(
+                                  children: [
+                                    40.horizontalSpace,
+                                    Image.asset(
+                                      ImageAssets.drawerHelp,
+                                      scale: 2,
+                                    ),
+                                    20.horizontalSpace,
+                                    Text(
+                                      "Help & Feedback",
+                                      style: TextStyle(color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              40.verticalSpace,
+                              GestureDetector(
+                                onTap: () {
+                                  // Get.to(() => settingsScreen());
+                                  Get.back();
+                                  Get.toNamed(RouteName.settingScreenPath);
+                                },
+                                child: Row(
+                                  children: [
+                                    40.horizontalSpace,
+                                    Image.asset(
+                                      ImageAssets.drawerSetting,
+                                      scale: 2,
+                                    ),
+                                    20.horizontalSpace,
+                                    Text(
+                                      "Settings",
+                                      style: TextStyle(color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              40.verticalSpace,
+                              GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          insetPadding: EdgeInsets.symmetric(
+                                              horizontal: 20.w),
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          backgroundColor:
+                                              ColorUtils.dialogeBGColor,
+                                          content: SizedBox(
+                                            width: 1.0.sw,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                20.h.verticalSpace,
+                                                Container(
+                                                  padding:
+                                                      EdgeInsets.all(23.sp),
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color:
+                                                          ColorUtils.jobIconBG),
+                                                  child: Image.asset(
+                                                    ImageAssets.logoutBigIcon,
+                                                    scale: 2,
+                                                  ),
+                                                ),
+                                                20.h.verticalSpace,
+                                                Text(
+                                                  "Logout!",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: ColorUtils.black,
+                                                    fontSize: 22.sp,
+                                                  ),
+                                                ),
+                                                24.h.verticalSpace,
+                                                Text(
+                                                  "Are you sure you want to Logout?",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: ColorUtils.black,
+                                                    fontSize: 14.sp,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          actions: [
+                                            Container(
+                                              width: 1.0.sw,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        Get.offAllNamed(
+                                                            RouteName
+                                                                .selectRoleOne);
+                                                      },
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                vertical: 15.h),
+                                                        decoration: BoxDecoration(
+                                                            color: ColorUtils
+                                                                .white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.r),
+                                                            border: Border.all(
+                                                                width: 1.w,
+                                                                color: ColorUtils
+                                                                    .borderColor)),
+                                                        child: const Text(
+                                                            "Yes, Select"),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  20.w.horizontalSpace,
+                                                  Expanded(
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        Get.back();
+                                                      },
+                                                      child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                vertical: 15.h),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.r),
+                                                          color: ColorUtils.red,
+                                                        ),
+                                                        child: Text(
+                                                          "No",
+                                                          style: TextStyle(
+                                                              color: ColorUtils
+                                                                  .white),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      });
+                                },
+                                child: Container(
+                                  width: 0.55.sw,
+                                  padding: EdgeInsets.symmetric(vertical: 20.h),
+                                  decoration: BoxDecoration(
+                                      color: ColorUtils.red,
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(20.r),
+                                          bottomRight: Radius.circular(20.r))),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      40.horizontalSpace,
+                                      Image.asset(
+                                        ImageAssets.drawerLogout,
+                                        scale: 2,
+                                      ),
+                                      20.horizontalSpace,
+                                      Text(
+                                        "Logout",
+                                        style: TextStyle(color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              20.verticalSpace,
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                    Positioned(
+                        left: 0.78.sw,
+                        top: 30,
+                        child: InkWell(
+                            onTap: () {
+                              Get.close(1);
+                            },
+                            child: Image.asset(ImageAssets.closeDrawer)))
+                  ]),
                 ),
 
                 appBar: bottomController.count == 0
@@ -621,7 +618,7 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
   buildMyNavBar2(BuildContext context) {
     return Container(
       //height: 100.h,
-      color: Colors.transparent,
+      color: Color.fromARGB(255, 247, 251, 255),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Stack(

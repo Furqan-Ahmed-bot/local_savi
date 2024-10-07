@@ -109,4 +109,5 @@ class ImageAssets {
   static String userlocation = 'assets/icons/userlocation.png';
   static String firstname = 'assets/icons/firstname.png';
   static String emailname = 'assets/icons/mail.png';
+  static String closeDrawer = 'assets/images/closedrawer.png';
 }
