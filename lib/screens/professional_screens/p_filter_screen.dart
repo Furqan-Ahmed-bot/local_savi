@@ -74,18 +74,16 @@ class PFilterScreen extends GetWidget<PFilterController> {
                           color: ColorUtils.black),
                     ),
                     10.verticalSpace,
-                    Obx(
-                      () => EditText(
-                          readonly: true,
-                          controller: controller.dateController.value,
-                          hintText: "06/29/2024",
-                          context: context,
-                          ONTAP: () {
-                            controller.selectDate(context);
-                          },
-                          suffixIcon: ImageAssets.calendar,
-                          bordercolor: Colors.transparent),
-                    ),
+                    EditText(
+                        readonly: true,
+                        controller: controller.dateController,
+                        hintText: "06/29/2024",
+                        context: context,
+                        ONTAP: () {
+                          controller.selectDate(context);
+                        },
+                        suffixIcon: ImageAssets.calendar,
+                        bordercolor: Colors.transparent),
                     10.verticalSpace,
                     Text(
                       "Job Time",

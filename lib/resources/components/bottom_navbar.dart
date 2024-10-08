@@ -272,7 +272,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                 ),
                               ),
                               40.verticalSpace,
-                              GestureDetector(
+                              InkWell(
                                 onTap: () {
                                   showDialog(
                                       context: context,
@@ -561,7 +561,8 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                 actions: [
                                   GestureDetector(
                                     onTap: () {
-                                      // Get.toNamed(RouteName.notificationsScreenPath);
+                                      Get.toNamed(
+                                          RouteName.editProfileScreenPath);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(right: 20.w),

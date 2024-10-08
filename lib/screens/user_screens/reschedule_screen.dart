@@ -120,6 +120,11 @@ class RescheduleScreen extends GetWidget<RescheduleScreenController> {
                 EditText(
                     hintText: "06/29/2024",
                     context: context,
+                    readonly: true,
+                    ONTAP: () {
+                      controller.selectDate(context);
+                    },
+                    controller: controller.dateController,
                     suffixIcon: ImageAssets.calendar,
                     bordercolor: Colors.transparent),
                 10.verticalSpace,

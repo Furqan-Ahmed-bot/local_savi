@@ -241,7 +241,10 @@ Widget userRequestCard({
             GestureDetector(
               onTap: () {
                 Get.toNamed(RouteName.bestPerformerDetailScreenPath,
-                    arguments: "User Request");
+                    arguments: {
+                      "title": "User Request",
+                      "showChat": true,
+                    });
               },
               child: Row(
                 children: [
@@ -353,6 +356,7 @@ Widget inviteUserCard({
   required String image,
   required String name,
   required String rating,
+  required bool isInvited,
 }) {
   return Column(
     children: [
@@ -436,14 +440,19 @@ Widget inviteUserCard({
                       width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
               child: Row(
                 children: [
-                  Image.asset(
-                    ImageAssets.applyJobs,
-                    color: ColorUtils.white,
-                    scale: 2,
-                  ),
+                  isInvited
+                      ? Image.asset(
+                          ImageAssets.doneMark,
+                          scale: 2,
+                        )
+                      : Image.asset(
+                          ImageAssets.applyJobs,
+                          color: ColorUtils.white,
+                          scale: 2,
+                        ),
                   5.w.horizontalSpace,
                   Text(
-                    "Invite",
+                    isInvited ? "Sent" : "Invite",
                     style: TextStyle(fontSize: 16.sp, color: ColorUtils.white),
                   ),
                 ],
@@ -562,7 +571,10 @@ Widget bestPerformerCard({
             GestureDetector(
               onTap: () {
                 Get.toNamed(RouteName.bestPerformerDetailScreenPath,
-                    arguments: "Best Performer");
+                    arguments: {
+                      "title": "Best Performer",
+                      "showChat": true,
+                    });
               },
               child: Row(
                 children: [
@@ -674,8 +686,14 @@ Widget shortlistUserCard({
               onTap: () {
                 Get.toNamed(RouteName.bestPerformerDetailScreenPath,
                     arguments: showSelectJobButton
-                        ? "Shortlist User"
-                        : "Employee Profile");
+                        ? {
+                            "title": "Shortlist User",
+                            "showChat": true,
+                          }
+                        : {
+                            "title": "Employee Profile",
+                            "showChat": true,
+                          });
               },
               child: Row(
                 children: [
@@ -1420,7 +1438,7 @@ Widget applyJobCard({required context}) {
                                 "Thank You!",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: ColorUtils.black, 
+                                  color: ColorUtils.black,
                                   fontSize: 22.sp,
                                 ),
                               ),

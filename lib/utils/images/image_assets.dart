@@ -14,6 +14,9 @@ class ImageAssets {
   static String johnImg = 'assets/icons/john.png';
   static String oliverImg = 'assets/icons/oliver.png';
   static String starIcon = 'assets/icons/star.png';
+  static String person = 'assets/icons/person.png';
+  static String clock = 'assets/icons/clock.png';
+  static String dollarCircle = 'assets/icons/dollar_circle.png';
   static String starRatingIcon = 'assets/icons/star_rating.png';
   static String starOutlineIcon = 'assets/icons/star_outline.png';
   static String featuresImg = 'assets/icons/features_add.png';
@@ -30,6 +33,7 @@ class ImageAssets {
   static String forwardArrow = 'assets/icons/forward_arrow.png';
   static String viewDetailIcon = 'assets/icons/view_detail_icon.png';
   static String applyJobs = 'assets/icons/apply_job.png';
+  static String doneMark = 'assets/icons/done_mark.png';
   static String jobBigIcon = 'assets/icons/job_big_icon.png';
   static String requestGroupImgs = 'assets/icons/requests_group.png';
   static String usersIcon = 'assets/icons/users.png';

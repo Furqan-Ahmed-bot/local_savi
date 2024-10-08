@@ -24,6 +24,8 @@ class RouteName {
   static const String rateEmployeeScreenPath = '/rateEmployeeScreenPath';
   static const String disputePaymentScreenPath = '/disputePaymentScreenPath';
   static const String chatScreenPath = '/chatScreenPath';
+  static const String editProfileScreenPath = '/editProfileScreenPath';
+  static const String editJobScreenPath = '/editJobScreenPath';
   static const String jobCancelScreenPath = '/jobCancelScreenPath';
   static const String rescheduleJobScreenPath = '/rescheduleJobScreenPath';
   static const String rescheduleCardsScreenPath = '/rescheduleCardsScreenPath';

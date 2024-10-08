@@ -387,6 +387,11 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                       EditText(
                           hintText: "06/29/2024",
                           context: context,
+                          readonly: true,
+                          ONTAP: () {
+                            controller.selectDate(context);
+                          },
+                          controller: controller.dateController,
                           suffixIcon: ImageAssets.calendar,
                           bordercolor: Colors.transparent),
                       10.verticalSpace,
@@ -402,20 +407,144 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                         () => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            EditText(
-                                width: 0.26.sw,
-                                hintText: "00",
-                                context: context,
-                                isDropDown: true,
-                                suffixIcon: ImageAssets.arrowDown,
-                                bordercolor: Colors.transparent),
-                            EditText(
-                                width: 0.26.sw,
-                                hintText: "00",
-                                context: context,
-                                isDropDown: true,
-                                suffixIcon: ImageAssets.arrowDown,
-                                bordercolor: Colors.transparent),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 0.28.sw,
+                                  height: 0.07.sh,
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 18),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: const Color(0xffDBE2EC)),
+                                    color: Colors.white,
+                                  ),
+                                  child: DropdownButtonFormField<String>(
+                                    decoration: InputDecoration(
+                                      suffixIcon: Container(
+                                        child: Image.asset(
+                                          ImageAssets.arrowDown,
+                                          scale: 2.5,
+                                        ),
+                                      ),
+                                      hintText: "00",
+                                      hintStyle: const TextStyle(
+                                        color: Color(0xffA5A5A5),
+                                      ), // Use hintText instead of labelText
+                                      border: InputBorder.none,
+                                      contentPadding: const EdgeInsets.only(
+                                          bottom: 0, top: 7.0),
+                                    ),
+                                    value: controller.selectedTime,
+                                    icon: const SizedBox.shrink(),
+                                    items: [
+                                      '00',
+                                      '01',
+                                      '03',
+                                      '04',
+                                      '05',
+                                      '06',
+                                      '07',
+                                      '08',
+                                      '09',
+                                      '10',
+                                      '11',
+                                      '12',
+                                    ]
+                                        .map((gender) => DropdownMenuItem(
+                                              value: gender,
+                                              child: Text(
+                                                gender,
+                                                style: TextStyle(
+                                                    fontSize: 14.sp,
+                                                    color: Color(0xffA5A5A5)),
+                                              ),
+                                            ))
+                                        .toList(),
+                                    onChanged: (value) {
+                                      controller.selectedTime = value;
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  height: 0.07.sh,
+                                  width: 0.28.sw,
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 18),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: const Color(0xffDBE2EC)),
+                                    color: Colors.white,
+                                  ),
+                                  child: DropdownButtonFormField<String>(
+                                    decoration: InputDecoration(
+                                      suffixIcon: Container(
+                                        child: Image.asset(
+                                          ImageAssets.arrowDown,
+                                          scale: 2.5,
+                                        ),
+                                      ),
+                                      hintText: "00",
+                                      hintStyle: const TextStyle(
+                                        color: Color(0xffA5A5A5),
+                                      ), // Use hintText instead of labelText
+                                      border: InputBorder.none,
+                                      contentPadding: const EdgeInsets.only(
+                                          bottom: 0, top: 7.0),
+                                    ),
+                                    value: controller.selectedHour,
+                                    icon: const SizedBox.shrink(),
+                                    items: [
+                                      '00',
+                                      '01',
+                                      '03',
+                                      '04',
+                                      '05',
+                                      '06',
+                                      '07',
+                                      '08',
+                                      '09',
+                                      '10',
+                                      '11',
+                                      '12',
+                                    ]
+                                        .map((gender) => DropdownMenuItem(
+                                              value: gender,
+                                              child: Text(
+                                                gender,
+                                                style: TextStyle(
+                                                    fontSize: 14.sp,
+                                                    color: Color(0xffA5A5A5)),
+                                              ),
+                                            ))
+                                        .toList(),
+                                    onChanged: (value) {
+                                      controller.selectedHour = value;
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            // EditText(
+                            //     width: 0.26.sw,
+                            //     hintText: "00",
+                            //     context: context,
+                            //     isDropDown: true,
+                            //     suffixIcon: ImageAssets.arrowDown,
+                            //     bordercolor: Colors.transparent),
+                            // EditText(
+                            //     width: 0.26.sw,
+                            //     hintText: "00",
+                            //     context: context,
+                            //     isDropDown: true,
+                            //     suffixIcon: ImageAssets.arrowDown,
+                            //     bordercolor: Colors.transparent),
 
                             InkWell(
                               onTap: () {
@@ -600,13 +729,59 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                     color: ColorUtils.black),
                               ),
                               10.verticalSpace,
-                              EditText(
-                                  width: 0.42.sw,
-                                  hintText: "State",
-                                  context: context,
-                                  isDropDown: true,
-                                  suffixIcon: ImageAssets.arrowDown,
-                                  bordercolor: Colors.transparent),
+                              Container(
+                                height: 0.07.sh,
+                                width: 0.42.sw,
+                                alignment: Alignment.center,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 18),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      color: const Color(0xffDBE2EC)),
+                                  color: Colors.white,
+                                ),
+                                child: DropdownButtonFormField<String>(
+                                  decoration: InputDecoration(
+                                    suffixIcon: Container(
+                                      child: Image.asset(
+                                        ImageAssets.arrowDown,
+                                        scale: 2,
+                                      ),
+                                    ),
+                                    hintText: 'Select State',
+                                    hintStyle: const TextStyle(
+                                      color: Color(0xffA5A5A5),
+                                    ), // Use hintText instead of labelText
+                                    border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.only(
+                                        bottom: 0, top: 7.0),
+                                  ),
+                                  value: controller.selectedState,
+                                  icon: const SizedBox.shrink(),
+                                  items: ['State 1', 'State 2', 'State 3']
+                                      .map((gender) => DropdownMenuItem(
+                                            value: gender,
+                                            child: Text(
+                                              gender,
+                                              style: const TextStyle(
+                                                  color: Color(0xffA5A5A5)),
+                                            ),
+                                          ))
+                                      .toList(),
+                                  onChanged: (value) {
+                                    controller.selectedState = value;
+                                  },
+                                ),
+                              ),
+
+                              // EditText(
+                              //     width: 0.42.sw,
+                              //     hintText: "State",
+                              //     context: context,
+                              //     isDropDown: true,
+                              //     suffixIcon: ImageAssets.arrowDown,
+                              //     bordercolor: Colors.transparent),
                             ],
                           ),
                           Column(
@@ -620,13 +795,58 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                     color: ColorUtils.black),
                               ),
                               10.verticalSpace,
-                              EditText(
-                                  width: 0.42.sw,
-                                  hintText: "City",
-                                  context: context,
-                                  isDropDown: true,
-                                  suffixIcon: ImageAssets.arrowDown,
-                                  bordercolor: Colors.transparent),
+                              Container(
+                                width: 0.42.sw,
+                                height: 0.07.sh,
+                                alignment: Alignment.center,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 18),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      color: const Color(0xffDBE2EC)),
+                                  color: Colors.white,
+                                ),
+                                child: DropdownButtonFormField<String>(
+                                  decoration: InputDecoration(
+                                    suffixIcon: Container(
+                                      child: Image.asset(
+                                        ImageAssets.arrowDown,
+                                        scale: 2,
+                                      ),
+                                    ),
+                                    hintText: 'Select City',
+                                    hintStyle: const TextStyle(
+                                      color: Color(0xffA5A5A5),
+                                    ), // Use hintText instead of labelText
+                                    border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.only(
+                                        bottom: 0, top: 7.0),
+                                  ),
+                                  value: controller.selectedCity,
+                                  icon: const SizedBox.shrink(),
+                                  items: ['City 1', 'City 2', 'City 3']
+                                      .map((gender) => DropdownMenuItem(
+                                            value: gender,
+                                            child: Text(
+                                              gender,
+                                              style: const TextStyle(
+                                                  color: Color(0xffA5A5A5)),
+                                            ),
+                                          ))
+                                      .toList(),
+                                  onChanged: (value) {
+                                    controller.selectedCity = value;
+                                  },
+                                ),
+                              ),
+                              // EditText(
+                              //     width: 0.42.sw,
+                              //     hintText: "City",
+                              //     context: context,
+                              //     isDropDown: true,
+                              //     suffixIcon: ImageAssets.arrowDown,
+                              //     bordercolor: Colors.transparent),
                             ],
                           ),
                         ],

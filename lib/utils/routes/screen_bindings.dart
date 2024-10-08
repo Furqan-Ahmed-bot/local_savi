@@ -27,6 +27,8 @@ import 'package:local_saviors/controllers/user_controllers/cancelled_job_screen_
 import 'package:local_saviors/controllers/user_controllers/chat_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/create_job_post_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/dispute_payment_screen_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/edit_job_screen_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/edit_profile_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/home_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/invite_user_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/job_cancel_screen_controller.dart';
@@ -43,7 +45,6 @@ import 'package:local_saviors/controllers/user_controllers/reschedule_screen_con
 import 'package:local_saviors/controllers/user_controllers/upcoming_job_detail_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/user_profile_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/user_request_screen_controller.dart';
-import 'package:local_saviors/screens/professional_screens/p_payment_method_screen.dart';
 
 import '../../controllers/professional_controllers/add_bank_controller.dart';
 import '../../controllers/professional_controllers/wallet_controller.dart';
@@ -63,6 +64,8 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => InviteUserScreenController());
     Get.lazyPut(() => MessageDashboardScreenController());
     Get.lazyPut(() => BottomNavController());
+    Get.lazyPut(() => EditProfileScreenController());
+    Get.lazyPut(() => EditJobScreenController());
     Get.lazyPut(() => UpcomingJobDetailScreenController());
     Get.lazyPut(() => OngoingJobDetailScreenController());
     Get.lazyPut(() => JobCompletedScreenController());

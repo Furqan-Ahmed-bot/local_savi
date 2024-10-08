@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:local_saviors/screens/general_screens/pre_login_screen/pre_login_screen.dart';
 import 'package:local_saviors/screens/general_screens/user_role_screens/select_role_two.dart';
 import 'package:local_saviors/utils/constant.dart';
+import 'package:local_saviors/utils/routes/routes.dart';
 import '../../../resources/components/select_role_widet.dart';
 import '../../../utils/images/image_assets.dart';
 
@@ -87,13 +88,37 @@ class SelectUserRoleOne extends StatelessWidget {
                       ),
                     ),
                     5.verticalSpace,
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        'Terms & Conditions  |  Privacy Policy',
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed(RouteName.termsAndConditionScreenPath);
+                          },
+                          child: Text(
+                            'Terms & Conditions',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Text(
+                          '  |  ',
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed(RouteName.privacyPolicyScreenPath);
+                          },
+                          child: Text(
+                            'Privacy Policy',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
                     )
                   ],
                 ),

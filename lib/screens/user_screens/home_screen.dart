@@ -151,7 +151,10 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                                   onTap: () {
                                     Get.toNamed(
                                         RouteName.bestPerformerDetailScreenPath,
-                                        arguments: "Best Performer");
+                                        arguments: {
+                                          "title": "Best Performer",
+                                          "showChat": true,
+                                        });
                                   },
                                   child: Container(
                                     width: 0.25.sw,

@@ -1,16 +1,13 @@
-// ignore_for_file: unnecessary_new, prefer_final_fields, unused_element, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 
-class PFilterController extends GetxController {
+class EditJobScreenController extends GetxController {
+  RxInt groupValue = 0.obs;
   RxBool isAm = false.obs;
-  RxDouble startDistance = 20.0.obs;
-  RxDouble endDistance = 50.0.obs;
-  RxDouble startPrice = 150.0.obs;
-  RxDouble endPrice = 200.0.obs;
+  RxInt fixedAmoount = 0.obs;
+
   DateTime selectedDate = DateTime.now();
   var myFormat = DateFormat('MM/dd/yyyy');
   TextEditingController dateController = TextEditingController();

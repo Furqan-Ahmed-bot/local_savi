@@ -30,6 +30,8 @@ import 'package:local_saviors/screens/user_screens/canceled_job_screen.dart';
 import 'package:local_saviors/screens/user_screens/chat_screen.dart';
 import 'package:local_saviors/screens/user_screens/create_job_post_screen.dart';
 import 'package:local_saviors/screens/user_screens/dispute_payment_screen.dart';
+import 'package:local_saviors/screens/user_screens/edit_job_screen.dart';
+import 'package:local_saviors/screens/user_screens/edit_profile_screen.dart';
 import 'package:local_saviors/screens/user_screens/home_screen.dart';
 import 'package:local_saviors/screens/user_screens/invite_user_screen.dart';
 import 'package:local_saviors/screens/user_screens/job_cancel_screen.dart';
@@ -170,6 +172,12 @@ class AppRoutes {
           transitionDuration: Duration(milliseconds: 250),
         ),
         GetPage(
+          name: RouteName.editJobScreenPath,
+          page: () => EditJobScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
           name: RouteName.userRequestScreenPath,
           page: () => UserRequestScreen(),
           binding: ScreenBindings(),
@@ -178,6 +186,12 @@ class AppRoutes {
         GetPage(
           name: RouteName.chatScreenPath,
           page: () => ChatScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
+          name: RouteName.editProfileScreenPath,
+          page: () => EditProfileScreen(),
           binding: ScreenBindings(),
           transitionDuration: Duration(milliseconds: 250),
         ),

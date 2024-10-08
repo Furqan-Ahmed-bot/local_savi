@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/screens/general_screens/login_screen/login_screen.dart';
+import 'package:local_saviors/utils/routes/routes.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/round_button.dart';
 import '../../../utils/images/image_assets.dart';
@@ -146,13 +147,37 @@ class PreLoginScreen extends StatelessWidget {
                       ),
                     ),
                     5.verticalSpace,
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        'Terms & Conditions  |  Privacy Policy',
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed(RouteName.termsAndConditionScreenPath);
+                          },
+                          child: Text(
+                            'Terms & Conditions',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Text(
+                          '  |  ',
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed(RouteName.privacyPolicyScreenPath);
+                          },
+                          child: Text(
+                            'Privacy Policy',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
                     )
                   ],
                 ),

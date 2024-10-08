@@ -17,24 +17,30 @@ class BestPerformerDetailScreen
       children: [
         Obx(
           () => appbar(isMenu: false, title: controller.title.value, actions: [
-            GestureDetector(
-              onTap: () {
-                Get.toNamed(RouteName.chatScreenPath);
-              },
-              child: Container(
-                margin: EdgeInsets.only(right: 20.w),
-                padding: EdgeInsets.all(8.sp),
-                height: 40.h,
-                width: 40.w,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
-                child: Image.asset(
-                  ImageAssets.msgIcon,
-                  color: ColorUtils.red,
-                  scale: 2,
-                ),
-              ),
-            ),
+            controller.showChat.value
+                ? GestureDetector(
+                    onTap: () {
+                      Get.toNamed(RouteName.chatScreenPath,
+                          arguments: {"showUserDetail": false});
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(right: 20.w),
+                      padding: EdgeInsets.all(8.sp),
+                      height: 40.h,
+                      width: 40.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: ColorUtils.appbarButtonBG),
+                      child: Image.asset(
+                        ImageAssets.msgIcon,
+                        color: ColorUtils.red,
+                        scale: 2,
+                      ),
+                    ),
+                  )
+                : SizedBox(
+                    width: 50.w,
+                  ),
           ]),
         ),
         Expanded(

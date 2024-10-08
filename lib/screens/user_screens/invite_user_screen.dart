@@ -8,30 +8,49 @@ import 'package:local_saviors/resources/components/widgets.dart';
 class InviteUserScreen extends GetWidget<InviteUserScreenController> {
   @override
   Widget build(BuildContext context) {
-    return myBackGround(
-        child: Column(
-      children: [
-        appbar(
-          isMenu: false,
-          title: "Invite User",
-        ),
-        Expanded(
-            child: ListView(
-                padding: EdgeInsets.only(
-                    left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
-                children: [
-              Column(
-                children: List.generate(
-                    controller.listOfInviteUsers.length,
-                    (index) => inviteUserCard(
-                        isVerified: controller.listOfInviteUsers[index]
-                            ['isVerified'],
-                        image: controller.listOfInviteUsers[index]['image'],
-                        name: controller.listOfInviteUsers[index]['name'],
-                        rating: controller.listOfInviteUsers[index]['rating'])),
-              ),
-            ]))
-      ],
-    ));
+    return GetBuilder<InviteUserScreenController>(builder: (controller) {
+      return myBackGround(
+          child: Column(
+        children: [
+          appbar(
+            isMenu: false,
+            title: "Invite User",
+          ),
+          Expanded(
+              child: ListView(
+                  padding: EdgeInsets.only(
+                      left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
+                  children: [
+                Column(
+                  children: List.generate(
+                      controller.listOfInviteUsers.length,
+                      (index) => InkWell(
+                            onTap: () {
+                              if (!controller.listOfInviteUsers[index]
+                                  ['isInvited']) {
+                                controller.listOfInviteUsers[index]
+                                        ['isInvited'] =
+                                    !controller.listOfInviteUsers[index]
+                                        ['isInvited'];
+                                controller.update();
+                              }
+                            },
+                            child: inviteUserCard(
+                                isInvited: controller.listOfInviteUsers[index]
+                                    ['isInvited'],
+                                isVerified: controller.listOfInviteUsers[index]
+                                    ['isVerified'],
+                                image: controller.listOfInviteUsers[index]
+                                    ['image'],
+                                name: controller.listOfInviteUsers[index]
+                                    ['name'],
+                                rating: controller.listOfInviteUsers[index]
+                                    ['rating']),
+                          )),
+                ),
+              ]))
+        ],
+      ));
+    });
   }
 }

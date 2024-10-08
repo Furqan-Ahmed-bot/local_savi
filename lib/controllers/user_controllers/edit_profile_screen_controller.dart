@@ -1,19 +1,30 @@
-// ignore_for_file: unnecessary_new, prefer_final_fields, unused_element, prefer_const_constructors
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 
-class PFilterController extends GetxController {
-  RxBool isAm = false.obs;
-  RxDouble startDistance = 20.0.obs;
-  RxDouble endDistance = 50.0.obs;
-  RxDouble startPrice = 150.0.obs;
-  RxDouble endPrice = 200.0.obs;
+class EditProfileScreenController extends GetxController {
+  String? selectedGender = 'Male';
+  String? selectedCity = 'City 1';
+  String? selectedState = 'State 1';
+  List<String> gender = ['Male', 'Female'];
+  File? image;
+  final picker = ImagePicker();
   DateTime selectedDate = DateTime.now();
   var myFormat = DateFormat('MM/dd/yyyy');
   TextEditingController dateController = TextEditingController();
+
+  Future getImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      image = File(pickedFile.path);
+    } else {}
+    update();
+  }
 
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(

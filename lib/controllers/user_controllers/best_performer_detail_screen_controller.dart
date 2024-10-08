@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 class BestPerformerDetailScreenController extends GetxController {
   RxString title = "".obs;
+  RxBool showChat = true.obs;
 
   List dummyData = [
     {
@@ -49,7 +50,8 @@ class BestPerformerDetailScreenController extends GetxController {
 
   @override
   void onInit() {
-    title.value = Get.arguments ?? "User Detail";
+    title.value = Get.arguments['title'] ?? "User Detail";
+    showChat.value = Get.arguments['showChat'] ?? true;
     super.onInit();
   }
 }
