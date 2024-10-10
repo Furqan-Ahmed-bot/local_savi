@@ -60,26 +60,26 @@ class _NavbarScreenState extends State<NavbarScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  30.verticalSpace,
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          Get.close(1);
-                                        },
-                                        child: SizedBox(
-                                          height: 40,
-                                          width: 40,
-                                          child: Icon(
-                                            Icons.close,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      20.horizontalSpace,
-                                    ],
-                                  ),
+                                  70.verticalSpace,
+                                  // Row(
+                                  //   mainAxisAlignment: MainAxisAlignment.end,
+                                  //   children: [
+                                  //     GestureDetector(
+                                  //       onTap: () {
+                                  //         Get.close(1);
+                                  //       },
+                                  //       child: SizedBox(
+                                  //         height: 40,
+                                  //         width: 40,
+                                  //         child: Icon(
+                                  //           Icons.close,
+                                  //           color: Colors.white,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     20.horizontalSpace,
+                                  //   ],
+                                  // ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

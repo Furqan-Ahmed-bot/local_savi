@@ -85,10 +85,10 @@ class SelectUserRoleTwo extends StatelessWidget {
 
                   Get.to(PreLoginScreen());
                 },
-                title: 'Continue as a Handyman',
+                title: 'Continue as a Handymen',
                 icon: ImageAssets.performer,
               ),
-              80.verticalSpace,
+              Spacer(),
               Center(
                 child: Column(
                   children: [
@@ -133,7 +133,8 @@ class SelectUserRoleTwo extends StatelessWidget {
                     )
                   ],
                 ),
-              )
+              ),
+              15.verticalSpace
             ],
           ),
         ),
