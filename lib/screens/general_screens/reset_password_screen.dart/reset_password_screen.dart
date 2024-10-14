@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
+import 'package:local_saviors/screens/general_screens/reset_password_screen.dart/reset_password_controller.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/text_fields.dart';
 import '../../../utils/images/image_assets.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
+class ResetPasswordScreen extends GetWidget<ResetPasswordController> {
   const ResetPasswordScreen({super.key});
 
   @override

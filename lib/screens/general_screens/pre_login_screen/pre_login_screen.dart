@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/screens/general_screens/login_screen/login_screen.dart';
+import 'package:local_saviors/screens/general_screens/pre_login_screen/prelogin_controller.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/round_button.dart';
 import '../../../utils/images/image_assets.dart';
 
-class PreLoginScreen extends StatelessWidget {
+class PreLoginScreen extends GetWidget<PreloginController> {
   const PreLoginScreen({super.key});
 
   @override

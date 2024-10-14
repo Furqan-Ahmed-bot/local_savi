@@ -428,7 +428,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                       ),
                     ),
                     Positioned(
-                        left: 0.78.sw,
+                        left: 280,
                         top: 30,
                         child: InkWell(
                             onTap: () {

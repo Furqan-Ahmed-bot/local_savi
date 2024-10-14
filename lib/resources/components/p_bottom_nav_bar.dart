@@ -389,7 +389,7 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                       ),
                     ),
                     Positioned(
-                        left: 0.78.sw,
+                        left: 280,
                         top: 30,
                         child: InkWell(
                             onTap: () {

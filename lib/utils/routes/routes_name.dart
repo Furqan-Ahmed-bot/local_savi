@@ -1,6 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:get/get.dart';
+import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_screen.dart';
+import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_two_screen.dart';
+import 'package:local_saviors/screens/general_screens/forget_password_screen/forget_password.dart';
+import 'package:local_saviors/screens/general_screens/login_screen/login_screen.dart';
+import 'package:local_saviors/screens/general_screens/otp_verifiation_screen.dart/otp_verification.dart';
+import 'package:local_saviors/screens/general_screens/signup_screen/signup_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_cancel_job_reason_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_chat_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_filter_screen.dart';
@@ -214,38 +220,56 @@ class AppRoutes {
           transitionDuration: Duration(milliseconds: 250),
         ),
         GetPage(
+          name: RouteName.cretaetProfileTwoPath,
+          page: () => CreateProfileTwoScreen(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
           name: RouteName.splashScreen,
           page: () => SplashScreen(),
           transitionDuration: Duration(milliseconds: 250),
         ),
         GetPage(
-          name: RouteName.selectRoleOne,
-          page: () => SelectUserRoleOne(),
-          transitionDuration: Duration(milliseconds: 250),
-        ),
+            name: RouteName.selectRoleOne,
+            page: () => SelectUserRoleOne(),
+            transitionDuration: Duration(milliseconds: 250),
+            binding: ScreenBindings()),
         GetPage(
-          name: RouteName.selectRoleTwo,
-          page: () => SelectUserRoleTwo(),
-          transitionDuration: Duration(milliseconds: 250),
-        ),
-        // GetPage(
-        //   name: RouteName.otpverification,
-        //   page: () => OtpVerificationScreen(),
-        //   transitionDuration: Duration(milliseconds: 250),
-        //   // transition: Transition.leftToRightWithFade,
-        // ),
-        // GetPage(
-        //   name: RouteName.tablecalender,
-        //   page: () => tablecalendar(),
-        //   transitionDuration: Duration(milliseconds: 250),
-        //   // transition: Transition.leftToRightWithFade,
-        // ),
-        // GetPage(
-        //   name: RouteName.mainScreen,
-        //   page: () => MainScreen(),
-        //   transitionDuration: Duration(milliseconds: 250),
-        //   // transition: Transition.leftToRightWithFade,
-        // ),
+            name: RouteName.selectRoleTwo,
+            page: () => SelectUserRoleTwo(),
+            transitionDuration: Duration(milliseconds: 250),
+            binding: ScreenBindings()),
+        GetPage(
+            name: RouteName.otpverification,
+            page: () => OtpVerificationScreen(),
+            transitionDuration: Duration(milliseconds: 250),
+            binding: ScreenBindings()
+            // transition: Transition.leftToRightWithFade,
+            ),
+        GetPage(
+            name: RouteName.signup,
+            page: () => SignupScreen(),
+            transitionDuration: Duration(milliseconds: 250),
+            binding: ScreenBindings()
+
+            // transition: Transition.leftToRightWithFade,
+            ),
+        GetPage(
+            name: RouteName.login,
+            page: () => LoginScreen(),
+            transitionDuration: Duration(milliseconds: 250),
+            binding: ScreenBindings()),
+        GetPage(
+            name: RouteName.forgetPassword,
+            page: () => ForgetPasswordScreen(),
+            transitionDuration: Duration(milliseconds: 250),
+            binding: ScreenBindings()),
+        GetPage(
+            name: RouteName.createProfile,
+            page: () => CreateProfileScreen(),
+            transitionDuration: Duration(milliseconds: 250),
+            binding: ScreenBindings()),
 
 /////professionals
         ///

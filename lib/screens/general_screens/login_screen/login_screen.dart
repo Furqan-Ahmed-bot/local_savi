@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:local_saviors/resources/components/bottom_navbar.dart';
 import 'package:local_saviors/resources/components/p_bottom_nav_bar.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
+import 'package:local_saviors/screens/general_screens/login_screen/login_screen_controller.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import '../../../resources/components/back_appbar_button.dart';
@@ -15,7 +16,7 @@ import '../../../utils/images/image_assets.dart';
 import '../forget_password_screen/forget_password.dart';
 import '../signup_screen/signup_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends GetWidget<LoginScreenController> {
   const LoginScreen({super.key});
 
   @override

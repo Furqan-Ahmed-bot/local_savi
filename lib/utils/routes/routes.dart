@@ -5,7 +5,10 @@ class RouteName {
   static const String selectRoleTwo = '/user_role_two';
   static const String login = '/login';
   static const String otpverification = '/otpverification';
-  static const String tablecalender = '/tablecalender';
+  static const String createProfile = '/createProfile';
+  static const String signup = '/createProfile';
+  static const String forgetPassword = '/forgetPassword';
+  static const String cretaetProfileTwoPath = '/cretaetProfileTwoPath';
 
   static const String homeScreenPath = '/homeScreenPath';
   static const String jobsScreenPath = '/jobsScreenPath';
