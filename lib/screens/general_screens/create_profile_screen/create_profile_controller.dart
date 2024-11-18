@@ -6,7 +6,17 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class CreateProfileController extends GetxController {
-  TextEditingController datecontroller = new TextEditingController();
+  TextEditingController datecontroller = TextEditingController();
+  TextEditingController firstNamecontroller = TextEditingController();
+  TextEditingController lastNamecontroller = TextEditingController();
+  TextEditingController addresscontroller = TextEditingController();
+  TextEditingController locationcontroller = TextEditingController();
+  TextEditingController aboutcontroller = TextEditingController();
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController phonecontroller = TextEditingController();
+  RxString state = "".obs;
+  RxString city = "".obs;
+
   String selectedGender = 'Male';
   List<String> gender = ['Male', 'Female'];
   File? image;

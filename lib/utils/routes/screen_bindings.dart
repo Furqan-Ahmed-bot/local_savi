@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:local_saviors/controllers/professional_controllers/add_funds_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_cancel_job_reason_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_chat_screen_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_filter_controller.dart';
@@ -50,6 +51,8 @@ import 'package:local_saviors/screens/general_screens/create_profile_screen/crea
 import 'package:local_saviors/screens/general_screens/forget_password_screen/forget_password_controller.dart';
 import 'package:local_saviors/screens/general_screens/login_screen/login_screen_controller.dart';
 import 'package:local_saviors/screens/general_screens/otp_verifiation_screen.dart/otp_verification_controller.dart';
+import 'package:local_saviors/screens/general_screens/pre_login_screen/prelogin_controller.dart';
+import 'package:local_saviors/screens/general_screens/reset_password_screen.dart/reset_password_controller.dart';
 import 'package:local_saviors/screens/general_screens/signup_screen/signup_controller.dart';
 import 'package:local_saviors/screens/general_screens/user_role_screens/role_one_controller.dart';
 import 'package:local_saviors/screens/general_screens/user_role_screens/role_two_controller.dart';
@@ -65,9 +68,11 @@ class ScreenBindings extends Bindings {
 
     Get.lazyPut(() => LoginScreenController());
     Get.lazyPut(() => SignupController());
+    Get.lazyPut(() => PreloginController());
     Get.lazyPut(() => ForgetPasswordController());
     Get.lazyPut(() => CreateProfileController());
     Get.lazyPut(() => RoleOneController());
+    Get.lazyPut(() => ResetPasswordController());
     Get.lazyPut(() => OtpVerificationController());
     Get.lazyPut(() => CreatePorfileTwoController());
     Get.lazyPut(() => RoleTwoController());
@@ -78,6 +83,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => BestPerformerDetailScreenController());
     Get.lazyPut(() => RatingAndReviewScreenController());
     Get.lazyPut(() => UserProfileScreenController());
+    Get.lazyPut(() => AddFundsController());
     Get.lazyPut(() => PostedJobScreenController());
     Get.lazyPut(() => InviteUserScreenController());
     Get.lazyPut(() => MessageDashboardScreenController());

@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/screens/general_screens/forget_password_screen/forget_password_controller.dart';
-import 'package:local_saviors/screens/general_screens/otp_verifiation_screen.dart/otp_verification.dart';
 import 'package:local_saviors/utils/constant.dart';
+import 'package:local_saviors/utils/routes/routes.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/text_fields.dart';
 import '../../../utils/images/image_assets.dart';
@@ -72,7 +72,8 @@ class ForgetPasswordScreen extends GetWidget<ForgetPasswordController> {
               ),
               40.verticalSpace,
               AuthTextField(
-                hint: 'Email Address / Phone Number',
+                controller: controller.emailController,
+                hint: 'Email Address ',
                 icon: ImageAssets.emailicon,
                 hintColor: Color(0xffA5A5A5),
               ),
@@ -84,7 +85,8 @@ class ForgetPasswordScreen extends GetWidget<ForgetPasswordController> {
                   title: 'Continue',
                   onPress: () {
                     isProfileCreated = false;
-                    Get.to(() => OtpVerificationScreen());
+                    email.value = controller.emailController.text;
+                    Get.toNamed(RouteName.otpverification);
                   }),
             ],
           ),

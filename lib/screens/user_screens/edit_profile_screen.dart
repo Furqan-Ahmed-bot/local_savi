@@ -1,3 +1,4 @@
+import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:local_saviors/controllers/user_controllers/edit_profile_screen_c
 import 'package:local_saviors/screens/general_screens/create_profile_screen/phone_textform_widget/phone_textformwidget.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/textfromfield_widget/textformfield_widget.dart';
 import 'package:local_saviors/utils/color_utils.dart';
+import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 
 import '../../resources/components/round_button.dart';
@@ -100,8 +102,10 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                         color: Colors.white,
                       ),
                       child: TextFormField(
+                        controller: controller.firstNamecontroller,
                         decoration: InputDecoration(
                           hintText: 'First Name',
+
                           prefixIcon: Container(
                             child: Image.asset(
                               ImageAssets.firstname,
@@ -134,8 +138,10 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                         color: Colors.white,
                       ),
                       child: TextFormField(
+                        controller: controller.lastNamecontroller,
                         decoration: InputDecoration(
                           hintText: 'Last Name',
+
                           prefixIcon: Container(
                             child: Image.asset(
                               ImageAssets.firstname,
@@ -207,6 +213,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                   controller: controller.dateController,
                   height: 50,
                   labeltext: 'Date of Birth',
+                  readOnly: true,
                   issufficsenable: true,
                   suffixicon: ImageAssets.smallcalendar,
                   ontap: () {
@@ -216,6 +223,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                 20.verticalSpace,
                 LabelTextFormFieldWidget(
                   height: 50,
+                  controller: controller.addresscontroller,
                   labeltext: 'Address',
                   issufficsenable: false,
                   ontap: () {
@@ -223,111 +231,65 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                   },
                 ),
                 20.verticalSpace,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 0.42.sw,
-                      height: 0.07.sh,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: const Color(0xffDBE2EC)),
-                        color: Colors.white,
-                      ),
-                      child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                          suffixIcon: Container(
-                            child: Image.asset(
-                              ImageAssets.arrowDown,
-                              scale: 2,
-                            ),
-                          ),
-                          hintText: 'Select City',
-                          hintStyle: const TextStyle(
-                            color: Color(0xffA5A5A5),
-                          ), // Use hintText instead of labelText
-                          border: InputBorder.none,
-                          contentPadding:
-                              const EdgeInsets.only(bottom: 0, top: 7.0),
-                        ),
-                        value: controller.selectedCity,
-                        icon: const SizedBox.shrink(),
-                        items: ['City 1', 'City 2', 'City 3']
-                            .map((gender) => DropdownMenuItem(
-                                  value: gender,
-                                  child: Text(
-                                    gender,
-                                    style: const TextStyle(
-                                        color: Color(0xffA5A5A5)),
-                                  ),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          controller.selectedCity = value;
-                        },
-                      ),
-                    ),
-                    Container(
-                      height: 0.07.sh,
-                      width: 0.42.sw,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: const Color(0xffDBE2EC)),
-                        color: Colors.white,
-                      ),
-                      child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                          suffixIcon: Container(
-                            child: Image.asset(
-                              ImageAssets.arrowDown,
-                              scale: 2,
-                            ),
-                          ),
-                          hintText: 'Select State',
-                          hintStyle: const TextStyle(
-                            color: Color(0xffA5A5A5),
-                          ), // Use hintText instead of labelText
-                          border: InputBorder.none,
-                          contentPadding:
-                              const EdgeInsets.only(bottom: 0, top: 7.0),
-                        ),
-                        value: controller.selectedState,
-                        icon: const SizedBox.shrink(),
-                        items: ['State 1', 'State 2', 'State 3']
-                            .map((gender) => DropdownMenuItem(
-                                  value: gender,
-                                  child: Text(
-                                    gender,
-                                    style: const TextStyle(
-                                        color: Color(0xffA5A5A5)),
-                                  ),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          controller.selectedState = value;
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                20.verticalSpace,
-                LabelTextFormFieldWidget(
-                  height: 50,
-                  labeltext: 'Location',
-                  issufficsenable: true,
-                  suffixicon: ImageAssets.userlocation,
-                  ontap: () {
-                    // controller.selectDate(context);
+                InkWell(
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
                   },
+                  child: CSCPicker(
+                    showStates: true,
+                    showCities: true,
+                    dropdownDecoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.white,
+                        border:
+                            Border.all(color: Colors.grey.shade300, width: 1)),
+                    countrySearchPlaceholder: "Country",
+                    stateSearchPlaceholder: "State",
+                    citySearchPlaceholder: "City",
+                    countryDropdownLabel: "Country",
+                    stateDropdownLabel: "State",
+                    cityDropdownLabel: "City",
+                    defaultCountry: CscCountry.United_States,
+                    disableCountry: true,
+                    selectedItemStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                    ),
+                    dropdownHeadingStyle: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold),
+                    dropdownItemStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                    ),
+                    dropdownDialogRadius: 10.0,
+                    searchBarRadius: 10.0,
+                    onCountryChanged: (value) {},
+                    onStateChanged: (value) {
+                      controller.state.value = value.toString();
+                    },
+                    onCityChanged: (value) {
+                      controller.city.value = value.toString();
+                    },
+                  ),
                 ),
                 20.verticalSpace,
+                // LabelTextFormFieldWidget(
+                //   height: 50,
+                //   labeltext: 'Location',
+                //   issufficsenable: true,
+                //   suffixicon: ImageAssets.userlocation,
+                //   ontap: () {
+                //     // controller.selectDate(context);
+                //   },
+                // ),
+                // 20.verticalSpace,
                 LabelTextFormFieldWidget(
                   maxlines: 5,
                   labeltext: 'About',
+                  controller: controller.aboutcontroller,
                   issufficsenable: false,
                   ontap: () {
                     // _selectDate(context);
@@ -344,6 +306,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                     color: Colors.white,
                   ),
                   child: TextFormField(
+                    controller: controller.emailcontroller,
                     decoration: InputDecoration(
                       prefixIcon: Container(
                         child: Image.asset(
@@ -370,10 +333,12 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                   ),
                 ),
                 20.verticalSpace,
-                const phoneTextFormFieldWidget(),
+                phoneTextFormFieldWidget(
+                  phonecontroller: controller.phonecontroller,
+                ),
                 20.verticalSpace,
                 RoundButton(
-                    buttonColor: Color(0xffE50000),
+                    buttonColor: const Color(0xffE50000),
                     height: 40,
                     width: 0.9.sw,
                     title: 'Save',

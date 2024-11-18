@@ -88,7 +88,7 @@ class UserProfileScreen extends GetWidget<UserProfileScreenController> {
                     children: [
                       Column(
                         children: List.generate(
-                          controller.dummyData.length,
+                          controller.userData.length,
                           (index) => Column(
                             // mainAxisSize: MainAxisSize.min,
                             children: [
@@ -101,7 +101,7 @@ class UserProfileScreen extends GetWidget<UserProfileScreenController> {
                                     // width: 0.3.sw,
                                     margin: EdgeInsets.only(right: 20.w),
                                     child: Text(
-                                      controller.dummyData[index]['title'],
+                                      controller.userData[index]['title'],
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
@@ -110,7 +110,7 @@ class UserProfileScreen extends GetWidget<UserProfileScreenController> {
                                   ),
                                   Flexible(
                                     child: Text(
-                                      controller.dummyData[index]["value"],
+                                      controller.userData[index]["value"],
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w400,

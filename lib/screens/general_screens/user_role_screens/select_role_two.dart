@@ -74,7 +74,7 @@ class SelectUserRoleTwo extends GetWidget<RoleTwoController> {
               SelectRoleWidget(
                 onTap: () {
                   role.value = "professional";
-                  Get.to(PreLoginScreen());
+                  Get.toNamed(RouteName.prelogin);
                 },
                 title: 'Continue as Professional',
                 icon: ImageAssets.jobprovider,
@@ -84,7 +84,7 @@ class SelectUserRoleTwo extends GetWidget<RoleTwoController> {
                 onTap: () {
                   role.value = "handyman";
 
-                  Get.to(PreLoginScreen());
+                  Get.toNamed(RouteName.prelogin);
                 },
                 title: 'Continue as a Handymen',
                 icon: ImageAssets.performer,

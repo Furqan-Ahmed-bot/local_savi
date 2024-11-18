@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/screens/general_screens/reset_password_screen.dart/reset_password_controller.dart';
+import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/text_fields.dart';
@@ -22,8 +23,7 @@ class ResetPasswordScreen extends GetWidget<ResetPasswordController> {
         elevation: 0,
         leading: BackButtonWidget(
           onTap: () {
-            Get.back();
-            Get.back();
+            Get.close(2);
           },
         ),
       ),
@@ -74,12 +74,14 @@ class ResetPasswordScreen extends GetWidget<ResetPasswordController> {
               AuthTextField(
                 hint: 'Password',
                 icon: ImageAssets.password,
+                controller: controller.passwordController,
                 hintColor: Color(0xffA5A5A5),
               ),
               20.verticalSpace,
               AuthTextField(
                 hint: 'Reset Password',
                 icon: ImageAssets.password,
+                controller: controller.confirmPasswordController,
                 hintColor: Color(0xffA5A5A5),
               ),
               40.verticalSpace,
@@ -89,9 +91,25 @@ class ResetPasswordScreen extends GetWidget<ResetPasswordController> {
                   width: 0.9.sw,
                   title: 'Reset',
                   onPress: () {
-                    Get.back();
-                    Get.back();
-                    Get.back();
+                    if (controller.passwordController.text.isNotEmpty) {
+                      if (controller.passwordController.text.isNotEmpty) {
+                        if (controller.passwordController.text ==
+                            controller.confirmPasswordController.text) {
+                          UserServices().resetPasswordService(
+                              password: controller.passwordController.text);
+                        } else {
+                          Get.snackbar("Alert", "Password does not match",
+                              backgroundColor: ColorUtils.white);
+                        }
+                      } else {
+                        Get.snackbar(
+                            "Alert", "Please enter your confirm password",
+                            backgroundColor: ColorUtils.white);
+                      }
+                    } else {
+                      Get.snackbar("Alert", "Please enter your password",
+                          backgroundColor: ColorUtils.white);
+                    }
                   }),
             ],
           ),

@@ -54,8 +54,8 @@ class AuthTextField extends StatelessWidget {
     this.suffixIcon,
     this.radius,
     this.scale = 1.6,
-    this.minLine,
-    this.maxLine,
+    this.minLine = 1,
+    this.maxLine = 1,
     this.textStyle,
     this.padding,
   });

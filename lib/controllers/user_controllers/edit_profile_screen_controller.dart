@@ -8,9 +8,18 @@ import 'package:local_saviors/utils/color_utils.dart';
 
 class EditProfileScreenController extends GetxController {
   String? selectedGender = 'Male';
-  String? selectedCity = 'City 1';
-  String? selectedState = 'State 1';
+  TextEditingController datecontroller = TextEditingController();
+  TextEditingController firstNamecontroller = TextEditingController();
+  TextEditingController lastNamecontroller = TextEditingController();
+  TextEditingController addresscontroller = TextEditingController();
+  TextEditingController locationcontroller = TextEditingController();
+  TextEditingController aboutcontroller = TextEditingController();
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController phonecontroller = TextEditingController();
+
   List<String> gender = ['Male', 'Female'];
+  RxString state = "".obs;
+  RxString city = "".obs;
   File? image;
   final picker = ImagePicker();
   DateTime selectedDate = DateTime.now();

@@ -6,8 +6,10 @@ class RouteName {
   static const String login = '/login';
   static const String otpverification = '/otpverification';
   static const String createProfile = '/createProfile';
-  static const String signup = '/createProfile';
+  static const String signup = '/signup';
   static const String forgetPassword = '/forgetPassword';
+  static const String resetPassword = '/resetPassword';
+  static const String prelogin = '/prelogin';
   static const String cretaetProfileTwoPath = '/cretaetProfileTwoPath';
 
   static const String homeScreenPath = '/homeScreenPath';
@@ -44,6 +46,7 @@ class RouteName {
   static const String pHomeScreenPath = '/pHomeScreenPath';
   static const String pSavedJobsScreenPath = '/pSavedJobsScreenPath';
   static const String pJobsScreenPath = '/pJobsScreenPath';
+  static const String addFundsScreenPath = '/addFundsScreenPath';
   static const String pJobsDetailScreenPath = '/pJobsDetailScreenPath';
   static const String pCanceJobReasonScreenPath = '/pCanceJobReasonScreenPath';
   static const String pJobProviderScreenPath = '/pJobProviderScreenPath';

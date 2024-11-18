@@ -1,9 +1,6 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../utils/color_utils.dart';
 
 class LabelTextFormFieldWidget extends StatelessWidget {
   LabelTextFormFieldWidget({
@@ -12,6 +9,7 @@ class LabelTextFormFieldWidget extends StatelessWidget {
     this.controller,
     this.labeltext = 'Label text',
     this.suffixicon,
+    this.readOnly = false,
     this.issufficsenable = false,
     this.maxlines = 1,
     this.ontap,
@@ -21,6 +19,7 @@ class LabelTextFormFieldWidget extends StatelessWidget {
   });
   double height;
   double width;
+  bool? readOnly;
   final TextEditingController? controller;
   String labeltext;
   bool issufficsenable;
@@ -42,6 +41,7 @@ class LabelTextFormFieldWidget extends StatelessWidget {
         color: Colors.white,
       ),
       child: TextFormField(
+        readOnly: readOnly!,
         onFieldSubmitted: onSubmitted,
         onChanged: onChange,
         controller: controller,

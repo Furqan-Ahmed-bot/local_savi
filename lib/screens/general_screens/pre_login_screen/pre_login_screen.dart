@@ -82,7 +82,7 @@ class PreLoginScreen extends GetWidget<PreloginController> {
                 width: 0.9.sw,
                 title: 'Email Address/Phone Number',
                 onPress: () {
-                  Get.to(LoginScreen());
+                  Get.toNamed(RouteName.login);
                 },
                 buttonColor: Colors.transparent,
               ),

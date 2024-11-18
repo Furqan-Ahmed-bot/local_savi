@@ -64,7 +64,8 @@ class SelectUserRoleOne extends GetWidget<RoleOneController> {
               SelectRoleWidget(
                 onTap: () {
                   role.value = "user";
-                  Get.to(PreLoginScreen());
+
+                  Get.toNamed(RouteName.prelogin);
                 },
                 title: 'Continue as a Job Provider',
                 icon: ImageAssets.jobprovider,
@@ -72,8 +73,7 @@ class SelectUserRoleOne extends GetWidget<RoleOneController> {
               20.verticalSpace,
               SelectRoleWidget(
                 onTap: () {
-                  // Get.toNamed(RouteName.selectRoleTwo);
-                  Get.to(SelectUserRoleTwo());
+                  Get.toNamed(RouteName.selectRoleTwo);
                 },
                 title: 'Continue as a Job Performer',
                 icon: ImageAssets.performer,

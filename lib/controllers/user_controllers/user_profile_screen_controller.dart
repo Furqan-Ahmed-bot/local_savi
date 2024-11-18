@@ -1,7 +1,12 @@
 import 'package:get/get.dart';
 
 class UserProfileScreenController extends GetxController {
-  List dummyData = [
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  List userData = [
     {
       "title": "Age",
       "value": "22 years old",

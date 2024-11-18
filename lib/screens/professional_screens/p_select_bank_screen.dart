@@ -7,6 +7,7 @@ import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/screens/professional_screens/p_add_banks_screen.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
+import 'package:local_saviors/utils/routes/routes.dart';
 import '../../controllers/professional_controllers/add_bank_controller.dart';
 import '../../resources/components/widgets.dart';
 import 'p_addfunds_screen.dart';
@@ -18,7 +19,7 @@ class SelectBankScreen extends GetWidget<AddBankController> {
       floatingActionButton: RoundButton(
         title: 'Confirm',
         onPress: () {
-          Get.to(() => AddFundsScreen());
+          Get.toNamed(RouteName.addFundsScreenPath);
         },
         width: 0.9.sw,
         buttonColor: ColorUtils.red,
@@ -57,7 +58,7 @@ class SelectBankScreen extends GetWidget<AddBankController> {
                     7.w.horizontalSpace,
                     InkWell(
                       onTap: () {
-                        Get.to(() => AddBanksScreen());
+                        Get.toNamed(RouteName.addBankScreen);
                       },
                       child: Text('Add Card',
                           style: TextStyle(

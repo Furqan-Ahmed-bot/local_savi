@@ -6,7 +6,10 @@ import 'package:local_saviors/screens/general_screens/create_profile_screen/crea
 import 'package:local_saviors/screens/general_screens/forget_password_screen/forget_password.dart';
 import 'package:local_saviors/screens/general_screens/login_screen/login_screen.dart';
 import 'package:local_saviors/screens/general_screens/otp_verifiation_screen.dart/otp_verification.dart';
+import 'package:local_saviors/screens/general_screens/pre_login_screen/pre_login_screen.dart';
+import 'package:local_saviors/screens/general_screens/reset_password_screen.dart/reset_password_screen.dart';
 import 'package:local_saviors/screens/general_screens/signup_screen/signup_screen.dart';
+import 'package:local_saviors/screens/professional_screens/p_addfunds_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_cancel_job_reason_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_chat_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_filter_screen.dart';
@@ -228,6 +231,7 @@ class AppRoutes {
         GetPage(
           name: RouteName.splashScreen,
           page: () => SplashScreen(),
+          binding: ScreenBindings(),
           transitionDuration: Duration(milliseconds: 250),
         ),
         GetPage(
@@ -255,6 +259,21 @@ class AppRoutes {
 
             // transition: Transition.leftToRightWithFade,
             ),
+        GetPage(
+            name: RouteName.resetPassword,
+            page: () => ResetPasswordScreen(),
+            transitionDuration: Duration(milliseconds: 250),
+            binding: ScreenBindings()),
+        GetPage(
+            name: RouteName.prelogin,
+            page: () => PreLoginScreen(),
+            transitionDuration: Duration(milliseconds: 250),
+            binding: ScreenBindings()),
+        GetPage(
+            name: RouteName.addFundsScreenPath,
+            page: () => AddFundsScreen(),
+            transitionDuration: Duration(milliseconds: 250),
+            binding: ScreenBindings()),
         GetPage(
             name: RouteName.login,
             page: () => LoginScreen(),
