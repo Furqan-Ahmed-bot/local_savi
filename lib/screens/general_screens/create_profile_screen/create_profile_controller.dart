@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:local_saviors/utils/constant.dart';
 
 class CreateProfileController extends GetxController {
   TextEditingController datecontroller = TextEditingController();
@@ -12,7 +13,8 @@ class CreateProfileController extends GetxController {
   TextEditingController addresscontroller = TextEditingController();
   TextEditingController locationcontroller = TextEditingController();
   TextEditingController aboutcontroller = TextEditingController();
-  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController emailcontroller =
+      TextEditingController(text: email.value);
   TextEditingController phonecontroller = TextEditingController();
   RxString state = "".obs;
   RxString city = "".obs;

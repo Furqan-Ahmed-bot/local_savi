@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/screens/general_screens/forget_password_screen/forget_password_controller.dart';
+import 'package:local_saviors/utils/api_services/user_services.dart';
+import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 import '../../../resources/components/back_appbar_button.dart';
@@ -86,7 +88,14 @@ class ForgetPasswordScreen extends GetWidget<ForgetPasswordController> {
                   onPress: () {
                     isProfileCreated = false;
                     email.value = controller.emailController.text;
-                    Get.toNamed(RouteName.otpverification);
+                    if (controller.emailController.text.isNotEmpty) {
+                      UserServices().forgetPasswordService(
+                          context: context,
+                          email: controller.emailController.text);
+                    } else {
+                      Get.snackbar("Alert", "Please enter your email",
+                          backgroundColor: ColorUtils.white);
+                    }
                   }),
             ],
           ),

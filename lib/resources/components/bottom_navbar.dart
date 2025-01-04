@@ -8,6 +8,7 @@ import 'package:local_saviors/screens/user_screens/home_screen.dart';
 import 'package:local_saviors/screens/user_screens/jobs_screen.dart';
 import 'package:local_saviors/screens/user_screens/message_dashboard_screen.dart';
 import 'package:local_saviors/screens/user_screens/user_profile_screen.dart';
+import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 import '../../utils/color_utils.dart';
@@ -334,9 +335,13 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                                   Expanded(
                                                     child: GestureDetector(
                                                       onTap: () {
-                                                        Get.offAllNamed(
-                                                            RouteName
-                                                                .selectRoleOne);
+                                                        UserServices()
+                                                            .logoutService(
+                                                                context:
+                                                                    context);
+                                                        // Get.offAllNamed(
+                                                        //     RouteName
+                                                        //         .selectRoleOne);
                                                       },
                                                       child: Container(
                                                         alignment:

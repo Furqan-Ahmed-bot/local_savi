@@ -162,18 +162,15 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                           width: 0.9.sw,
                           title: 'Continue',
                           onPress: () {
-                            if (isProfileCreated == true) {
-                              if (controller.otpPin.value.length == 6) {
-                                UserServices().verifyOTPService(
-                                    email: email.value,
-                                    otp: controller.otpPin.value);
-                              } else {
-                                Get.snackbar(
-                                    "Alert", "Please enter correct OTP pin",
-                                    backgroundColor: ColorUtils.white);
-                              }
+                            if (controller.otpPin.value.length == 6) {
+                              UserServices().verifyOTPService(
+                                  context: context,
+                                  isProfileCompleetd: isProfileCreated,
+                                  otp: controller.otpPin.value);
                             } else {
-                              Get.toNamed(RouteName.resetPassword);
+                              Get.snackbar(
+                                  "Alert", "Please enter correct OTP pin",
+                                  backgroundColor: ColorUtils.white);
                             }
                           }),
                       40.verticalSpace,
@@ -279,8 +276,8 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                       controller.complete == true
                           ? GestureDetector(
                               onTap: () {
-                                UserServices()
-                                    .resendOTPService(email: email.value);
+                                UserServices().resendOTPService(
+                                    context: context, email: email.value);
                                 controller.countDownController.start();
                                 controller.complete = false;
 

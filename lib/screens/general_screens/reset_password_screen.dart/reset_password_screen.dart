@@ -96,6 +96,7 @@ class ResetPasswordScreen extends GetWidget<ResetPasswordController> {
                         if (controller.passwordController.text ==
                             controller.confirmPasswordController.text) {
                           UserServices().resetPasswordService(
+                              context: context,
                               password: controller.passwordController.text);
                         } else {
                           Get.snackbar("Alert", "Password does not match",

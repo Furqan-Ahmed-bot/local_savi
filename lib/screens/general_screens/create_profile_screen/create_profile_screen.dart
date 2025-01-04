@@ -315,6 +315,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                         color: Colors.white,
                       ),
                       child: TextFormField(
+                        readOnly: true,
                         controller: controller.emailcontroller,
                         decoration: InputDecoration(
                           prefixIcon: Container(
@@ -352,97 +353,92 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                         width: 0.9.sw,
                         title: 'Continue',
                         onPress: () {
-                          if (role.value == "user") {
-                            if (controller
-                                .firstNamecontroller.text.isNotEmpty) {
-                              if (controller
-                                  .lastNamecontroller.text.isNotEmpty) {
-                                if (controller.selectedDate != DateTime.now()) {
+                          // if (role.value == "user") {
+                          if (controller.firstNamecontroller.text.isNotEmpty) {
+                            if (controller.lastNamecontroller.text.isNotEmpty) {
+                              if (controller.selectedDate != DateTime.now()) {
+                                if (controller
+                                    .addresscontroller.text.isNotEmpty) {
+                                  // if (controller.state.value != "") {
+                                  // if (controller.city.value != "") {
                                   if (controller
-                                      .addresscontroller.text.isNotEmpty) {
-                                    if (controller.state.value != "") {
-                                      // if (controller.city.value != "") {
+                                      .aboutcontroller.text.isNotEmpty) {
+                                    if (controller
+                                        .emailcontroller.text.isNotEmpty) {
                                       if (controller
-                                          .aboutcontroller.text.isNotEmpty) {
-                                        if (controller
-                                            .emailcontroller.text.isNotEmpty) {
-                                          if (controller.phonecontroller.text
-                                              .isNotEmpty) {
-                                            if (controller.image != null) {
-                                              UserServices().createProfileService(
-                                                  address: controller
-                                                      .addresscontroller.text,
-                                                  gender:
-                                                      controller.selectedGender,
-                                                  dob: controller.selectedDate
-                                                      .toString(),
-                                                  phone: controller
-                                                      .phonecontroller.text,
-                                                  email: controller
-                                                      .emailcontroller.text,
-                                                  firstName: controller
-                                                      .firstNamecontroller.text,
-                                                  lastName: controller
-                                                      .lastNamecontroller.text,
-                                                  country: "US",
-                                                  state: controller.state.value,
-                                                  city: controller.city.value,
-                                                  about: controller
-                                                      .aboutcontroller.text,
-                                                  image: controller.image!.path
-                                                      .toString());
-                                            } else {
-                                              Get.snackbar("Alert",
-                                                  "Please select image",
-                                                  backgroundColor:
-                                                      ColorUtils.white);
-                                            }
-                                          } else {
-                                            Get.snackbar("Alert",
-                                                "Phone Number is required",
-                                                backgroundColor:
-                                                    ColorUtils.white);
-                                          }
+                                          .phonecontroller.text.isNotEmpty) {
+                                        if (controller.image != null) {
+                                          UserServices().createProfileService(
+                                              context: context,
+                                              address: controller
+                                                  .addresscontroller.text,
+                                              gender: controller.selectedGender,
+                                              dob: controller.selectedDate
+                                                  .toString(),
+                                              phone: controller
+                                                  .phonecontroller.text,
+                                              email: controller
+                                                  .emailcontroller.text,
+                                              firstName: controller
+                                                  .firstNamecontroller.text,
+                                              lastName: controller
+                                                  .lastNamecontroller.text,
+                                              country: "US",
+                                              state: controller.state.value,
+                                              city: controller.city.value,
+                                              about: controller
+                                                  .aboutcontroller.text,
+                                              image: controller.image!.path
+                                                  .toString());
                                         } else {
                                           Get.snackbar(
-                                              "Alert", "Email is required",
+                                              "Alert", "Please select image",
                                               backgroundColor:
                                                   ColorUtils.white);
                                         }
                                       } else {
-                                        Get.snackbar("Alert",
-                                            "About/Description  is required",
+                                        Get.snackbar(
+                                            "Alert", "Phone Number is required",
                                             backgroundColor: ColorUtils.white);
                                       }
-                                      // } else {
-                                      //   Get.snackbar(
-                                      //       "Alert", "City is required",
-                                      //       backgroundColor: ColorUtils.white);
-                                      // }
                                     } else {
-                                      Get.snackbar("Alert", "State is required",
+                                      Get.snackbar("Alert", "Email is required",
                                           backgroundColor: ColorUtils.white);
                                     }
                                   } else {
-                                    Get.snackbar("Alert", "Address is required",
+                                    Get.snackbar("Alert",
+                                        "About/Description  is required",
                                         backgroundColor: ColorUtils.white);
                                   }
+                                  // } else {
+                                  //   Get.snackbar(
+                                  //       "Alert", "City is required",
+                                  //       backgroundColor: ColorUtils.white);
+                                  // }
+                                  // } else {
+                                  //   Get.snackbar("Alert", "State is required",
+                                  //       backgroundColor: ColorUtils.white);
+                                  // }
                                 } else {
-                                  Get.snackbar(
-                                      "Alert", "Date of birth is required",
+                                  Get.snackbar("Alert", "Address is required",
                                       backgroundColor: ColorUtils.white);
                                 }
                               } else {
-                                Get.snackbar("Alert", "Last name is required",
+                                Get.snackbar(
+                                    "Alert", "Date of birth is required",
                                     backgroundColor: ColorUtils.white);
                               }
                             } else {
-                              Get.snackbar("Alert", "First name is required",
+                              Get.snackbar("Alert", "Last name is required",
                                   backgroundColor: ColorUtils.white);
                             }
                           } else {
-                            Get.toNamed(RouteName.cretaetProfileTwoPath);
+                            Get.snackbar("Alert", "First name is required",
+                                backgroundColor: ColorUtils.white);
                           }
+                          // } else {
+                          //   Get.toNamed(RouteName.cretaetProfileTwoPath);
+                          // }
                         }),
                     25.verticalSpace
                   ],

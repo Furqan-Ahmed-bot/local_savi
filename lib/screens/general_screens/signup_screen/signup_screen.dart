@@ -117,6 +117,10 @@ class SignupScreen extends GetWidget<SignupController> {
                               if (controller.passwordController.text ==
                                   controller.confirmPasswordController.text) {
                                 UserServices().signupService(
+                                    type: role.value == "professional"
+                                        ? "PERFORMER"
+                                        : "USER",
+                                    context: context,
                                     emailAddress:
                                         controller.emailController.text,
                                     password:
