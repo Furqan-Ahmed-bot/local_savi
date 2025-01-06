@@ -100,24 +100,20 @@ class LoginScreen extends GetWidget<LoginScreenController> {
                     width: 0.9.sw,
                     title: 'Sign In',
                     onPress: () {
-                      if (role.value == "user") {
-                        if (controller.emailController.text.isNotEmpty) {
-                          if (controller.passwordController.text.isNotEmpty) {
-                            UserServices().loginService(
-                              context: context,
-                              email: controller.emailController.text,
-                              password: controller.passwordController.text,
-                            );
-                          } else {
-                            Get.snackbar("Alert", "Please enter your password",
-                                backgroundColor: ColorUtils.white);
-                          }
+                      if (controller.emailController.text.isNotEmpty) {
+                        if (controller.passwordController.text.isNotEmpty) {
+                          UserServices().loginService(
+                            context: context,
+                            email: controller.emailController.text,
+                            password: controller.passwordController.text,
+                          );
                         } else {
-                          Get.snackbar("Alert", "Please enter your email",
+                          Get.snackbar("Alert", "Please enter your password",
                               backgroundColor: ColorUtils.white);
                         }
                       } else {
-                        Get.to(PBottomNavBar());
+                        Get.snackbar("Alert", "Please enter your email",
+                            backgroundColor: ColorUtils.white);
                       }
                     }),
                 30.verticalSpace,

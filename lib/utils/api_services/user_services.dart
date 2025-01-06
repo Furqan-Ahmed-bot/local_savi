@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import "package:http/http.dart" as http;
 import 'package:local_saviors/resources/components/bottom_navbar.dart';
+import 'package:local_saviors/resources/components/p_bottom_nav_bar.dart';
 import 'package:local_saviors/utils/api_services/app_urls.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
@@ -44,7 +45,15 @@ class UserServices {
         token.value = responseData['data']['access_token'];
         refreshToken.value = responseData['data']['refresh_token'];
         Get.close(1);
-        Get.to(() => NavbarScreen());
+        if (responseData['data']['is_profile_completed']) {
+          role.value == "user"
+              ? Get.to(() => NavbarScreen())
+              : Get.to(PBottomNavBar());
+        } else {
+          Get.snackbar("Alert", "Please create your profile",
+              backgroundColor: ColorUtils.white);
+          Get.toNamed(RouteName.otpverification);
+        }
       } else {
         Get.close(1);
         Get.snackbar("Alert", responseData['message'].toString(),
@@ -194,6 +203,8 @@ class UserServices {
       if (response.statusCode == 200) {
         print(responseData);
         Get.close(1);
+        Get.snackbar("Success", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       } else {
         Get.close(1);
         Get.snackbar("Alert", responseData['message'].toString(),
@@ -316,6 +327,7 @@ class UserServices {
             );
           });
       var headers = {'Authorization': token.value};
+
       var request =
           http.MultipartRequest('POST', Uri.parse(UserUrls.createProfileUrl));
       request.fields.addAll({
@@ -339,18 +351,19 @@ class UserServices {
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
-      var responseData = jsonDecode(await response.stream.bytesToString());
+      print(await response.stream.bytesToString());
+      // var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        print(responseData);
+        // print(responseData);
         Get.close(1);
         role.value == "user"
             ? Get.to(() => NavbarScreen())
             : Get.toNamed(RouteName.cretaetProfileTwoPath);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        // Get.snackbar("Alert", responseData['message'].toString(),
+        //     backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);

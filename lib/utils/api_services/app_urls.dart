@@ -6,7 +6,8 @@ class UserUrls {
   static const resendOTPUrl = "${baseUrl}resend_otp";
   static const forgetPasswordUrl = "${baseUrl}forget_password";
   static const resetPasswordUrl = "${baseUrl}reset_password";
-  static const createProfileUrl = "${baseUrl}complete_profile";
+  static const createProfileUrl = "${baseUrl}create_user_profile";
+  static const createProviderProfileUrl = "${baseUrl}create_provider_profile";
   static const getProfileUrl = "${baseUrl}get_me";
   static const logoutUrl = "${baseUrl}logout";
 }
