@@ -251,11 +251,7 @@ class AppRoutes {
             binding: ScreenBindings()
             // transition: Transition.leftToRightWithFade,
             ),
-        GetPage(
-            name: RouteName.signup,
-            page: () => SignupScreen(),
-            transitionDuration: Duration(milliseconds: 250),
-            binding: ScreenBindings()
+        GetPage(name: RouteName.signup, page: () => SignupScreen(), transitionDuration: Duration(milliseconds: 250), binding: ScreenBindings()
 
             // transition: Transition.leftToRightWithFade,
             ),
@@ -264,21 +260,13 @@ class AppRoutes {
             page: () => ResetPasswordScreen(),
             transitionDuration: Duration(milliseconds: 250),
             binding: ScreenBindings()),
-        GetPage(
-            name: RouteName.prelogin,
-            page: () => PreLoginScreen(),
-            transitionDuration: Duration(milliseconds: 250),
-            binding: ScreenBindings()),
+        GetPage(name: RouteName.prelogin, page: () => PreLoginScreen(), transitionDuration: Duration(milliseconds: 250), binding: ScreenBindings()),
         GetPage(
             name: RouteName.addFundsScreenPath,
             page: () => AddFundsScreen(),
             transitionDuration: Duration(milliseconds: 250),
             binding: ScreenBindings()),
-        GetPage(
-            name: RouteName.login,
-            page: () => LoginScreen(),
-            transitionDuration: Duration(milliseconds: 250),
-            binding: ScreenBindings()),
+        GetPage(name: RouteName.login, page: () => LoginScreen(), transitionDuration: Duration(milliseconds: 250), binding: ScreenBindings()),
         GetPage(
             name: RouteName.forgetPassword,
             page: () => ForgetPasswordScreen(),

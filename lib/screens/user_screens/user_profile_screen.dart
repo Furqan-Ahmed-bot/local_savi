@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -53,8 +55,7 @@ class UserProfileScreen extends GetWidget<UserProfileScreenController> {
 
         Expanded(
             child: ListView(
-          padding: EdgeInsets.only(
-              left: 20.w, right: 20.w, top: 46.h, bottom: 110.h),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 46.h, bottom: 110.h),
           children: [
             Column(
               children: [
@@ -65,8 +66,7 @@ class UserProfileScreen extends GetWidget<UserProfileScreenController> {
                 16.h.verticalSpace,
                 Text(
                   "John Smith",
-                  style:
-                      TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
                 ),
                 16.h.verticalSpace,
                 Padding(
@@ -81,8 +81,7 @@ class UserProfileScreen extends GetWidget<UserProfileScreenController> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.w),
                       color: ColorUtils.white,
-                      border: Border.all(
-                          width: 1.w, color: ColorUtils.borderColor)),
+                      border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -93,8 +92,7 @@ class UserProfileScreen extends GetWidget<UserProfileScreenController> {
                             // mainAxisSize: MainAxisSize.min,
                             children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(

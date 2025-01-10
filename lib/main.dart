@@ -28,8 +28,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            appBarTheme:
-                AppBarTheme(elevation: 0, surfaceTintColor: Colors.transparent),
+            appBarTheme: AppBarTheme(elevation: 0, surfaceTintColor: Colors.transparent),
             applyElevationOverlayColor: false,
             splashColor: Colors.transparent,
             splashFactory: NoSplash.splashFactory,

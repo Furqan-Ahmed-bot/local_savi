@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_typing_uninitialized_variables, prefer_interpolation_to_compose_strings, use_full_hex_values_for_flutter_colors, avoid_print, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_typing_uninitialized_variables, prefer_interpolation_to_compose_strings, use_full_hex_values_for_flutter_colors, avoid_print, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
@@ -10,15 +10,15 @@ import 'package:local_saviors/screens/general_screens/otp_verifiation_screen.dar
 import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
-import 'package:local_saviors/utils/routes/routes.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/otp_field_style.dart';
-import 'package:otp_text_field/style.dart';
+
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../utils/images/image_assets.dart';
+import '../../../utils/routes/route_arguments.dart';
 
 class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
+  final args = Get.arguments as MyArguments;
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<OtpVerificationController>(builder: (controller) {
@@ -67,14 +67,21 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                       50.verticalSpace,
                       Text(
                         'Verification?',
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       ),
                       20.verticalSpace,
                       Text(
                         'We have sent you an email containing 6 digits verification code. Please enter the code to verify your identity',
                         style: TextStyle(
                           fontSize: 13,
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '${OTP}',
+                          style: TextStyle(
+                            fontSize: 13,
+                          ),
                         ),
                       ),
                       20.verticalSpace,
@@ -123,38 +130,6 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                           cursorColor: ColorUtils.black,
                         ),
                       ),
-                      // Center(
-                      //   child: OTPTextField(
-                      //     //controller: otpController,
-                      //     length: 6,
-                      //     margin: EdgeInsets.symmetric(horizontal: 1.w),
-                      //     width: 0.9.sw,
-
-                      //     textFieldAlignment: MainAxisAlignment.spaceAround,
-                      //     fieldWidth: 50,
-                      //     contentPadding: EdgeInsets.symmetric(vertical: 2),
-                      //     fieldStyle: FieldStyle.box,
-                      //     keyboardType: TextInputType.numberWithOptions(),
-                      //     otpFieldStyle: OtpFieldStyle(
-                      //       backgroundColor: Colors.white,
-                      //       // borderColor: AppColor.primaryButtonColor,
-                      //       enabledBorderColor: Color(0xffB2C2DC80),
-                      //       disabledBorderColor: Colors.green,
-                      //       focusBorderColor: ColorUtils.red,
-                      //     ),
-                      //     outlineBorderRadius: 15.r,
-                      //     style: TextStyle(
-                      //       fontSize: 24.sp,
-                      //       color: Colors.black,
-                      //       fontWeight: FontWeight.w600,
-                      //     ),
-
-                      //     onChanged: (pin) {},
-                      //     onCompleted: (value) {
-                      //       controller.otpPin.value = value;
-                      //     },
-                      //   ),
-                      // ),
                       40.verticalSpace,
                       RoundButton(
                           buttonColor: ColorUtils.red,
@@ -164,13 +139,9 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                           onPress: () {
                             if (controller.otpPin.value.length == 6) {
                               UserServices().verifyOTPService(
-                                  context: context,
-                                  isProfileCompleetd: isProfileCreated,
-                                  otp: controller.otpPin.value);
+                                  context: context, isProfileCompleetd: isProfileCreated, otp: controller.otpPin.value, isForgetPassword: args.data);
                             } else {
-                              Get.snackbar(
-                                  "Alert", "Please enter correct OTP pin",
-                                  backgroundColor: ColorUtils.white);
+                              Get.snackbar("Alert", "Please enter correct OTP pin", backgroundColor: ColorUtils.white);
                             }
                           }),
                       40.verticalSpace,
@@ -184,8 +155,7 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                             boxShadow: <BoxShadow>[
                               BoxShadow(
                                   offset: const Offset(0, 1),
-                                  color:
-                                      const Color(0xff000029).withOpacity(0.20),
+                                  color: const Color(0xff000029).withOpacity(0.20),
                                   blurRadius: 10) //blur radius of shadow
                             ],
                           ),
@@ -276,8 +246,7 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                       controller.complete == true
                           ? GestureDetector(
                               onTap: () {
-                                UserServices().resendOTPService(
-                                    context: context, email: email.value);
+                                UserServices().resendOTPService(context: context, email: email.value);
                                 controller.countDownController.start();
                                 controller.complete = false;
 
@@ -288,17 +257,13 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                                 children: [
                                   Text(
                                     'Didn’t receive code? ',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14.sp, color: Colors.black),
+                                    style: GoogleFonts.poppins(fontSize: 14.sp, color: Colors.black),
                                   ),
                                   SizedBox(width: 1.w),
                                   Text(
                                     'Resend',
                                     style: GoogleFonts.inter(
-                                        fontSize: 15.sp,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline),
+                                        fontSize: 15.sp, color: Colors.black, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
                                   ),
                                 ],
                               ),

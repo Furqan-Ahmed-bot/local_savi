@@ -8,7 +8,6 @@ import 'package:local_saviors/screens/general_screens/forget_password_screen/for
 import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
-import 'package:local_saviors/utils/routes/routes.dart';
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/components/text_fields.dart';
 import '../../../utils/images/image_assets.dart';
@@ -89,12 +88,9 @@ class ForgetPasswordScreen extends GetWidget<ForgetPasswordController> {
                     isProfileCreated = false;
                     email.value = controller.emailController.text;
                     if (controller.emailController.text.isNotEmpty) {
-                      UserServices().forgetPasswordService(
-                          context: context,
-                          email: controller.emailController.text);
+                      UserServices().forgetPasswordService(context: context, email: controller.emailController.text);
                     } else {
-                      Get.snackbar("Alert", "Please enter your email",
-                          backgroundColor: ColorUtils.white);
+                      Get.snackbar("Alert", "Please enter your email", backgroundColor: ColorUtils.white);
                     }
                   }),
             ],

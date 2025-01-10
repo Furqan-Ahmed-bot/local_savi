@@ -1,9 +1,11 @@
-import 'dart:convert';
+// ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import "package:http/http.dart" as http;
+import 'package:local_saviors/controllers/user_controllers/home_screen_controller.dart';
 import 'package:local_saviors/resources/components/bottom_navbar.dart';
 import 'package:local_saviors/resources/components/p_bottom_nav_bar.dart';
 import 'package:local_saviors/utils/api_services/app_urls.dart';
@@ -11,11 +13,12 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
+import '../../models/job_provider_model/job_provider_model.dart';
+import '../routes/route_arguments.dart';
+
 class UserServices {
-  loginService(
-      {required String email,
-      required String password,
-      required context}) async {
+  final homeController = Get.put(HomeScreenController());
+  loginService({required String email, required String password, required context}) async {
     try {
       showDialog(
           context: context,
@@ -33,8 +36,7 @@ class UserServices {
         //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBmYmE2OGY5LWYzMzQtNDVkNy05YmY2LTk1NzgyZDcxMzNlMCIsInR5cGUiOiJVU0VSIiwiaWF0IjoxNzMxNzM3MTQyLCJleHAiOjE3MzE4MjM1NDJ9.Ya5vgz1bSOAhseIU5AyoS65RrMOM26fcKof_wiIRDaw'
       };
       var request = http.Request('POST', Uri.parse(UserUrls.loginUrl));
-      request.body = json.encode(
-          {"identifier": email, "password": password, "fcm_token": "test"});
+      request.body = json.encode({"identifier": email, "password": password, "fcm_token": "test"});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -46,18 +48,16 @@ class UserServices {
         refreshToken.value = responseData['data']['refresh_token'];
         Get.close(1);
         if (responseData['data']['is_profile_completed']) {
-          role.value == "user"
-              ? Get.to(() => NavbarScreen())
-              : Get.to(PBottomNavBar());
+          await getProfileService(context: context).then((value) {
+            role.value == "user" ? Get.to(() => NavbarScreen()) : Get.to(PBottomNavBar());
+          });
         } else {
-          Get.snackbar("Alert", "Please create your profile",
-              backgroundColor: ColorUtils.white);
-          Get.toNamed(RouteName.otpverification);
+          Get.snackbar("Alert", "Please create your profile", backgroundColor: ColorUtils.white);
+          Get.toNamed(RouteName.createProfile);
         }
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
         print(response.reasonPhrase);
       }
     } catch (e) {
@@ -103,15 +103,18 @@ class UserServices {
       if (response.statusCode == 200) {
         print(responseData);
         email.value = emailAddress;
+        OTP = responseData['data']['otp'];
         // pass.value = password;
         Get.close(1);
-        Get.snackbar("OTP CODE", responseData['data']['otp'].toString(),
-            backgroundColor: ColorUtils.white);
-        Get.toNamed(RouteName.otpverification);
+        Get.snackbar("OTP CODE", responseData['data']['otp'].toString(), backgroundColor: ColorUtils.white);
+        Get.toNamed(
+            arguments: MyArguments(
+              data: false,
+            ),
+            RouteName.otpverification);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -119,10 +122,7 @@ class UserServices {
     }
   }
 
-  verifyOTPService(
-      {required String otp,
-      required context,
-      required bool isProfileCompleetd}) async {
+  verifyOTPService({required String otp, required context, required bool isProfileCompleetd, isForgetPassword = false}) async {
     try {
       showDialog(
           context: context,
@@ -156,16 +156,16 @@ class UserServices {
         Get.close(1);
         token.value = responseData['data']['access_token'];
         refreshToken.value = responseData['data']['refresh_token'];
-        if (isProfileCompleetd == true) {
-          Get.toNamed(RouteName.createProfile);
-        } else {
+        Get.toNamed(RouteName.createProfile);
+        if (isForgetPassword == true) {
           Get.toNamed(RouteName.resetPassword);
+        } else {
+          Get.toNamed(RouteName.createProfile);
         }
       } else {
         Get.close(1);
         debugPrint(await response.stream.bytesToString());
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -203,12 +203,10 @@ class UserServices {
       if (response.statusCode == 200) {
         print(responseData);
         Get.close(1);
-        Get.snackbar("Success", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Success", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -245,12 +243,16 @@ class UserServices {
 
       if (response.statusCode == 200) {
         print(responseData);
+        OTP = responseData['data']['otp'];
         Get.close(1);
-        Get.toNamed(RouteName.otpverification);
+        Get.toNamed(
+            arguments: MyArguments(
+              data: true,
+            ),
+            RouteName.otpverification);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -273,10 +275,7 @@ class UserServices {
               ),
             );
           });
-      var headers = {
-        'Content-Type': 'application/json',
-        'Authorization': token.value
-      };
+      var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
       var request = http.Request('POST', Uri.parse(UserUrls.resetPasswordUrl));
       request.body = json.encode({"password": password});
       request.headers.addAll(headers);
@@ -287,13 +286,11 @@ class UserServices {
       if (response.statusCode == 200) {
         print(responseData);
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
         Get.offAllNamed(RouteName.login);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -328,12 +325,12 @@ class UserServices {
           });
       var headers = {'Authorization': token.value};
 
-      var request =
-          http.MultipartRequest('POST', Uri.parse(UserUrls.createProfileUrl));
+      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createProfileUrl));
       request.fields.addAll({
         'address': address,
         // 'gender': gender,
-        'date_of_birth': dob,
+        'date_of_birth': "2004-03-04T17:22:09.895Z",
+        //dob,
         // 'phone': phone,
         'contact_email': email,
         'first_name': firstName,
@@ -346,24 +343,20 @@ class UserServices {
         'longitude': '67',
         'latitude': '24'
       });
-      request.files
-          .add(await http.MultipartFile.fromPath('profile_picture', image));
+      request.files.add(await http.MultipartFile.fromPath('profile_picture', image));
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
       print(await response.stream.bytesToString());
-      // var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        // print(responseData);
         Get.close(1);
-        role.value == "user"
-            ? Get.to(() => NavbarScreen())
-            : Get.toNamed(RouteName.cretaetProfileTwoPath);
+        await getProfileService(context: context).then((value) {
+          role.value == "user" ? Get.to(() => NavbarScreen()) : Get.toNamed(RouteName.cretaetProfileTwoPath);
+        });
       } else {
+        log(response.toString());
         Get.close(1);
-        // Get.snackbar("Alert", responseData['message'].toString(),
-        //     backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -371,18 +364,8 @@ class UserServices {
     }
   }
 
-  getProfileService({required context}) async {
+  Future getProfileService({required context}) async {
     try {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              backgroundColor: Colors.transparent,
-              content: SizedBox(
-                child: spinkit,
-              ),
-            );
-          });
       var headers = {'Authorization': token.value};
       var request = http.Request('GET', Uri.parse(UserUrls.getProfileUrl));
 
@@ -391,16 +374,13 @@ class UserServices {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        Get.close(1);
-        print(await response.stream.bytesToString());
+        String responseBody = await response.stream.bytesToString();
+        Map<String, dynamic> jsonResponse = json.decode(responseBody);
+        homeController.setUserData(JobProviderModel.fromJson(jsonResponse['data']));
       } else {
-        Get.close(1);
-
         print(response.reasonPhrase);
       }
     } catch (e) {
-      Get.close(1);
-
       debugPrint("==> error: ${e.toString()}");
     }
   }
@@ -419,10 +399,7 @@ class UserServices {
               ),
             );
           });
-      var headers = {
-        'Content-Type': 'application/json',
-        'Authorization': token.value
-      };
+      var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
       var request = http.Request('POST', Uri.parse(UserUrls.logoutUrl));
       request.body = json.encode({"refresh_token": refreshToken.value});
       request.headers.addAll(headers);
@@ -433,13 +410,11 @@ class UserServices {
       if (response.statusCode == 200) {
         print(responseData);
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
         Get.offAllNamed(RouteName.selectRoleOne);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);

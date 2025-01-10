@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -13,8 +15,7 @@ class CreateProfileController extends GetxController {
   TextEditingController addresscontroller = TextEditingController();
   TextEditingController locationcontroller = TextEditingController();
   TextEditingController aboutcontroller = TextEditingController();
-  TextEditingController emailcontroller =
-      TextEditingController(text: email.value);
+  TextEditingController emailcontroller = TextEditingController(text: email.value);
   TextEditingController phonecontroller = TextEditingController();
   RxString state = "".obs;
   RxString city = "".obs;

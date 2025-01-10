@@ -6,6 +6,7 @@ import 'package:local_saviors/utils/color_utils.dart';
 RxString role = "".obs;
 bool isProfileCreated = false;
 RxString email = "".obs;
+var OTP;
 // RxString pass = "".obs;
 // RxString ppas = "".obs;
 // RxString pemail = "".obs;

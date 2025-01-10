@@ -1,5 +1,6 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/user_controllers/best_performer_detail_screen_controller.dart';
@@ -8,8 +9,7 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
-class BestPerformerDetailScreen
-    extends GetWidget<BestPerformerDetailScreenController> {
+class BestPerformerDetailScreen extends GetWidget<BestPerformerDetailScreenController> {
   @override
   Widget build(BuildContext context) {
     return myBackGround(
@@ -20,17 +20,14 @@ class BestPerformerDetailScreen
             controller.showChat.value
                 ? GestureDetector(
                     onTap: () {
-                      Get.toNamed(RouteName.chatScreenPath,
-                          arguments: {"showUserDetail": false});
+                      Get.toNamed(RouteName.chatScreenPath, arguments: {"showUserDetail": false});
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: 20.w),
                       padding: EdgeInsets.all(8.sp),
                       height: 40.h,
                       width: 40.w,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: ColorUtils.appbarButtonBG),
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                       child: Image.asset(
                         ImageAssets.msgIcon,
                         color: ColorUtils.red,
@@ -45,8 +42,7 @@ class BestPerformerDetailScreen
         ),
         Expanded(
             child: ListView(
-          padding:
-              EdgeInsets.only(left: 20.w, right: 20.w, top: 46.h, bottom: 30.h),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 46.h, bottom: 30.h),
           children: [
             Column(
               children: [
@@ -67,8 +63,7 @@ class BestPerformerDetailScreen
                 16.h.verticalSpace,
                 Text(
                   "Oliver Mark",
-                  style:
-                      TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
                 ),
                 12.h.verticalSpace,
                 GestureDetector(
@@ -90,9 +85,7 @@ class BestPerformerDetailScreen
                       5.w.horizontalSpace,
                       Text(
                         "Rating",
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            decoration: TextDecoration.underline),
+                        style: TextStyle(fontSize: 18.sp, decoration: TextDecoration.underline),
                       ),
                       10.w.horizontalSpace,
                       Container(
@@ -108,9 +101,7 @@ class BestPerformerDetailScreen
                       5.w.horizontalSpace,
                       Text(
                         "Reviews",
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            decoration: TextDecoration.underline),
+                        style: TextStyle(fontSize: 18.sp, decoration: TextDecoration.underline),
                       ),
                     ],
                   ),
@@ -128,8 +119,7 @@ class BestPerformerDetailScreen
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.w),
                       color: ColorUtils.white,
-                      border: Border.all(
-                          width: 1.w, color: ColorUtils.borderColor)),
+                      border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -140,8 +130,7 @@ class BestPerformerDetailScreen
                             // mainAxisSize: MainAxisSize.min,
                             children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(

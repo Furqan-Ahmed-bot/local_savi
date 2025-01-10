@@ -8,7 +8,7 @@ class UserUrls {
   static const resetPasswordUrl = "${baseUrl}reset_password";
   static const createProfileUrl = "${baseUrl}create_user_profile";
   static const createProviderProfileUrl = "${baseUrl}create_provider_profile";
-  static const getProfileUrl = "${baseUrl}get_me";
+  static const getProfileUrl = "${baseUrl}about";
   static const logoutUrl = "${baseUrl}logout";
 }
 
