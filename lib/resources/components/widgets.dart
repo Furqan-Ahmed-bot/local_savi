@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
@@ -1025,7 +1026,15 @@ Widget pJobDetailUserCard({
   );
 }
 
-Widget activeJobCard({String status = ""}) {
+Widget activeJobCard({
+  String status = "",
+  String? title,
+  String? desc,
+  String? time,
+  String? date,
+  String? budget,
+  String? workerType,
+}) {
   return Container(
     width: 1.0.sw,
     margin: EdgeInsets.only(bottom: 16.h),
@@ -1036,6 +1045,7 @@ Widget activeJobCard({String status = ""}) {
       borderRadius: BorderRadius.circular(10.r),
     ),
     child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1043,7 +1053,7 @@ Widget activeJobCard({String status = ""}) {
             Container(
               width: 0.43.sw,
               child: Text(
-                "Lorem ipsum dolor sit...",
+                title ?? "Lorem ipsum dolor sit...",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16.sp,
@@ -1051,14 +1061,21 @@ Widget activeJobCard({String status = ""}) {
               ),
             ),
             Text(
-              "For Professional | July 20",
+              workerType != null
+                  ? "For ${workerType} | ${date != null ? DateFormat("d MMMM").format(DateTime.parse(date)) : ""}"
+                  : "For ${workerType} | ${date != null ? DateFormat("d MMMM").format(DateTime.parse(date)) : ""}",
               style: TextStyle(fontSize: 12.sp, color: ColorUtils.borderColor),
             )
           ],
         ),
         6.h.verticalSpace,
-        const Text(
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit odio.'),
+        Text(
+          desc ??
+              'Lorem ipsum dolor sit amet consectetur adipiscing elit odio.',
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.left,
+          maxLines: 3,
+        ),
         6.h.verticalSpace,
         Divider(
           color: ColorUtils.borderColor.withOpacity(0.5),
@@ -1081,7 +1098,7 @@ Widget activeJobCard({String status = ""}) {
                 ),
                 6.h.verticalSpace,
                 Text(
-                  "\$50.00",
+                  budget != null ? "\$$budget" : "",
                   style: TextStyle(
                     color: ColorUtils.black,
                     fontSize: 16.sp,
@@ -1109,7 +1126,9 @@ Widget activeJobCard({String status = ""}) {
                 ),
                 6.h.verticalSpace,
                 Text(
-                  "03:00 pm",
+                  date != null
+                      ? DateFormat("HH:mm").format(DateTime.parse(date))
+                      : "",
                   style: TextStyle(
                     color: ColorUtils.black,
                     fontSize: 16.sp,
@@ -1137,7 +1156,7 @@ Widget activeJobCard({String status = ""}) {
                 ),
                 6.h.verticalSpace,
                 Text(
-                  "May 18, 2024",
+                  " ${date != null ? DateFormat("MMM d, yyyy").format(DateTime.parse(date)) : ""}",
                   style: TextStyle(
                     color: ColorUtils.black,
                     fontSize: 16.sp,

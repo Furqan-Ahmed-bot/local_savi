@@ -1,23 +1,45 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 
 class CreateJobPostScreenController extends GetxController {
-  String? selectedTime = '00';
-  String? selectedHour = '00';
-  String? selectedCity = 'City 1';
-  String? selectedState = 'State 1';
+  GlobalKey formKey = GlobalKey();
+  TextEditingController titleEditingController = TextEditingController();
+  TextEditingController descEditingController = TextEditingController();
+  TextEditingController addressEditingController = TextEditingController();
+  TextEditingController locationEditingController = TextEditingController();
+  TextEditingController priceBudgetEditingController = TextEditingController();
+  String? selectedHours = '00';
+  String? selectedMints = '00';
+  RxString state = "".obs;
+  RxString city = "".obs;
   RxInt stepIndex = 0.obs;
   RxInt groupValue = 0.obs;
   RxInt cardvalue = 0.obs;
   RxInt workingHour = 0.obs;
   RxInt fixedAmoount = 0.obs;
   RxBool isAm = false.obs;
+  RxString selectedTimeWithDate = "".obs;
   DateTime selectedDate = DateTime.now();
   var myFormat = DateFormat('MM/dd/yyyy');
   TextEditingController dateController = TextEditingController();
+  File? image;
+  List listOfImages = [];
+  final picker = ImagePicker();
+  Future getImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      image = File(pickedFile.path);
+      listOfImages.add(image);
+      update();
+    } else {}
+  }
 
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -37,12 +59,14 @@ class CreateJobPostScreenController extends GetxController {
       },
       context: context,
       initialDate: selectedDate,
-      firstDate: DateTime(DateTime.now().year - 100),
+      firstDate: DateTime.now(),
       lastDate: DateTime(DateTime.now().year + 100),
     );
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
-      dateController.text = myFormat.format(selectedDate); // Format the date
+
+      dateController.text = picked.toIso8601String(); // Format the date
+
       update();
     }
   }

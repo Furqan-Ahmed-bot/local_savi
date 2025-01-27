@@ -83,52 +83,113 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                 builder: (controller) => controller
                             .names[controller.selectedIndex.value] ==
                         "Open"
-                    ? Column(
-                        children: List.generate(
-                            3,
-                            (index) => GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(RouteName.jobPostedScreenPath);
-                                },
-                                child: activeJobCard())),
-                      )
-                    : controller.names[controller.selectedIndex.value] ==
-                            "Upcoming"
+                    ? controller.openJobsList.isNotEmpty
                         ? Column(
                             children: List.generate(
-                                3,
+                                controller.openJobsList.length,
                                 (index) => GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(RouteName
-                                          .upcomingJobDetailScreenPath);
+                                      Get.toNamed(
+                                          RouteName.jobPostedScreenPath);
                                     },
-                                    child: activeJobCard())),
+                                    child: activeJobCard(
+                                        date: controller
+                                            .openJobsList[index].startTime,
+                                        workerType: controller
+                                            .openJobsList[index].workerType,
+                                        desc: controller
+                                            .openJobsList[index].description,
+                                        title: controller
+                                            .openJobsList[index].title))),
                           )
-                        : controller.names[controller.selectedIndex.value] ==
-                                "Ongoing"
+                        : const Center(child: Text(" No Open Jobs Available"))
+                    : controller.names[controller.selectedIndex.value] ==
+                            "Upcoming"
+                        ? controller.upcomingJobsList.isNotEmpty
                             ? Column(
                                 children: List.generate(
-                                    3,
+                                    controller.upcomingJobsList.length,
                                     (index) => GestureDetector(
                                         onTap: () {
                                           Get.toNamed(RouteName
-                                              .ongoingJobDetailScreenPath);
+                                              .upcomingJobDetailScreenPath);
                                         },
-                                        child: activeJobCard())),
+                                        child: activeJobCard(
+                                            date: controller
+                                                .upcomingJobsList[index]
+                                                .startTime,
+                                            workerType: controller
+                                                .upcomingJobsList[index]
+                                                .workerType,
+                                            desc: controller
+                                                .upcomingJobsList[index]
+                                                .description,
+                                            title: controller
+                                                .upcomingJobsList[index]
+                                                .title))),
                               )
-                            : controller.names[
-                                        controller.selectedIndex.value] ==
-                                    "Completed"
+                            : const Center(
+                                child: Text(" No Upcoming Jobs Available"))
+                        : controller.names[controller.selectedIndex.value] ==
+                                "Ongoing"
+                            ? controller.ongoingJobsList.isNotEmpty
                                 ? Column(
                                     children: List.generate(
-                                        3,
+                                        controller.ongoingJobsList.length,
                                         (index) => GestureDetector(
                                             onTap: () {
                                               Get.toNamed(RouteName
-                                                  .jobCompletedScreenPath);
+                                                  .ongoingJobDetailScreenPath);
                                             },
-                                            child: activeJobCard())),
+                                            child: activeJobCard(
+                                                date: controller
+                                                    .ongoingJobsList[index]
+                                                    .startTime,
+                                                workerType: controller
+                                                    .ongoingJobsList[index]
+                                                    .workerType,
+                                                desc: controller
+                                                    .ongoingJobsList[index]
+                                                    .description,
+                                                title: controller
+                                                    .ongoingJobsList[index]
+                                                    .title))),
                                   )
+                                : const Center(
+                                    child: Text(" No Ongoing Jobs Available"))
+                            : controller.names[
+                                        controller.selectedIndex.value] ==
+                                    "Completed"
+                                ? controller.completedJobsList.isNotEmpty
+                                    ? Column(
+                                        children: List.generate(
+                                            controller.completedJobsList.length,
+                                            (index) => GestureDetector(
+                                                onTap: () {
+                                                  Get.toNamed(RouteName
+                                                      .jobCompletedScreenPath);
+                                                },
+                                                child: activeJobCard(
+                                                    date: controller
+                                                        .completedJobsList[
+                                                            index]
+                                                        .startTime,
+                                                    workerType: controller
+                                                        .completedJobsList[
+                                                            index]
+                                                        .workerType,
+                                                    desc: controller
+                                                        .completedJobsList[
+                                                            index]
+                                                        .description,
+                                                    title: controller
+                                                        .completedJobsList[
+                                                            index]
+                                                        .title))),
+                                      )
+                                    : const Center(
+                                        child: Text(
+                                            " No Completed Jobs Available"))
                                 : Column(
                                     children: List.generate(
                                         controller.listOfCancelledCard.length,

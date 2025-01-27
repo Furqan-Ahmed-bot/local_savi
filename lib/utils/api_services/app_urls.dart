@@ -1,15 +1,18 @@
 class UserUrls {
-  static const baseUrl = "https://api.localsaviors.com/api/v1/user/";
-  static const loginUrl = "${baseUrl}login";
-  static const signupUrl = "${baseUrl}register";
-  static const verifyOTPUrl = "${baseUrl}verify_otp";
-  static const resendOTPUrl = "${baseUrl}resend_otp";
-  static const forgetPasswordUrl = "${baseUrl}forget_password";
-  static const resetPasswordUrl = "${baseUrl}reset_password";
-  static const createProfileUrl = "${baseUrl}create_user_profile";
-  static const createProviderProfileUrl = "${baseUrl}create_provider_profile";
-  static const getProfileUrl = "${baseUrl}about";
-  static const logoutUrl = "${baseUrl}logout";
+  static const baseUrl = "https://api.localsaviors.com/api/v1/";
+  static const loginUrl = "${baseUrl}user/login";
+  static const signupUrl = "${baseUrl}user/register";
+  static const verifyOTPUrl = "${baseUrl}user/verify_otp";
+  static const resendOTPUrl = "${baseUrl}user/resend_otp";
+  static const forgetPasswordUrl = "${baseUrl}user/forget_password";
+  static const resetPasswordUrl = "${baseUrl}user/reset_password";
+  static const createProfileUrl = "${baseUrl}user/create_user_profile";
+  static const createProviderProfileUrl =
+      "${baseUrl}user/create_provider_profile";
+  static const getProfileUrl = "${baseUrl}user/about";
+  static const logoutUrl = "${baseUrl}user/logout";
+  static const createJob = "${baseUrl}job/register";
+  static const getAllJobs = "${baseUrl}job/user?filter="; //filter = OPEN
 }
 
 // class ProfessionalUrls {
