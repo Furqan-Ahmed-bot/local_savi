@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
-
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
@@ -7,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import "package:http/http.dart" as http;
 import 'package:local_saviors/controllers/user_controllers/home_screen_controller.dart';
+import 'package:local_saviors/models/job_performer_model/job_performer_model.dart';
+import 'package:local_saviors/models/job_performer_model/performer_all_jobs_model.dart';
 import 'package:local_saviors/models/job_provider_model/JobsModel.dart';
 import 'package:local_saviors/models/performer_model/performer_model.dart';
 import 'package:local_saviors/resources/components/bottom_navbar.dart';
@@ -25,7 +25,10 @@ class UserServices {
   final homeController = Get.put(HomeScreenController());
   final performerController = Get.put(PHomeController());
   final createProfileController = Get.put(CreatePorfileTwoController());
-  loginService({required String userEmail, required String password, required context}) async {
+  loginService(
+      {required String userEmail,
+      required String password,
+      required context}) async {
     try {
       showDialog(
           context: context,
@@ -39,34 +42,38 @@ class UserServices {
           });
       var headers = {
         'Content-Type': 'application/json',
-        // 'Authorization':
-        //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBmYmE2OGY5LWYzMzQtNDVkNy05YmY2LTk1NzgyZDcxMzNlMCIsInR5cGUiOiJVU0VSIiwiaWF0IjoxNzMxNzM3MTQyLCJleHAiOjE3MzE4MjM1NDJ9.Ya5vgz1bSOAhseIU5AyoS65RrMOM26fcKof_wiIRDaw'
       };
       var request = http.Request('POST', Uri.parse(UserUrls.loginUrl));
-      request.body = json.encode({"identifier": userEmail, "password": password, "fcm_token": "test"});
+      request.body = json.encode(
+          {"identifier": userEmail, "password": password, "fcm_token": "test"});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        print(responseData);
+        debugPrint(responseData.toString());
+
         token.value = responseData['data']['access_token'];
         refreshToken.value = responseData['data']['refresh_token'];
         Get.close(1);
         if (responseData['data']['is_profile_completed']) {
           await getProfileService(context: context).then((value) {
-            role.value == "USER" ? Get.to(() => NavbarScreen()) : Get.to(PBottomNavBar());
+            role.value == "USER"
+                ? Get.to(() => NavbarScreen())
+                : Get.to(PBottomNavBar());
           });
         } else {
           email.value = userEmail;
-          Get.snackbar("Alert", "Please create your profile", backgroundColor: ColorUtils.white);
+          Get.snackbar("Alert", "Please create your profile",
+              backgroundColor: ColorUtils.white);
           Get.toNamed(RouteName.createProfile);
         }
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
-        print(response.reasonPhrase);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
+        debugPrint(response.reasonPhrase);
       }
     } catch (e) {
       Get.close(1);
@@ -109,12 +116,13 @@ class UserServices {
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        print(responseData);
+        debugPrint(responseData);
         email.value = emailAddress;
         OTP = responseData['data']['otp'];
         // pass.value = password;
         Get.close(1);
-        Get.snackbar("OTP CODE", responseData['data']['otp'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("OTP CODE", responseData['data']['otp'].toString(),
+            backgroundColor: ColorUtils.white);
         Get.toNamed(
             arguments: MyArguments(
               data: false,
@@ -122,7 +130,8 @@ class UserServices {
             RouteName.otpverification);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -130,7 +139,11 @@ class UserServices {
     }
   }
 
-  verifyOTPService({required String otp, required context, required bool isProfileCompleetd, isForgetPassword = false}) async {
+  verifyOTPService(
+      {required String otp,
+      required context,
+      required bool isProfileCompleetd,
+      isForgetPassword = false}) async {
     try {
       showDialog(
           context: context,
@@ -160,7 +173,7 @@ class UserServices {
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        print(responseData);
+        debugPrint(responseData);
         Get.close(1);
         token.value = responseData['data']['access_token'];
         refreshToken.value = responseData['data']['refresh_token'];
@@ -177,7 +190,8 @@ class UserServices {
       } else {
         Get.close(1);
         debugPrint(await response.stream.bytesToString());
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -213,12 +227,14 @@ class UserServices {
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        print(responseData);
+        debugPrint(responseData);
         Get.close(1);
-        Get.snackbar("Success", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Success", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -254,7 +270,7 @@ class UserServices {
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        print(responseData);
+        debugPrint(responseData);
         OTP = responseData['data']['otp'];
         Get.close(1);
         Get.toNamed(
@@ -264,7 +280,8 @@ class UserServices {
             RouteName.otpverification);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -287,7 +304,10 @@ class UserServices {
               ),
             );
           });
-      var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token.value
+      };
       var request = http.Request('POST', Uri.parse(UserUrls.resetPasswordUrl));
       request.body = json.encode({"password": password});
       request.headers.addAll(headers);
@@ -296,13 +316,15 @@ class UserServices {
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        print(responseData);
+        debugPrint(responseData);
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
         Get.offAllNamed(RouteName.login);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -337,7 +359,8 @@ class UserServices {
           });
       var headers = {'Authorization': token.value};
 
-      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createProfileUrl));
+      var request =
+          http.MultipartRequest('POST', Uri.parse(UserUrls.createProfileUrl));
       request.fields.addAll({
         'address': address,
         // 'gender': gender,
@@ -355,16 +378,19 @@ class UserServices {
         'longitude': '67',
         'latitude': '24'
       });
-      request.files.add(await http.MultipartFile.fromPath('profile_picture', image));
+      request.files
+          .add(await http.MultipartFile.fromPath('profile_picture', image));
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
-      print(await response.stream.bytesToString());
+      debugPrint(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
         Get.close(1);
         await getProfileService(context: context).then((value) {
-          role.value == "USER" ? Get.to(() => NavbarScreen()) : Get.toNamed(RouteName.cretaetProfileTwoPath);
+          role.value == "USER"
+              ? Get.to(() => NavbarScreen())
+              : Get.toNamed(RouteName.cretaetProfileTwoPath);
         });
       } else {
         log(response.toString());
@@ -404,7 +430,8 @@ class UserServices {
           });
       var headers = {'Authorization': token.value};
 
-      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createProviderProfileUrl));
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(UserUrls.createProviderProfileUrl));
       request.fields.addAll({
         'address': address,
         'gender': 'MALE',
@@ -425,13 +452,16 @@ class UserServices {
       });
 
       for (var i = 0; i < createProfileController.professionIds.length; i++) {
-        request.fields.addAll({"professions[$i]": createProfileController.professionIds[i]['id']});
+        request.fields.addAll({
+          "professions[$i]": createProfileController.professionIds[i]['id']
+        });
       }
-      request.files.add(await http.MultipartFile.fromPath('profile_picture', image));
+      request.files
+          .add(await http.MultipartFile.fromPath('profile_picture', image));
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
-      print(await response.stream.bytesToString());
+      debugPrint(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
         Get.back();
@@ -460,15 +490,18 @@ class UserServices {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        String responseBody = await response.stream.bytesToString();
-        Map<String, dynamic> jsonResponse = json.decode(responseBody);
+        String responseBody1 = await response.stream.bytesToString();
+        Map<String, dynamic> jsonResponse = json.decode(responseBody1);
         if (role.value == "USER") {
-          homeController.setUserData(JobProviderModel.fromJson(jsonResponse['data']));
+          homeController
+              .setUserData(JobProviderModel.fromJson(jsonResponse['data']));
         } else if (role.value == 'PROFESSIONAL') {
-          performerController.setPerformerData(PerformerModel.fromJson(jsonResponse['data']));
+          performerController
+              .setPerformerData(PerformerModel.fromJson(jsonResponse['data']));
+          performerController.listOfJobs = await getPerformerJobs(context);
         }
       } else {
-        print(response.reasonPhrase);
+        debugPrint(response.reasonPhrase);
       }
     } catch (e) {
       debugPrint("==> error: ${e.toString()}");
@@ -489,7 +522,10 @@ class UserServices {
               ),
             );
           });
-      var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token.value
+      };
       var request = http.Request('POST', Uri.parse(UserUrls.logoutUrl));
       request.body = json.encode({"refresh_token": refreshToken.value});
       request.headers.addAll(headers);
@@ -498,13 +534,15 @@ class UserServices {
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        print(responseData);
+        debugPrint(responseData);
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
         Get.offAllNamed(RouteName.selectRoleOne);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -544,7 +582,8 @@ class UserServices {
 
     try {
       var headers = {'Authorization': token.value};
-      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createJob));
+      var request =
+          http.MultipartRequest('POST', Uri.parse(UserUrls.createJob));
       var body = {
         'worker_type': WorkerType,
         'title': title,
@@ -567,14 +606,15 @@ class UserServices {
 
       for (var img in images) {
         // final compressedImg = await compressImage(img);
-        request.files.add(await http.MultipartFile.fromPath('job_images', img.path));
+        request.files
+            .add(await http.MultipartFile.fromPath('job_images', img.path));
       }
 
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
       var resposeDAta = await response.stream.bytesToString();
-      print("===> resdata: ${resposeDAta}");
+      debugPrint("===> resdata: ${resposeDAta}");
 
       if (response.statusCode == 200) {
         Get.close(1);
@@ -593,7 +633,9 @@ class UserServices {
                       20.h.verticalSpace,
                       Container(
                         padding: EdgeInsets.all(23.sp),
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColorUtils.jobIconBG),
                         child: Image.asset(
                           ImageAssets.congratulationsIcon,
                           scale: 2,
@@ -602,7 +644,8 @@ class UserServices {
                       20.h.verticalSpace,
                       Text(
                         "Congratulations!",
-                        style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 22.sp, fontWeight: FontWeight.w600),
                       ),
                       12.h.verticalSpace,
                       Padding(
@@ -610,7 +653,8 @@ class UserServices {
                         child: Text(
                           "Your job has been posted successfully!",
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal),
+                          style: TextStyle(
+                              fontSize: 14.sp, fontWeight: FontWeight.normal),
                         ),
                       ),
                     ],
@@ -649,10 +693,10 @@ class UserServices {
               );
             });
 
-        // print(await response.stream.bytesToString());
+        // debugPrint(await response.stream.bytesToString());
       } else {
         Get.close(1);
-        print(response.reasonPhrase);
+        debugPrint(response.reasonPhrase);
       }
     } catch (e) {
       Get.close(1);
@@ -665,7 +709,8 @@ class UserServices {
   }) async {
     try {
       var headers = {'Authorization': token.value};
-      var request = http.Request('GET', Uri.parse(UserUrls.getAllJobs + filter));
+      var request =
+          http.Request('GET', Uri.parse(UserUrls.getAllJobs + filter));
 
       request.headers.addAll(headers);
 
@@ -674,20 +719,19 @@ class UserServices {
       if (response.statusCode == 200) {
         String responseBody = await response.stream.bytesToString();
 
-        // Decode the JSON response
         Map<String, dynamic> jsonResponse = json.decode(responseBody);
 
-        // Check if the response contains data
         if (jsonResponse.containsKey('data')) {
-          List<dynamic> jsonData = jsonResponse['data']; // Extract the 'data' field
-          List<JobsModel> jobs = jsonData.map((jobJson) => JobsModel.fromJson(jobJson)).toList(); // Convert to Job objects
+          List<dynamic> jsonData = jsonResponse['data'];
+          List<JobsModel> jobs =
+              jsonData.map((jobJson) => JobsModel.fromJson(jobJson)).toList();
           return jobs;
         } else {
-          print("Error: Data key not found in response.");
+          debugPrint("Error: Data key not found in response.");
           return [];
         }
       } else {
-        print(response.reasonPhrase);
+        debugPrint(response.reasonPhrase);
         return [];
       }
     } catch (e) {
@@ -695,14 +739,195 @@ class UserServices {
       return [];
     }
   }
-}
 
-// Future<File> compressImage(File image) async {
-//   final compressedImage = await FlutterImageCompress.compressWithFile(
-//     image.path,
-//     minWidth: 800,
-//     minHeight: 600,
-//     quality: 80, // Compress quality (lower is smaller file size)
-//   );
-//   return File.fromRawPath(compressedImage!);
-// }
+  getPerformerAllJobs({
+    required String filter,
+  }) async {
+    try {
+      var headers = {'Authorization': token.value};
+      var request =
+          http.Request('GET', Uri.parse(UserUrls.getPerformerJobs + filter));
+
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        String responseBody = await response.stream.bytesToString();
+
+        Map<String, dynamic> jsonResponse = json.decode(responseBody);
+
+        if (jsonResponse.containsKey('data')) {
+          List<dynamic> jsonData = jsonResponse['data'];
+          List<PerformerAllJobsModel> jobs = jsonData
+              .map((jobJson) => PerformerAllJobsModel.fromJson(jobJson))
+              .toList();
+          return jobs;
+        } else {
+          debugPrint("Error: Data key not found in response.");
+          return [];
+        }
+      } else {
+        debugPrint(response.reasonPhrase);
+        return [];
+      }
+    } catch (e) {
+      debugPrint("==> error: ${e.toString()}");
+      return [];
+    }
+  }
+
+  Future getPerformerJobs(context) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: SizedBox(
+              child: spinkit,
+            ),
+          );
+        });
+    try {
+      var headers = {'Authorization': token.value};
+      var request =
+          http.Request('GET', Uri.parse(UserUrls.getPerformerAllJobs));
+
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        String responseBody = await response.stream.bytesToString();
+
+        // Decode the response body
+        Map<String, dynamic> jsonResponse = json.decode(responseBody);
+
+        List<dynamic> jobData = jsonResponse['data'];
+        List<PerformerJobsModel> jobs = jobData
+            .map((jobJson) => PerformerJobsModel.fromJson(jobJson))
+            .toList();
+        Get.close(1);
+        return jobs;
+      } else {
+        debugPrint(response.reasonPhrase);
+        Get.close(1);
+        return [];
+      }
+    } catch (e) {
+      debugPrint("==> error: ${e.toString()}");
+      Get.close(1);
+      return [];
+    }
+  }
+
+  applyPerformerJob({required context, required jobId}) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: SizedBox(
+              child: spinkit,
+            ),
+          );
+        });
+
+    try {
+      var headers = {'Authorization': token.value};
+      var request =
+          http.Request('POST', Uri.parse(UserUrls.applyPerformerJob + jobId));
+
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                backgroundColor: ColorUtils.dialogeBGColor,
+                content: SizedBox(
+                  width: 1.0.sw,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      20.h.verticalSpace,
+                      Container(
+                        padding: EdgeInsets.all(23.sp),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColorUtils.jobIconBG),
+                        child: Image.asset(
+                          ImageAssets.jobDoneIcon,
+                          scale: 2,
+                        ),
+                      ),
+                      20.h.verticalSpace,
+                      Text(
+                        "Thank You!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: ColorUtils.black,
+                          fontSize: 22.sp,
+                        ),
+                      ),
+                      20.h.verticalSpace,
+                      Text(
+                        "Your Application has been submitted",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: ColorUtils.black,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                actions: [
+                  Container(
+                    width: 1.0.sw,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Get.close(1);
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15.h, horizontal: 30.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: ColorUtils.red,
+                            ),
+                            child: Text(
+                              "Go Back",
+                              style: TextStyle(color: ColorUtils.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              );
+            });
+
+        Get.close(1);
+      } else {
+        Get.close(1);
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      Get.close(1);
+      debugPrint("==> error: ${e}");
+    }
+  }
+}

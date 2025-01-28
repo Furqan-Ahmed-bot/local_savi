@@ -9,11 +9,17 @@ class UserUrls {
   static const createProfileUrl = "${baseUrl}user/create_user_profile";
   static const createPerformerProfileUrl = "${baseUrl}user/create_user_profile";
 
-  static const createProviderProfileUrl = "${baseUrl}user/create_performer_profile";
+  static const createProviderProfileUrl =
+      "${baseUrl}user/create_performer_profile";
   static const getProfileUrl = "${baseUrl}user/about";
   static const logoutUrl = "${baseUrl}user/logout";
   static const createJob = "${baseUrl}job/register";
   static const getAllJobs = "${baseUrl}job/user?filter="; //filter = OPEN
+
+  static const getPerformerAllJobs = "${baseUrl}job/all?limit=20&page=1";
+  static const applyPerformerJob = "${baseUrl}job/apply/"; // job id
+  static const getPerformerJobs =
+      "${baseUrl}job/all/provider?filter="; // filter
 }
 
 // class ProfessionalUrls {

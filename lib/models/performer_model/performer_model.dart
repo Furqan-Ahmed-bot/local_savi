@@ -6,14 +6,22 @@ class PerformerModel {
   UserDetails? userDetails;
   List<Professions>? professions;
 
-  PerformerModel({this.userId, this.email, this.userType, this.phone, this.userDetails, this.professions});
+  PerformerModel(
+      {this.userId,
+      this.email,
+      this.userType,
+      this.phone,
+      this.userDetails,
+      this.professions});
 
   PerformerModel.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
     email = json['email'];
     userType = json['user_type'];
     phone = json['phone'];
-    userDetails = json['user_details'] != null ? new UserDetails.fromJson(json['user_details']) : null;
+    userDetails = json['user_details'] != null
+        ? new UserDetails.fromJson(json['user_details'])
+        : null;
     if (json['professions'] != null) {
       professions = <Professions>[];
       json['professions'].forEach((v) {

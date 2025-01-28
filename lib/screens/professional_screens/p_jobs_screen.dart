@@ -81,79 +81,79 @@ class PJobsScreen extends GetWidget<PJobsController> {
                 builder: (controller) => controller
                             .names[controller.selectedIndex.value] ==
                         "Applied"
-                    ? Column(
-                        children: List.generate(
-                            3,
-                            (index) => GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(RouteName.pJobsDetailScreenPath,
-                                      arguments: {
-                                        "showBottomButton": false,
-                                        "status": "Job Open",
-                                        "showActionButton": false,
-                                        "bottomButtonText": ""
-                                      });
-                                },
-                                child: activeJobCard(
-                                    status: controller.names[
-                                        controller.selectedIndex.value]))),
-                      )
-                    : controller.names[controller.selectedIndex.value] ==
-                            "Upcoming"
-                        ? Column(
+                    ? controller.appliedJobsList.isEmpty
+                        ? const Center(
+                            child: Text(" No Applied Jobs Available"))
+                        : Column(
                             children: List.generate(
-                                3,
+                                controller.appliedJobsList.length,
                                 (index) => GestureDetector(
                                     onTap: () {
                                       Get.toNamed(
                                           RouteName.pJobsDetailScreenPath,
                                           arguments: {
-                                            "showBottomButton": true,
+                                            "showBottomButton": false,
                                             "status": "Job Open",
                                             "showActionButton": false,
-                                            "bottomButtonText": "Cancel Job"
+                                            "bottomButtonText": ""
                                           });
                                     },
                                     child: activeJobCard(
+                                        title: controller
+                                            .appliedJobsList[index].title,
+                                        desc: controller
+                                            .appliedJobsList[index].description,
+                                        budget: controller
+                                            .appliedJobsList[index].budget,
+                                        date: controller
+                                            .appliedJobsList[index].jobDate,
+                                        time: controller
+                                            .appliedJobsList[index].startTime,
                                         status: controller.names[
                                             controller.selectedIndex.value]))),
                           )
-                        : controller.names[controller.selectedIndex.value] ==
-                                "Ongoing"
-                            ? Column(
+                    : controller.names[controller.selectedIndex.value] ==
+                            "Upcoming"
+                        ? controller.upcomingJobsList.isEmpty
+                            ? const Center(
+                                child: Text(" No Upcoming Jobs Available"))
+                            : Column(
                                 children: List.generate(
-                                    3,
+                                    controller.upcomingJobsList.length,
                                     (index) => GestureDetector(
                                         onTap: () {
                                           Get.toNamed(
                                               RouteName.pJobsDetailScreenPath,
                                               arguments: {
                                                 "showBottomButton": true,
-                                                "status": "Ongoing",
+                                                "status": "Job Open",
                                                 "showActionButton": false,
-                                                "bottomButtonText": "On The Way"
+                                                "bottomButtonText": "Cancel Job"
                                               });
                                         },
                                         child: activeJobCard(
                                             status: controller.names[controller
                                                 .selectedIndex.value]))),
                               )
-                            : controller.names[
-                                        controller.selectedIndex.value] ==
-                                    "Completed"
-                                ? Column(
+                        : controller.names[controller.selectedIndex.value] ==
+                                "Ongoing"
+                            ? controller.ongoingJobsList.isEmpty
+                                ? const Center(
+                                    child: Text(" No Ongoing Jobs Available"))
+                                : Column(
                                     children: List.generate(
-                                        3,
+                                        controller.ongoingJobsList.length,
                                         (index) => GestureDetector(
                                             onTap: () {
                                               Get.toNamed(
                                                   RouteName
                                                       .pJobsDetailScreenPath,
                                                   arguments: {
-                                                    "showBottomButton": false,
-                                                    "status": "Completed",
+                                                    "showBottomButton": true,
+                                                    "status": "Ongoing",
                                                     "showActionButton": false,
-                                                    "bottomButtonText": ""
+                                                    "bottomButtonText":
+                                                        "On The Way"
                                                   });
                                             },
                                             child: activeJobCard(
@@ -161,6 +161,35 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                                     controller.selectedIndex
                                                         .value]))),
                                   )
+                            : controller.names[
+                                        controller.selectedIndex.value] ==
+                                    "Completed"
+                                ? controller.completedJobsList.isEmpty
+                                    ? const Center(
+                                        child: Text(
+                                            " No Completed Jobs Available"))
+                                    : Column(
+                                        children: List.generate(
+                                            controller.completedJobsList.length,
+                                            (index) => GestureDetector(
+                                                onTap: () {
+                                                  Get.toNamed(
+                                                      RouteName
+                                                          .pJobsDetailScreenPath,
+                                                      arguments: {
+                                                        "showBottomButton":
+                                                            false,
+                                                        "status": "Completed",
+                                                        "showActionButton":
+                                                            false,
+                                                        "bottomButtonText": ""
+                                                      });
+                                                },
+                                                child: activeJobCard(
+                                                    status: controller.names[
+                                                        controller.selectedIndex
+                                                            .value]))),
+                                      )
                                 : Column(
                                     children: List.generate(
                                         controller.listOfCancelledCard.length,

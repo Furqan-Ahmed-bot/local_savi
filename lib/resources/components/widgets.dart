@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
+import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
@@ -1126,8 +1127,8 @@ Widget activeJobCard({
                 ),
                 6.h.verticalSpace,
                 Text(
-                  date != null
-                      ? DateFormat("HH:mm").format(DateTime.parse(date))
+                  time != null
+                      ? DateFormat("HH:mm").format(DateTime.parse(time))
                       : "",
                   style: TextStyle(
                     color: ColorUtils.black,
@@ -1293,7 +1294,15 @@ Widget appbar({
   );
 }
 
-Widget applyJobCard({required context}) {
+Widget applyJobCard({
+  required context,
+  String? id = "",
+  String? status = "",
+  String? title,
+  String? desc,
+  String? date,
+  String? budget,
+}) {
   return Container(
     width: 1.0.sw,
     margin: EdgeInsets.only(bottom: 16.h),
@@ -1311,7 +1320,7 @@ Widget applyJobCard({required context}) {
             Container(
               width: 0.43.sw,
               child: Text(
-                "Lorem ipsum dolor sit...",
+                title ?? "",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16.sp,
@@ -1319,14 +1328,20 @@ Widget applyJobCard({required context}) {
               ),
             ),
             Text(
-              "July 20",
+              date != null
+                  ? DateFormat("d MMMM").format(DateTime.parse(date))
+                  : "",
               style: TextStyle(fontSize: 12.sp, color: ColorUtils.borderColor),
             )
           ],
         ),
         6.h.verticalSpace,
-        const Text(
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit odio.'),
+        Text(
+          desc ?? '',
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.left,
+          maxLines: 3,
+        ),
         12.h.verticalSpace,
         Divider(
           color: ColorUtils.borderColor.withOpacity(0.5),
@@ -1349,7 +1364,7 @@ Widget applyJobCard({required context}) {
                 ),
                 6.h.verticalSpace,
                 Text(
-                  "\$50.00",
+                  budget ?? "--",
                   style: TextStyle(
                     color: ColorUtils.black,
                     fontSize: 16.sp,
@@ -1377,7 +1392,9 @@ Widget applyJobCard({required context}) {
                 ),
                 6.h.verticalSpace,
                 Text(
-                  "03:00 pm",
+                  date != null
+                      ? DateFormat("HH:mm").format(DateTime.parse(date))
+                      : "",
                   style: TextStyle(
                     color: ColorUtils.black,
                     fontSize: 16.sp,
@@ -1405,7 +1422,7 @@ Widget applyJobCard({required context}) {
                 ),
                 6.h.verticalSpace,
                 Text(
-                  "May 18, 2024",
+                  " ${date != null ? DateFormat("MMM d, yyyy").format(DateTime.parse(date)) : ""}",
                   style: TextStyle(
                     color: ColorUtils.black,
                     fontSize: 16.sp,
@@ -1429,81 +1446,7 @@ Widget applyJobCard({required context}) {
             RoundButton(
               title: "Apply Job",
               onPress: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        backgroundColor: ColorUtils.dialogeBGColor,
-                        content: SizedBox(
-                          width: 1.0.sw,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              20.h.verticalSpace,
-                              Container(
-                                padding: EdgeInsets.all(23.sp),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: ColorUtils.jobIconBG),
-                                child: Image.asset(
-                                  ImageAssets.jobDoneIcon,
-                                  scale: 2,
-                                ),
-                              ),
-                              20.h.verticalSpace,
-                              Text(
-                                "Thank You!",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: ColorUtils.black,
-                                  fontSize: 22.sp,
-                                ),
-                              ),
-                              20.h.verticalSpace,
-                              Text(
-                                "Your Application has been submitted",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: ColorUtils.black,
-                                  fontSize: 16.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        actions: [
-                          Container(
-                            width: 1.0.sw,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.close(1);
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 15.h, horizontal: 30.w),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.r),
-                                      color: ColorUtils.red,
-                                    ),
-                                    child: Text(
-                                      "Go Back",
-                                      style: TextStyle(color: ColorUtils.white),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      );
-                    });
+                UserServices().applyPerformerJob(context: context, jobId: id);
               },
               // horizonalPad: 20.w,
               width: 150.w,
