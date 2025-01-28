@@ -1,14 +1,14 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import "package:http/http.dart" as http;
 import 'package:local_saviors/controllers/user_controllers/home_screen_controller.dart';
 import 'package:local_saviors/models/job_provider_model/JobsModel.dart';
+import 'package:local_saviors/models/performer_model/performer_model.dart';
 import 'package:local_saviors/resources/components/bottom_navbar.dart';
 import 'package:local_saviors/resources/components/p_bottom_nav_bar.dart';
 import 'package:local_saviors/utils/api_services/app_urls.dart';
@@ -16,17 +16,16 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
-
+import '../../controllers/professional_controllers/p_home_controller.dart';
 import '../../models/job_provider_model/job_provider_model.dart';
+import '../../screens/general_screens/create_profile_screen/create_profile__two_controller.dart';
 import '../routes/route_arguments.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class UserServices {
   final homeController = Get.put(HomeScreenController());
-  loginService(
-      {required String userEmail,
-      required String password,
-      required context}) async {
+  final performerController = Get.put(PHomeController());
+  final createProfileController = Get.put(CreatePorfileTwoController());
+  loginService({required String userEmail, required String password, required context}) async {
     try {
       showDialog(
           context: context,
@@ -44,8 +43,7 @@ class UserServices {
         //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBmYmE2OGY5LWYzMzQtNDVkNy05YmY2LTk1NzgyZDcxMzNlMCIsInR5cGUiOiJVU0VSIiwiaWF0IjoxNzMxNzM3MTQyLCJleHAiOjE3MzE4MjM1NDJ9.Ya5vgz1bSOAhseIU5AyoS65RrMOM26fcKof_wiIRDaw'
       };
       var request = http.Request('POST', Uri.parse(UserUrls.loginUrl));
-      request.body = json.encode(
-          {"identifier": userEmail, "password": password, "fcm_token": "test"});
+      request.body = json.encode({"identifier": userEmail, "password": password, "fcm_token": "test"});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -58,20 +56,16 @@ class UserServices {
         Get.close(1);
         if (responseData['data']['is_profile_completed']) {
           await getProfileService(context: context).then((value) {
-            role.value == "user"
-                ? Get.to(() => NavbarScreen())
-                : Get.to(PBottomNavBar());
+            role.value == "USER" ? Get.to(() => NavbarScreen()) : Get.to(PBottomNavBar());
           });
         } else {
           email.value = userEmail;
-          Get.snackbar("Alert", "Please create your profile",
-              backgroundColor: ColorUtils.white);
+          Get.snackbar("Alert", "Please create your profile", backgroundColor: ColorUtils.white);
           Get.toNamed(RouteName.createProfile);
         }
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
         print(response.reasonPhrase);
       }
     } catch (e) {
@@ -120,8 +114,7 @@ class UserServices {
         OTP = responseData['data']['otp'];
         // pass.value = password;
         Get.close(1);
-        Get.snackbar("OTP CODE", responseData['data']['otp'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("OTP CODE", responseData['data']['otp'].toString(), backgroundColor: ColorUtils.white);
         Get.toNamed(
             arguments: MyArguments(
               data: false,
@@ -129,8 +122,7 @@ class UserServices {
             RouteName.otpverification);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -138,11 +130,7 @@ class UserServices {
     }
   }
 
-  verifyOTPService(
-      {required String otp,
-      required context,
-      required bool isProfileCompleetd,
-      isForgetPassword = false}) async {
+  verifyOTPService({required String otp, required context, required bool isProfileCompleetd, isForgetPassword = false}) async {
     try {
       showDialog(
           context: context,
@@ -176,17 +164,20 @@ class UserServices {
         Get.close(1);
         token.value = responseData['data']['access_token'];
         refreshToken.value = responseData['data']['refresh_token'];
-        Get.toNamed(RouteName.createProfile);
+
         if (isForgetPassword == true) {
           Get.toNamed(RouteName.resetPassword);
         } else {
-          Get.toNamed(RouteName.createProfile);
+          if (role.value == 'USER') {
+            Get.toNamed(RouteName.createProfile);
+          } else {
+            Get.toNamed(RouteName.createProfile);
+          }
         }
       } else {
         Get.close(1);
         debugPrint(await response.stream.bytesToString());
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -224,12 +215,10 @@ class UserServices {
       if (response.statusCode == 200) {
         print(responseData);
         Get.close(1);
-        Get.snackbar("Success", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Success", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -275,8 +264,7 @@ class UserServices {
             RouteName.otpverification);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -299,10 +287,7 @@ class UserServices {
               ),
             );
           });
-      var headers = {
-        'Content-Type': 'application/json',
-        'Authorization': token.value
-      };
+      var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
       var request = http.Request('POST', Uri.parse(UserUrls.resetPasswordUrl));
       request.body = json.encode({"password": password});
       request.headers.addAll(headers);
@@ -313,13 +298,11 @@ class UserServices {
       if (response.statusCode == 200) {
         print(responseData);
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
         Get.offAllNamed(RouteName.login);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -354,8 +337,7 @@ class UserServices {
           });
       var headers = {'Authorization': token.value};
 
-      var request =
-          http.MultipartRequest('POST', Uri.parse(UserUrls.createProfileUrl));
+      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createProfileUrl));
       request.fields.addAll({
         'address': address,
         // 'gender': gender,
@@ -373,8 +355,7 @@ class UserServices {
         'longitude': '67',
         'latitude': '24'
       });
-      request.files
-          .add(await http.MultipartFile.fromPath('profile_picture', image));
+      request.files.add(await http.MultipartFile.fromPath('profile_picture', image));
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -383,9 +364,7 @@ class UserServices {
       if (response.statusCode == 200) {
         Get.close(1);
         await getProfileService(context: context).then((value) {
-          role.value == "user"
-              ? Get.to(() => NavbarScreen())
-              : Get.toNamed(RouteName.cretaetProfileTwoPath);
+          role.value == "USER" ? Get.to(() => NavbarScreen()) : Get.toNamed(RouteName.cretaetProfileTwoPath);
         });
       } else {
         log(response.toString());
@@ -393,6 +372,80 @@ class UserServices {
       }
     } catch (e) {
       Get.close(1);
+      debugPrint("==> error: ${e.toString()}");
+    }
+  }
+
+  createJobPerformerProfile(
+      {required String address,
+      required String gender,
+      required String dob,
+      required String phone,
+      required String email,
+      required String firstName,
+      required String lastName,
+      required String country,
+      required String state,
+      required context,
+      required String city,
+      required String about,
+      required String image,
+      required String workertype}) async {
+    try {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: Colors.transparent,
+              content: SizedBox(
+                child: spinkit,
+              ),
+            );
+          });
+      var headers = {'Authorization': token.value};
+
+      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createProviderProfileUrl));
+      request.fields.addAll({
+        'address': address,
+        'gender': 'MALE',
+        'date_of_birth': "2004-03-04T17:22:09.895Z",
+        //dob,
+        // 'phone': phone,
+        'contact_email': email,
+        'first_name': firstName,
+        'last_name': lastName,
+        // 'country': country,
+        // 'state': state,
+        // 'city': city,
+        "location": "USA",
+        'description': about,
+        'longitude': '67',
+        'latitude': '24',
+        'worker_type': role.value
+      });
+
+      for (var i = 0; i < createProfileController.professionIds.length; i++) {
+        request.fields.addAll({"professions[$i]": createProfileController.professionIds[i]['id']});
+      }
+      request.files.add(await http.MultipartFile.fromPath('profile_picture', image));
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+      print(await response.stream.bytesToString());
+
+      if (response.statusCode == 200) {
+        Get.back();
+
+        await getProfileService(context: context).then((value) {
+          Get.to(PBottomNavBar());
+        });
+      } else {
+        log(response.toString());
+        Get.back();
+      }
+    } catch (e) {
+      Get.back();
+
       debugPrint("==> error: ${e.toString()}");
     }
   }
@@ -409,8 +462,11 @@ class UserServices {
       if (response.statusCode == 200) {
         String responseBody = await response.stream.bytesToString();
         Map<String, dynamic> jsonResponse = json.decode(responseBody);
-        homeController
-            .setUserData(JobProviderModel.fromJson(jsonResponse['data']));
+        if (role.value == "USER") {
+          homeController.setUserData(JobProviderModel.fromJson(jsonResponse['data']));
+        } else if (role.value == 'PROFESSIONAL') {
+          performerController.setPerformerData(PerformerModel.fromJson(jsonResponse['data']));
+        }
       } else {
         print(response.reasonPhrase);
       }
@@ -433,10 +489,7 @@ class UserServices {
               ),
             );
           });
-      var headers = {
-        'Content-Type': 'application/json',
-        'Authorization': token.value
-      };
+      var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
       var request = http.Request('POST', Uri.parse(UserUrls.logoutUrl));
       request.body = json.encode({"refresh_token": refreshToken.value});
       request.headers.addAll(headers);
@@ -447,13 +500,11 @@ class UserServices {
       if (response.statusCode == 200) {
         print(responseData);
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
         Get.offAllNamed(RouteName.selectRoleOne);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -493,8 +544,7 @@ class UserServices {
 
     try {
       var headers = {'Authorization': token.value};
-      var request =
-          http.MultipartRequest('POST', Uri.parse(UserUrls.createJob));
+      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createJob));
       var body = {
         'worker_type': WorkerType,
         'title': title,
@@ -517,8 +567,7 @@ class UserServices {
 
       for (var img in images) {
         // final compressedImg = await compressImage(img);
-        request.files
-            .add(await http.MultipartFile.fromPath('job_images', img.path));
+        request.files.add(await http.MultipartFile.fromPath('job_images', img.path));
       }
 
       request.headers.addAll(headers);
@@ -544,9 +593,7 @@ class UserServices {
                       20.h.verticalSpace,
                       Container(
                         padding: EdgeInsets.all(23.sp),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: ColorUtils.jobIconBG),
+                        decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
                         child: Image.asset(
                           ImageAssets.congratulationsIcon,
                           scale: 2,
@@ -555,8 +602,7 @@ class UserServices {
                       20.h.verticalSpace,
                       Text(
                         "Congratulations!",
-                        style: TextStyle(
-                            fontSize: 22.sp, fontWeight: FontWeight.w600),
+                        style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600),
                       ),
                       12.h.verticalSpace,
                       Padding(
@@ -564,8 +610,7 @@ class UserServices {
                         child: Text(
                           "Your job has been posted successfully!",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 14.sp, fontWeight: FontWeight.normal),
+                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal),
                         ),
                       ),
                     ],
@@ -620,8 +665,7 @@ class UserServices {
   }) async {
     try {
       var headers = {'Authorization': token.value};
-      var request =
-          http.Request('GET', Uri.parse(UserUrls.getAllJobs + filter));
+      var request = http.Request('GET', Uri.parse(UserUrls.getAllJobs + filter));
 
       request.headers.addAll(headers);
 
@@ -635,11 +679,8 @@ class UserServices {
 
         // Check if the response contains data
         if (jsonResponse.containsKey('data')) {
-          List<dynamic> jsonData =
-              jsonResponse['data']; // Extract the 'data' field
-          List<JobsModel> jobs = jsonData
-              .map((jobJson) => JobsModel.fromJson(jobJson))
-              .toList(); // Convert to Job objects
+          List<dynamic> jsonData = jsonResponse['data']; // Extract the 'data' field
+          List<JobsModel> jobs = jsonData.map((jobJson) => JobsModel.fromJson(jobJson)).toList(); // Convert to Job objects
           return jobs;
         } else {
           print("Error: Data key not found in response.");

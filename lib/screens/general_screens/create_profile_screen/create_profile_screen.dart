@@ -7,10 +7,11 @@ import 'package:get/get.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_controller.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/phone_textform_widget/phone_textformwidget.dart';
-import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 
+import '../../../utils/constant.dart';
 import '../../../utils/images/image_assets.dart';
+import '../../../utils/routes/routes.dart';
 import 'textfromfield_widget/textformfield_widget.dart';
 
 class CreateProfileScreen extends GetWidget<CreateProfileController> {
@@ -60,17 +61,12 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                           Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              border:
-                                  Border.all(color: ColorUtils.red, width: 8),
+                              border: Border.all(color: ColorUtils.red, width: 8),
                             ),
                             child: CircleAvatar(
                               radius: 50,
-                              backgroundImage: controller.image != null
-                                  ? FileImage(controller.image!)
-                                  : null,
-                              child: controller.image == null
-                                  ? Image.asset(ImageAssets.oliverImg)
-                                  : null,
+                              backgroundImage: controller.image != null ? FileImage(controller.image!) : null,
+                              child: controller.image == null ? Image.asset(ImageAssets.oliverImg) : null,
                             ),
                           ),
                           Positioned(
@@ -124,10 +120,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                                 letterSpacing: 0,
                               ),
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(
-                                  bottom: 12,
-                                  top:
-                                      0.0), // this can adjust the label and text position
+                              contentPadding: const EdgeInsets.only(bottom: 12, top: 0.0), // this can adjust the label and text position
                               //or transparent
                             ),
                             textAlignVertical: TextAlignVertical.bottom,
@@ -159,10 +152,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                                 letterSpacing: 0,
                               ),
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(
-                                  bottom: 12,
-                                  top:
-                                      0.0), // this can adjust the label and text position
+                              contentPadding: const EdgeInsets.only(bottom: 12, top: 0.0), // this can adjust the label and text position
                               //or transparent
                             ),
                             textAlignVertical: TextAlignVertical.bottom,
@@ -246,8 +236,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                         dropdownDecoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             color: Colors.white,
-                            border: Border.all(
-                                color: Colors.grey.shade300, width: 1)),
+                            border: Border.all(color: Colors.grey.shade300, width: 1)),
                         countrySearchPlaceholder: "Country",
                         stateSearchPlaceholder: "State",
                         citySearchPlaceholder: "City",
@@ -260,10 +249,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                           color: Colors.black,
                           fontSize: 14,
                         ),
-                        dropdownHeadingStyle: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold),
+                        dropdownHeadingStyle: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold),
                         dropdownItemStyle: TextStyle(
                           color: Colors.black,
                           fontSize: 14,
@@ -330,10 +316,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                             letterSpacing: 0,
                           ),
                           border: InputBorder.none,
-                          contentPadding: const EdgeInsets.only(
-                              bottom: 13,
-                              top:
-                                  0.0), // this can adjust the label and text position
+                          contentPadding: const EdgeInsets.only(bottom: 13, top: 0.0), // this can adjust the label and text position
                           filled: true,
                           fillColor: Colors.transparent, //or transparent
                         ),
@@ -351,92 +334,11 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                         width: 0.9.sw,
                         title: 'Continue',
                         onPress: () {
-                          // if (role.value == "user") {
-                          if (controller.firstNamecontroller.text.isNotEmpty) {
-                            if (controller.lastNamecontroller.text.isNotEmpty) {
-                              if (controller.datecontroller.text.isNotEmpty) {
-                                if (controller
-                                    .addresscontroller.text.isNotEmpty) {
-                                  // if (controller.state.value != "") {
-                                  // if (controller.city.value != "") {
-                                  if (controller
-                                      .aboutcontroller.text.isNotEmpty) {
-                                    if (controller
-                                        .emailcontroller.text.isNotEmpty) {
-                                      if (controller
-                                          .phonecontroller.text.isNotEmpty) {
-                                        if (controller.image != null) {
-                                          UserServices().createProfileService(
-                                              context: context,
-                                              address: controller
-                                                  .addresscontroller.text,
-                                              gender: controller.selectedGender,
-                                              dob: controller.selectedDate
-                                                  .toString(),
-                                              phone: controller
-                                                  .phonecontroller.text,
-                                              email: controller
-                                                  .emailcontroller.text,
-                                              firstName: controller
-                                                  .firstNamecontroller.text,
-                                              lastName: controller
-                                                  .lastNamecontroller.text,
-                                              country: "US",
-                                              state: controller.state.value,
-                                              city: controller.city.value,
-                                              about: controller
-                                                  .aboutcontroller.text,
-                                              image: controller.image!.path
-                                                  .toString());
-                                        } else {
-                                          Get.snackbar(
-                                              "Alert", "Please select image",
-                                              backgroundColor:
-                                                  ColorUtils.white);
-                                        }
-                                      } else {
-                                        Get.snackbar(
-                                            "Alert", "Phone Number is required",
-                                            backgroundColor: ColorUtils.white);
-                                      }
-                                    } else {
-                                      Get.snackbar("Alert", "Email is required",
-                                          backgroundColor: ColorUtils.white);
-                                    }
-                                  } else {
-                                    Get.snackbar("Alert",
-                                        "About/Description  is required",
-                                        backgroundColor: ColorUtils.white);
-                                  }
-                                  // } else {
-                                  //   Get.snackbar(
-                                  //       "Alert", "City is required",
-                                  //       backgroundColor: ColorUtils.white);
-                                  // }
-                                  // } else {
-                                  //   Get.snackbar("Alert", "State is required",
-                                  //       backgroundColor: ColorUtils.white);
-                                  // }
-                                } else {
-                                  Get.snackbar("Alert", "Address is required",
-                                      backgroundColor: ColorUtils.white);
-                                }
-                              } else {
-                                Get.snackbar(
-                                    "Alert", "Date of birth is required",
-                                    backgroundColor: ColorUtils.white);
-                              }
-                            } else {
-                              Get.snackbar("Alert", "Last name is required",
-                                  backgroundColor: ColorUtils.white);
-                            }
+                          if (role.value == 'USER') {
+                            controller.validation(context);
                           } else {
-                            Get.snackbar("Alert", "First name is required",
-                                backgroundColor: ColorUtils.white);
+                            Get.toNamed(RouteName.cretaetProfileTwoPath);
                           }
-                          // } else {
-                          //   Get.toNamed(RouteName.cretaetProfileTwoPath);
-                          // }
                         }),
                     25.verticalSpace
                   ],

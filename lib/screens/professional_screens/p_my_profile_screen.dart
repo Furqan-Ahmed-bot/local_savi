@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_my_profile_controller.dart';
@@ -25,8 +24,7 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                 padding: EdgeInsets.all(8.sp),
                 height: 40.h,
                 width: 40.w,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                 child: Image.asset(
                   ImageAssets.editIcon,
                   color: ColorUtils.red,
@@ -37,8 +35,7 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
           ]),
           Expanded(
               child: ListView(
-            padding: EdgeInsets.only(
-                left: 20.w, right: 20.w, top: 46.h, bottom: 30.h),
+            padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 46.h, bottom: 30.h),
             children: [
               Column(
                 children: [
@@ -59,8 +56,7 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                   16.h.verticalSpace,
                   Text(
                     "Oliver Mark",
-                    style:
-                        TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
                   ),
                   12.h.verticalSpace,
                   GestureDetector(
@@ -82,9 +78,7 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                         5.w.horizontalSpace,
                         Text(
                           "Rating",
-                          style: TextStyle(
-                              fontSize: 18.sp,
-                              decoration: TextDecoration.underline),
+                          style: TextStyle(fontSize: 18.sp, decoration: TextDecoration.underline),
                         ),
                         10.w.horizontalSpace,
                         Container(
@@ -100,9 +94,7 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                         5.w.horizontalSpace,
                         Text(
                           "Reviews",
-                          style: TextStyle(
-                              fontSize: 18.sp,
-                              decoration: TextDecoration.underline),
+                          style: TextStyle(fontSize: 18.sp, decoration: TextDecoration.underline),
                         ),
                       ],
                     ),
@@ -120,8 +112,7 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.w),
                         color: ColorUtils.white,
-                        border: Border.all(
-                            width: 1.w, color: ColorUtils.borderColor)),
+                        border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -132,8 +123,7 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                               // mainAxisSize: MainAxisSize.min,
                               children: [
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -160,8 +150,7 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                 ),
                                 16.h.verticalSpace,
                                 Divider(
-                                  color:
-                                      ColorUtils.borderColor.withOpacity(0.5),
+                                  color: ColorUtils.borderColor.withOpacity(0.5),
                                 ),
                                 16.h.verticalSpace,
                               ],

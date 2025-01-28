@@ -63,7 +63,7 @@ class SelectUserRoleOne extends GetWidget<RoleOneController> {
               40.verticalSpace,
               SelectRoleWidget(
                 onTap: () {
-                  role.value = "user";
+                  role.value = "USER";
 
                   Get.toNamed(RouteName.prelogin);
                 },
@@ -98,15 +98,12 @@ class SelectUserRoleOne extends GetWidget<RoleOneController> {
                           },
                           child: Text(
                             'Terms & Conditions',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                         ),
                         Text(
                           '  |  ',
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         InkWell(
                           onTap: () {
@@ -114,9 +111,7 @@ class SelectUserRoleOne extends GetWidget<RoleOneController> {
                           },
                           child: Text(
                             'Privacy Policy',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
