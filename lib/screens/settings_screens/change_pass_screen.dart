@@ -20,7 +20,8 @@ class ChangePassScreen extends GetWidget<ChangePassController> {
             buttonColor: ColorUtils.red,
             title: "Change Now",
             onPress: () {
-              Get.back();
+              // Get.back();
+              controller.changePassword(context);
             }),
       ),
       body: myBackGround(
@@ -39,18 +40,15 @@ class ChangePassScreen extends GetWidget<ChangePassController> {
               children: [
                 Text(
                   "Current Password",
-                  style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600,
-                      color: ColorUtils.black),
+                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
                 ),
                 10.verticalSpace,
                 Obx(
                   () => EditText(
+                    controller: controller.oldPassWordController,
                     obscure: controller.isCurrentPassVisile.value,
                     suffixClick: () {
-                      controller.isCurrentPassVisile.value =
-                          !controller.isCurrentPassVisile.value;
+                      controller.isCurrentPassVisile.value = !controller.isCurrentPassVisile.value;
                     },
                     isPassword: true,
                     hintText: "Current Password",
@@ -62,18 +60,15 @@ class ChangePassScreen extends GetWidget<ChangePassController> {
                 10.verticalSpace,
                 Text(
                   "New Password",
-                  style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600,
-                      color: ColorUtils.black),
+                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
                 ),
                 10.verticalSpace,
                 Obx(
                   () => EditText(
+                    controller: controller.newPasswordController,
                     obscure: controller.isNewPassVisile.value,
                     suffixClick: () {
-                      controller.isNewPassVisile.value =
-                          !controller.isNewPassVisile.value;
+                      controller.isNewPassVisile.value = !controller.isNewPassVisile.value;
                     },
                     isPassword: true,
                     hintText: "New Password",
@@ -85,18 +80,15 @@ class ChangePassScreen extends GetWidget<ChangePassController> {
                 10.verticalSpace,
                 Text(
                   "Confirm New Password",
-                  style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600,
-                      color: ColorUtils.black),
+                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
                 ),
                 10.verticalSpace,
                 Obx(
                   () => EditText(
+                    controller: controller.confirmPasswordController,
                     obscure: controller.isConfirmPassVisile.value,
                     suffixClick: () {
-                      controller.isConfirmPassVisile.value =
-                          !controller.isConfirmPassVisile.value;
+                      controller.isConfirmPassVisile.value = !controller.isConfirmPassVisile.value;
                     },
                     isPassword: true,
                     hintText: "Confirm New Password",

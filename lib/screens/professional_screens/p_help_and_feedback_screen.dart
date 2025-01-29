@@ -1,6 +1,9 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
+
+import 'dart:io';
+
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_help_and_feedback_controller.dart';
@@ -10,7 +13,11 @@ import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 
+import '../../resources/components/imagepicker_component.dart';
+
 class PHelpAndFeedbackScreen extends GetWidget<PHelpAndFeedbackController> {
+  final imagePickerController = Get.put(ImagePickerController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,81 +27,13 @@ class PHelpAndFeedbackScreen extends GetWidget<PHelpAndFeedbackController> {
             buttonColor: ColorUtils.red,
             title: "Submit",
             onPress: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      backgroundColor: ColorUtils.dialogeBGColor,
-                      content: SizedBox(
-                        width: 1.0.sw,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            20.h.verticalSpace,
-                            Container(
-                              padding: EdgeInsets.all(23.sp),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: ColorUtils.jobIconBG),
-                              child: Image.asset(
-                                ImageAssets.jobDoneIcon,
-                                scale: 2,
-                              ),
-                            ),
-                            20.h.verticalSpace,
-                            Text(
-                              "Thank You!",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: ColorUtils.black,
-                                fontSize: 22.sp,
-                              ),
-                            ),
-                            20.h.verticalSpace,
-                            Text(
-                              "Your Feedback has been submitted!",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: ColorUtils.black,
-                                fontSize: 16.sp,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      actions: [
-                        SizedBox(
-                          width: 1.0.sw,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Get.close(2);
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 15.h, horizontal: 30.w),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.r),
-                                    color: ColorUtils.red,
-                                  ),
-                                  child: Text(
-                                    "Go Back",
-                                    style: TextStyle(color: ColorUtils.white),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    );
-                  });
+              if (controller.subjectController.text.isEmpty) {
+                Get.snackbar('Warning', 'Please Enter Subject');
+              } else if (controller.messageController.text.isEmpty) {
+                Get.snackbar('Warning', 'Please Enter Subject');
+              } else {
+                controller.postFeedback(context);
+              }
             }),
       ),
       body: myBackGround(
@@ -112,89 +51,111 @@ class PHelpAndFeedbackScreen extends GetWidget<PHelpAndFeedbackController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 EditText(
-                    hintText: "Subject",
-                    context: context,
-                    bordercolor: Colors.transparent),
+                  hintText: "Subject",
+                  context: context,
+                  bordercolor: Colors.transparent,
+                  controller: controller.subjectController,
+                ),
                 20.h.verticalSpace,
                 EditText(
-                    hintText: "Type your message here...",
-                    minLines: 7,
-                    maxLines: 7,
-                    context: context,
-                    bordercolor: Colors.transparent),
+                  hintText: "Type your message here...",
+                  minLines: 7,
+                  maxLines: 7,
+                  context: context,
+                  bordercolor: Colors.transparent,
+                  controller: controller.messageController,
+                ),
                 20.h.verticalSpace,
-                SizedBox(
-                  width: 1.0.sw,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Stack(
-                        children: [
-                          SizedBox(
-                            height: 0.27.sw,
-                            width: 0.27.sw,
-                            child: Image.asset(
-                              ImageAssets.helpFeedback1,
-                              scale: 2,
+                Obx(
+                  () => GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: imagePickerController.selectedImages.length + 1,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(horizontal: 0.w),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 4,
+                    ),
+                    itemBuilder: (context, index) {
+                      if (index == imagePickerController.selectedImages.length) {
+                        // Add new image button
+                        return GestureDetector(
+                          onTap: () {
+                            imagePickerController.pickImages(isMultiImage: true);
+                          },
+                          child: DottedBorder(
+                            radius: Radius.circular(15.r),
+                            borderType: BorderType.RRect,
+                            strokeCap: StrokeCap.round,
+                            dashPattern: const [5, 5],
+                            strokeWidth: 1.5,
+                            color: Colors.white,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ColorUtils.red,
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    5.verticalSpace,
+                                    Image.asset(
+                                      ImageAssets.addCircleRed,
+                                      scale: 2.5,
+                                      color: Colors.white,
+                                    ),
+                                    5.verticalSpace,
+                                    Text(
+                                      'Add',
+                                      style: TextStyle(color: Colors.white, fontSize: 12),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                          Positioned(
-                              top: 10.h,
-                              right: 10.w,
-                              child: Image.asset(
-                                ImageAssets.helpFeedbackCUt,
-                                scale: 2.5,
-                              ))
-                        ],
-                      ),
-                      Stack(
-                        children: [
-                          SizedBox(
-                            height: 0.27.sw,
-                            width: 0.27.sw,
-                            child: Image.asset(
-                              ImageAssets.helpFeedback2,
-                              scale: 2,
-                            ),
-                          ),
-                          Positioned(
-                              top: 10.h,
-                              right: 10.w,
-                              child: Image.asset(
-                                ImageAssets.helpFeedbackCUt,
-                                scale: 2.5,
-                              ))
-                        ],
-                      ),
-                      Container(
-                        height: 0.27.sw,
-                        width: 0.27.sw,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          border: Border.all(
-                              width: 0.5, color: ColorUtils.borderColor),
-                          color: ColorUtils.white,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                        );
+                      } else {
+                        // Display selected image
+                        final imagePath = imagePickerController.selectedImages[index];
+                        return Stack(
                           children: [
-                            Image.asset(
-                              ImageAssets.helpFeedbackAdd,
-                              scale: 2,
+                            Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: imagePath.path.startsWith('http')
+                                      ? NetworkImage(imagePath.path) as ImageProvider
+                                      : FileImage(File(imagePath.path)),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                              ),
                             ),
-                            Text(
-                              "Add More",
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: ColorUtils.txtLightGrey),
-                            )
+                            Positioned(
+                              right: 5,
+                              top: 5,
+                              child: GestureDetector(
+                                onTap: () {
+                                  imagePickerController.removeImage(index);
+                                },
+                                child: SizedBox(
+                                  height: 25.h,
+                                  width: 25.w,
+                                  child: Image.asset(
+                                    ImageAssets.bigCross,
+                                    scale: 2.5,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
-                        ),
-                      )
-                    ],
+                        );
+                      }
+                    },
                   ),
-                )
+                ),
               ],
             ),
           ),

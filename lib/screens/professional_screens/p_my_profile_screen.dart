@@ -7,7 +7,11 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
+import '../../controllers/professional_controllers/p_home_controller.dart';
+
 class PMyProfileScreen extends GetWidget<PMyProfileController> {
+  final performerData = Get.put(PHomeController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +59,7 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                   ),
                   16.h.verticalSpace,
                   Text(
-                    "Oliver Mark",
+                    "${performerData.performerdata.userDetails!.firstName}",
                     style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
                   ),
                   12.h.verticalSpace,
