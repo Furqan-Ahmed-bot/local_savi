@@ -5,6 +5,8 @@ import '../../models/job_provider_model/job_provider_model.dart';
 
 class HomeScreenController extends GetxController {
   JobProviderModel userdata = JobProviderModel();
+  RxBool isLoading = false.obs;
+  List listOfActiveJobs = [];
 
   setUserData(JobProviderModel data) {
     userdata = data;

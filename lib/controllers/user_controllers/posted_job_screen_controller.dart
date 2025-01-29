@@ -1,8 +1,33 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
+import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 
 class PostedJobScreenController extends GetxController {
   RxBool isViewDetail = false.obs;
+  RxString jobId = "".obs;
+  var jobDetailData = {};
+  RxBool isLoading = false.obs;
+
+  @override
+  void onInit() {
+    jobId.value = Get.arguments['jobId'] ?? "";
+    getJobDetail();
+    super.onInit();
+  }
+
+  getJobDetail() async {
+    isLoading.value = true;
+    await UserServices().getSingleJobDetail(jobId: jobId.value).then((value) {
+      isLoading.value = false;
+      jobDetailData = value;
+
+      update();
+    });
+    isLoading.value = false;
+  }
+
   List dummyData = [
     {
       "title": "Work Type",

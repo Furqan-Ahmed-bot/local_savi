@@ -5,6 +5,7 @@ import 'package:local_saviors/models/performer_model/performer_model.dart';
 class PHomeController extends GetxController {
   PerformerModel performerdata = PerformerModel();
   List<PerformerJobsModel> listOfJobs = [];
+  RxBool isLaoding = false.obs;
 
   setPerformerData(PerformerModel data) {
     performerdata = data;

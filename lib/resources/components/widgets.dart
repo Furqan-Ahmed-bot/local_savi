@@ -660,6 +660,7 @@ Widget bestPerformerCard({
 
 Widget shortlistUserCard({
   required bool isVerified,
+  String? id,
   bool showMessageButton = true,
   bool isJobCompleted = false,
   required String image,
@@ -790,7 +791,7 @@ Widget shortlistUserCard({
                                         ),
                                         24.h.verticalSpace,
                                         Text(
-                                          "Are you sure you want select William Roy for your job?",
+                                          "Are you sure you want select ${name} for your job?",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: ColorUtils.black,
@@ -808,20 +809,30 @@ Widget shortlistUserCard({
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
-                                            child: Container(
-                                              alignment: Alignment.center,
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 15.h),
-                                              decoration: BoxDecoration(
-                                                  color: ColorUtils.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.r),
-                                                  border: Border.all(
-                                                      width: 1.w,
-                                                      color: ColorUtils
-                                                          .borderColor)),
-                                              child: const Text("Yes, Select"),
+                                            child: InkWell(
+                                              onTap: () async {
+                                                await UserServices()
+                                                    .acceptRejectJobRequest(
+                                                        context: context,
+                                                        id: id!,
+                                                        status: "ACCEPTED");
+                                              },
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 15.h),
+                                                decoration: BoxDecoration(
+                                                    color: ColorUtils.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.r),
+                                                    border: Border.all(
+                                                        width: 1.w,
+                                                        color: ColorUtils
+                                                            .borderColor)),
+                                                child:
+                                                    const Text("Yes, Select"),
+                                              ),
                                             ),
                                           ),
                                           20.w.horizontalSpace,

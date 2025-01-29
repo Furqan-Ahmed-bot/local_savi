@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class LoginScreenController extends GetxController {
   TextEditingController emailController =
-      TextEditingController(text: "x5@yopmail.com");
+      TextEditingController(text: "test1@yopmail.com");
   TextEditingController passwordController =
-      TextEditingController(text: "test@123");
+      TextEditingController(text: "test@1234");
 }

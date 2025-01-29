@@ -9,6 +9,7 @@ class PJobsController extends GetxController {
   List<PerformerAllJobsModel> ongoingJobsList = [];
   List<PerformerAllJobsModel> completedJobsList = [];
   List<PerformerAllJobsModel> cancelledJobsList = [];
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
@@ -18,6 +19,8 @@ class PJobsController extends GetxController {
 
 //[OPEN, UPCOMING, ONGOING, COMPLETED, CANCELLED]
   getJobs() async {
+    isLoading.value = true;
+
     appliedJobsList =
         await UserServices().getPerformerAllJobs(filter: "APPLIED");
     upcomingJobsList =
@@ -28,7 +31,7 @@ class PJobsController extends GetxController {
         await UserServices().getPerformerAllJobs(filter: "COMPLETED");
     // cancelledJobsList =
     //     await UserServices().getPerformerAllJobs(filter: "CANCELLED");
-
+    isLoading.value = false;
     update();
   }
 

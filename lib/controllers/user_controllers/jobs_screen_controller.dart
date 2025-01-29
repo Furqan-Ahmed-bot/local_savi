@@ -4,6 +4,7 @@ import 'package:local_saviors/utils/api_services/user_services.dart';
 
 class JobsScreenController extends GetxController {
   RxInt selectedIndex = 0.obs;
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
@@ -13,11 +14,13 @@ class JobsScreenController extends GetxController {
 
 //[OPEN, UPCOMING, ONGOING, COMPLETED, CANCELLED]
   getJobs() async {
+    isLoading.value = true;
     openJobsList = await UserServices().getAllJobs(filter: "OPEN");
     upcomingJobsList = await UserServices().getAllJobs(filter: "UPCOMING");
     ongoingJobsList = await UserServices().getAllJobs(filter: "ONGOING");
     completedJobsList = await UserServices().getAllJobs(filter: "COMPLETED");
     // cancelledJobsList = await UserServices().getAllJobs(filter: "CANCELLED");
+    isLoading.value = false;
     update();
   }
 
