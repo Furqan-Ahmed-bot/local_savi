@@ -475,7 +475,7 @@ class UserServices {
               Get.toNamed(RouteName.createProfile);
             }
           }
-        } else if (role.value == 'PERFORMER') {
+        } else if (role.value == 'PERFORMER' || role.value == 'PROFESSIONAL') {
           performerController.setPerformerData(PerformerModel.fromJson(jsonResponse['data']));
           performerController.isLaoding.value = true;
           performerController.listOfJobs = await getPerformerJobs();
