@@ -11,9 +11,7 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
-Widget getSenderView(
-        {CustomClipper? clipper, BuildContext? context, String? text}) =>
-    Column(
+Widget getSenderView({CustomClipper? clipper, BuildContext? context, String? text}) => Column(
       children: [
         ChatBubble(
           clipper: clipper,
@@ -52,9 +50,7 @@ Widget getSenderView(
       ],
     );
 
-Widget getReceiverView(
-        {CustomClipper? clipper, BuildContext? context, String? text}) =>
-    Row(
+Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? text}) => Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -70,8 +66,7 @@ Widget getReceiverView(
             const Text(
               "Oliver Mark",
               softWrap: true,
-              style: TextStyle(
-                  height: 0.5, fontSize: 16, fontWeight: FontWeight.w400),
+              style: TextStyle(height: 0.5, fontSize: 16, fontWeight: FontWeight.w400),
             ),
             ChatBubble(
               clipper: clipper,
@@ -122,8 +117,7 @@ Widget ratingReviewCard({
     margin: EdgeInsets.only(bottom: 12.h),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10.r),
-      border: Border.all(
-          width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5)),
+      border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5)),
       color: ColorUtils.white,
     ),
     child: Column(
@@ -149,10 +143,7 @@ Widget ratingReviewCard({
                 // 6.h.verticalSpace,
                 Text(
                   dateTime,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18.sp,
-                      color: ColorUtils.txtGrey),
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18.sp, color: ColorUtils.txtGrey),
                 ),
               ],
             ),
@@ -197,10 +188,7 @@ Widget ratingReviewCard({
                                 // 6.h.verticalSpace,
                                 Text(
                                   "Today | 02:35 pm",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18.sp,
-                                      color: ColorUtils.txtGrey),
+                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18.sp, color: ColorUtils.txtGrey),
                                 ),
                               ],
                             ),
@@ -209,8 +197,7 @@ Widget ratingReviewCard({
                         11.h.verticalSpace,
                         Text(
                           "Lorem ipsum dolor sit amet consectetur adipiscing elit odio, mattis quam tortor taciti.",
-                          style: TextStyle(
-                              fontSize: 14.sp, color: ColorUtils.txtGreyDark),
+                          style: TextStyle(fontSize: 14.sp, color: ColorUtils.txtGreyDark),
                         )
                       ],
                     ),
@@ -242,11 +229,10 @@ Widget userRequestCard({
           children: [
             GestureDetector(
               onTap: () {
-                Get.toNamed(RouteName.bestPerformerDetailScreenPath,
-                    arguments: {
-                      "title": "User Request",
-                      "showChat": true,
-                    });
+                Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
+                  "title": "User Request",
+                  "showChat": true,
+                });
               },
               child: Row(
                 children: [
@@ -257,10 +243,7 @@ Widget userRequestCard({
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100.r),
-                              border: Border.all(
-                                  width: 1.w,
-                                  color:
-                                      ColorUtils.borderColor.withOpacity(0.5))),
+                              border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
                           child: Image.asset(
                             image,
                             scale: 2,
@@ -284,8 +267,7 @@ Widget userRequestCard({
                     children: [
                       Text(
                         name,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 16.sp),
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
                       ),
                       5.h.verticalSpace,
                       Row(
@@ -313,14 +295,11 @@ Widget userRequestCard({
                   // width: 120.w,
                   alignment: Alignment.center,
                   margin: EdgeInsets.only(right: 10.w),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+                  padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
                   decoration: BoxDecoration(
                       color: ColorUtils.white,
                       borderRadius: BorderRadius.circular(10.sp),
-                      border: Border.all(
-                          width: 1.w,
-                          color: ColorUtils.borderColor.withOpacity(0.5))),
+                      border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
                   child: Text(
                     "Reject",
                     style: TextStyle(fontSize: 16.sp, color: ColorUtils.black),
@@ -331,14 +310,12 @@ Widget userRequestCard({
                   // width: 120.w,
                   alignment: Alignment.center,
                   // margin: EdgeInsets.only(right: 10.w),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+                  padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
 
                   decoration: BoxDecoration(
                       color: ColorUtils.red,
                       borderRadius: BorderRadius.circular(10.sp),
-                      border: Border.all(
-                          width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
+                      border: Border.all(width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
                   child: Text(
                     "Accept",
                     style: TextStyle(fontSize: 16.sp, color: ColorUtils.white),
@@ -380,10 +357,7 @@ Widget inviteUserCard({
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100.r),
-                            border: Border.all(
-                                width: 1.w,
-                                color:
-                                    ColorUtils.borderColor.withOpacity(0.5))),
+                            border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
                         child: Image.asset(
                           image,
                           scale: 2,
@@ -407,8 +381,7 @@ Widget inviteUserCard({
                   children: [
                     Text(
                       name,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 16.sp),
+                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
                     ),
                     5.h.verticalSpace,
                     Row(
@@ -438,8 +411,7 @@ Widget inviteUserCard({
               decoration: BoxDecoration(
                   color: ColorUtils.red,
                   borderRadius: BorderRadius.circular(10.sp),
-                  border: Border.all(
-                      width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
+                  border: Border.all(width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
               child: Row(
                 children: [
                   isInvited
@@ -493,10 +465,7 @@ Widget messageUserCard({
               borderRadius: BorderRadius.circular(100.r),
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100.r),
-                    border: Border.all(
-                        width: 1.w,
-                        color: ColorUtils.borderColor.withOpacity(0.5))),
+                    borderRadius: BorderRadius.circular(100.r), border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
                 child: Image.asset(
                   image,
                   scale: 2,
@@ -525,16 +494,12 @@ Widget messageUserCard({
                   width: 0.5.sw,
                   child: Text(
                     name,
-                    style:
-                        TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
                   ),
                 ),
                 Text(
                   date,
-                  style: TextStyle(
-                      color: ColorUtils.borderColor,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12.sp),
+                  style: TextStyle(color: ColorUtils.borderColor, fontWeight: FontWeight.w400, fontSize: 12.sp),
                 ),
               ],
             ),
@@ -572,11 +537,10 @@ Widget bestPerformerCard({
           children: [
             GestureDetector(
               onTap: () {
-                Get.toNamed(RouteName.bestPerformerDetailScreenPath,
-                    arguments: {
-                      "title": "Best Performer",
-                      "showChat": true,
-                    });
+                Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
+                  "title": "Best Performer",
+                  "showChat": true,
+                });
               },
               child: Row(
                 children: [
@@ -587,10 +551,7 @@ Widget bestPerformerCard({
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100.r),
-                              border: Border.all(
-                                  width: 1.w,
-                                  color:
-                                      ColorUtils.borderColor.withOpacity(0.5))),
+                              border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
                           child: Image.asset(
                             image,
                             scale: 2,
@@ -614,8 +575,7 @@ Widget bestPerformerCard({
                     children: [
                       Text(
                         name,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 16.sp),
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
                       ),
                       5.h.verticalSpace,
                       Row(
@@ -643,8 +603,7 @@ Widget bestPerformerCard({
               },
               child: Container(
                 padding: EdgeInsets.all(10.sp),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
                 child: Image.asset(
                   ImageAssets.msgIcon,
                   scale: 2,
@@ -707,10 +666,7 @@ Widget shortlistUserCard({
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100.r),
-                              border: Border.all(
-                                  width: 1.w,
-                                  color:
-                                      ColorUtils.borderColor.withOpacity(0.5))),
+                              border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
                           child: Image.asset(
                             image,
                             scale: 2,
@@ -734,8 +690,7 @@ Widget shortlistUserCard({
                     children: [
                       Text(
                         name,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 16.sp),
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
                       ),
                       5.h.verticalSpace,
                       Row(
@@ -766,8 +721,7 @@ Widget shortlistUserCard({
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  insetPadding:
-                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
                                   backgroundColor: ColorUtils.dialogeBGColor,
                                   content: SizedBox(
@@ -805,33 +759,21 @@ Widget shortlistUserCard({
                                     Container(
                                       width: 1.0.sw,
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
                                             child: InkWell(
                                               onTap: () async {
-                                                await UserServices()
-                                                    .acceptRejectJobRequest(
-                                                        context: context,
-                                                        id: id!,
-                                                        status: "ACCEPTED");
+                                                await UserServices().acceptRejectJobRequest(context: context, id: id!, status: "ACCEPTED");
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 15.h),
+                                                padding: EdgeInsets.symmetric(vertical: 15.h),
                                                 decoration: BoxDecoration(
                                                     color: ColorUtils.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r),
-                                                    border: Border.all(
-                                                        width: 1.w,
-                                                        color: ColorUtils
-                                                            .borderColor)),
-                                                child:
-                                                    const Text("Yes, Select"),
+                                                    borderRadius: BorderRadius.circular(10.r),
+                                                    border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                                child: const Text("Yes, Select"),
                                               ),
                                             ),
                                           ),
@@ -843,18 +785,14 @@ Widget shortlistUserCard({
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 15.h),
+                                                padding: EdgeInsets.symmetric(vertical: 15.h),
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.r),
+                                                  borderRadius: BorderRadius.circular(10.r),
                                                   color: ColorUtils.red,
                                                 ),
                                                 child: Text(
                                                   "No",
-                                                  style: TextStyle(
-                                                      color: ColorUtils.white),
+                                                  style: TextStyle(color: ColorUtils.white),
                                                 ),
                                               ),
                                             ),
@@ -870,26 +808,20 @@ Widget shortlistUserCard({
                           // width: 120.w,
                           alignment: Alignment.center,
                           // margin: EdgeInsets.only(right: 10.w),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.h, horizontal: 15.w),
+                          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
 
                           decoration: BoxDecoration(
                               color: ColorUtils.red,
                               borderRadius: BorderRadius.circular(10.sp),
-                              border: Border.all(
-                                  width: 1.w,
-                                  color: ColorUtils.red.withOpacity(0.5))),
+                              border: Border.all(width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
                           child: Text(
                             "Select for job",
-                            style: TextStyle(
-                                fontSize: 14.sp, color: ColorUtils.white),
+                            style: TextStyle(fontSize: 14.sp, color: ColorUtils.white),
                           ),
                         ),
                       )
                     : const SizedBox.shrink(),
-                showSelectJobButton
-                    ? 12.w.horizontalSpace
-                    : 0.w.horizontalSpace,
+                showSelectJobButton ? 12.w.horizontalSpace : 0.w.horizontalSpace,
                 showMessageButton
                     ? InkWell(
                         onTap: () {
@@ -897,9 +829,7 @@ Widget shortlistUserCard({
                         },
                         child: Container(
                           padding: EdgeInsets.all(10.sp),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: ColorUtils.yellowLightBG),
+                          decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
                           child: Image.asset(
                             ImageAssets.msgIcon,
                             scale: 2,
@@ -967,10 +897,7 @@ Widget pJobDetailUserCard({
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100.r),
-                              border: Border.all(
-                                  width: 1.w,
-                                  color:
-                                      ColorUtils.borderColor.withOpacity(0.5))),
+                              border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
                           child: Image.asset(
                             image,
                             scale: 2,
@@ -999,8 +926,7 @@ Widget pJobDetailUserCard({
                           children: [
                             Text(
                               name,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 16.sp),
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
                             ),
                             5.h.verticalSpace,
                             Text(
@@ -1015,8 +941,7 @@ Widget pJobDetailUserCard({
                           children: [
                             Text(
                               "Job Posted",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 16.sp),
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
                             ),
                             5.h.verticalSpace,
                             Text(
@@ -1066,10 +991,7 @@ Widget activeJobCard({
               width: 0.43.sw,
               child: Text(
                 title ?? "Lorem ipsum dolor sit...",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.sp,
-                    overflow: TextOverflow.ellipsis),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, overflow: TextOverflow.ellipsis),
               ),
             ),
             Text(
@@ -1082,8 +1004,7 @@ Widget activeJobCard({
         ),
         6.h.verticalSpace,
         Text(
-          desc ??
-              'Lorem ipsum dolor sit amet consectetur adipiscing elit odio.',
+          desc ?? 'Lorem ipsum dolor sit amet consectetur adipiscing elit odio.',
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.left,
           maxLines: 3,
@@ -1138,9 +1059,7 @@ Widget activeJobCard({
                 ),
                 6.h.verticalSpace,
                 Text(
-                  time != null
-                      ? DateFormat("HH:mm").format(DateTime.parse(time))
-                      : "",
+                  time != null ? DateFormat("HH:mm").format(DateTime.parse(time)) : "",
                   style: TextStyle(
                     color: ColorUtils.black,
                     fontSize: 16.sp,
@@ -1190,16 +1109,11 @@ Widget activeJobCard({
                 children: [
                   Text(
                     "Status: ",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                   ),
                   Text(
                     status,
-                    style: TextStyle(
-                        fontSize: 14.sp,
-                        color: status == "Completed"
-                            ? ColorUtils.green
-                            : ColorUtils.blue),
+                    style: TextStyle(fontSize: 14.sp, color: status == "Completed" ? ColorUtils.green : ColorUtils.blue),
                   ),
                 ],
               )
@@ -1217,8 +1131,7 @@ Widget myBackGround({
   return Scaffold(
     extendBody: true,
     bottomNavigationBar: Container(
-      padding:
-          EdgeInsets.only(top: 10.h, bottom: 25.h, left: 16.w, right: 16.w),
+      padding: EdgeInsets.only(top: 10.h, bottom: 25.h, left: 16.w, right: 16.w),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [bottomNavBar ?? const SizedBox()],
@@ -1259,8 +1172,7 @@ Widget appbar({
                 padding: EdgeInsets.all(8.sp),
                 height: 40.h,
                 width: 40.w,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                 child: Image.asset(
                   ImageAssets.menunicon,
                   scale: 2,
@@ -1275,8 +1187,7 @@ Widget appbar({
                   padding: EdgeInsets.all(8.sp),
                   height: 40.h,
                   width: 40.w,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                  decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                   child: Image.asset(
                     ImageAssets.backArrow,
                     scale: 2,
@@ -1332,16 +1243,11 @@ Widget applyJobCard({
               width: 0.43.sw,
               child: Text(
                 title ?? "",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.sp,
-                    overflow: TextOverflow.ellipsis),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, overflow: TextOverflow.ellipsis),
               ),
             ),
             Text(
-              date != null
-                  ? DateFormat("d MMMM").format(DateTime.parse(date))
-                  : "",
+              date != null ? DateFormat("d MMMM").format(DateTime.parse(date)) : "",
               style: TextStyle(fontSize: 12.sp, color: ColorUtils.borderColor),
             )
           ],
@@ -1403,9 +1309,7 @@ Widget applyJobCard({
                 ),
                 6.h.verticalSpace,
                 Text(
-                  date != null
-                      ? DateFormat("HH:mm").format(DateTime.parse(date))
-                      : "",
+                  date != null ? DateFormat("HH:mm").format(DateTime.parse(date)) : "",
                   style: TextStyle(
                     color: ColorUtils.black,
                     fontSize: 16.sp,
@@ -1471,8 +1375,7 @@ Widget applyJobCard({
 }
 
 class MySeparator extends StatelessWidget {
-  const MySeparator({Key? key, this.height = 1, this.color = Colors.black})
-      : super(key: key);
+  const MySeparator({Key? key, this.height = 1, this.color = Colors.black}) : super(key: key);
   final double height;
   final Color color;
 

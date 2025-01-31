@@ -3,18 +3,23 @@
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_controller.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/phone_textform_widget/phone_textformwidget.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 
+import '../../../resources/map/map_screen.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/images/image_assets.dart';
 import '../../../utils/routes/routes.dart';
 import 'textfromfield_widget/textformfield_widget.dart';
 
 class CreateProfileScreen extends GetWidget<CreateProfileController> {
+  final Rx<LatLng> selectedLocation = LatLng(0.0, 0.0).obs;
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CreateProfileController>(builder: (controller) {
@@ -225,59 +230,77 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                         controller.update();
                       },
                     ),
+                    // 20.verticalSpace,
+                    // InkWell(
+                    //   onTap: () {
+                    //     FocusScope.of(context).unfocus();
+                    //   },
+                    //   child: CSCPicker(
+                    //     showStates: true,
+                    //     showCities: true,
+                    //     dropdownDecoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.all(Radius.circular(10)),
+                    //         color: Colors.white,
+                    //         border: Border.all(color: Colors.grey.shade300, width: 1)),
+                    //     countrySearchPlaceholder: "Country",
+                    //     stateSearchPlaceholder: "State",
+                    //     citySearchPlaceholder: "City",
+                    //     countryDropdownLabel: "Country",
+                    //     stateDropdownLabel: "State",
+                    //     cityDropdownLabel: "City",
+                    //     defaultCountry: CscCountry.United_States,
+                    //     disableCountry: true,
+                    //     selectedItemStyle: TextStyle(
+                    //       color: Colors.black,
+                    //       fontSize: 14,
+                    //     ),
+                    //     dropdownHeadingStyle: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold),
+                    //     dropdownItemStyle: TextStyle(
+                    //       color: Colors.black,
+                    //       fontSize: 14,
+                    //     ),
+                    //     dropdownDialogRadius: 10.0,
+                    //     searchBarRadius: 10.0,
+                    //     onCountryChanged: (value) {},
+                    //     onStateChanged: (value) {
+                    //       controller.state.value = value.toString();
+                    //     },
+                    //     onCityChanged: (value) {
+                    //       controller.city.value = value.toString();
+                    //     },
+                    //   ),
+                    // ),
                     20.verticalSpace,
-                    InkWell(
-                      onTap: () {
-                        FocusScope.of(context).unfocus();
+                    LabelTextFormFieldWidget(
+                      height: 50,
+                      labeltext: 'Location',
+                      issufficsenable: true,
+                      suffixicon: ImageAssets.userlocation,
+                      controller: controller.locationcontroller,
+                      ontap: () async {
+                        LatLng? result = await Get.to(() => MapScreen(
+                              initialLocation: selectedLocation.value,
+                            ));
+                        if (result != null) {
+                          selectedLocation.value = result;
+                          controller.latitide = result.latitude;
+                          controller.longitude = result.longitude;
+
+                          List<Placemark> placemarks = await placemarkFromCoordinates(result.latitude, result.longitude);
+                          if (placemarks.isNotEmpty) {
+                            Placemark placemark = placemarks.first;
+                            String address = "${placemark.name}, ${placemark.locality}";
+
+                            controller.locationcontroller.text = address.toString();
+
+                            print(address);
+                          }
+                        }
+                        // controller.selectDate(context);
+                        // controller.update();
                       },
-                      child: CSCPicker(
-                        showStates: true,
-                        showCities: true,
-                        dropdownDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Colors.white,
-                            border: Border.all(color: Colors.grey.shade300, width: 1)),
-                        countrySearchPlaceholder: "Country",
-                        stateSearchPlaceholder: "State",
-                        citySearchPlaceholder: "City",
-                        countryDropdownLabel: "Country",
-                        stateDropdownLabel: "State",
-                        cityDropdownLabel: "City",
-                        defaultCountry: CscCountry.United_States,
-                        disableCountry: true,
-                        selectedItemStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                        ),
-                        dropdownHeadingStyle: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold),
-                        dropdownItemStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                        ),
-                        dropdownDialogRadius: 10.0,
-                        searchBarRadius: 10.0,
-                        onCountryChanged: (value) {},
-                        onStateChanged: (value) {
-                          controller.state.value = value.toString();
-                        },
-                        onCityChanged: (value) {
-                          controller.city.value = value.toString();
-                        },
-                      ),
                     ),
                     20.verticalSpace,
-                    // LabelTextFormFieldWidget(
-                    //   height: 50,
-                    //   labeltext: 'Location',
-                    //   issufficsenable: true,
-                    //   suffixicon: ImageAssets.userlocation,
-                    //   controller: controller.locationcontroller,
-                    //   ontap: () {
-                    //     controller.selectDate(context);
-                    //     controller.update();
-                    //   },
-                    // ),
-                    // 20.verticalSpace,
                     LabelTextFormFieldWidget(
                       maxlines: 5,
                       labeltext: 'About',

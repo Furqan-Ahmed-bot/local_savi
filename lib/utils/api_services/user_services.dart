@@ -323,6 +323,8 @@ class UserServices {
       required context,
       required String city,
       required String about,
+      required var latitude,
+      required var longitude,
       required String image}) async {
     try {
       showDialog(
@@ -340,7 +342,7 @@ class UserServices {
       var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createProfileUrl));
       request.fields.addAll({
         'address': address,
-        // 'gender': gender,
+        'gender': gender.toUpperCase(),
         'date_of_birth': "2004-03-04T17:22:09.895Z",
         //dob,
         // 'phone': phone,
@@ -352,8 +354,8 @@ class UserServices {
         // 'city': city,
         "location": "USA",
         'description': about,
-        'longitude': '67',
-        'latitude': '24'
+        'longitude': latitude.toString(),
+        'latitude': longitude.toString()
       });
       request.files.add(await http.MultipartFile.fromPath('profile_picture', image));
       request.headers.addAll(headers);
@@ -522,7 +524,6 @@ class UserServices {
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        debugPrint(responseData);
         Get.close(1);
         Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
         Get.offAllNamed(RouteName.selectRoleOne);

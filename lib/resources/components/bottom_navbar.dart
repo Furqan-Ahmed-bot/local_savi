@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unrelated_type_equality_checks, avoid_unnecessary_containers, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unrelated_type_equality_checks, avoid_unnecessary_containers, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +12,7 @@ import 'package:local_saviors/screens/user_screens/user_profile_screen.dart';
 import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
+import '../ prefrences/auth_prefrences.dart';
 import '../../utils/color_utils.dart';
 
 class NavbarScreen extends StatefulWidget {
@@ -319,10 +320,9 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                                   Expanded(
                                                     child: GestureDetector(
                                                       onTap: () {
+                                                        AuthPreferences.clearAuthData();
+                                                        //Get.offAllNamed(RouteName.selectRoleOne);
                                                         UserServices().logoutService(context: context);
-                                                        // Get.offAllNamed(
-                                                        //     RouteName
-                                                        //         .selectRoleOne);
                                                       },
                                                       child: Container(
                                                         alignment: Alignment.center,

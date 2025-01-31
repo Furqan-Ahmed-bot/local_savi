@@ -20,6 +20,8 @@ class CreateProfileController extends GetxController {
   TextEditingController aboutcontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController(text: email.value);
   TextEditingController phonecontroller = TextEditingController();
+  var latitide;
+  var longitude;
   RxString state = "".obs;
   RxString city = "".obs;
   String selectedGender = 'Male';
@@ -82,6 +84,10 @@ class CreateProfileController extends GetxController {
     if (addresscontroller.text.isEmpty) {
       return Get.snackbar("Alert", "Please Enter Address", backgroundColor: ColorUtils.white);
     }
+    if (latitide == null) {
+      return Get.snackbar("Alert", "Please Select Location ", backgroundColor: ColorUtils.white);
+    }
+
     if (aboutcontroller.text.isEmpty) {
       return Get.snackbar("Alert", "About Should Not Be Empty", backgroundColor: ColorUtils.white);
     }
@@ -102,6 +108,8 @@ class CreateProfileController extends GetxController {
             country: "US",
             state: state.value,
             city: city.value,
+            latitude: latitide,
+            longitude: longitude,
             about: aboutcontroller.text,
             image: image!.path.toString());
       } else {
