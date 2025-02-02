@@ -17,45 +17,51 @@ class UserRequestScreen extends GetWidget<UserRequestScreenController> {
           isMenu: false,
           title: "User Request",
         ),
-        Expanded(
-            child: ListView(
-                padding: EdgeInsets.only(
-                    left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
-                children: [
-              Row(
-                children: [
-                  Image.asset(
-                    ImageAssets.usersIcon,
-                    scale: 2,
-                  ),
-                  10.w.horizontalSpace,
-                  Text(
-                    "Total Requests",
-                    style:
-                        TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-                  ),
-                  10.w.horizontalSpace,
-                  Text(
-                    "(08)",
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.normal,
+        GetBuilder<UserRequestScreenController>(builder: (controller) {
+          return Expanded(
+              child: ListView(
+                  padding: EdgeInsets.only(
+                      left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
+                  children: [
+                Row(
+                  children: [
+                    Image.asset(
+                      ImageAssets.usersIcon,
+                      scale: 2,
                     ),
-                  ),
-                ],
-              ),
-              Column(
-                children: List.generate(
-                    controller.listOfBestPerformers.length,
-                    (index) => userRequestCard(
-                        isVerified: controller.listOfBestPerformers[index]
-                            ['isVerified'],
-                        image: controller.listOfBestPerformers[index]['image'],
-                        name: controller.listOfBestPerformers[index]['name'],
-                        rating: controller.listOfBestPerformers[index]
-                            ['rating'])),
-              ),
-            ]))
+                    10.w.horizontalSpace,
+                    Text(
+                      "Total Requests",
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.bold),
+                    ),
+                    10.w.horizontalSpace,
+                    Text(
+                      "(${controller.listOfUserRequests.length})",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: List.generate(
+                      controller.listOfUserRequests.length,
+                      (index) => userRequestCard(
+                          isVerified: true,
+                          id: controller.listOfUserRequests[index]['id'],
+                          image: controller.listOfUserRequests[index]
+                              ['performer']['user_details']['profile_picture'],
+                          name: controller.listOfUserRequests[index]
+                                  ['performer']['user_details']['first_name'] +
+                              " " +
+                              controller.listOfUserRequests[index]['performer']
+                                  ['user_details']['last_name'],
+                          rating: "(4.5)")),
+                ),
+              ]));
+        })
       ],
     ));
   }

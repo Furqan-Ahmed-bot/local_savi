@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/user_controllers/home_screen_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/jobs_screen_controller.dart';
 import 'package:local_saviors/screens/user_screens/home_screen.dart';
 import 'package:local_saviors/screens/user_screens/jobs_screen.dart';
 import 'package:local_saviors/screens/user_screens/message_dashboard_screen.dart';
@@ -32,7 +33,9 @@ class _NavbarScreenState extends State<NavbarScreen> {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.white, systemNavigationBarColor: const Color(0xff4E7095)),
+      value: SystemUiOverlayStyle.dark.copyWith(
+          statusBarColor: Colors.white,
+          systemNavigationBarColor: const Color(0xff4E7095)),
       child: GetBuilder(
           init: bottomController,
           builder: (controller) {
@@ -86,7 +89,8 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Image(
-                                        image: AssetImage(ImageAssets.oliverDetailImg),
+                                        image: AssetImage(
+                                            ImageAssets.oliverDetailImg),
                                         height: 90,
                                       )
                                       // Container(
@@ -108,12 +112,16 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                   Center(
                                     child: Text(
                                       '${userData.userdata.userDetails!.firstName}',
-                                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
                                     ),
                                   ),
                                   Text(
                                     '${userData.userdata.email}',
-                                    style: TextStyle(fontSize: 15, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.black),
                                   )
                                 ],
                               ),
@@ -184,7 +192,8 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                 onTap: () {
                                   // Get.to(() => myFriendsScreen());
                                   Get.back();
-                                  Get.toNamed(RouteName.notificationsScreenPath);
+                                  Get.toNamed(
+                                      RouteName.notificationsScreenPath);
                                 },
                                 child: Row(
                                   children: [
@@ -227,7 +236,8 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                 onTap: () {
                                   // Get.to(() => settingsScreen());
                                   Get.back();
-                                  Get.toNamed(RouteName.pHelpFeedbackScreenPath);
+                                  Get.toNamed(
+                                      RouteName.pHelpFeedbackScreenPath);
                                 },
                                 child: Row(
                                   children: [
@@ -273,9 +283,12 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                                          backgroundColor: ColorUtils.dialogeBGColor,
+                                          insetPadding: EdgeInsets.symmetric(
+                                              horizontal: 20.w),
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          backgroundColor:
+                                              ColorUtils.dialogeBGColor,
                                           content: SizedBox(
                                             width: 1.0.sw,
                                             child: Column(
@@ -283,8 +296,12 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                               children: [
                                                 20.h.verticalSpace,
                                                 Container(
-                                                  padding: EdgeInsets.all(23.sp),
-                                                  decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
+                                                  padding:
+                                                      EdgeInsets.all(23.sp),
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color:
+                                                          ColorUtils.jobIconBG),
                                                   child: Image.asset(
                                                     ImageAssets.logoutBigIcon,
                                                     scale: 2,
@@ -315,23 +332,40 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                             Container(
                                               width: 1.0.sw,
                                               child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Expanded(
                                                     child: GestureDetector(
                                                       onTap: () {
-                                                        AuthPreferences.clearAuthData();
+                                                        AuthPreferences
+                                                            .clearAuthData();
                                                         //Get.offAllNamed(RouteName.selectRoleOne);
-                                                        UserServices().logoutService(context: context);
+                                                        UserServices()
+                                                            .logoutService(
+                                                                context:
+                                                                    context);
                                                       },
                                                       child: Container(
-                                                        alignment: Alignment.center,
-                                                        padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                        alignment:
+                                                            Alignment.center,
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                vertical: 15.h),
                                                         decoration: BoxDecoration(
-                                                            color: ColorUtils.white,
-                                                            borderRadius: BorderRadius.circular(10.r),
-                                                            border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
-                                                        child: const Text("Yes, Select"),
+                                                            color: ColorUtils
+                                                                .white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.r),
+                                                            border: Border.all(
+                                                                width: 1.w,
+                                                                color: ColorUtils
+                                                                    .borderColor)),
+                                                        child: const Text(
+                                                            "Yes, Select"),
                                                       ),
                                                     ),
                                                   ),
@@ -342,15 +376,24 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                                         Get.back();
                                                       },
                                                       child: Container(
-                                                        alignment: Alignment.center,
-                                                        padding: EdgeInsets.symmetric(vertical: 15.h),
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(10.r),
+                                                        alignment:
+                                                            Alignment.center,
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                vertical: 15.h),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.r),
                                                           color: ColorUtils.red,
                                                         ),
                                                         child: Text(
                                                           "No",
-                                                          style: TextStyle(color: ColorUtils.white),
+                                                          style: TextStyle(
+                                                              color: ColorUtils
+                                                                  .white),
                                                         ),
                                                       ),
                                                     ),
@@ -367,7 +410,9 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                   padding: EdgeInsets.symmetric(vertical: 20.h),
                                   decoration: BoxDecoration(
                                       color: ColorUtils.red,
-                                      borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), bottomRight: Radius.circular(20.r))),
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(20.r),
+                                          bottomRight: Radius.circular(20.r))),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -413,7 +458,9 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             // padding: EdgeInsets.all(8.sp),
                             height: 40.h,
                             width: 40.w,
-                            decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: ColorUtils.appbarButtonBG),
                             child: Image.asset(
                               ImageAssets.menunicon,
                               scale: 2,
@@ -430,7 +477,9 @@ class _NavbarScreenState extends State<NavbarScreen> {
                               padding: EdgeInsets.all(8.sp),
                               height: 40.h,
                               width: 40.w,
-                              decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: ColorUtils.appbarButtonBG),
                               child: Image.asset(
                                 ImageAssets.notificationicon,
                                 scale: 2,
@@ -453,11 +502,14 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                 _key.currentState!.openDrawer();
                               },
                               child: Container(
-                                margin: EdgeInsets.only(left: 20.w, right: 10.w),
+                                margin:
+                                    EdgeInsets.only(left: 20.w, right: 10.w),
                                 // padding: EdgeInsets.all(8.sp),
                                 height: 40.h,
                                 width: 40.w,
-                                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: ColorUtils.appbarButtonBG),
                                 child: Image.asset(
                                   ImageAssets.menunicon,
                                   scale: 2,
@@ -467,14 +519,17 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             actions: [
                               GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(RouteName.notificationsScreenPath);
+                                  Get.toNamed(
+                                      RouteName.notificationsScreenPath);
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(right: 20.w),
                                   padding: EdgeInsets.all(8.sp),
                                   height: 40.h,
                                   width: 40.w,
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ColorUtils.appbarButtonBG),
                                   child: Image.asset(
                                     ImageAssets.notificationicon,
                                     scale: 2,
@@ -484,7 +539,8 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             ],
                             title: Text(
                               "Messages",
-                              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                              style: TextStyle(
+                                  fontSize: 16.sp, fontWeight: FontWeight.w600),
                             ),
                             centerTitle: true,
                             elevation: 0,
@@ -497,11 +553,14 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                     _key.currentState!.openDrawer();
                                   },
                                   child: Container(
-                                    margin: EdgeInsets.only(left: 20.w, right: 10.w),
+                                    margin: EdgeInsets.only(
+                                        left: 20.w, right: 10.w),
                                     // padding: EdgeInsets.all(8.sp),
                                     height: 40.h,
                                     width: 40.w,
-                                    decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: ColorUtils.appbarButtonBG),
                                     child: Image.asset(
                                       ImageAssets.menunicon,
                                       scale: 2,
@@ -511,14 +570,17 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                 actions: [
                                   GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(RouteName.editProfileScreenPath);
+                                      Get.toNamed(
+                                          RouteName.editProfileScreenPath);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(right: 20.w),
                                       padding: EdgeInsets.all(8.sp),
                                       height: 40.h,
                                       width: 40.w,
-                                      decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: ColorUtils.appbarButtonBG),
                                       child: Image.asset(
                                         ImageAssets.editIcon,
                                         color: ColorUtils.red,
@@ -528,14 +590,17 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(RouteName.notificationsScreenPath);
+                                      Get.toNamed(
+                                          RouteName.notificationsScreenPath);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(right: 20.w),
                                       padding: EdgeInsets.all(8.sp),
                                       height: 40.h,
                                       width: 40.w,
-                                      decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: ColorUtils.appbarButtonBG),
                                       child: Image.asset(
                                         ImageAssets.notificationicon,
                                         scale: 2,
@@ -545,7 +610,9 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                 ],
                                 title: Text(
                                   "My Profile",
-                                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 centerTitle: true,
                                 elevation: 0,
@@ -557,11 +624,14 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                     _key.currentState!.openDrawer();
                                   },
                                   child: Container(
-                                    margin: EdgeInsets.only(left: 20.w, right: 10.w),
+                                    margin: EdgeInsets.only(
+                                        left: 20.w, right: 10.w),
                                     // padding: EdgeInsets.all(8.sp),
                                     height: 40.h,
                                     width: 40.w,
-                                    decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: ColorUtils.appbarButtonBG),
                                     child: Image.asset(
                                       ImageAssets.menunicon,
                                       scale: 2,
@@ -571,14 +641,17 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                 actions: [
                                   GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(RouteName.notificationsScreenPath);
+                                      Get.toNamed(
+                                          RouteName.notificationsScreenPath);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(right: 20.w),
                                       padding: EdgeInsets.all(8.sp),
                                       height: 40.h,
                                       width: 40.w,
-                                      decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: ColorUtils.appbarButtonBG),
                                       child: Image.asset(
                                         ImageAssets.notificationicon,
                                         scale: 2,
@@ -588,7 +661,9 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                 ],
                                 title: Text(
                                   "Jobs",
-                                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 centerTitle: true,
                                 elevation: 0,
@@ -600,7 +675,8 @@ class _NavbarScreenState extends State<NavbarScreen> {
                 bottomNavigationBar: buildMyNavBar2(context),
 
                 // drawer: DrawerWidget(),
-                body: bottomController.bottomList[bottomController.count.value]['page'] as Widget,
+                body: bottomController.bottomList[bottomController.count.value]
+                    ['page'] as Widget,
               ),
             );
           }),
@@ -632,7 +708,8 @@ class _NavbarScreenState extends State<NavbarScreen> {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -653,7 +730,9 @@ class _NavbarScreenState extends State<NavbarScreen> {
                       },
                       child: Container(
                         padding: EdgeInsets.all(10.sp),
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: ColorUtils.red),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            color: ColorUtils.red),
                         child: Icon(
                           Icons.add,
                           color: ColorUtils.white,
@@ -703,12 +782,15 @@ class _NavbarScreenState extends State<NavbarScreen> {
                 children: [
                   SizedBox(height: 10),
                   Image.asset(
-                    bottomController.bottomList[index]["unfocused_image"].toString(),
+                    bottomController.bottomList[index]["unfocused_image"]
+                        .toString(),
                     height: 20,
                   ),
                 ],
               ),
-              bottomController.count.value == index ? 6.verticalSpace : 8.verticalSpace,
+              bottomController.count.value == index
+                  ? 6.verticalSpace
+                  : 8.verticalSpace,
               Text(
                 bottomController.bottomList[index]['title'].toString(),
                 style: TextStyle(color: Colors.black, fontSize: 11.sp),
@@ -791,8 +873,18 @@ class BottomAppBarController extends GetxController {
     //   'unfocused_image': ImageAssets.applyJobs,
     // },
   ];
-  itemSelect(index) {
+  itemSelect(index) async {
     count.value = index;
+    if (index == 2) {
+      var jobcontroller = Get.find<JobsScreenController>();
+      jobcontroller.getJobs();
+    } else if (index == 0) {
+      var homeController = Get.find<HomeScreenController>();
+      homeController.isLoading.value = true;
+      homeController.listOfActiveJobs =
+          await UserServices().getUserActiveJobs();
+      homeController.isLoading.value = false;
+    }
     update();
   }
 }

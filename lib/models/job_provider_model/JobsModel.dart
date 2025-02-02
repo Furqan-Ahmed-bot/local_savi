@@ -24,7 +24,7 @@ class JobsModel {
     id = json['id'];
     title = json['title'];
     description = json['description'];
-    budget = json['budget'];
+    budget = json['budget'].toString();
     decidedCost = json['decided_cost'];
     jobDate = json['job_date'];
     jobStatus = json['job_status'];

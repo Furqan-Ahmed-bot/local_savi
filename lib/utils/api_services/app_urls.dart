@@ -23,6 +23,10 @@ class UserUrls {
   static const getPerformerJobs =
       "${baseUrl}job/all/provider?filter="; // filter
   static const getSingleJobDetail = "${baseUrl}job/"; // job id
+  static const saveUnsavePBookmark = "${baseUrl}bookmark_job/"; // job id
+  static const sentInviteToPerformer =
+      "${baseUrl}job/invite?job_id="; // job id&performerId
+  static const getPBookmark = "${baseUrl}bookmark_job";
   static const getUserActiveJobs =
       "${baseUrl}job/active?limit=20&page=1"; // job id
   static const acceptRejectJobRequest =

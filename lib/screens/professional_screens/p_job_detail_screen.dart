@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_job_detail_controller.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
+import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
@@ -28,10 +29,16 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                         : controller.buttonText.value == "On The Way"
                             ? controller.buttonText.value = "Arrived"
                             : controller.buttonText.value == "Arrived"
-                                ? controller.buttonText.value = "Mark As Completed"
-                                : controller.buttonText.value == "Mark As Completed"
+                                ? controller.buttonText.value =
+                                    "Mark As Completed"
+                                : controller.buttonText.value ==
+                                        "Mark As Completed"
                                     ? showThankyouDialog(context)
-                                    : showThankyouDialog(context);
+                                    : controller.buttonText.value == "Apply Now"
+                                        ? UserServices().applyPerformerJob(
+                                            context: context,
+                                            jobId: controller.jobId.value)
+                                        : showThankyouDialog(context);
                   },
                   buttonColor: ColorUtils.red,
                   width: 1.0.sw,
@@ -61,27 +68,36 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                       ]),
                       Expanded(
                           child: ListView(
-                        padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
+                        padding: EdgeInsets.only(
+                            left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 "Job Details",
-                                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
                               ),
                               Row(
                                 children: [
                                   Text(
                                     "Status: ",
-                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     controller.jobDetailDatail['job_status'],
                                     style: TextStyle(
                                         fontSize: 14.sp,
                                         fontWeight: FontWeight.normal,
-                                        color: controller.jobDetailDatail['job_status'] == "COMPLETED" ? ColorUtils.green : ColorUtils.blue),
+                                        color: controller.jobDetailDatail[
+                                                    'job_status'] ==
+                                                "COMPLETED"
+                                            ? ColorUtils.green
+                                            : ColorUtils.blue),
                                   ),
                                 ],
                               ),
@@ -90,12 +106,16 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                           13.h.verticalSpace,
                           pJobDetailUserCard(
                               context: context,
-                              name: controller.jobDetailDatail['user']['user_details']['first_name'] +
+                              name: controller.jobDetailDatail['user']
+                                      ['user_details']['first_name'] +
                                   " " +
-                                  controller.jobDetailDatail['user']['user_details']['last_name'],
+                                  controller.jobDetailDatail['user']
+                                      ['user_details']['last_name'],
                               city: "New York, NY",
                               isVerified: false,
-                              postedDate: DateFormat("MMM d, yyyy").format(DateTime.parse(controller.jobDetailDatail['createdAt'])),
+                              postedDate: DateFormat("MMM d, yyyy").format(
+                                  DateTime.parse(
+                                      controller.jobDetailDatail['createdAt'])),
                               image: ImageAssets.johnImg),
                           // 10.h.verticalSpace,
                           Divider(
@@ -104,18 +124,25 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                           10.h.verticalSpace,
                           Text(
                             controller.jobDetailDatail['title'] ?? "",
-                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                                color: ColorUtils.black),
                           ),
                           10.h.verticalSpace,
                           Text(
                             controller.jobDetailDatail['description'],
-                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal, color: ColorUtils.textColor),
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.normal,
+                                color: ColorUtils.textColor),
                           ),
                           24.h.verticalSpace,
                           Column(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Image.asset(
                                     ImageAssets.img1,
@@ -134,7 +161,8 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                               30.h.verticalSpace,
                               Column(children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -150,7 +178,8 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                     ),
                                     Flexible(
                                       child: Text(
-                                        controller.jobDetailDatail['worker_type'],
+                                        controller
+                                            .jobDetailDatail['worker_type'],
                                         style: TextStyle(
                                           fontSize: 16.sp,
                                           fontWeight: FontWeight.w500,
@@ -161,11 +190,13 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                 ),
                                 10.h.verticalSpace,
                                 Divider(
-                                  color: ColorUtils.borderColor.withOpacity(0.5),
+                                  color:
+                                      ColorUtils.borderColor.withOpacity(0.5),
                                 ),
                                 10.h.verticalSpace,
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -181,7 +212,12 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                     ),
                                     Flexible(
                                       child: Text(
-                                        (controller.jobDetailDatail['budget'] ?? "" + "-" + controller.jobDetailDatail['budget_type']).toString(),
+                                        (controller.jobDetailDatail['budget']
+                                                    .toString() +
+                                                "-" +
+                                                controller.jobDetailDatail[
+                                                    'budget_type'])
+                                            .toString(),
                                         style: TextStyle(
                                           fontSize: 16.sp,
                                           fontWeight: FontWeight.w500,
@@ -192,11 +228,13 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                 ),
                                 10.h.verticalSpace,
                                 Divider(
-                                  color: ColorUtils.borderColor.withOpacity(0.5),
+                                  color:
+                                      ColorUtils.borderColor.withOpacity(0.5),
                                 ),
                                 10.h.verticalSpace,
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -212,7 +250,10 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                     ),
                                     Flexible(
                                       child: Text(
-                                        DateFormat("HH:mm").format(DateTime.parse(controller.jobDetailDatail['start_time'])),
+                                        DateFormat("HH:mm").format(
+                                            DateTime.parse(
+                                                controller.jobDetailDatail[
+                                                    'start_time'])),
                                         style: TextStyle(
                                           fontSize: 16.sp,
                                           fontWeight: FontWeight.w500,
@@ -223,11 +264,13 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                 ),
                                 10.h.verticalSpace,
                                 Divider(
-                                  color: ColorUtils.borderColor.withOpacity(0.5),
+                                  color:
+                                      ColorUtils.borderColor.withOpacity(0.5),
                                 ),
                                 10.h.verticalSpace,
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -243,7 +286,9 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                     ),
                                     Flexible(
                                       child: Text(
-                                        DateFormat("MMM d, yyyy").format(DateTime.parse(controller.jobDetailDatail['job_date'])),
+                                        DateFormat("MMM d, yyyy").format(
+                                            DateTime.parse(controller
+                                                .jobDetailDatail['job_date'])),
                                         style: TextStyle(
                                           fontSize: 16.sp,
                                           fontWeight: FontWeight.w500,
@@ -254,11 +299,13 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                 ),
                                 10.h.verticalSpace,
                                 Divider(
-                                  color: ColorUtils.borderColor.withOpacity(0.5),
+                                  color:
+                                      ColorUtils.borderColor.withOpacity(0.5),
                                 ),
                                 10.h.verticalSpace,
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -285,7 +332,8 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                 ),
                                 10.h.verticalSpace,
                                 Divider(
-                                  color: ColorUtils.borderColor.withOpacity(0.5),
+                                  color:
+                                      ColorUtils.borderColor.withOpacity(0.5),
                                 ),
                                 10.h.verticalSpace,
                                 // Row(
@@ -325,8 +373,10 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                               Column(
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         // width: 0.3.sw,
@@ -342,7 +392,8 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                       Row(
                                         children: [
                                           Text(
-                                            controller.jobDetailDatail['location'],
+                                            controller
+                                                .jobDetailDatail['location'],
                                             style: TextStyle(
                                               fontSize: 16.sp,
                                               fontWeight: FontWeight.w500,
@@ -355,7 +406,8 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                                 fontSize: 14.sp,
                                                 color: ColorUtils.red,
                                                 decorationColor: ColorUtils.red,
-                                                decoration: TextDecoration.underline),
+                                                decoration:
+                                                    TextDecoration.underline),
                                           ),
                                         ],
                                       ),
@@ -393,7 +445,8 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                   20.h.verticalSpace,
                   Container(
                     padding: EdgeInsets.all(23.sp),
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: ColorUtils.jobIconBG),
                     child: Image.asset(
                       ImageAssets.bigCross,
                       scale: 2,
@@ -438,7 +491,8 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                           decoration: BoxDecoration(
                               color: ColorUtils.white,
                               borderRadius: BorderRadius.circular(10.r),
-                              border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                              border: Border.all(
+                                  width: 1.w, color: ColorUtils.borderColor)),
                           child: const Text("Yes, Cancel"),
                         ),
                       ),
@@ -487,7 +541,8 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                   20.h.verticalSpace,
                   Container(
                     padding: EdgeInsets.all(23.sp),
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: ColorUtils.jobIconBG),
                     child: Image.asset(
                       ImageAssets.jobDoneIcon,
                       scale: 2,
@@ -527,7 +582,8 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                       },
                       child: Container(
                         alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 30.w),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 15.h, horizontal: 30.w),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.r),
                           color: ColorUtils.red,

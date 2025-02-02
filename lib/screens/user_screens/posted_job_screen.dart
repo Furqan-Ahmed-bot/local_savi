@@ -244,9 +244,11 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(
-                            RouteName.userRequestScreenPath,
-                          );
+                          Get.toNamed(RouteName.userRequestScreenPath,
+                              arguments: {
+                                "users":
+                                    controller.jobDetailData['user_requests']
+                              });
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -330,22 +332,25 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                             child: Column(
                               children: [
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Image.asset(
-                                      ImageAssets.img1,
-                                      scale: 1.8,
-                                    ),
-                                    Image.asset(
-                                      ImageAssets.img2,
-                                      scale: 1.8,
-                                    ),
-                                    Image.asset(
-                                      ImageAssets.img3,
-                                      scale: 1.8,
-                                    ),
-                                  ],
+                                  // mainAxisAlignment:
+                                  //     MainAxisAlignment.spaceBetween,
+                                  children: List.generate(
+                                      controller
+                                          .jobDetailData['job_media'].length,
+                                      (index) => Padding(
+                                            padding:
+                                                EdgeInsets.only(left: 10.w),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              child: Image.network(
+                                                  width: 100,
+                                                  height: 100,
+                                                  controller.jobDetailData[
+                                                          'job_media'][index]
+                                                      ['media_file']),
+                                            ),
+                                          )),
                                 ),
                                 30.h.verticalSpace,
                                 Column(children: [
@@ -403,11 +408,11 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                       ),
                                       Flexible(
                                         child: Text(
-                                          (controller.jobDetailData['budget'] ??
-                                                  "" +
-                                                      "-" +
-                                                      controller.jobDetailData[
-                                                          'budget_type'])
+                                          (controller.jobDetailData['budget']
+                                                      .toString() +
+                                                  "-" +
+                                                  controller.jobDetailData[
+                                                      'budget_type'])
                                               .toString(),
                                           style: TextStyle(
                                             fontSize: 16.sp,
@@ -667,7 +672,11 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed(RouteName.inviteUserScreenPath);
+                              Get.toNamed(RouteName.inviteUserScreenPath,
+                                  arguments: {
+                                    "users":
+                                        controller.jobDetailData['invite_users']
+                                  });
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(

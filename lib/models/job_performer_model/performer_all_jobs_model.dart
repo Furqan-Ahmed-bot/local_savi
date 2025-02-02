@@ -98,7 +98,7 @@ class PerformerAllJobsModel {
     isPaid = json['is_paid'];
     isPaidToPerformer = json['is_paid_to_performer'];
     completedAt = json['completed_at'];
-    budget = json['budget'];
+    budget = json['budget'].toString();
     decidedCost = json['decided_cost'];
     jobStatus = json['job_status'];
     paymentStatus = json['payment_status'];

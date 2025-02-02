@@ -20,12 +20,16 @@ class PHomeScreen extends GetWidget<PHomeController> {
                 )
               : GetBuilder(
                   init: controller,
-                  builder: (controller) {
+                  builder: (_) {
                     return Column(
                       children: [
                         Expanded(
                             child: ListView(
-                          padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 110.h, top: 20.h),
+                          padding: EdgeInsets.only(
+                              left: 20.w,
+                              right: 20.w,
+                              bottom: 110.h,
+                              top: 20.h),
                           children: [
                             Column(
                               children: [
@@ -34,32 +38,54 @@ class PHomeScreen extends GetWidget<PHomeController> {
                                   context: context,
                                   suffixIcon: ImageAssets.filterIcon,
                                   suffixClick: () {
-                                    Get.toNamed(RouteName.psearchFilterScreenPath);
+                                    Get.toNamed(
+                                        RouteName.psearchFilterScreenPath);
                                   },
                                   bordercolor: Colors.transparent,
                                 ),
                                 20.h.verticalSpace,
                                 controller.listOfJobs.isEmpty
-                                    ? const Center(child: Center(child: Text("No Jobs Available")))
+                                    ? const Center(
+                                        child: Center(
+                                            child: Text("No Jobs Available")))
                                     : Column(
                                         children: List.generate(
                                             controller.listOfJobs.length,
                                             (index) => InkWell(
                                                 onTap: () {
-                                                  Get.toNamed(RouteName.pJobsDetailScreenPath, arguments: {
-                                                    "showBottomButton": true,
-                                                    "status": "Job Open",
-                                                    "showActionButton": true,
-                                                    "bottomButtonText": "Apply Now"
-                                                  });
+                                                  Get.toNamed(
+                                                      RouteName
+                                                          .pJobsDetailScreenPath,
+                                                      arguments: {
+                                                        "showBottomButton":
+                                                            true,
+                                                        "status": "Job Open",
+                                                        "showActionButton":
+                                                            true,
+                                                        "bottomButtonText":
+                                                            "Apply Now",
+                                                        "jobId": controller
+                                                            .listOfJobs[index]
+                                                            .id
+                                                      });
                                                 },
                                                 child: applyJobCard(
-                                                  id: controller.listOfJobs[index].id,
-                                                  title: controller.listOfJobs[index].title,
-                                                  status: controller.listOfJobs[index].jobStatus,
-                                                  desc: controller.listOfJobs[index].description,
-                                                  budget: controller.listOfJobs[index].budget,
-                                                  date: controller.listOfJobs[index].jobDate,
+                                                  id: controller
+                                                      .listOfJobs[index].id,
+                                                  title: controller
+                                                      .listOfJobs[index].title,
+                                                  status: controller
+                                                      .listOfJobs[index]
+                                                      .jobStatus,
+                                                  desc: controller
+                                                      .listOfJobs[index]
+                                                      .description,
+                                                  budget: controller
+                                                      .listOfJobs[index].budget,
+                                                  date: controller
+                                                      .listOfJobs[index]
+                                                      .jobDate,
+                                                  // time: controller.listOfJobs[index].,
                                                   context: context,
                                                 ))),
                                       )

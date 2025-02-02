@@ -105,7 +105,7 @@ class ScreenBindings extends Bindings {
 
     ///professional
     Get.lazyPut(() => PHomeController());
-    Get.lazyPut(() => PBottomAppBarController());
+    // Get.lazyPut(() => PBottomAppBarController());
     Get.lazyPut(() => PMessageDashboardController());
     Get.lazyPut(() => PSavedJobsController());
     Get.lazyPut(() => PJobsController());

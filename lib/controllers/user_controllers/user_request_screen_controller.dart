@@ -2,6 +2,15 @@ import 'package:get/get.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 
 class UserRequestScreenController extends GetxController {
+  List listOfUserRequests = [];
+
+  @override
+  void onInit() {
+    listOfUserRequests = Get.arguments['users'];
+    update();
+    super.onInit();
+  }
+
   List listOfBestPerformers = [
     {
       "isVerified": true,
