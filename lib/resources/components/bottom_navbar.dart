@@ -36,418 +36,453 @@ class _NavbarScreenState extends State<NavbarScreen> {
       value: SystemUiOverlayStyle.dark.copyWith(
           statusBarColor: Colors.white,
           systemNavigationBarColor: const Color(0xff4E7095)),
-      child: GetBuilder(
-          init: bottomController,
+      child: GetBuilder<BottomAppBarController>(
+          // init: bottomController,
           builder: (controller) {
-            return Container(
-              child: Scaffold(
-                key: _key,
-                drawer: Container(
-                  child: Stack(clipBehavior: Clip.none, children: [
-                    Drawer(
-                      width: 300,
-                      child: Container(
-                        height: 1.sh,
-                        width: 200,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            colors: [
-                              Color(0xFFD6EFFF), // Light blue shade for the top
-                              Color(0xFFFFFFFF),
+        return Container(
+          child: Scaffold(
+            key: _key,
+            drawer: Container(
+              child: Stack(clipBehavior: Clip.none, children: [
+                Drawer(
+                  width: 300,
+                  child: Container(
+                    height: 1.sh,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        colors: [
+                          Color(0xFFD6EFFF), // Light blue shade for the top
+                          Color(0xFFFFFFFF),
+                        ],
+                      ),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              70.verticalSpace,
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.end,
+                              //   children: [
+                              //     GestureDetector(
+                              //       onTap: () {
+                              //         Get.close(1);
+                              //       },
+                              //       child: SizedBox(
+                              //         height: 40,
+                              //         width: 40,
+                              //         child: Icon(
+                              //           Icons.close,
+                              //           color: Colors.white,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     20.horizontalSpace,
+                              //   ],
+                              // ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image(
+                                    image:
+                                        AssetImage(ImageAssets.oliverDetailImg),
+                                    height: 90,
+                                  )
+                                  // Container(
+                                  //   height: 140.h,
+                                  //   width: 140.w,
+                                  //   decoration: BoxDecoration(
+                                  //     border: Border.all(
+                                  //         color: Colors.white, width: 5),
+                                  //     shape: BoxShape.circle,
+                                  //   ),
+                                  //   child: CircleAvatar(
+                                  //     backgroundImage:
+                                  //         AssetImage("assets/profile.png"),
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
+                              16.verticalSpace,
+                              Center(
+                                child: Text(
+                                  '${userData.userdata.userDetails!.firstName}',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                              ),
+                              Text(
+                                '${userData.userdata.email}',
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black),
+                              )
                             ],
                           ),
-                        ),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                          60.verticalSpace,
+                          GestureDetector(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Row(
+                              children: [
+                                40.horizontalSpace,
+                                Image.asset(
+                                  ImageAssets.drawerHome,
+                                  scale: 2,
+                                ),
+                                20.horizontalSpace,
+                                Text(
+                                  "Home",
+                                  style: TextStyle(color: Colors.black),
+                                )
+                              ],
+                            ),
+                          ),
+                          40.verticalSpace,
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(RouteName.providerWalletScreen);
+                              // Get.to(() => goalsHistoryScreen());
+                            },
+                            child: Row(
+                              children: [
+                                40.horizontalSpace,
+                                Image.asset(
+                                  ImageAssets.drawerWallet,
+                                  scale: 2,
+                                ),
+                                20.horizontalSpace,
+                                Text(
+                                  "My Wallet",
+                                  style: TextStyle(color: Colors.black),
+                                )
+                              ],
+                            ),
+                          ),
+                          40.verticalSpace,
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(RouteName.paymentMethodScreen);
+                              // Get.to(() => goalsHistoryScreen());
+                            },
+                            child: Row(
+                              children: [
+                                40.horizontalSpace,
+                                Image.asset(
+                                  ImageAssets.drawerPaymentMethod,
+                                  scale: 3,
+                                ),
+                                20.horizontalSpace,
+                                Text(
+                                  "Payment Method",
+                                  style: TextStyle(color: Colors.black),
+                                )
+                              ],
+                            ),
+                          ),
+                          40.verticalSpace,
+                          GestureDetector(
+                            onTap: () {
+                              // Get.to(() => myFriendsScreen());
+                              Get.back();
+                              Get.toNamed(RouteName.notificationsScreenPath);
+                            },
+                            child: Row(
+                              children: [
+                                40.horizontalSpace,
+                                Image.asset(
+                                  ImageAssets.drawerNotification,
+                                  scale: 2,
+                                ),
+                                20.horizontalSpace,
+                                Text(
+                                  "Notifications",
+                                  style: TextStyle(color: Colors.black),
+                                )
+                              ],
+                            ),
+                          ),
+                          40.verticalSpace,
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(RouteName.paymentHistoryScreen);
+                              // Get.to(() => goalsHistoryScreen());
+                            },
+                            child: Row(
+                              children: [
+                                40.horizontalSpace,
+                                Image.asset(
+                                  ImageAssets.drawerPaymentHistory,
+                                  scale: 3,
+                                ),
+                                20.horizontalSpace,
+                                Text(
+                                  "Payment History",
+                                  style: TextStyle(color: Colors.black),
+                                )
+                              ],
+                            ),
+                          ),
+                          40.verticalSpace,
+                          GestureDetector(
+                            onTap: () {
+                              // Get.to(() => settingsScreen());
+                              Get.back();
+                              Get.toNamed(RouteName.pHelpFeedbackScreenPath);
+                            },
+                            child: Row(
+                              children: [
+                                40.horizontalSpace,
+                                Image.asset(
+                                  ImageAssets.drawerHelp,
+                                  scale: 2,
+                                ),
+                                20.horizontalSpace,
+                                Text(
+                                  "Help & Feedback",
+                                  style: TextStyle(color: Colors.black),
+                                )
+                              ],
+                            ),
+                          ),
+                          40.verticalSpace,
+                          GestureDetector(
+                            onTap: () {
+                              // Get.to(() => settingsScreen());
+                              Get.back();
+                              Get.toNamed(RouteName.settingScreenPath);
+                            },
+                            child: Row(
+                              children: [
+                                40.horizontalSpace,
+                                Image.asset(
+                                  ImageAssets.drawerSetting,
+                                  scale: 2,
+                                ),
+                                20.horizontalSpace,
+                                Text(
+                                  "Settings",
+                                  style: TextStyle(color: Colors.black),
+                                )
+                              ],
+                            ),
+                          ),
+                          40.verticalSpace,
+                          InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      insetPadding: EdgeInsets.symmetric(
+                                          horizontal: 20.w),
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      backgroundColor:
+                                          ColorUtils.dialogeBGColor,
+                                      content: SizedBox(
+                                        width: 1.0.sw,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            20.h.verticalSpace,
+                                            Container(
+                                              padding: EdgeInsets.all(23.sp),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: ColorUtils.jobIconBG),
+                                              child: Image.asset(
+                                                ImageAssets.logoutBigIcon,
+                                                scale: 2,
+                                              ),
+                                            ),
+                                            20.h.verticalSpace,
+                                            Text(
+                                              "Logout!",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: ColorUtils.black,
+                                                fontSize: 22.sp,
+                                              ),
+                                            ),
+                                            24.h.verticalSpace,
+                                            Text(
+                                              "Are you sure you want to Logout?",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: ColorUtils.black,
+                                                fontSize: 14.sp,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: [
+                                        Container(
+                                          width: 1.0.sw,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    AuthPreferences
+                                                        .clearAuthData();
+                                                    //Get.offAllNamed(RouteName.selectRoleOne);
+                                                    UserServices()
+                                                        .logoutService(
+                                                            context: context);
+                                                  },
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 15.h),
+                                                    decoration: BoxDecoration(
+                                                        color: ColorUtils.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.r),
+                                                        border: Border.all(
+                                                            width: 1.w,
+                                                            color: ColorUtils
+                                                                .borderColor)),
+                                                    child: const Text(
+                                                        "Yes, Select"),
+                                                  ),
+                                                ),
+                                              ),
+                                              20.w.horizontalSpace,
+                                              Expanded(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Get.back();
+                                                  },
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 15.h),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.r),
+                                                      color: ColorUtils.red,
+                                                    ),
+                                                    child: Text(
+                                                      "No",
+                                                      style: TextStyle(
+                                                          color:
+                                                              ColorUtils.white),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    );
+                                  });
+                            },
+                            child: Container(
+                              width: 0.55.sw,
+                              padding: EdgeInsets.symmetric(vertical: 20.h),
+                              decoration: BoxDecoration(
+                                  color: ColorUtils.red,
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(20.r),
+                                      bottomRight: Radius.circular(20.r))),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  70.verticalSpace,
-                                  // Row(
-                                  //   mainAxisAlignment: MainAxisAlignment.end,
-                                  //   children: [
-                                  //     GestureDetector(
-                                  //       onTap: () {
-                                  //         Get.close(1);
-                                  //       },
-                                  //       child: SizedBox(
-                                  //         height: 40,
-                                  //         width: 40,
-                                  //         child: Icon(
-                                  //           Icons.close,
-                                  //           color: Colors.white,
-                                  //         ),
-                                  //       ),
-                                  //     ),
-                                  //     20.horizontalSpace,
-                                  //   ],
-                                  // ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image(
-                                        image: AssetImage(
-                                            ImageAssets.oliverDetailImg),
-                                        height: 90,
-                                      )
-                                      // Container(
-                                      //   height: 140.h,
-                                      //   width: 140.w,
-                                      //   decoration: BoxDecoration(
-                                      //     border: Border.all(
-                                      //         color: Colors.white, width: 5),
-                                      //     shape: BoxShape.circle,
-                                      //   ),
-                                      //   child: CircleAvatar(
-                                      //     backgroundImage:
-                                      //         AssetImage("assets/profile.png"),
-                                      //   ),
-                                      // ),
-                                    ],
+                                  40.horizontalSpace,
+                                  Image.asset(
+                                    ImageAssets.drawerLogout,
+                                    scale: 2,
                                   ),
-                                  16.verticalSpace,
-                                  Center(
-                                    child: Text(
-                                      '${userData.userdata.userDetails!.firstName}',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                    ),
-                                  ),
+                                  20.horizontalSpace,
                                   Text(
-                                    '${userData.userdata.email}',
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.black),
+                                    "Logout",
+                                    style: TextStyle(color: Colors.white),
                                   )
                                 ],
                               ),
-                              60.verticalSpace,
-                              GestureDetector(
-                                onTap: () {
-                                  Get.back();
-                                },
-                                child: Row(
-                                  children: [
-                                    40.horizontalSpace,
-                                    Image.asset(
-                                      ImageAssets.drawerHome,
-                                      scale: 2,
-                                    ),
-                                    20.horizontalSpace,
-                                    Text(
-                                      "Home",
-                                      style: TextStyle(color: Colors.black),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              40.verticalSpace,
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(RouteName.providerWalletScreen);
-                                  // Get.to(() => goalsHistoryScreen());
-                                },
-                                child: Row(
-                                  children: [
-                                    40.horizontalSpace,
-                                    Image.asset(
-                                      ImageAssets.drawerWallet,
-                                      scale: 2,
-                                    ),
-                                    20.horizontalSpace,
-                                    Text(
-                                      "My Wallet",
-                                      style: TextStyle(color: Colors.black),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              40.verticalSpace,
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(RouteName.paymentMethodScreen);
-                                  // Get.to(() => goalsHistoryScreen());
-                                },
-                                child: Row(
-                                  children: [
-                                    40.horizontalSpace,
-                                    Image.asset(
-                                      ImageAssets.drawerPaymentMethod,
-                                      scale: 3,
-                                    ),
-                                    20.horizontalSpace,
-                                    Text(
-                                      "Payment Method",
-                                      style: TextStyle(color: Colors.black),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              40.verticalSpace,
-                              GestureDetector(
-                                onTap: () {
-                                  // Get.to(() => myFriendsScreen());
-                                  Get.back();
-                                  Get.toNamed(
-                                      RouteName.notificationsScreenPath);
-                                },
-                                child: Row(
-                                  children: [
-                                    40.horizontalSpace,
-                                    Image.asset(
-                                      ImageAssets.drawerNotification,
-                                      scale: 2,
-                                    ),
-                                    20.horizontalSpace,
-                                    Text(
-                                      "Notifications",
-                                      style: TextStyle(color: Colors.black),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              40.verticalSpace,
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(RouteName.paymentHistoryScreen);
-                                  // Get.to(() => goalsHistoryScreen());
-                                },
-                                child: Row(
-                                  children: [
-                                    40.horizontalSpace,
-                                    Image.asset(
-                                      ImageAssets.drawerPaymentHistory,
-                                      scale: 3,
-                                    ),
-                                    20.horizontalSpace,
-                                    Text(
-                                      "Payment History",
-                                      style: TextStyle(color: Colors.black),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              40.verticalSpace,
-                              GestureDetector(
-                                onTap: () {
-                                  // Get.to(() => settingsScreen());
-                                  Get.back();
-                                  Get.toNamed(
-                                      RouteName.pHelpFeedbackScreenPath);
-                                },
-                                child: Row(
-                                  children: [
-                                    40.horizontalSpace,
-                                    Image.asset(
-                                      ImageAssets.drawerHelp,
-                                      scale: 2,
-                                    ),
-                                    20.horizontalSpace,
-                                    Text(
-                                      "Help & Feedback",
-                                      style: TextStyle(color: Colors.black),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              40.verticalSpace,
-                              GestureDetector(
-                                onTap: () {
-                                  // Get.to(() => settingsScreen());
-                                  Get.back();
-                                  Get.toNamed(RouteName.settingScreenPath);
-                                },
-                                child: Row(
-                                  children: [
-                                    40.horizontalSpace,
-                                    Image.asset(
-                                      ImageAssets.drawerSetting,
-                                      scale: 2,
-                                    ),
-                                    20.horizontalSpace,
-                                    Text(
-                                      "Settings",
-                                      style: TextStyle(color: Colors.black),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              40.verticalSpace,
-                              InkWell(
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          insetPadding: EdgeInsets.symmetric(
-                                              horizontal: 20.w),
-                                          clipBehavior:
-                                              Clip.antiAliasWithSaveLayer,
-                                          backgroundColor:
-                                              ColorUtils.dialogeBGColor,
-                                          content: SizedBox(
-                                            width: 1.0.sw,
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                20.h.verticalSpace,
-                                                Container(
-                                                  padding:
-                                                      EdgeInsets.all(23.sp),
-                                                  decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color:
-                                                          ColorUtils.jobIconBG),
-                                                  child: Image.asset(
-                                                    ImageAssets.logoutBigIcon,
-                                                    scale: 2,
-                                                  ),
-                                                ),
-                                                20.h.verticalSpace,
-                                                Text(
-                                                  "Logout!",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: ColorUtils.black,
-                                                    fontSize: 22.sp,
-                                                  ),
-                                                ),
-                                                24.h.verticalSpace,
-                                                Text(
-                                                  "Are you sure you want to Logout?",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: ColorUtils.black,
-                                                    fontSize: 14.sp,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          actions: [
-                                            Container(
-                                              width: 1.0.sw,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Expanded(
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        AuthPreferences
-                                                            .clearAuthData();
-                                                        //Get.offAllNamed(RouteName.selectRoleOne);
-                                                        UserServices()
-                                                            .logoutService(
-                                                                context:
-                                                                    context);
-                                                      },
-                                                      child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                vertical: 15.h),
-                                                        decoration: BoxDecoration(
-                                                            color: ColorUtils
-                                                                .white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10.r),
-                                                            border: Border.all(
-                                                                width: 1.w,
-                                                                color: ColorUtils
-                                                                    .borderColor)),
-                                                        child: const Text(
-                                                            "Yes, Select"),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  20.w.horizontalSpace,
-                                                  Expanded(
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        Get.back();
-                                                      },
-                                                      child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                vertical: 15.h),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.r),
-                                                          color: ColorUtils.red,
-                                                        ),
-                                                        child: Text(
-                                                          "No",
-                                                          style: TextStyle(
-                                                              color: ColorUtils
-                                                                  .white),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        );
-                                      });
-                                },
-                                child: Container(
-                                  width: 0.55.sw,
-                                  padding: EdgeInsets.symmetric(vertical: 20.h),
-                                  decoration: BoxDecoration(
-                                      color: ColorUtils.red,
-                                      borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(20.r),
-                                          bottomRight: Radius.circular(20.r))),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      40.horizontalSpace,
-                                      Image.asset(
-                                        ImageAssets.drawerLogout,
-                                        scale: 2,
-                                      ),
-                                      20.horizontalSpace,
-                                      Text(
-                                        "Logout",
-                                        style: TextStyle(color: Colors.white),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              20.verticalSpace,
-                            ],
+                            ),
                           ),
+                          20.verticalSpace,
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                    left: 280,
+                    top: 30,
+                    child: InkWell(
+                        onTap: () {
+                          Get.close(1);
+                        },
+                        child: Image.asset(ImageAssets.closeDrawer)))
+              ]),
+            ),
+
+            appBar: bottomController.count == 0
+                ? AppBar(
+                    leading: InkWell(
+                      onTap: () {
+                        _key.currentState!.openDrawer();
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(left: 20.w, right: 10.w),
+                        // padding: EdgeInsets.all(8.sp),
+                        height: 40.h,
+                        width: 40.w,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColorUtils.appbarButtonBG),
+                        child: Image.asset(
+                          ImageAssets.menunicon,
+                          scale: 2,
                         ),
                       ),
                     ),
-                    Positioned(
-                        left: 280,
-                        top: 30,
-                        child: InkWell(
-                            onTap: () {
-                              Get.close(1);
-                            },
-                            child: Image.asset(ImageAssets.closeDrawer)))
-                  ]),
-                ),
-
-                appBar: bottomController.count == 0
+                    actions: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(RouteName.notificationsScreenPath);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(right: 20.w),
+                          padding: EdgeInsets.all(8.sp),
+                          height: 40.h,
+                          width: 40.w,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: ColorUtils.appbarButtonBG),
+                          child: Image.asset(
+                            ImageAssets.notificationicon,
+                            scale: 2,
+                          ),
+                        ),
+                      ),
+                    ],
+                    title: Image.asset(
+                      ImageAssets.logoSamll,
+                      scale: 2,
+                    ),
+                    centerTitle: true,
+                    elevation: 0,
+                    backgroundColor: ColorUtils.primary,
+                  )
+                : bottomController.count == 1
                     ? AppBar(
                         leading: InkWell(
                           onTap: () {
@@ -487,16 +522,86 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             ),
                           ),
                         ],
-                        title: Image.asset(
-                          ImageAssets.logoSamll,
-                          scale: 2,
+                        title: Text(
+                          "Messages",
+                          style: TextStyle(
+                              fontSize: 16.sp, fontWeight: FontWeight.w600),
                         ),
                         centerTitle: true,
                         elevation: 0,
                         backgroundColor: ColorUtils.primary,
                       )
-                    : bottomController.count == 1
+                    : bottomController.count == 3
                         ? AppBar(
+                            leading: InkWell(
+                              onTap: () {
+                                _key.currentState!.openDrawer();
+                              },
+                              child: Container(
+                                margin:
+                                    EdgeInsets.only(left: 20.w, right: 10.w),
+                                // padding: EdgeInsets.all(8.sp),
+                                height: 40.h,
+                                width: 40.w,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: ColorUtils.appbarButtonBG),
+                                child: Image.asset(
+                                  ImageAssets.menunicon,
+                                  scale: 2,
+                                ),
+                              ),
+                            ),
+                            actions: [
+                              GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(RouteName.editProfileScreenPath);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 20.w),
+                                  padding: EdgeInsets.all(8.sp),
+                                  height: 40.h,
+                                  width: 40.w,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ColorUtils.appbarButtonBG),
+                                  child: Image.asset(
+                                    ImageAssets.editIcon,
+                                    color: ColorUtils.red,
+                                    scale: 2,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(
+                                      RouteName.notificationsScreenPath);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 20.w),
+                                  padding: EdgeInsets.all(8.sp),
+                                  height: 40.h,
+                                  width: 40.w,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ColorUtils.appbarButtonBG),
+                                  child: Image.asset(
+                                    ImageAssets.notificationicon,
+                                    scale: 2,
+                                  ),
+                                ),
+                              ),
+                            ],
+                            title: Text(
+                              "My Profile",
+                              style: TextStyle(
+                                  fontSize: 16.sp, fontWeight: FontWeight.w600),
+                            ),
+                            centerTitle: true,
+                            elevation: 0,
+                            backgroundColor: ColorUtils.primary,
+                          )
+                        : AppBar(
                             leading: InkWell(
                               onTap: () {
                                 _key.currentState!.openDrawer();
@@ -538,148 +643,25 @@ class _NavbarScreenState extends State<NavbarScreen> {
                               ),
                             ],
                             title: Text(
-                              "Messages",
+                              "Jobs",
                               style: TextStyle(
                                   fontSize: 16.sp, fontWeight: FontWeight.w600),
                             ),
                             centerTitle: true,
                             elevation: 0,
                             backgroundColor: ColorUtils.primary,
-                          )
-                        : bottomController.count == 3
-                            ? AppBar(
-                                leading: InkWell(
-                                  onTap: () {
-                                    _key.currentState!.openDrawer();
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: 20.w, right: 10.w),
-                                    // padding: EdgeInsets.all(8.sp),
-                                    height: 40.h,
-                                    width: 40.w,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: ColorUtils.appbarButtonBG),
-                                    child: Image.asset(
-                                      ImageAssets.menunicon,
-                                      scale: 2,
-                                    ),
-                                  ),
-                                ),
-                                actions: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.toNamed(
-                                          RouteName.editProfileScreenPath);
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(right: 20.w),
-                                      padding: EdgeInsets.all(8.sp),
-                                      height: 40.h,
-                                      width: 40.w,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: ColorUtils.appbarButtonBG),
-                                      child: Image.asset(
-                                        ImageAssets.editIcon,
-                                        color: ColorUtils.red,
-                                        scale: 2,
-                                      ),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.toNamed(
-                                          RouteName.notificationsScreenPath);
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(right: 20.w),
-                                      padding: EdgeInsets.all(8.sp),
-                                      height: 40.h,
-                                      width: 40.w,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: ColorUtils.appbarButtonBG),
-                                      child: Image.asset(
-                                        ImageAssets.notificationicon,
-                                        scale: 2,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                                title: Text(
-                                  "My Profile",
-                                  style: TextStyle(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                centerTitle: true,
-                                elevation: 0,
-                                backgroundColor: ColorUtils.primary,
-                              )
-                            : AppBar(
-                                leading: InkWell(
-                                  onTap: () {
-                                    _key.currentState!.openDrawer();
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: 20.w, right: 10.w),
-                                    // padding: EdgeInsets.all(8.sp),
-                                    height: 40.h,
-                                    width: 40.w,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: ColorUtils.appbarButtonBG),
-                                    child: Image.asset(
-                                      ImageAssets.menunicon,
-                                      scale: 2,
-                                    ),
-                                  ),
-                                ),
-                                actions: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.toNamed(
-                                          RouteName.notificationsScreenPath);
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(right: 20.w),
-                                      padding: EdgeInsets.all(8.sp),
-                                      height: 40.h,
-                                      width: 40.w,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: ColorUtils.appbarButtonBG),
-                                      child: Image.asset(
-                                        ImageAssets.notificationicon,
-                                        scale: 2,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                                title: Text(
-                                  "Jobs",
-                                  style: TextStyle(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                centerTitle: true,
-                                elevation: 0,
-                                backgroundColor: ColorUtils.primary,
-                              ),
-                extendBody: true,
-                // extendBody: true, extendBodyBehindAppBar: true,
-                backgroundColor: Colors.white,
-                bottomNavigationBar: buildMyNavBar2(context),
+                          ),
+            extendBody: true,
+            // extendBody: true, extendBodyBehindAppBar: true,
+            backgroundColor: Colors.white,
+            bottomNavigationBar: buildMyNavBar2(context),
 
-                // drawer: DrawerWidget(),
-                body: bottomController.bottomList[bottomController.count.value]
-                    ['page'] as Widget,
-              ),
-            );
-          }),
+            // drawer: DrawerWidget(),
+            body: bottomController.bottomList[bottomController.count.value]
+                ['page'] as Widget,
+          ),
+        );
+      }),
     );
   }
 

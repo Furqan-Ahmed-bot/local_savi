@@ -7,6 +7,12 @@ class PHomeController extends GetxController {
   List<PerformerJobsModel> listOfJobs = [];
   RxBool isLaoding = false.obs;
 
+  @override
+  void onInit() {
+    print('======> pHomecontroller:  length: ${listOfJobs.length}');
+    super.onInit();
+  }
+
   setPerformerData(PerformerModel data) {
     performerdata = data;
     update();

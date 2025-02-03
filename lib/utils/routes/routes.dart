@@ -21,6 +21,7 @@ class RouteName {
   static const String userRequestScreenPath = '/userRequestScreenPath';
   static const String messagesScreenPath = '/messagesScreenPaths';
   static const String bottomNavBarScreenPath = '/bottomNavBarScreenPath';
+  static const String pBottomNavBarScreenPath = '/pBottomNavBarScreenPath';
   static const String inviteUserScreenPath = '/inviteUserScreenPath';
   static const String userprofileScreenPath = '/userprofileScreenPath';
   static const String jobPostedScreenPath = '/jobPostedScreenPath';
