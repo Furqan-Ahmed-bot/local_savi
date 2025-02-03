@@ -7,6 +7,7 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../utils/api_services/user_services.dart';
 
@@ -135,72 +136,77 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                                   ],
                                 ),
                                 16.h.verticalSpace,
-                                Container(
-                                  width: 1.0.sw,
-                                  child: Row(
-                                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: List.generate(
-                                        3,
-                                        (index) => Expanded(
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
-                                                    "title": "Best Performer",
-                                                    "showChat": true,
-                                                  });
-                                                },
-                                                child: Container(
-                                                  width: 0.25.sw,
-                                                  margin: EdgeInsets.only(right: 12.w),
-                                                  padding: EdgeInsets.symmetric(vertical: 15.sp),
-                                                  decoration: BoxDecoration(
-                                                      color: ColorUtils.white,
-                                                      borderRadius: BorderRadius.circular(10.sp),
-                                                      border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
-                                                  child: Column(
-                                                    children: [
-                                                      15.h.verticalSpace,
-                                                      ClipRRect(
-                                                        borderRadius: BorderRadius.circular(50.r),
+                                Obx(
+                                  () => Container(
+                                    width: 1.0.sw,
+                                    child: controller.issecondaryLoading.value
+                                        ? shimmerEffect(context)
+                                        : Row(
+                                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: List.generate(
+                                                3,
+                                                (index) => Expanded(
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
+                                                            "title": "Best Performer",
+                                                            "showChat": true,
+                                                          });
+                                                        },
                                                         child: Container(
+                                                          width: 0.25.sw,
+                                                          margin: EdgeInsets.only(right: 12.w),
+                                                          padding: EdgeInsets.symmetric(vertical: 15.sp),
                                                           decoration: BoxDecoration(
-                                                              shape: BoxShape.circle, border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
-                                                          child: Image.asset(
-                                                            controller.dummyData[index]['image'],
-                                                            scale: 2,
+                                                              color: ColorUtils.white,
+                                                              borderRadius: BorderRadius.circular(10.sp),
+                                                              border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                                          child: Column(
+                                                            children: [
+                                                              15.h.verticalSpace,
+                                                              ClipRRect(
+                                                                borderRadius: BorderRadius.circular(50.r),
+                                                                child: Container(
+                                                                  decoration: BoxDecoration(
+                                                                      shape: BoxShape.circle,
+                                                                      border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                                                  child: Image.asset(
+                                                                    controller.dummyData[index]['image'],
+                                                                    scale: 2,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              10.h.verticalSpace,
+                                                              Text(
+                                                                controller.dummyData[index]['name'],
+                                                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+                                                              ),
+                                                              5.h.verticalSpace,
+                                                              Text(
+                                                                controller.dummyData[index]["country"],
+                                                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal),
+                                                              ),
+                                                              8.h.verticalSpace,
+                                                              Row(
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  Image.asset(
+                                                                    ImageAssets.starIcon,
+                                                                    scale: 2,
+                                                                  ),
+                                                                  7.w.horizontalSpace,
+                                                                  Text(
+                                                                    controller.dummyData[index]["rating"],
+                                                                    style: TextStyle(),
+                                                                  )
+                                                                ],
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ),
-                                                      10.h.verticalSpace,
-                                                      Text(
-                                                        controller.dummyData[index]['name'],
-                                                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
-                                                      ),
-                                                      5.h.verticalSpace,
-                                                      Text(
-                                                        controller.dummyData[index]["country"],
-                                                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal),
-                                                      ),
-                                                      8.h.verticalSpace,
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          Image.asset(
-                                                            ImageAssets.starIcon,
-                                                            scale: 2,
-                                                          ),
-                                                          7.w.horizontalSpace,
-                                                          Text(
-                                                            controller.dummyData[index]["rating"],
-                                                            style: TextStyle(),
-                                                          )
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            )),
+                                                    )),
+                                          ),
                                   ),
                                 ),
                                 20.h.verticalSpace,
@@ -250,4 +256,76 @@ class HomeScreen extends GetWidget<HomeScreenController> {
       ),
     );
   }
+}
+
+Widget shimmerEffect(BuildContext context) {
+  return Shimmer.fromColors(
+    baseColor: Colors.grey[300]!,
+    highlightColor: Colors.grey[100]!,
+    child: Container(
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: List.generate(
+          3,
+          (index) => Expanded(
+            child: Container(
+              width: 0.25 * MediaQuery.of(context).size.width,
+              margin: EdgeInsets.only(right: 12),
+              padding: EdgeInsets.symmetric(vertical: 15),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(width: 1, color: Colors.grey),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(height: 15),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey[300],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    width: 100,
+                    height: 16,
+                    color: Colors.grey[300],
+                  ),
+                  SizedBox(height: 5),
+                  Container(
+                    width: 80,
+                    height: 16,
+                    color: Colors.grey[300],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 20,
+                        height: 20,
+                        color: Colors.grey[300],
+                      ),
+                      SizedBox(width: 7),
+                      Container(
+                        width: 30,
+                        height: 16,
+                        color: Colors.grey[300],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 }

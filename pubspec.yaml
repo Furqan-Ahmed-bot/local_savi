@@ -54,7 +54,7 @@ dependencies:
   shared_preferences: ^2.0.17
   geocoding: ^3.0.0
   google_maps_flutter: ^2.5.3
-    
+  shimmer: ^2.0.0
 
 
 dev_dependencies:

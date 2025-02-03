@@ -5,16 +5,11 @@ class PerformerJobsModel {
   dynamic budget;
   dynamic decidedCost;
   String? jobDate;
+  String? jobTime;
+
   String? jobStatus;
 
-  PerformerJobsModel(
-      {this.id,
-      this.title,
-      this.description,
-      this.budget,
-      this.decidedCost,
-      this.jobDate,
-      this.jobStatus});
+  PerformerJobsModel({this.id, this.title, this.description, this.budget, this.decidedCost, this.jobDate, this.jobTime, this.jobStatus});
 
   PerformerJobsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -23,6 +18,7 @@ class PerformerJobsModel {
     budget = json['budget'].toString();
     decidedCost = json['decided_cost'];
     jobDate = json['job_date'];
+    jobTime = json['start_time'];
     jobStatus = json['job_status'];
   }
 
@@ -34,6 +30,7 @@ class PerformerJobsModel {
     data['budget'] = budget;
     data['decided_cost'] = decidedCost;
     data['job_date'] = jobDate;
+    data['start_time'] = jobTime;
     data['job_status'] = jobStatus;
     return data;
   }
