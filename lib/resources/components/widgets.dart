@@ -563,14 +563,24 @@ Widget bestPerformerCard({
                 children: [
                   Stack(
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(100.r),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100.r),
-                              border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
-                          child: Image.asset(
-                            image,
+                      SizedBox(
+                        height: 40,
+                        width: 40,
+                        child: ClipOval(
+                          child: Image.network(
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                            fit: BoxFit.cover,
+                            '${image}',
                             scale: 2,
                           ),
                         ),

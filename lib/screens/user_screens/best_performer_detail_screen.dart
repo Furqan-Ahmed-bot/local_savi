@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:local_saviors/controllers/user_controllers/best_performer_detail_screen_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
+import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
@@ -123,46 +124,52 @@ class BestPerformerDetailScreen extends GetWidget<BestPerformerDetailScreenContr
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        children: List.generate(
-                          controller.dummyData.length,
-                          (index) => Column(
-                            // mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    // width: 0.3.sw,
-                                    margin: EdgeInsets.only(right: 20.w),
-                                    child: Text(
-                                      controller.dummyData[index]['title'],
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w600,
+                      Obx(
+                        () => controller.isLoading.value
+                            ? Center(
+                                child: spinkit,
+                              )
+                            : Column(
+                                children: List.generate(
+                                  controller.dummyData.length,
+                                  (index) => Column(
+                                    // mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            // width: 0.3.sw,
+                                            margin: EdgeInsets.only(right: 20.w),
+                                            child: Text(
+                                              controller.dummyData[index]['title'],
+                                              style: TextStyle(
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                          Flexible(
+                                            child: Text(
+                                              controller.dummyData[index]["value"],
+                                              style: TextStyle(
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ),
-                                  Flexible(
-                                    child: Text(
-                                      controller.dummyData[index]["value"],
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w400,
+                                      16.h.verticalSpace,
+                                      Divider(
+                                        color: ColorUtils.borderColor.withOpacity(0.5),
                                       ),
-                                    ),
+                                      16.h.verticalSpace,
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
-                              16.h.verticalSpace,
-                              Divider(
-                                color: ColorUtils.borderColor.withOpacity(0.5),
-                              ),
-                              16.h.verticalSpace,
-                            ],
-                          ),
-                        ),
                       ),
                       Text(
                         "Location",

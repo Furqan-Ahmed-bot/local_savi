@@ -14,6 +14,8 @@ class CreateJobPostScreenController extends GetxController {
   TextEditingController addressEditingController = TextEditingController();
   TextEditingController locationEditingController = TextEditingController();
   TextEditingController priceBudgetEditingController = TextEditingController();
+  TextEditingController locationcontroller = TextEditingController();
+
   String? selectedHours = '00';
   String? selectedMints = '00';
   RxString state = "".obs;
@@ -23,6 +25,9 @@ class CreateJobPostScreenController extends GetxController {
   RxInt cardvalue = 0.obs;
   RxInt workingHour = 0.obs;
   RxInt fixedAmoount = 0.obs;
+
+  var latitide;
+  var longitude;
   RxBool isAm = false.obs;
   RxString selectedTimeWithDate = "".obs;
   DateTime selectedDate = DateTime.now();
