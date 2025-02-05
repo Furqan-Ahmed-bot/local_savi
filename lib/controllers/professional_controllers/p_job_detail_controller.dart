@@ -49,7 +49,9 @@ class PJobDetailController extends GetxController {
 
   getData() async {
     isLoading.value = true;
-    await UserServices().getSingleJobDetail(jobId: jobId.value).then((value) {
+    await UserServices.instance
+        .getSingleJobDetail(jobId: jobId.value)
+        .then((value) {
       isLoading.value = false;
       jobDetailDatail = value;
       log("==> jobDetails: ${jobDetailDatail}");

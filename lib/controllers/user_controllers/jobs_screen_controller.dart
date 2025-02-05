@@ -15,11 +15,13 @@ class JobsScreenController extends GetxController {
 //[OPEN, UPCOMING, ONGOING, COMPLETED, CANCELLED]
   getJobs() async {
     isLoading.value = true;
-    openJobsList = await UserServices().getAllJobs(filter: "OPEN");
-    upcomingJobsList = await UserServices().getAllJobs(filter: "UPCOMING");
-    ongoingJobsList = await UserServices().getAllJobs(filter: "ONGOING");
-    completedJobsList = await UserServices().getAllJobs(filter: "COMPLETED");
-    // cancelledJobsList = await UserServices().getAllJobs(filter: "CANCELLED");
+    openJobsList = await UserServices.instance.getAllJobs(filter: "OPEN");
+    upcomingJobsList =
+        await UserServices.instance.getAllJobs(filter: "UPCOMING");
+    ongoingJobsList = await UserServices.instance.getAllJobs(filter: "ONGOING");
+    completedJobsList =
+        await UserServices.instance.getAllJobs(filter: "COMPLETED");
+    // cancelledJobsList = await UserServices.instance.getAllJobs(filter: "CANCELLED");
     isLoading.value = false;
     update();
   }

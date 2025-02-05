@@ -88,9 +88,12 @@ class ForgetPasswordScreen extends GetWidget<ForgetPasswordController> {
                     isProfileCreated = false;
                     email.value = controller.emailController.text;
                     if (controller.emailController.text.isNotEmpty) {
-                      UserServices().forgetPasswordService(context: context, email: controller.emailController.text);
+                      UserServices.instance.forgetPasswordService(
+                          context: context,
+                          email: controller.emailController.text);
                     } else {
-                      Get.snackbar("Alert", "Please enter your email", backgroundColor: ColorUtils.white);
+                      Get.snackbar("Alert", "Please enter your email",
+                          backgroundColor: ColorUtils.white);
                     }
                   }),
             ],

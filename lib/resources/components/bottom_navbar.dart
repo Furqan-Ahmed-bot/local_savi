@@ -336,7 +336,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                                     AuthPreferences
                                                         .clearAuthData();
                                                     //Get.offAllNamed(RouteName.selectRoleOne);
-                                                    UserServices()
+                                                    UserServices.instance
                                                         .logoutService(
                                                             context: context);
                                                   },
@@ -864,7 +864,8 @@ class BottomAppBarController extends GetxController {
       var homeController = Get.find<HomeScreenController>();
       homeController.isLoading.value = true;
       homeController.listOfActiveJobs =
-          await UserServices().getUserActiveJobs();
+          await UserServices.instance.getUserActiveJobs();
+      await homeController.getBestPerformers();
       homeController.isLoading.value = false;
     }
     update();

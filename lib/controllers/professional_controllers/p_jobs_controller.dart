@@ -14,6 +14,7 @@ class PJobsController extends GetxController {
   @override
   void onInit() {
     getJobs();
+    print("=====<>> init:");
     super.onInit();
   }
 
@@ -21,16 +22,16 @@ class PJobsController extends GetxController {
   getJobs() async {
     isLoading.value = true;
 
-    appliedJobsList =
-        await UserServices().getPerformerAllJobs(filter: "APPLIED");
-    upcomingJobsList =
-        await UserServices().getPerformerAllJobs(filter: "UPCOMING");
-    ongoingJobsList =
-        await UserServices().getPerformerAllJobs(filter: "ONGOING");
-    completedJobsList =
-        await UserServices().getPerformerAllJobs(filter: "COMPLETED");
+    appliedJobsList = await UserServices.instance
+        .getPerformerAllFilteredJobs(filter: "APPLIED");
+    upcomingJobsList = await UserServices.instance
+        .getPerformerAllFilteredJobs(filter: "UPCOMING");
+    ongoingJobsList = await UserServices.instance
+        .getPerformerAllFilteredJobs(filter: "ONGOING");
+    completedJobsList = await UserServices.instance
+        .getPerformerAllFilteredJobs(filter: "COMPLETED");
     // cancelledJobsList =
-    //     await UserServices().getPerformerAllJobs(filter: "CANCELLED");
+    //     await UserServices.instance.getPerformerAllJobs(filter: "CANCELLED");
     isLoading.value = false;
     update();
   }

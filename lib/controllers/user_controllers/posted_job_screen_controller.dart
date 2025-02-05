@@ -19,7 +19,9 @@ class PostedJobScreenController extends GetxController {
 
   getJobDetail() async {
     isLoading.value = true;
-    await UserServices().getSingleJobDetail(jobId: jobId.value).then((value) {
+    await UserServices.instance
+        .getSingleJobDetail(jobId: jobId.value)
+        .then((value) {
       isLoading.value = false;
       jobDetailData = value;
 

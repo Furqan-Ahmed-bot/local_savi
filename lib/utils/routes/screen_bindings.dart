@@ -46,6 +46,7 @@ import 'package:local_saviors/controllers/user_controllers/reschedule_screen_con
 import 'package:local_saviors/controllers/user_controllers/upcoming_job_detail_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/user_profile_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/user_request_screen_controller.dart';
+import 'package:local_saviors/resources/components/bottom_navbar.dart';
 import 'package:local_saviors/resources/components/p_bottom_nav_bar.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile__two_controller.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_controller.dart';
@@ -98,6 +99,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => RateEmployeeScreenController());
     Get.lazyPut(() => DisputePaymentScreenController());
     Get.lazyPut(() => ChatScreenController());
+    Get.lazyPut(() => BottomAppBarController());
     Get.lazyPut(() => JobCancelScreenController());
     Get.lazyPut(() => RescheduleScreenController());
     Get.lazyPut(() => RescheduleCardScreenController());
@@ -105,8 +107,9 @@ class ScreenBindings extends Bindings {
 
     ///professional
     Get.lazyPut(() => PHomeController());
-    // Get.lazyPut(() => PBottomAppBarController());
+    Get.lazyPut(() => PBottomAppBarController());
     Get.lazyPut(() => PMessageDashboardController());
+
     Get.lazyPut(() => PSavedJobsController());
     Get.lazyPut(() => PJobsController());
     Get.lazyPut(() => PJobDetailController());

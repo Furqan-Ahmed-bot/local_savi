@@ -18,7 +18,8 @@ class CreateProfileController extends GetxController {
   TextEditingController addresscontroller = TextEditingController();
   TextEditingController locationcontroller = TextEditingController();
   TextEditingController aboutcontroller = TextEditingController();
-  TextEditingController emailcontroller = TextEditingController(text: email.value);
+  TextEditingController emailcontroller =
+      TextEditingController(text: email.value);
   TextEditingController phonecontroller = TextEditingController();
   var latitide;
   var longitude;
@@ -70,33 +71,41 @@ class CreateProfileController extends GetxController {
 
   validation(context) {
     if (image == null) {
-      return Get.snackbar("Alert", "Please select image", backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please select image",
+          backgroundColor: ColorUtils.white);
     }
     if (firstNamecontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please Enter First Name", backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please Enter First Name",
+          backgroundColor: ColorUtils.white);
     }
     if (lastNamecontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please Enter Last Name", backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please Enter Last Name",
+          backgroundColor: ColorUtils.white);
     }
     if (datecontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please select Date Of Birth", backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please select Date Of Birth",
+          backgroundColor: ColorUtils.white);
     }
     if (addresscontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please Enter Address", backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please Enter Address",
+          backgroundColor: ColorUtils.white);
     }
     if (latitide == null) {
-      return Get.snackbar("Alert", "Please Select Location ", backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please Select Location ",
+          backgroundColor: ColorUtils.white);
     }
 
     if (aboutcontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "About Should Not Be Empty", backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "About Should Not Be Empty",
+          backgroundColor: ColorUtils.white);
     }
     if (phonecontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please Enter Phone Number", backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please Enter Phone Number",
+          backgroundColor: ColorUtils.white);
     }
     try {
       if (role.value == 'USER') {
-        UserServices().createProfileService(
+        UserServices.instance.createProfileService(
             context: context,
             address: addresscontroller.text,
             gender: selectedGender,
@@ -113,7 +122,7 @@ class CreateProfileController extends GetxController {
             about: aboutcontroller.text,
             image: image!.path.toString());
       } else {
-        UserServices().createJobPerformerProfile(
+        UserServices.instance.createJobPerformerProfile(
           context: context,
           address: addresscontroller.text,
           gender: selectedGender,

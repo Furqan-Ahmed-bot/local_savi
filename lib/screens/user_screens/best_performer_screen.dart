@@ -28,14 +28,20 @@ class BestPerformerScreen extends GetWidget<BestPerformerScreenController> {
                   child: spinkit,
                 )
               : ListView(
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
+                  padding: EdgeInsets.only(
+                      left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
                   children: List.generate(
                       homeController.bestPerformers.length,
                       (index) => bestPerformerCard(
+                          id: homeController.bestPerformers[index]['id'],
                           isVerified: true,
-                          image: homeController.bestPerformers[index]['profile_picture'],
-                          name: homeController.bestPerformers[index]['first_name'],
-                          rating: homeController.bestPerformers[index]['average_ratings'].toString())),
+                          image: homeController.bestPerformers[index]
+                              ['profile_picture'],
+                          name: homeController.bestPerformers[index]
+                              ['first_name'],
+                          rating: homeController.bestPerformers[index]
+                                  ['average_ratings']
+                              .toString())),
                 ),
         ))
       ],

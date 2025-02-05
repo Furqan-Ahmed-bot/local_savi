@@ -23,7 +23,8 @@ class PJobProviderScreen extends GetWidget<PJobProvidercontroller> {
                 appbar(isMenu: false, title: "Job Provider profile"),
                 Expanded(
                     child: ListView(
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 46.h, bottom: 110.h),
+                  padding: EdgeInsets.only(
+                      left: 20.w, right: 20.w, top: 46.h, bottom: 110.h),
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +35,8 @@ class PJobProviderScreen extends GetWidget<PJobProvidercontroller> {
                             width: 90,
                             child: ClipOval(
                               child: Image.network(
-                                loadingBuilder: (context, child, loadingProgress) {
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
                                   if (loadingProgress == null) return child;
                                   return const Center(
                                     child: CircularProgressIndicator(),
@@ -56,7 +58,8 @@ class PJobProviderScreen extends GetWidget<PJobProvidercontroller> {
                         Center(
                           child: Text(
                             "${controller.jobProviderProfileInfo['first_name']} ${controller.jobProviderProfileInfo['last_name']} ",
-                            style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 24.sp, fontWeight: FontWeight.bold),
                           ),
                         ),
                         16.h.verticalSpace,
@@ -72,7 +75,8 @@ class PJobProviderScreen extends GetWidget<PJobProvidercontroller> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.w),
                               color: ColorUtils.white,
-                              border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                              border: Border.all(
+                                  width: 1.w, color: ColorUtils.borderColor)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -82,13 +86,17 @@ class PJobProviderScreen extends GetWidget<PJobProvidercontroller> {
                                   (index) => Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            margin: EdgeInsets.only(right: 20.w),
+                                            margin:
+                                                EdgeInsets.only(right: 20.w),
                                             child: Text(
-                                              controller.dummyData[index]['title'],
+                                              controller.dummyData[index]
+                                                  ['title'],
                                               style: TextStyle(
                                                 fontSize: 16.sp,
                                                 fontWeight: FontWeight.w600,
@@ -97,7 +105,8 @@ class PJobProviderScreen extends GetWidget<PJobProvidercontroller> {
                                           ),
                                           Flexible(
                                             child: Text(
-                                              controller.dummyData[index]["value"],
+                                              controller.dummyData[index]
+                                                  ["value"],
                                               style: TextStyle(
                                                 fontSize: 16.sp,
                                                 fontWeight: FontWeight.w400,
@@ -106,11 +115,14 @@ class PJobProviderScreen extends GetWidget<PJobProvidercontroller> {
                                           ),
                                         ],
                                       ),
-                                      controller.dummyData.length - 1 == index ? 0.h.verticalSpace : 12.h.verticalSpace,
+                                      controller.dummyData.length - 1 == index
+                                          ? 0.h.verticalSpace
+                                          : 12.h.verticalSpace,
                                       controller.dummyData.length - 1 == index
                                           ? 0.h.verticalSpace
                                           : Divider(
-                                              color: ColorUtils.borderColor.withOpacity(0.5),
+                                              color: ColorUtils.borderColor
+                                                  .withOpacity(0.5),
                                             ),
                                       12.h.verticalSpace,
                                     ],
@@ -146,20 +158,30 @@ class PJobProviderScreen extends GetWidget<PJobProvidercontroller> {
                               controller.allActiveJobs.length,
                               (index) => InkWell(
                                     onTap: () {
-                                      Get.toNamed(RouteName.pJobsDetailScreenPath, arguments: {
-                                        "showBottomButton": true,
-                                        "status": "Job Open",
-                                        "showActionButton": true,
-                                        "bottomButtonText": "Apply Now"
-                                      });
+                                      Get.toNamed(
+                                          RouteName.pJobsDetailScreenPath,
+                                          arguments: {
+                                            "showBottomButton": true,
+                                            "status": "Job Open",
+                                            "showActionButton": true,
+                                            "bottomButtonText": "Apply Now"
+                                          });
                                     },
                                     child: applyJobCard(
-                                        date: controller.allActiveJobs[index]['job_date'],
+                                        id: controller.allActiveJobs[index]
+                                            ['id'],
+                                        date: controller.allActiveJobs[index]
+                                            ['job_date'],
                                         context: context,
-                                        title: controller.allActiveJobs[index]['title'],
-                                        budget: controller.allActiveJobs[index]['budget'].toString(),
-                                        desc: controller.allActiveJobs[index]['description'],
-                                        time: controller.allActiveJobs[index]['start_time']),
+                                        title: controller.allActiveJobs[index]
+                                            ['title'],
+                                        budget: controller.allActiveJobs[index]
+                                                ['budget']
+                                            .toString(),
+                                        desc: controller.allActiveJobs[index]
+                                            ['description'],
+                                        time: controller.allActiveJobs[index]
+                                            ['start_time']),
                                   )),
                         )
                       ],

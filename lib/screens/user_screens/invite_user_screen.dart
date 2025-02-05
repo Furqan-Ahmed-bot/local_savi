@@ -29,7 +29,7 @@ class InviteUserScreen extends GetWidget<InviteUserScreenController> {
                             onTap: () {
                               if (!controller.listOfUserRequests[index]
                                   ['isInvited']) {
-                                UserServices()
+                                UserServices.instance
                                     .sentInviteToPerformer(
                                         context: context,
                                         jobId:
@@ -44,14 +44,6 @@ class InviteUserScreen extends GetWidget<InviteUserScreenController> {
                                   controller.update();
                                 });
                               }
-                              // if (!controller.listOfInviteUsers[index]
-                              //     ['isInvited']) {
-                              //   controller.listOfInviteUsers[index]
-                              //           ['isInvited'] =
-                              //       !controller.listOfInviteUsers[index]
-                              //           ['isInvited'];
-                              //   controller.update();
-                              // }
                             },
                             child: inviteUserCard(
                                 isInvited: controller.listOfUserRequests[index]

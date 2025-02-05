@@ -112,24 +112,35 @@ class SignupScreen extends GetWidget<SignupController> {
                         isProfileCreated = true;
                         if (controller.emailController.text.isNotEmpty) {
                           if (controller.passwordController.text.isNotEmpty) {
-                            if (controller.confirmPasswordController.text.isNotEmpty) {
-                              if (controller.passwordController.text == controller.confirmPasswordController.text) {
-                                UserServices().signupService(
-                                    type: role.value == "PROFESSIONAL" ? "PERFORMER" : "USER",
+                            if (controller
+                                .confirmPasswordController.text.isNotEmpty) {
+                              if (controller.passwordController.text ==
+                                  controller.confirmPasswordController.text) {
+                                UserServices.instance.signupService(
+                                    type: role.value == "PROFESSIONAL"
+                                        ? "PERFORMER"
+                                        : "USER",
                                     context: context,
-                                    emailAddress: controller.emailController.text,
-                                    password: controller.passwordController.text);
+                                    emailAddress:
+                                        controller.emailController.text,
+                                    password:
+                                        controller.passwordController.text);
                               } else {
-                                Get.snackbar("Alert", "Password does not match", backgroundColor: ColorUtils.white);
+                                Get.snackbar("Alert", "Password does not match",
+                                    backgroundColor: ColorUtils.white);
                               }
                             } else {
-                              Get.snackbar("Alert", "Please enter your confirm password", backgroundColor: ColorUtils.white);
+                              Get.snackbar(
+                                  "Alert", "Please enter your confirm password",
+                                  backgroundColor: ColorUtils.white);
                             }
                           } else {
-                            Get.snackbar("Alert", "Please enter your password", backgroundColor: ColorUtils.white);
+                            Get.snackbar("Alert", "Please enter your password",
+                                backgroundColor: ColorUtils.white);
                           }
                         } else {
-                          Get.snackbar("Alert", "Please enter your email", backgroundColor: ColorUtils.white);
+                          Get.snackbar("Alert", "Please enter your email",
+                              backgroundColor: ColorUtils.white);
                         }
                       }),
                 ],

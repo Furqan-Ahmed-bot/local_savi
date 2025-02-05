@@ -10,7 +10,7 @@ import '../../utils/constant.dart';
 
 class HomeScreenController extends GetxController {
   JobProviderModel userdata = JobProviderModel();
-  RxBool isLoading = false.obs;
+  RxBool isLoading = true.obs;
   RxBool issecondaryLoading = false.obs;
   List listOfActiveJobs = [];
   List bestPerformers = [];
@@ -57,10 +57,12 @@ class HomeScreenController extends GetxController {
         bestPerformers = resData['data'];
       } else {
         resData['status'];
+
         issecondaryLoading.value = false;
       }
     } catch (e) {
       issecondaryLoading.value = false;
+
       print(e);
     }
   }

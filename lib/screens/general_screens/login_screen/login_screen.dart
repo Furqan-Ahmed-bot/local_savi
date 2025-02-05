@@ -101,7 +101,7 @@ class LoginScreen extends GetWidget<LoginScreenController> {
                     onPress: () {
                       if (controller.emailController.text.isNotEmpty) {
                         if (controller.passwordController.text.isNotEmpty) {
-                          UserServices().loginService(
+                          UserServices.instance.loginService(
                             context: context,
                             userEmail: controller.emailController.text,
                             password: controller.passwordController.text,

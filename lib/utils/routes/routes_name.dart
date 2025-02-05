@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:get/get.dart';
+
 import 'package:local_saviors/resources/components/bottom_navbar.dart';
 import 'package:local_saviors/resources/components/p_bottom_nav_bar.dart';
+
 import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_screen.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_two_screen.dart';
 import 'package:local_saviors/screens/general_screens/forget_password_screen/forget_password.dart';

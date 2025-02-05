@@ -8,7 +8,7 @@ import '../../resources/ prefrences/auth_prefrences.dart';
 import '../../utils/routes/routes.dart';
 
 class SplashServices {
-  final userServices = UserServices();
+  final userServices = UserServices.instance;
   void isLogin() async {
     String? authToken = await AuthPreferences.getAuthToken() ?? '';
     String? _userRole = await AuthPreferences.getUserRole() ?? '';

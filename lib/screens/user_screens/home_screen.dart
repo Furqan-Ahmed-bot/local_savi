@@ -28,23 +28,27 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                       ? Center(
                           child: spinkit,
                         )
-                      : GetBuilder(
+                      : GetBuilder<HomeScreenController>(
                           init: controller,
                           builder: (_) {
                             return Column(
                               children: [
                                 34.h.verticalSpace,
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                       width: 0.7.sw,
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           InkWell(
                                             onTap: () {
-                                              UserServices().getProfileService(context: context);
+                                              UserServices.instance
+                                                  .getProfileService(
+                                                      context: context);
                                             },
                                             child: Text(
                                               "Hello, ${controller.userdata.userDetails!.firstName}",
@@ -91,11 +95,15 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                                         right: 10.w,
                                         top: 10.h,
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 8.w, vertical: 6.h),
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(15.r),
+                                            borderRadius:
+                                                BorderRadius.circular(15.r),
                                             color: ColorUtils.white,
-                                            border: Border.all(width: 1.w, color: ColorUtils.borderColor),
+                                            border: Border.all(
+                                                width: 1.w,
+                                                color: ColorUtils.borderColor),
                                           ),
                                           child: Text(
                                             "Feature Ads",
@@ -110,7 +118,8 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                                 ),
                                 20.h.verticalSpace,
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       "Best Performers",
@@ -123,14 +132,16 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Get.toNamed(RouteName.bestPerformerScreenPath);
+                                        Get.toNamed(
+                                            RouteName.bestPerformerScreenPath);
                                       },
                                       child: Text(
                                         "View All",
                                         style: TextStyle(
                                             color: ColorUtils.red,
                                             fontSize: 14.sp,
-                                            decoration: TextDecoration.underline,
+                                            decoration:
+                                                TextDecoration.underline,
                                             decorationColor: ColorUtils.red,
                                             decorationThickness: 2.h),
                                       ),
@@ -143,72 +154,163 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                                     width: 1.0.sw,
                                     child: controller.issecondaryLoading.value
                                         ? shimmerEffect(context)
-                                        : Row(
-                                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: List.generate(
-                                                3,
-                                                (index) => Expanded(
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
-                                                            "title": "Best Performer",
-                                                            "showChat": true,
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                          width: 0.25.sw,
-                                                          margin: EdgeInsets.only(right: 12.w),
-                                                          padding: EdgeInsets.symmetric(vertical: 15.sp),
-                                                          decoration: BoxDecoration(
-                                                              color: ColorUtils.white,
-                                                              borderRadius: BorderRadius.circular(10.sp),
-                                                              border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
-                                                          child: Column(
-                                                            children: [
-                                                              15.h.verticalSpace,
-                                                              ClipRRect(
-                                                                borderRadius: BorderRadius.circular(50.r),
-                                                                child: Container(
-                                                                  decoration: BoxDecoration(
-                                                                      shape: BoxShape.circle,
-                                                                      border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
-                                                                  child: Image.asset(
-                                                                    controller.dummyData[index]['image'],
-                                                                    scale: 2,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              10.h.verticalSpace,
-                                                              Text(
-                                                                controller.dummyData[index]['name'],
-                                                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
-                                                              ),
-                                                              5.h.verticalSpace,
-                                                              Text(
-                                                                controller.dummyData[index]["country"],
-                                                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal),
-                                                              ),
-                                                              8.h.verticalSpace,
-                                                              Row(
-                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                        : controller.bestPerformers.isEmpty
+                                            ? Text(
+                                                "No Best Performers Available!")
+                                            : Row(
+                                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: List.generate(
+                                                    3,
+                                                    (index) => Expanded(
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () {
+                                                              Get.toNamed(
+                                                                  RouteName
+                                                                      .bestPerformerDetailScreenPath,
+                                                                  arguments: {
+                                                                    "id": controller
+                                                                            .bestPerformers[
+                                                                        index]['id'],
+                                                                    "title":
+                                                                        "Best Performer",
+                                                                    "showChat":
+                                                                        true,
+                                                                  });
+                                                            },
+                                                            child: Container(
+                                                              width: 0.25.sw,
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      right:
+                                                                          12.w),
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      vertical:
+                                                                          15.sp),
+                                                              decoration: BoxDecoration(
+                                                                  color:
+                                                                      ColorUtils
+                                                                          .white,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(10
+                                                                              .sp),
+                                                                  border: Border.all(
+                                                                      width:
+                                                                          1.w,
+                                                                      color: ColorUtils
+                                                                          .borderColor)),
+                                                              child: Column(
                                                                 children: [
-                                                                  Image.asset(
-                                                                    ImageAssets.starIcon,
-                                                                    scale: 2,
+                                                                  15.h.verticalSpace,
+                                                                  SizedBox(
+                                                                    height: 50,
+                                                                    width: 50,
+                                                                    child:
+                                                                        ClipOval(
+                                                                      child: Image
+                                                                          .network(
+                                                                        loadingBuilder: (context,
+                                                                            child,
+                                                                            loadingProgress) {
+                                                                          if (loadingProgress ==
+                                                                              null)
+                                                                            return child;
+                                                                          return const Center(
+                                                                            child:
+                                                                                CircularProgressIndicator(),
+                                                                          );
+                                                                        },
+                                                                        errorBuilder: (context,
+                                                                            error,
+                                                                            stackTrace) {
+                                                                          return const Center(
+                                                                            child:
+                                                                                CircularProgressIndicator(),
+                                                                          );
+                                                                        },
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                        controller.bestPerformers[index]
+                                                                            [
+                                                                            'profile_picture'],
+                                                                        scale:
+                                                                            2,
+                                                                      ),
+                                                                    ),
                                                                   ),
-                                                                  7.w.horizontalSpace,
+                                                                  // ClipRRect(
+                                                                  //   borderRadius:
+                                                                  //       BorderRadius.circular(
+                                                                  //           50.r),
+                                                                  //   child:
+                                                                  //       Container(
+                                                                  //     decoration: BoxDecoration(
+                                                                  //         shape:
+                                                                  //             BoxShape.circle,
+                                                                  //         border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                                                  //     child: Image
+                                                                  //         .asset(
+                                                                  //       controller.dummyData[index]
+                                                                  //           [
+                                                                  //           'image'],
+                                                                  //       scale:
+                                                                  //           2,
+                                                                  //     ),
+                                                                  //   ),
+                                                                  // ),
+                                                                  10.h.verticalSpace,
                                                                   Text(
-                                                                    controller.dummyData[index]["rating"],
-                                                                    style: TextStyle(),
+                                                                    controller.bestPerformers[
+                                                                            index]
+                                                                        [
+                                                                        'first_name'],
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        fontSize:
+                                                                            16.sp),
+                                                                  ),
+                                                                  5.h.verticalSpace,
+                                                                  Text(
+                                                                    "United States",
+                                                                    style: TextStyle(
+                                                                        fontSize: 16
+                                                                            .sp,
+                                                                        fontWeight:
+                                                                            FontWeight.normal),
+                                                                  ),
+                                                                  8.h.verticalSpace,
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Image
+                                                                          .asset(
+                                                                        ImageAssets
+                                                                            .starIcon,
+                                                                        scale:
+                                                                            2,
+                                                                      ),
+                                                                      7.w.horizontalSpace,
+                                                                      Text(
+                                                                        (controller.bestPerformers[index]['average_ratings'] ??
+                                                                                0)
+                                                                            .toString(),
+                                                                        style:
+                                                                            TextStyle(),
+                                                                      )
+                                                                    ],
                                                                   )
                                                                 ],
-                                                              )
-                                                            ],
+                                                              ),
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                    )),
-                                          ),
+                                                        )),
+                                              ),
                                   ),
                                 ),
                                 20.h.verticalSpace,
@@ -217,12 +319,18 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                                   children: [
                                     Text(
                                       "Acctive Jobs",
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: ColorUtils.black),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20.sp,
+                                          color: ColorUtils.black),
                                     ),
                                     6.w.horizontalSpace,
                                     Text(
                                       "(${controller.listOfActiveJobs.length})",
-                                      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp, color: ColorUtils.black),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16.sp,
+                                          color: ColorUtils.black),
                                     ),
                                   ],
                                 ),
@@ -232,16 +340,32 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                                       controller.listOfActiveJobs.length,
                                       (index) => GestureDetector(
                                           onTap: () {
-                                            Get.toNamed(RouteName.jobPostedScreenPath,
-                                                arguments: {"jobId": controller.listOfActiveJobs[index]['id']});
+                                            Get.toNamed(
+                                                RouteName.jobPostedScreenPath,
+                                                arguments: {
+                                                  "jobId": controller
+                                                          .listOfActiveJobs[
+                                                      index]['id']
+                                                });
                                           },
                                           child: activeJobCard(
-                                              title: controller.listOfActiveJobs[index]['title'],
-                                              desc: controller.listOfActiveJobs[index]['description'],
-                                              budget: controller.listOfActiveJobs[index]['budget'].toString(),
-                                              date: controller.listOfActiveJobs[index]['job_date'],
-                                              time: controller.listOfActiveJobs[index]['start_time'],
-                                              workerType: controller.listOfActiveJobs[index]['worker_type']
+                                              title: controller
+                                                      .listOfActiveJobs[index]
+                                                  ['title'],
+                                              desc: controller.listOfActiveJobs[index]
+                                                  ['description'],
+                                              budget: controller
+                                                  .listOfActiveJobs[index]
+                                                      ['budget']
+                                                  .toString(),
+                                              date: controller.listOfActiveJobs[index]
+                                                  ['job_date'],
+                                              time: controller
+                                                      .listOfActiveJobs[index]
+                                                  ['start_time'],
+                                              workerType:
+                                                  controller.listOfActiveJobs[index]
+                                                      ['worker_type']
                                               // status: controller.names[
                                               //     controller
                                               //         .selectedIndex.value]

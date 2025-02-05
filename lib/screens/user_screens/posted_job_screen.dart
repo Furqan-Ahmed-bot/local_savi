@@ -738,15 +738,14 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                     .jobDetailData['user_requests'].length,
                                 (index) => shortlistUserCard(
                                     id: controller.jobDetailData['user_requests']
-                                        [index]['id'],
+                                        [index]['performer_id'],
                                     context: context,
-                                    showSelectJobButton: controller.jobDetailData['user_requests']
-                                            [index]['invite_status'] ==
+                                    showSelectJobButton: controller.jobDetailData['user_requests'][index]['invite_status'] ==
                                         "ACCEPTED",
                                     isVerified: controller.listOfBestPerformers[index]
                                         ['isVerified'],
-                                    image: controller.listOfBestPerformers[index]
-                                        ['image'],
+                                    image: controller.jobDetailData['user_requests'][index]['performer']
+                                        ['user_details']['profile_picture'],
                                     name: controller.jobDetailData['user_requests'][index]['performer']
                                             ['user_details']['first_name'] +
                                         " " +

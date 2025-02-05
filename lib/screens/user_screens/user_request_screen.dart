@@ -50,7 +50,8 @@ class UserRequestScreen extends GetWidget<UserRequestScreenController> {
                       controller.listOfUserRequests.length,
                       (index) => userRequestCard(
                           isVerified: true,
-                          id: controller.listOfUserRequests[index]['id'],
+                          id: controller.listOfUserRequests[index]
+                              ['performer_id'],
                           image: controller.listOfUserRequests[index]
                               ['performer']['user_details']['profile_picture'],
                           name: controller.listOfUserRequests[index]

@@ -95,7 +95,7 @@ class ResetPasswordScreen extends GetWidget<ResetPasswordController> {
                       if (controller.passwordController.text.isNotEmpty) {
                         if (controller.passwordController.text ==
                             controller.confirmPasswordController.text) {
-                          UserServices().resetPasswordService(
+                          UserServices.instance.resetPasswordService(
                               context: context,
                               password: controller.passwordController.text);
                         } else {

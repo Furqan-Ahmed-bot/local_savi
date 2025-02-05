@@ -8,6 +8,7 @@ import '../../utils/constant.dart';
 
 class BestPerformerDetailScreenController extends GetxController {
   RxString title = "".obs;
+  RxString id = "".obs;
   RxBool showChat = true.obs;
   RxBool isLoading = false.obs;
   Map bestPerformers = {};
@@ -16,9 +17,10 @@ class BestPerformerDetailScreenController extends GetxController {
 
   @override
   void onInit() {
-    getBestPerformersProfile('073414a9-b61a-4b3f-b656-1b070873e554');
     title.value = Get.arguments['title'] ?? "User Detail";
     showChat.value = Get.arguments['showChat'] ?? true;
+    id.value = Get.arguments['id'] ?? "";
+    getBestPerformersProfile(id.value);
     super.onInit();
   }
 
@@ -77,13 +79,17 @@ class BestPerformerDetailScreenController extends GetxController {
             "value": "${bestPerformers['user_details']['description']}",
           },
         ];
+        update();
       } else {
         resData['status'];
+
         isLoading.value = false;
+        update();
       }
     } catch (e) {
       isLoading.value = false;
       print(e);
+      update();
     }
   }
 }
