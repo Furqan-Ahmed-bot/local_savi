@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -33,8 +32,7 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                     ),
                     10.horizontalSpace,
                     Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.w),
+                      margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.w),
                       padding: EdgeInsets.all(5.sp),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.r),
@@ -81,11 +79,10 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(RouteName.bestPerformerDetailScreenPath,
-                              arguments: {
-                                "title": "Employee Profile",
-                                "showChat": true,
-                              });
+                          Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
+                            "title": "Employee Profile",
+                            "showChat": true,
+                          });
                         },
                         child: Row(
                           children: [
@@ -95,12 +92,8 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                                   borderRadius: BorderRadius.circular(100.r),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100.r),
-                                        border: Border.all(
-                                            width: 1.w,
-                                            color: ColorUtils.borderColor
-                                                .withOpacity(0.5))),
+                                        borderRadius: BorderRadius.circular(100.r),
+                                        border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
                                     child: Image.asset(
                                       ImageAssets.oliverImg,
                                       scale: 2,
@@ -122,9 +115,7 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                               children: [
                                 Text(
                                   "Oliver Mark",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16.sp),
+                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
                                 ),
                                 5.h.verticalSpace,
                                 Row(
@@ -171,18 +162,13 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              insetPadding:
-                                                  EdgeInsets.symmetric(
-                                                      horizontal: 20.w),
-                                              clipBehavior:
-                                                  Clip.antiAliasWithSaveLayer,
-                                              backgroundColor:
-                                                  ColorUtils.dialogeBGColor,
+                                              insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                                              backgroundColor: ColorUtils.dialogeBGColor,
                                               content: SizedBox(
                                                 width: 1.0.sw,
                                                 child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
+                                                  mainAxisSize: MainAxisSize.min,
                                                   children: [
                                                     20.h.verticalSpace,
                                                     Image.asset(
@@ -192,8 +178,7 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                                                     20.h.verticalSpace,
                                                     Text(
                                                       "Select For Job!",
-                                                      textAlign:
-                                                          TextAlign.center,
+                                                      textAlign: TextAlign.center,
                                                       style: TextStyle(
                                                         color: ColorUtils.black,
                                                         fontSize: 22.sp,
@@ -202,8 +187,7 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                                                     24.h.verticalSpace,
                                                     Text(
                                                       "Are you sure you want select William Roy for your job?",
-                                                      textAlign:
-                                                          TextAlign.center,
+                                                      textAlign: TextAlign.center,
                                                       style: TextStyle(
                                                         color: ColorUtils.black,
                                                         fontSize: 14.sp,
@@ -216,39 +200,98 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                                                 Container(
                                                   width: 1.0.sw,
                                                   child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Expanded(
                                                         child: GestureDetector(
                                                           onTap: () {
                                                             Get.back();
-                                                            controller
-                                                                .isPendingJob
-                                                                .value = true;
+                                                            // controller.isPendingJob.value = true;
+
+                                                            showDialog(
+                                                                context: context,
+                                                                builder: (BuildContext context) {
+                                                                  return AlertDialog(
+                                                                    insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                                                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                                    backgroundColor: ColorUtils.dialogeBGColor,
+                                                                    content: SizedBox(
+                                                                      width: 1.0.sw,
+                                                                      child: Column(
+                                                                        mainAxisSize: MainAxisSize.min,
+                                                                        children: [
+                                                                          20.h.verticalSpace,
+                                                                          Image.asset(
+                                                                            ImageAssets.jobBigIcon,
+                                                                            scale: 2,
+                                                                          ),
+                                                                          20.h.verticalSpace,
+                                                                          Text(
+                                                                            "Decided Amount",
+                                                                            textAlign: TextAlign.center,
+                                                                            style: TextStyle(
+                                                                              color: ColorUtils.black,
+                                                                              fontSize: 22.sp,
+                                                                            ),
+                                                                          ),
+                                                                          24.h.verticalSpace,
+                                                                          EditText(
+                                                                            context: context,
+                                                                            bordercolor: Colors.amberAccent,
+                                                                            controller: controller.decidedAmountController,
+                                                                          )
+                                                                          // Text(
+                                                                          //   "Are you sure you want select William Roy for your job?",
+                                                                          //   textAlign: TextAlign.center,
+                                                                          //   style: TextStyle(
+                                                                          //     color: ColorUtils.black,
+                                                                          //     fontSize: 14.sp,
+                                                                          //   ),
+                                                                          // ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    actions: [
+                                                                      Container(
+                                                                        width: 1.0.sw,
+                                                                        child: Row(
+                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Expanded(
+                                                                              child: GestureDetector(
+                                                                                onTap: () {
+                                                                                  // Get.back();
+                                                                                  controller.assignJob(context);
+                                                                                },
+                                                                                child: Container(
+                                                                                  alignment: Alignment.center,
+                                                                                  padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                                                  decoration: BoxDecoration(
+                                                                                    borderRadius: BorderRadius.circular(10.r),
+                                                                                    color: ColorUtils.red,
+                                                                                  ),
+                                                                                  child: Text(
+                                                                                    "Confirm",
+                                                                                    style: TextStyle(color: ColorUtils.white),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  );
+                                                                });
                                                           },
                                                           child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    vertical:
-                                                                        15.h),
+                                                            alignment: Alignment.center,
+                                                            padding: EdgeInsets.symmetric(vertical: 15.h),
                                                             decoration: BoxDecoration(
-                                                                color:
-                                                                    ColorUtils
-                                                                        .white,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(10
-                                                                            .r),
-                                                                border: Border.all(
-                                                                    width: 1.w,
-                                                                    color: ColorUtils
-                                                                        .borderColor)),
-                                                            child: const Text(
-                                                                "Yes, Select"),
+                                                                color: ColorUtils.white,
+                                                                borderRadius: BorderRadius.circular(10.r),
+                                                                border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                                            child: const Text("Yes, Select"),
                                                           ),
                                                         ),
                                                       ),
@@ -259,27 +302,15 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                                                             Get.back();
                                                           },
                                                           child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    vertical:
-                                                                        15.h),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.r),
-                                                              color: ColorUtils
-                                                                  .red,
+                                                            alignment: Alignment.center,
+                                                            padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                            decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(10.r),
+                                                              color: ColorUtils.red,
                                                             ),
                                                             child: Text(
                                                               "No",
-                                                              style: TextStyle(
-                                                                  color:
-                                                                      ColorUtils
-                                                                          .white),
+                                                              style: TextStyle(color: ColorUtils.white),
                                                             ),
                                                           ),
                                                         ),
@@ -295,22 +326,15 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                                       // width: 120.w,
                                       alignment: Alignment.center,
                                       // margin: EdgeInsets.only(right: 10.w),
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 10.h, horizontal: 15.w),
+                                      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
 
                                       decoration: BoxDecoration(
                                           color: ColorUtils.red,
-                                          borderRadius:
-                                              BorderRadius.circular(10.sp),
-                                          border: Border.all(
-                                              width: 1.w,
-                                              color: ColorUtils.red
-                                                  .withOpacity(0.5))),
+                                          borderRadius: BorderRadius.circular(10.sp),
+                                          border: Border.all(width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
                                       child: Text(
                                         "Select for job",
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: ColorUtils.white),
+                                        style: TextStyle(fontSize: 14.sp, color: ColorUtils.white),
                                       ),
                                     ),
                                   )
@@ -340,55 +364,40 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                         children: [
                           Text(
                             "Job Details",
-                            style: TextStyle(
-                                fontSize: 16.sp, fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                           ),
                           const Spacer(),
                           Text(
                             "July 20",
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                                color: ColorUtils.borderColor),
+                            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400, color: ColorUtils.borderColor),
                           ),
                         ],
                       ),
                       5.verticalSpace,
                       Text(
                         "Lorem ipsum dolor sit amet consectetur adipiscing elit odio.",
-                        style: TextStyle(
-                            fontSize: 16.sp, color: ColorUtils.textColor),
+                        style: TextStyle(fontSize: 16.sp, color: ColorUtils.textColor),
                       ),
                     ],
                   ),
                 )
               : SizedBox.shrink(),
-          controller.showUserDetail.value
-              ? 100.verticalSpace
-              : 20.verticalSpace,
+          controller.showUserDetail.value ? 100.verticalSpace : 20.verticalSpace,
           Expanded(
-              child: ListView(
-                  padding: EdgeInsets.only(
-                      left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
-                  children: [
-                getReceiverView(
-                    clipper:
-                        ChatBubbleClipper5(type: BubbleType.receiverBubble),
-                    context: context,
-                    text:
-                        "Lorem ipsum dolor sit amet consectetur adipiscing elit tincidunt taciti Dolor sit am."),
-                getSenderView(
-                    clipper: ChatBubbleClipper5(type: BubbleType.sendBubble),
-                    context: context,
-                    text:
-                        "Lorem ipsum dolor sit amet consectetur adipiscing elit tincidunt taciti Dolor sit am."),
-                getReceiverView(
-                    clipper:
-                        ChatBubbleClipper5(type: BubbleType.receiverBubble),
-                    context: context,
-                    text:
-                        "Lorem ipsum dolor sit amet consectetur adipiscing elit tincidunt taciti Dolor sit am.")
-              ]))
+              child: ListView(padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h, top: 20.h), children: [
+            getReceiverView(
+                clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+                context: context,
+                text: "Lorem ipsum dolor sit amet consectetur adipiscing elit tincidunt taciti Dolor sit am."),
+            getSenderView(
+                clipper: ChatBubbleClipper5(type: BubbleType.sendBubble),
+                context: context,
+                text: "Lorem ipsum dolor sit amet consectetur adipiscing elit tincidunt taciti Dolor sit am."),
+            getReceiverView(
+                clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+                context: context,
+                text: "Lorem ipsum dolor sit amet consectetur adipiscing elit tincidunt taciti Dolor sit am.")
+          ]))
         ],
       )),
     );

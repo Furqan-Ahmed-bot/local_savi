@@ -34,6 +34,7 @@ class UserUrls {
   //Provider
   static const getBestPerformers = "${baseUrl}user_reviews/top";
   static const getBestPerformersProfile = "${baseUrl}user/provider";
+  static const assignJob = "${baseUrl}job/assign_job";
 }
 
 // class ProfessionalUrls {

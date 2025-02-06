@@ -86,8 +86,7 @@ class ProviderWalletScreen extends GetWidget<WalletController> {
   }
 }
 
-Widget buildWalletBalanceCard(BuildContext context,
-    {required String balance, VoidCallback? onTransfer}) {
+Widget buildWalletBalanceCard(BuildContext context, {required String balance, VoidCallback? onTransfer}) {
   return Container(
     padding: EdgeInsets.symmetric(
       vertical: 25.h,
@@ -138,6 +137,36 @@ Widget buildWalletBalanceCard(BuildContext context,
                 ),
               ],
             ),
+            50.w.horizontalSpace,
+            InkWell(
+              onTap: (){
+                 
+              },
+              child: AnimatedContainer(
+                height: 50,
+                width: 100,
+                duration: const Duration(milliseconds: 600),
+                decoration: BoxDecoration(
+                  color: ColorUtils.red,
+                  borderRadius: BorderRadius.circular(
+                    10.r,
+                  ),
+                  border: Border.all(
+                    color: const Color(0X333A3A3C),
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    'Connect',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: ColorUtils.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
         Container(
@@ -164,8 +193,7 @@ Widget buildTransctions(BuildContext context) {
   return Container(
     height: 100,
     // Ensure the Container has constraints to define its size
-    constraints:
-        BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.6),
+    constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.6),
     child: ListView.separated(
       shrinkWrap: true,
       padding: EdgeInsets.symmetric(vertical: 30.h),
@@ -220,9 +248,7 @@ Widget transactionTile(BuildContext context) {
       Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(' \$32.00',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, color: ColorUtils.blue)),
+          Text(' \$32.00', style: TextStyle(fontWeight: FontWeight.bold, color: ColorUtils.blue)),
           11.h.verticalSpace,
           Text(
             'Credit',
@@ -246,10 +272,7 @@ class CustomTabBar {
     return Row(
       children: List.generate(
         options.length,
-        (i) => tab(context,
-            label: options[i],
-            onTap: () => onChanged(i),
-            isSelected: currentIndex == i),
+        (i) => tab(context, label: options[i], onTap: () => onChanged(i), isSelected: currentIndex == i),
       ),
     );
   }
