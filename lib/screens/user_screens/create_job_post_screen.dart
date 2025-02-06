@@ -27,7 +27,8 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
         child: Obx(
           () => RoundButton(
               buttonColor: ColorUtils.red,
-              title: controller.stepIndex.value < 2 ? "Continue" : "Pay Now",
+              // title: controller.stepIndex.value < 2 ? "Continue" : "Pay Now",
+              title: controller.stepIndex.value < 1 ? "Continue" : "Create",
               onPress: () {
                 if (controller.stepIndex.value == 0) {
                   if (controller.titleEditingController.text.isNotEmpty) {
@@ -84,8 +85,42 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                   }
                 } else if (controller.stepIndex.value == 1) {
                   if (controller.priceBudgetEditingController.text.isNotEmpty) {
-                    controller.stepIndex.value = controller.stepIndex.value + 1;
-                    controller.update();
+                    // controller.stepIndex.value = controller.stepIndex.value + 1;
+                    // controller.update();
+                    controller.selectedTimeWithDate.value = controller
+                        .selectedDate
+                        .add(Duration(
+                            hours: int.parse(controller.selectedHours ?? "00"),
+                            minutes:
+                                int.parse(controller.selectedMints ?? "00")))
+                        .toIso8601String();
+
+                    UserServices.instance.createJob(
+                        context: context,
+                        WorkerType: controller.groupValue.value == 0
+                            ? "PROFESSIONAL"
+                            : "HANDYMAN",
+                        title: controller.titleEditingController.text,
+                        desc: controller.descEditingController.text,
+                        location: "USA",
+                        lat: controller.latitide.toString(),
+                        long: controller.longitude.toString(),
+                        jobDate: DateTime.parse(controller.dateController.text)
+                            .toIso8601String(),
+                        startTime: controller.selectedTimeWithDate.value,
+                        jobType: controller.workingHour.value == 0
+                            ? "WORKINGHOUR"
+                            : "AFTERHOUR",
+                        budgetType: controller.fixedAmoount.value == 0
+                            ? "FIXED"
+                            : "PERHOURLY",
+                        budget: controller.priceBudgetEditingController.text,
+                        address: controller.addressEditingController.text,
+                        city: controller.city.value != ""
+                            ? controller.city.value
+                            : controller.state.value,
+                        state: controller.state.value,
+                        images: controller.listOfImages);
                   } else {
                     Get.snackbar(
                       "Alert",
@@ -93,39 +128,42 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                       backgroundColor: ColorUtils.white,
                     );
                   }
-                } else {
-                  controller.selectedTimeWithDate.value = controller
-                      .selectedDate
-                      .add(Duration(
-                          hours: int.parse(controller.selectedHours ?? "00"),
-                          minutes: int.parse(controller.selectedMints ?? "00")))
-                      .toIso8601String();
-                  UserServices.instance.createJob(
-                      context: context,
-                      WorkerType: controller.groupValue.value == 0
-                          ? "PROFESSIONAL"
-                          : "HANDYMAN",
-                      title: controller.titleEditingController.text,
-                      desc: controller.descEditingController.text,
-                      location: "USA",
-                      lat: controller.latitide.toString(),
-                      long: controller.longitude.toString(),
-                      jobDate: controller.dateController.text,
-                      startTime: controller.selectedTimeWithDate.value,
-                      jobType: controller.workingHour.value == 0
-                          ? "WORKINGHOUR"
-                          : "AFTERHOUR",
-                      budgetType: controller.fixedAmoount.value == 0
-                          ? "FIXED"
-                          : "PERHOURLY",
-                      budget: controller.priceBudgetEditingController.text,
-                      address: controller.addressEditingController.text,
-                      city: controller.city.value != ""
-                          ? controller.city.value
-                          : controller.state.value,
-                      state: controller.state.value,
-                      images: controller.listOfImages);
                 }
+                //  else {
+                // controller.selectedTimeWithDate.value = controller
+                //     .selectedDate
+                //     .add(Duration(
+                //         hours: int.parse(controller.selectedHours ?? "00"),
+                //         minutes: int.parse(controller.selectedMints ?? "00")))
+                //     .toIso8601String();
+
+                // UserServices.instance.createJob(
+                //     context: context,
+                //     WorkerType: controller.groupValue.value == 0
+                //         ? "PROFESSIONAL"
+                //         : "HANDYMAN",
+                //     title: controller.titleEditingController.text,
+                //     desc: controller.descEditingController.text,
+                //     location: "USA",
+                //     lat: controller.latitide.toString(),
+                //     long: controller.longitude.toString(),
+                //     jobDate: DateTime.parse(controller.dateController.text)
+                //         .toIso8601String(),
+                //     startTime: controller.selectedTimeWithDate.value,
+                //     jobType: controller.workingHour.value == 0
+                //         ? "WORKINGHOUR"
+                //         : "AFTERHOUR",
+                //     budgetType: controller.fixedAmoount.value == 0
+                //         ? "FIXED"
+                //         : "PERHOURLY",
+                //     budget: controller.priceBudgetEditingController.text,
+                //     address: controller.addressEditingController.text,
+                //     city: controller.city.value != ""
+                //         ? controller.city.value
+                //         : controller.state.value,
+                //     state: controller.state.value,
+                //     images: controller.listOfImages);
+                // }
               }),
         ),
       ),
@@ -185,7 +223,7 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                               ],
                             ),
                             Container(
-                              width: 0.18.sw,
+                              width: 0.45.sw,
                               child: MySeparator(
                                 height: 1,
                                 color: ColorUtils.borderColor,
@@ -225,47 +263,47 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                 )
                               ],
                             ),
-                            Container(
-                              width: 0.18.sw,
-                              child: MySeparator(
-                                height: 1,
-                                color: ColorUtils.borderColor,
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                Container(
-                                    padding: EdgeInsets.all(4.sp),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    child: Container(
-                                      padding: EdgeInsets.all(10.sp),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: controller.stepIndex.value < 2
-                                            ? ColorUtils.txtLightGrey
-                                            : ColorUtils.black,
-                                      ),
-                                      child: Text(
-                                        "3",
-                                        style: TextStyle(
-                                          color: ColorUtils.white,
-                                        ),
-                                      ),
-                                    )),
-                                // 5.verticalSpace,
-                                Text(
-                                  "Payment",
-                                  style: TextStyle(
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w600),
-                                )
-                              ],
-                            ),
+                            // Container(
+                            //   width: 0.18.sw,
+                            //   child: MySeparator(
+                            //     height: 1,
+                            //     color: ColorUtils.borderColor,
+                            //   ),
+                            // ),
+                            // Column(
+                            //   children: [
+                            //     Container(
+                            //         padding: EdgeInsets.all(4.sp),
+                            //         decoration: BoxDecoration(
+                            //           shape: BoxShape.circle,
+                            //           border: Border.all(
+                            //             width: 1.0,
+                            //           ),
+                            //         ),
+                            //         child: Container(
+                            //           padding: EdgeInsets.all(10.sp),
+                            //           decoration: BoxDecoration(
+                            //             shape: BoxShape.circle,
+                            //             color: controller.stepIndex.value < 2
+                            //                 ? ColorUtils.txtLightGrey
+                            //                 : ColorUtils.black,
+                            //           ),
+                            //           child: Text(
+                            //             "3",
+                            //             style: TextStyle(
+                            //               color: ColorUtils.white,
+                            //             ),
+                            //           ),
+                            //         )),
+                            //     // 5.verticalSpace,
+                            //     Text(
+                            //       "Payment",
+                            //       style: TextStyle(
+                            //           fontSize: 16.sp,
+                            //           fontWeight: FontWeight.w600),
+                            //     )
+                            //   ],
+                            // ),
                           ],
                         ),
                       ),
@@ -687,6 +725,7 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                             hintText: "Write you description here...",
                             context: context,
                             minLines: 5,
+                            textCapitalization: TextCapitalization.sentences,
                             maxLines: 5,
                             controller: controller.descEditingController,
                             bordercolor: Colors.transparent),

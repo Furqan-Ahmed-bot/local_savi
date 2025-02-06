@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:local_saviors/controllers/user_controllers/user_request_screen_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
-import 'package:local_saviors/utils/routes/routes.dart';
 
 class UserRequestScreen extends GetWidget<UserRequestScreenController> {
   @override
@@ -49,6 +48,11 @@ class UserRequestScreen extends GetWidget<UserRequestScreenController> {
                   children: List.generate(
                       controller.listOfUserRequests.length,
                       (index) => userRequestCard(
+                          isAccepted: controller.listOfUserRequests[index]
+                                  ['request_status'] ==
+                              "ACCEPTED",
+                          status: controller.listOfUserRequests[index]
+                              ['request_status'],
                           isVerified: true,
                           id: controller.listOfUserRequests[index]
                               ['performer_id'],

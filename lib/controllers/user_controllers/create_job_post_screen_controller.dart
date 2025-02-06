@@ -70,7 +70,7 @@ class CreateJobPostScreenController extends GetxController {
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
 
-      dateController.text = picked.toIso8601String(); // Format the date
+      dateController.text = selectedDate.toString(); // Format the date
 
       update();
     }
