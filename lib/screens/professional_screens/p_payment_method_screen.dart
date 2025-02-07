@@ -1,12 +1,17 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
 
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/professional_controllers/payment_method_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
-import 'package:local_saviors/utils/color_utils.dart';
+import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
+
+import 'p_addaccount_screen.dart';
+import 'p_addfunds_screen.dart';
+import 'p_select_bank_screen.dart';
 
 class PaymentMethodScreen extends GetWidget<PaymentMethodController> {
   @override
@@ -17,130 +22,154 @@ class PaymentMethodScreen extends GetWidget<PaymentMethodController> {
         children: [
           appbar(
             isMenu: false,
-            title: "Payment Method",
+            title: "Bank Details",
           ),
           30.verticalSpace,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                Obx(
-                  () => InkWell(
-                    onTap: () {
-                      controller.cardvalue.value = 0;
-                    },
-                    child: Container(
-                      width: 1.0.sw,
-                      margin: EdgeInsets.only(bottom: 10.h),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1.w, color: ColorUtils.borderColor),
-                          borderRadius: BorderRadius.circular(10.r),
-                          color: ColorUtils.white),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Radio<int>(
-                                value: 0,
-                                activeColor: ColorUtils.blue,
-                                groupValue: controller.cardvalue.value,
-                                onChanged: (int? value) {
-                                  controller.cardvalue.value = value!;
-                                },
-                              ),
-                              20.horizontalSpace,
-                              Text(
-                                "Wallet",
-                                style: TextStyle(fontSize: 16.sp),
-                              ),
-                            ],
+          SizedBox(
+            width: double.infinity,
+            child: Obx(
+              () => SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // 20.verticalSpace,
+                    controller.isLoading.value
+                        ? Center(
+                            child: spinkit,
+                          )
+                        : SizedBox(
+                            width: 0.9.sw,
+                            child: ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: controller.allBanks.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Obx(
+                                  () => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Dismissible(
+                                      key: ValueKey(controller.allBanks[index]),
+                                      confirmDismiss: (DismissDirection direction) async {
+                                        if (controller.allBanks.length > 1) {
+                                          bool? confirmDeletion = await showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text("Confirm Delete"),
+                                                content: const Text("Are you sure you want to delete this bank?"),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop(true); // Confirm deletion
+                                                    },
+                                                    child: const Text("Yes"),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop(false); // Cancel deletion
+                                                    },
+                                                    child: const Text("No"),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+
+                                          if (confirmDeletion == true) {
+                                            // walletVM.deleteBanks(walletVM.allBanks[index]['id']);
+                                            return true; // Allow the dismiss
+                                          } else {
+                                            return false; // Cancel the dismiss
+                                          }
+                                        } else {
+                                          Get.snackbar('Alert', 'You cannot delete the default external account for your default currency');
+
+                                          return false; // Prevent dismiss if it’s the only account
+                                        }
+                                      },
+                                      onDismissed: (DismissDirection direction) {
+                                        controller.allBanks.removeAt(index); // Remove item if dismissed
+                                      },
+                                      child: BankSelectionTile(
+                                        bankName: controller.allBanks[index]['bank_name'],
+                                        imagePath: ImageAssets.bank1,
+                                        isSelected: controller.selectedBankIndex.value == index,
+                                        onChanged: (value) {
+                                          // Update selected bank
+                                          controller.selectedBank(index, controller.allBanks[index]);
+                                        },
+                                        routingNumber: controller.allBanks[index]['routing_number'],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(right: 10.w),
-                            child: Image.asset(
-                              ImageAssets.drawerWallet,
-                              scale: 2,
-                              color: ColorUtils.red,
+                    20.verticalSpace,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/icons/addicon.png',
+                            scale: 3,
+                          ),
+                          7.w.horizontalSpace,
+                          InkWell(
+                            onTap: () {
+                              Get.to(() => AddNewBankScreen());
+                            },
+                            child: Text(
+                              'Add Bank',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.underline,
+                                color: Colors.black,
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ),
-                Obx(
-                  () => Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:
-                        List.generate(controller.ListOfText.length, (index) {
-                      return InkWell(
-                        onTap: () {
-                          controller.cardvalue.value = index + 1;
-                        },
-                        child: Container(
-                          width: 1.0.sw,
-                          margin: EdgeInsets.only(bottom: 10.h),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1.w, color: ColorUtils.borderColor),
-                              borderRadius: BorderRadius.circular(10.r),
-                              color: ColorUtils.white),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Radio<int>(
-                                    value: index + 1,
-                                    activeColor: ColorUtils.blue,
-                                    groupValue: controller.cardvalue.value,
-                                    onChanged: (int? value) {
-                                      controller.cardvalue.value = value!;
-                                    },
-                                  ),
-                                  20.horizontalSpace,
-                                  Text(
-                                    controller.ListOfText[index]['title'],
-                                    style: TextStyle(fontSize: 16.sp),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(right: 10.w),
-                                child: Image.asset(
-                                  controller.ListOfText[index]['image'],
-                                  scale: 3.5,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-                  ),
-                ),
-                10.verticalSpace,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Image.asset(
-                      ImageAssets.addCircleRed,
-                      scale: 2,
-                    ),
-                    5.horizontalSpace,
-                    Text(
-                      "Add Card",
-                      style: TextStyle(fontSize: 14.sp, color: ColorUtils.red),
-                    )
                   ],
-                )
-              ],
+                ),
+              ),
             ),
           ),
         ],
       )),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+        child: DottedBorder(
+            radius: Radius.circular(10.r),
+            borderType: BorderType.RRect,
+            strokeCap: StrokeCap.round,
+            dashPattern: const [5, 5],
+            strokeWidth: 1.5,
+            color: Color(0xff2B4C96),
+            child: InkWell(
+              onTap: () {
+                if (controller.selectedBankIndex.value == -1) {
+                  Get.snackbar('Alert', 'Please Select Bank');
+                } else {
+                  Get.to(() => AddFundsScreen());
+
+                  //Get.to(() => WithdrawAmountScreen());
+                }
+              },
+              child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Center(
+                      child: Text(
+                    'Confirm',
+                    style: TextStyle(fontSize: 16),
+                  ))),
+            )),
+      ),
     );
   }
 }

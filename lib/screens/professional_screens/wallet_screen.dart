@@ -29,10 +29,7 @@ class ProviderWalletScreen extends GetWidget<WalletController> {
             ),
             child: Column(
               children: [
-                buildWalletBalanceCard(
-                  context,
-                  balance: '\$15,658.2',
-                ),
+                buildWalletBalanceCard(context, balance: '\$15,658.2', controller: controller),
                 20.verticalSpace,
                 Divider(),
 
@@ -86,7 +83,7 @@ class ProviderWalletScreen extends GetWidget<WalletController> {
   }
 }
 
-Widget buildWalletBalanceCard(BuildContext context, {required String balance, VoidCallback? onTransfer}) {
+Widget buildWalletBalanceCard(BuildContext context, {required String balance, VoidCallback? onTransfer, controller}) {
   return Container(
     padding: EdgeInsets.symmetric(
       vertical: 25.h,
@@ -139,8 +136,8 @@ Widget buildWalletBalanceCard(BuildContext context, {required String balance, Vo
             ),
             50.w.horizontalSpace,
             InkWell(
-              onTap: (){
-                 
+              onTap: () {
+                controller.getStripeUrl();
               },
               child: AnimatedContainer(
                 height: 50,

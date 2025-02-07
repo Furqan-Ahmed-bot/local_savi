@@ -18,54 +18,43 @@ class UserRequestScreen extends GetWidget<UserRequestScreenController> {
         ),
         GetBuilder<UserRequestScreenController>(builder: (controller) {
           return Expanded(
-              child: ListView(
-                  padding: EdgeInsets.only(
-                      left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
-                  children: [
-                Row(
-                  children: [
-                    Image.asset(
-                      ImageAssets.usersIcon,
-                      scale: 2,
-                    ),
-                    10.w.horizontalSpace,
-                    Text(
-                      "Total Requests",
-                      style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
-                    ),
-                    10.w.horizontalSpace,
-                    Text(
-                      "(${controller.listOfUserRequests.length})",
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
+              child: ListView(padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h, top: 20.h), children: [
+            Row(
+              children: [
+                Image.asset(
+                  ImageAssets.usersIcon,
+                  scale: 2,
                 ),
-                Column(
-                  children: List.generate(
-                      controller.listOfUserRequests.length,
-                      (index) => userRequestCard(
-                          isAccepted: controller.listOfUserRequests[index]
-                                  ['request_status'] ==
-                              "ACCEPTED",
-                          status: controller.listOfUserRequests[index]
-                              ['request_status'],
-                          isVerified: true,
-                          id: controller.listOfUserRequests[index]
-                              ['performer_id'],
-                          image: controller.listOfUserRequests[index]
-                              ['performer']['user_details']['profile_picture'],
-                          name: controller.listOfUserRequests[index]
-                                  ['performer']['user_details']['first_name'] +
-                              " " +
-                              controller.listOfUserRequests[index]['performer']
-                                  ['user_details']['last_name'],
-                          rating: "(4.5)")),
+                10.w.horizontalSpace,
+                Text(
+                  "Total Requests",
+                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                 ),
-              ]));
+                10.w.horizontalSpace,
+                Text(
+                  "(${controller.listOfUserRequests.length})",
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: List.generate(
+                  controller.listOfUserRequests.length,
+                  (index) => userRequestCard(
+                      isAccepted: controller.listOfUserRequests[index]['request_status'] == "ACCEPTED",
+                      status: controller.listOfUserRequests[index]['request_status'],
+                      isVerified: true,
+                      id: controller.listOfUserRequests[index]['id'],
+                      image: controller.listOfUserRequests[index]['performer']['user_details']['profile_picture'],
+                      name: controller.listOfUserRequests[index]['performer']['user_details']['first_name'] +
+                          " " +
+                          controller.listOfUserRequests[index]['performer']['user_details']['last_name'],
+                      rating: "(4.5)")),
+            ),
+          ]));
         })
       ],
     ));

@@ -1,5 +1,8 @@
 class UserUrls {
+  // static const baseUrl = "https://26ltv180-9001.euw.devtunnels.ms/api/v1/";
+  //static const baseUrl = "https://26ltv180-9001.euw.devtunnels.ms/api/v1/";
   static const baseUrl = "https://api.localsaviors.com/api/v1/";
+
   static const loginUrl = "${baseUrl}user/login";
   static const signupUrl = "${baseUrl}user/register";
   static const verifyOTPUrl = "${baseUrl}user/verify_otp";
@@ -35,6 +38,12 @@ class UserUrls {
   static const getBestPerformers = "${baseUrl}user_reviews/top";
   static const getBestPerformersProfile = "${baseUrl}user/provider";
   static const assignJob = "${baseUrl}job/assign_job";
+
+  //connect stripe
+
+  static const connectStripe = "${baseUrl}transaction/connect_stripe";
+  static const addAccount = "${baseUrl}transaction/external_account";
+  static const getBanks = "${baseUrl}transaction/external_account";
 }
 
 // class ProfessionalUrls {
