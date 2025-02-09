@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/user_controllers/home_screen_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/jobs_screen_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/user_profile_screen_controller.dart';
 import 'package:local_saviors/screens/user_screens/home_screen.dart';
 import 'package:local_saviors/screens/user_screens/jobs_screen.dart';
 import 'package:local_saviors/screens/user_screens/message_dashboard_screen.dart';
@@ -29,6 +30,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   final bottomController = Get.put(BottomAppBarController());
   final userData = Get.put(HomeScreenController());
+  final myUserData = Get.put(UserProfileScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -88,11 +90,27 @@ class _NavbarScreenState extends State<NavbarScreen> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image(
-                                    image:
-                                        AssetImage(ImageAssets.oliverDetailImg),
-                                    height: 90,
-                                  )
+                                  userData.userdata.userDetails!
+                                              .profilePicture ==
+                                          null
+                                      ? Image.asset(
+                                          ImageAssets.userProfileImg,
+                                          scale: 2,
+                                        )
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                  width: 4,
+                                                  color: ColorUtils.red)),
+                                          child: CircleAvatar(
+                                            radius: 40,
+                                            backgroundImage: NetworkImage(
+                                                userData.userdata.userDetails!
+                                                        .profilePicture ??
+                                                    ""),
+                                          ),
+                                        ),
                                   // Container(
                                   //   height: 140.h,
                                   //   width: 140.w,
@@ -555,7 +573,8 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             actions: [
                               GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(RouteName.editProfileScreenPath);
+                                  Get.toNamed(RouteName.editProfileScreenPath,
+                                      arguments: {"data": myUserData.userdata});
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(right: 20.w),
@@ -867,6 +886,11 @@ class BottomAppBarController extends GetxController {
           await UserServices.instance.getUserActiveJobs();
       await homeController.getBestPerformers();
       homeController.isLoading.value = false;
+    } else if (index == 3) {
+      var profileController = Get.find<UserProfileScreenController>();
+      profileController.isLoading.value = true;
+      await profileController.getData();
+      profileController.isLoading.value = false;
     }
     update();
   }

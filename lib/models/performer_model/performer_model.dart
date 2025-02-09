@@ -2,15 +2,17 @@ class PerformerModel {
   String? userId;
   String? email;
   String? userType;
-  Null? phone;
+  dynamic phone;
   UserDetails? userDetails;
   List<Professions>? professions;
+  Reviews? reviews;
 
   PerformerModel(
       {this.userId,
       this.email,
       this.userType,
       this.phone,
+      this.reviews,
       this.userDetails,
       this.professions});
 
@@ -22,6 +24,7 @@ class PerformerModel {
     userDetails = json['user_details'] != null
         ? new UserDetails.fromJson(json['user_details'])
         : null;
+    reviews = json['review'] != null ? Reviews.fromJson(json['review']) : null;
     if (json['professions'] != null) {
       professions = <Professions>[];
       json['professions'].forEach((v) {
@@ -55,12 +58,13 @@ class UserDetails {
   String? longitude;
   String? latitude;
   String? contactEmail;
-  Null? contactPhone;
+  dynamic contactPhone;
   String? address;
   String? location;
   String? gender;
   String? workerType;
   int? age;
+  int? completedJobs;
 
   UserDetails(
       {this.description,
@@ -75,6 +79,7 @@ class UserDetails {
       this.address,
       this.location,
       this.gender,
+      this.completedJobs,
       this.workerType,
       this.age});
 
@@ -91,6 +96,7 @@ class UserDetails {
     address = json['address'];
     location = json['location'];
     gender = json['gender'];
+    completedJobs = json['completed_jobs'];
     workerType = json['worker_type'];
     age = json['age'];
   }
@@ -109,6 +115,7 @@ class UserDetails {
     data['address'] = this.address;
     data['location'] = this.location;
     data['gender'] = this.gender;
+    data['completed_jobs'] = this.completedJobs;
     data['worker_type'] = this.workerType;
     data['age'] = this.age;
     return data;
@@ -133,6 +140,43 @@ class Professions {
     data['id'] = this.id;
     data['profession_service_id'] = this.professionServiceId;
     data['profession_name'] = this.professionName;
+    return data;
+  }
+}
+
+class Reviews {
+  String? id;
+  String? performerId;
+  int? averageRatings;
+  int? ratingCount;
+  String? createdAt;
+  String? updatedAt;
+
+  Reviews(
+      {this.id,
+      this.performerId,
+      this.averageRatings,
+      this.ratingCount,
+      this.createdAt,
+      this.updatedAt});
+
+  Reviews.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    performerId = json['performer_id'];
+    averageRatings = json['average_ratings'];
+    ratingCount = json['rating_count'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['performer_id'] = this.performerId;
+    data['average_ratings'] = this.averageRatings;
+    data['rating_count'] = this.ratingCount;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
     return data;
   }
 }

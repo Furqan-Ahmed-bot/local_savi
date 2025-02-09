@@ -69,13 +69,27 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                                         ],
                                       ),
                                     ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(50.r),
-                                      child: Image.asset(
-                                        ImageAssets.johnImg,
-                                        scale: 2,
-                                      ),
-                                    )
+                                    controller.userdata.userDetails!
+                                                .profilePicture ==
+                                            null
+                                        ? Image.asset(
+                                            ImageAssets.userProfileImg,
+                                            scale: 2,
+                                          )
+                                        : Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: CircleAvatar(
+                                              radius: 25,
+                                              backgroundImage: NetworkImage(
+                                                  controller
+                                                          .userdata
+                                                          .userDetails!
+                                                          .profilePicture ??
+                                                      ""),
+                                            ),
+                                          ),
                                   ],
                                 ),
                                 16.h.verticalSpace,

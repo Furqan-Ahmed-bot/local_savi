@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:local_saviors/utils/routes/routes_name.dart';
 
 import '../../utils/images/image_assets.dart';
 import 'splash_services.dart';
@@ -20,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     splashScreen.isLogin();
+
     super.initState();
   }
 
