@@ -2,6 +2,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 
+import '../controllers/professional_controllers/p_home_controller.dart';
+import '../controllers/user_controllers/home_screen_controller.dart';
+
+late HomeScreenController hsController;
+late PHomeController phController;
 RxString role = "".obs;
 bool isProfileCreated = false;
 RxString email = "".obs;

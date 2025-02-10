@@ -15,7 +15,10 @@ class PSavedJobsController extends GetxController {
   getBookkmarks() async {
     isLoading.value = true;
     await UserServices.instance.getProfessionalBookmarks().then((value) {
-      listOfBookMark = value;
+      isLoading.value = false;
+      if (value.isNotEmpty) {
+        listOfBookMark = value;
+      }
     });
     isLoading.value = false;
     update();

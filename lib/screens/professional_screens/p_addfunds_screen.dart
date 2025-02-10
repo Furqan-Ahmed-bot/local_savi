@@ -9,9 +9,11 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 
 import '../../controllers/professional_controllers/add_funds_controller.dart';
+import '../../controllers/professional_controllers/payment_method_controller.dart';
 import '../../resources/components/text_fields.dart';
 
 class AddFundsScreen extends GetWidget<AddFundsController> {
+  final paymentController = Get.put(PaymentMethodController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,15 +72,13 @@ class AddFundsScreen extends GetWidget<AddFundsController> {
                             children: [
                               Text(
                                 'Your Balance',
-                                style: TextStyle(
-                                    color: ColorUtils.blue, fontSize: 12),
+                                style: TextStyle(color: ColorUtils.blue, fontSize: 12),
                                 // style:  context.,
                               ),
                               7.h.verticalSpace,
                               Text(
-                                '\$15,658.36',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 19),
+                                '\$ ${paymentController.totalAmount.value}',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
                                 // style:  context.,
                               ),
                             ],
@@ -137,7 +137,7 @@ class AddFundsScreen extends GetWidget<AddFundsController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Bank Of America',
+                                '${paymentController.bankName}',
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -145,7 +145,7 @@ class AddFundsScreen extends GetWidget<AddFundsController> {
                               ),
                               SizedBox(height: 2),
                               Text(
-                                '3439589864',
+                                '${paymentController.routingNumber}',
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey,
@@ -169,6 +169,7 @@ class AddFundsScreen extends GetWidget<AddFundsController> {
                 ),
                 10.verticalSpace,
                 AuthTextField(
+                  controller: paymentController.amountController,
                   type: TextInputType.number,
                   hint: '',
                   icon: ImageAssets.dollar,
@@ -177,7 +178,13 @@ class AddFundsScreen extends GetWidget<AddFundsController> {
                 30.verticalSpace,
                 RoundButton(
                   title: 'Confirm',
-                  onPress: () {},
+                  onPress: () {
+                    if (paymentController.amountController.text.isEmpty) {
+                      Get.snackbar('Alert', 'Please Enter Amount');
+                    } else {
+                      paymentController.transferAmount(context);
+                    }
+                  },
                   width: 0.9.sw,
                   buttonColor: ColorUtils.red,
                   height: 50,

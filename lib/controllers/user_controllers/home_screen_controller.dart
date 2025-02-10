@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:http/http.dart' as http;
-
 import '../../models/job_provider_model/job_provider_model.dart';
 import '../../utils/api_services/app_urls.dart';
 import '../../utils/constant.dart';

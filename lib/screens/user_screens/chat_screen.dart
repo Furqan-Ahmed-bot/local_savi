@@ -114,7 +114,7 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  "Oliver Mark",
+                                  "${controller.username}",
                                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
                                 ),
                                 5.h.verticalSpace,

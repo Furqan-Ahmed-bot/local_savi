@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_home_controller.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
@@ -828,7 +829,9 @@ Widget shortlistUserCard({
                                           Expanded(
                                             child: InkWell(
                                               onTap: () async {
-                                                await UserServices.instance.acceptRejectJobRequest(context: context, id: id!, status: "ACCEPTED");
+                                                // await UserServices.instance.acceptRejectJobRequest(context: context, id: id!, status: "ACCEPTED");
+                                                Get.toNamed(RouteName.chatScreenPath,
+                                                    arguments: {"providerId": id, "jobId": jobId, 'username': name});
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,
@@ -889,7 +892,7 @@ Widget shortlistUserCard({
                 showMessageButton
                     ? InkWell(
                         onTap: () {
-                          Get.toNamed(RouteName.chatScreenPath, arguments: {"providerId": id, "jobId": jobId});
+                          Get.toNamed(RouteName.chatScreenPath, arguments: {"providerId": id, "jobId": jobId, "username": name});
                         },
                         child: Container(
                           padding: EdgeInsets.all(10.sp),
@@ -1201,6 +1204,7 @@ Widget activeJobCard({
 Widget myBackGround({
   required Widget child,
   Widget? bottomNavBar,
+  bool isHome = false,
 }) {
   return Scaffold(
     extendBody: true,

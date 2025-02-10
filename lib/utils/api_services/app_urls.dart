@@ -14,8 +14,7 @@ class UserUrls {
   static const helpAndFeedback = "${baseUrl}help_and_feedback";
   static const changePassword = "${baseUrl}user/change_password";
 
-  static const createProviderProfileUrl =
-      "${baseUrl}user/create_performer_profile";
+  static const createProviderProfileUrl = "${baseUrl}user/create_performer_profile";
   static const getProfileUrl = "${baseUrl}user/about";
   static const logoutUrl = "${baseUrl}user/logout";
   static const createJob = "${baseUrl}job/register";
@@ -23,17 +22,13 @@ class UserUrls {
 
   static const getPerformerAllJobs = "${baseUrl}job/all?limit=20&page=1";
   static const applyPerformerJob = "${baseUrl}job/apply/"; // job id
-  static const getPerformerJobs =
-      "${baseUrl}job/all/provider?filter="; // filter
+  static const getPerformerJobs = "${baseUrl}job/all/provider?filter="; // filter
   static const getSingleJobDetail = "${baseUrl}job/"; // job id
   static const saveUnsavePBookmark = "${baseUrl}bookmark_job/"; // job id
-  static const sentInviteToPerformer =
-      "${baseUrl}job/invite?job_id="; // job id&performerId
+  static const sentInviteToPerformer = "${baseUrl}job/invite?job_id="; // job id&performerId
   static const getPBookmark = "${baseUrl}bookmark_job";
-  static const getUserActiveJobs =
-      "${baseUrl}job/active?limit=20&page=1"; // job id
-  static const acceptRejectJobRequest =
-      "${baseUrl}job/request_status/"; // job id
+  static const getUserActiveJobs = "${baseUrl}job/active?limit=20&page=1"; // job id
+  static const acceptRejectJobRequest = "${baseUrl}job/request_status/"; // job id
   static const editUser = "${baseUrl}user/user";
   static const editProfessional = "${baseUrl}user/provider";
   static const chanegUserProfilePic = "${baseUrl}user/profile_picture";
@@ -52,6 +47,9 @@ class UserUrls {
   static const connectStripe = "${baseUrl}transaction/connect_stripe";
   static const addAccount = "${baseUrl}transaction/external_account";
   static const getBanks = "${baseUrl}transaction/external_account";
+  static const getAllTranscations = "${baseUrl}transaction";
+  static const transferAmount = "${baseUrl}transaction/create_payout";
+  static const getPersonalBalance = "${baseUrl}transaction/get_balance";
 }
 
 // class ProfessionalUrls {

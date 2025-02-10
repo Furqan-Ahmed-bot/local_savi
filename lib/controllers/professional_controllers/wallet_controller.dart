@@ -2,18 +2,20 @@
 
 import 'dart:convert';
 
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import "package:http/http.dart" as http;
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../resources/components/web_view/launch_url.dart';
 import '../../utils/api_services/app_urls.dart';
+import '../../utils/api_services/user_services.dart';
 import '../../utils/constant.dart';
+import 'payment_method_controller.dart';
 
 class WalletController extends GetxController {
+  final paymentController = Get.put(PaymentMethodController());
   RxInt currentIndex = 0.obs;
   String? url;
+  RxBool isLoading = false.obs;
 
   updateIndex(index) {
     currentIndex.value = index;
@@ -21,11 +23,15 @@ class WalletController extends GetxController {
 
   @override
   void onInit() {
+    UserServices.instance.getProfileService(isAutoLogin: false);
+    paymentController.getAccountBalance();
+    paymentController.getAllTranscations('CREDIT');
+
     print('wallet controller ');
     super.onInit();
   }
 
-  getStripeUrl() async {
+  Future getStripeUrl() async {
     try {
       var headers = {'Authorization': token.value};
 

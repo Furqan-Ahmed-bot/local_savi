@@ -1,14 +1,13 @@
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/user_controllers/home_screen_controller.dart';
+import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 
 class BestPerformerScreenController extends GetxController {
-  final homeController = Get.put(HomeScreenController());
-
   @override
   void onInit() {
     Future.microtask(() {
-      homeController.getBestPerformers();
+      hsController.getBestPerformers();
     });
     super.onInit();
   }

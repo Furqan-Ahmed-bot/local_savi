@@ -34,22 +34,19 @@ class EditProfileScreenController extends GetxController {
       aboutcontroller.text = userdata.userDetails!.description.toString();
       emailcontroller.text = userdata.userDetails!.contactEmail.toString();
 
-      selectedDate =
-          DateTime.parse(userdata.userDetails!.dateOfBirth.toString());
+      selectedDate = DateTime.parse(userdata.userDetails!.dateOfBirth.toString());
       dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
       phonecontroller.text = "521557766889";
     } else {
       performerdata = Get.arguments['data'];
-      firstNamecontroller.text =
-          performerdata.userDetails!.firstName.toString();
+      firstNamecontroller.text = performerdata.userDetails!.firstName.toString();
       lastNamecontroller.text = performerdata.userDetails!.lastName.toString();
       addresscontroller.text = performerdata.userDetails!.address.toString();
       locationcontroller.text = performerdata.userDetails!.location.toString();
       aboutcontroller.text = performerdata.userDetails!.description.toString();
       emailcontroller.text = performerdata.userDetails!.contactEmail.toString();
 
-      selectedDate =
-          DateTime.parse(performerdata.userDetails!.dateOfBirth.toString());
+      selectedDate = DateTime.parse(performerdata.userDetails!.dateOfBirth.toString());
       dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
       phonecontroller.text = "521557766889";
     }
@@ -83,45 +80,53 @@ class EditProfileScreenController extends GetxController {
         if (addresscontroller.text.isNotEmpty) {
           if (aboutcontroller.text.isNotEmpty) {
             if (phonecontroller.text.isNotEmpty) {
-              await UserServices.instance
-                  .updateUserProfilePic(
-                      context: Get.context, image: image!.path.toString())
-                  .then((value) async {
-                if (value) {
-                  await UserServices.instance.editUserService(
-                      about: aboutcontroller.text,
-                      firstName: firstNamecontroller.text,
-                      lastName: lastNamecontroller.text,
-                      gender: selectedGender,
-                      dob: selectedDate.toIso8601String(),
-                      address: addresscontroller.text,
-                      location: locationcontroller.text,
-                      lat: "23.2323",
-                      long: "68.6868",
-                      email: emailcontroller.text,
-                      phone: phonecontroller.text,
-                      context: Get.context);
-                }
-              });
+              if (image != null) {
+                await UserServices.instance.updateUserProfilePic(context: Get.context, image: image!.path.toString()).then((value) async {
+                  if (value) {
+                    await UserServices.instance.editUserService(
+                        about: aboutcontroller.text,
+                        firstName: firstNamecontroller.text,
+                        lastName: lastNamecontroller.text,
+                        gender: selectedGender,
+                        dob: selectedDate.toIso8601String(),
+                        address: addresscontroller.text,
+                        location: locationcontroller.text,
+                        lat: "23.2323",
+                        long: "68.6868",
+                        email: emailcontroller.text,
+                        phone: phonecontroller.text,
+                        context: Get.context);
+                  }
+                });
+              } else {
+                await UserServices.instance.editUserService(
+                    about: aboutcontroller.text,
+                    firstName: firstNamecontroller.text,
+                    lastName: lastNamecontroller.text,
+                    gender: selectedGender,
+                    dob: selectedDate.toIso8601String(),
+                    address: addresscontroller.text,
+                    location: locationcontroller.text,
+                    lat: "23.2323",
+                    long: "68.6868",
+                    email: emailcontroller.text,
+                    phone: phonecontroller.text,
+                    context: Get.context);
+              }
             } else {
-              Get.snackbar("Alert", "Please add phone number",
-                  backgroundColor: ColorUtils.white);
+              Get.snackbar("Alert", "Please add phone number", backgroundColor: ColorUtils.white);
             }
           } else {
-            Get.snackbar("Alert", "Please add description",
-                backgroundColor: ColorUtils.white);
+            Get.snackbar("Alert", "Please add description", backgroundColor: ColorUtils.white);
           }
         } else {
-          Get.snackbar("Alert", "Please add address",
-              backgroundColor: ColorUtils.white);
+          Get.snackbar("Alert", "Please add address", backgroundColor: ColorUtils.white);
         }
       } else {
-        Get.snackbar("Alert", "Please add your last name",
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", "Please add your last name", backgroundColor: ColorUtils.white);
       }
     } else {
-      Get.snackbar("Alert", "Please add your first name",
-          backgroundColor: ColorUtils.white);
+      Get.snackbar("Alert", "Please add your first name", backgroundColor: ColorUtils.white);
     }
   }
 

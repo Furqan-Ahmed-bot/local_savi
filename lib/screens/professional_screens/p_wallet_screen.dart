@@ -3,16 +3,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:local_saviors/controllers/professional_controllers/payment_method_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/wallet_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
+import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/color_utils.dart';
+import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 
-import '../../utils/routes/routes.dart';
+import 'p_payment_method_screen.dart';
 
-class WalletScreen extends GetWidget<WalletController> {
+class WalletScreen extends GetWidget<WalletController> with WidgetsBindingObserver {
+  final paymentController = Get.put(PaymentMethodController());
   final ValueNotifier<int> ci = ValueNotifier(0);
   int currentIndex = 0;
+  bool isInBackground = false;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      isInBackground = true;
+    } else if (state == AppLifecycleState.resumed) {
+      if (isInBackground) {
+        print('User returned from Stripe URL');
+        isInBackground = false;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,60 +47,77 @@ class WalletScreen extends GetWidget<WalletController> {
               horizontal: 0.055.sw,
               vertical: 30.h,
             ),
-            child: Column(
-              children: [
-                buildWalletBalanceCard(
-                  context,
-                  balance: '\$15,658.2',
-                  onTransfer: () {
-                    Get.toNamed(RouteName.addBankScreen);
-                  },
-                ),
-                10.verticalSpace,
-                Divider(),
+            child: Obx(
+              () => paymentController.isLoading.value
+                  ? Center(
+                      child: spinkit,
+                    )
+                  : Column(
+                      children: [
+                        buildWalletBalanceCard(
+                          context,
+                          balance: paymentController.totalAmount.value.toString(),
+                          onTransfer: () async {
+                            //phController.performerdata.userDetails?.i
+                            // Get.toNamed(RouteName.addBankScreen);
+                            if (phController.performerdata.userDetails?.isStripeVerified == true) {
+                              Get.to(() => PaymentMethodScreen());
+                            } else {
+                              await controller.getStripeUrl().then((value) {
+                                Get.back();
+                              });
+                            }
+                          },
+                        ),
+                        10.verticalSpace,
+                        Divider(),
 
-                ValueListenableBuilder(
-                    valueListenable: ci,
-                    builder: (_, v, c) {
-                      return CustomTabBar.tabBar(
-                        context,
-                        options: [
-                          'Credit',
-                          'Debit',
-                        ],
-                        currentIndex: v,
-                        onChanged: (i) {
-                          currentIndex = i;
-                          controller.updateIndex(currentIndex);
+                        ValueListenableBuilder(
+                            valueListenable: ci,
+                            builder: (_, v, c) {
+                              return CustomTabBar.tabBar(
+                                context,
+                                options: [
+                                  'Credit',
+                                  'Debit',
+                                ],
+                                currentIndex: v,
+                                onChanged: (i) {
+                                  currentIndex = i;
+                                  controller.updateIndex(currentIndex);
+                                  Future.microtask(() {
+                                    paymentController.getAllTranscations('DEBIT');
+                                  });
 
-                          ci.value = i;
-                          print(i);
-                        },
-                      );
-                    }),
+                                  ci.value = i;
+                                  print(i);
+                                },
+                              );
+                            }),
 
-                10.verticalSpace,
+                        10.verticalSpace,
 
-                Divider(),
+                        Divider(),
 
-                Obx(
-                  () => Container(
-                    height: 0.52.sh,
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.symmetric(vertical: 30.h),
-                      itemBuilder: (_, i) => transactionTile(context),
-                      separatorBuilder: (_, i) => Divider(
-                        height: 26.h,
-                        thickness: 1.h,
-                        color: const Color(0XFFBAC7DC),
-                      ),
-                      itemCount: controller.currentIndex == 0 ? 4 : 6,
+                        Obx(
+                          () => Container(
+                            height: 0.52.sh,
+                            child: ListView.separated(
+                              shrinkWrap: true,
+                              padding: EdgeInsets.symmetric(vertical: 30.h),
+                              itemBuilder: (_, i) => transactionTile(context),
+                              separatorBuilder: (_, i) => Divider(
+                                height: 26.h,
+                                thickness: 1.h,
+                                color: const Color(0XFFBAC7DC),
+                              ),
+                              itemCount: controller.currentIndex == 0 ? 4 : 6,
+                            ),
+                          ),
+                        )
+                        // buildTransctions(context),
+                      ],
                     ),
-                  ),
-                )
-                // buildTransctions(context),
-              ],
             ),
           ),
         ],
@@ -91,8 +126,7 @@ class WalletScreen extends GetWidget<WalletController> {
   }
 }
 
-Widget buildWalletBalanceCard(BuildContext context,
-    {required String balance, VoidCallback? onTransfer}) {
+Widget buildWalletBalanceCard(BuildContext context, {required String balance, VoidCallback? onTransfer, controller}) {
   return Container(
     padding: EdgeInsets.symmetric(
       vertical: 25.h,
@@ -137,7 +171,7 @@ Widget buildWalletBalanceCard(BuildContext context,
                 ),
                 7.h.verticalSpace,
                 Text(
-                  balance,
+                  "\$$balance",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
                   // style:  context.,
                 ),
@@ -173,8 +207,7 @@ Widget buildWalletBalanceCard(BuildContext context,
                 side: BorderSide(
                   color: Colors.white.withOpacity(0.1),
                 )),
-            child: Text('Withdraw',
-                style: TextStyle(color: Colors.white, fontSize: 11)),
+            child: Text('Connect', style: TextStyle(color: Colors.white, fontSize: 11)),
           ),
         ),
       ],
@@ -186,8 +219,7 @@ Widget buildTransctions(BuildContext context) {
   return Container(
     height: 100,
     // Ensure the Container has constraints to define its size
-    constraints:
-        BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.6),
+    constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.6),
     child: ListView.separated(
       shrinkWrap: true,
       padding: EdgeInsets.symmetric(vertical: 30.h),
@@ -242,9 +274,7 @@ Widget transactionTile(BuildContext context) {
       Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(' \$32.00',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, color: ColorUtils.blue)),
+          Text(' \$32.00', style: TextStyle(fontWeight: FontWeight.bold, color: ColorUtils.blue)),
           11.h.verticalSpace,
           Text(
             'Credit',
@@ -268,10 +298,7 @@ class CustomTabBar {
     return Row(
       children: List.generate(
         options.length,
-        (i) => tab(context,
-            label: options[i],
-            onTap: () => onChanged(i),
-            isSelected: currentIndex == i),
+        (i) => tab(context, label: options[i], onTap: () => onChanged(i), isSelected: currentIndex == i),
       ),
     );
   }

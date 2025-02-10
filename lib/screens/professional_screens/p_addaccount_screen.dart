@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import '../../controllers/professional_controllers/payment_method_controller.dart';
 import '../../resources/components/round_button.dart';
 import '../../utils/color_utils.dart';
-import '../../utils/images/image_assets.dart';
 
 class AddNewBankScreen extends StatefulWidget {
   const AddNewBankScreen({super.key});

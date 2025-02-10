@@ -7,23 +7,14 @@ class PerformerModel {
   List<Professions>? professions;
   Reviews? reviews;
 
-  PerformerModel(
-      {this.userId,
-      this.email,
-      this.userType,
-      this.phone,
-      this.reviews,
-      this.userDetails,
-      this.professions});
+  PerformerModel({this.userId, this.email, this.userType, this.phone, this.reviews, this.userDetails, this.professions});
 
   PerformerModel.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
     email = json['email'];
     userType = json['user_type'];
     phone = json['phone'];
-    userDetails = json['user_details'] != null
-        ? new UserDetails.fromJson(json['user_details'])
-        : null;
+    userDetails = json['user_details'] != null ? new UserDetails.fromJson(json['user_details']) : null;
     reviews = json['review'] != null ? Reviews.fromJson(json['review']) : null;
     if (json['professions'] != null) {
       professions = <Professions>[];
@@ -65,6 +56,7 @@ class UserDetails {
   String? workerType;
   int? age;
   int? completedJobs;
+  bool? isStripeVerified;
 
   UserDetails(
       {this.description,
@@ -81,7 +73,8 @@ class UserDetails {
       this.gender,
       this.completedJobs,
       this.workerType,
-      this.age});
+      this.age,
+      this.isStripeVerified});
 
   UserDetails.fromJson(Map<String, dynamic> json) {
     description = json['description'];
@@ -99,6 +92,7 @@ class UserDetails {
     completedJobs = json['completed_jobs'];
     workerType = json['worker_type'];
     age = json['age'];
+    isStripeVerified = json['is_stripe_verified'];
   }
 
   Map<String, dynamic> toJson() {
@@ -118,6 +112,7 @@ class UserDetails {
     data['completed_jobs'] = this.completedJobs;
     data['worker_type'] = this.workerType;
     data['age'] = this.age;
+    data['is_stripe_verified'] = this.isStripeVerified;
     return data;
   }
 }
@@ -152,13 +147,7 @@ class Reviews {
   String? createdAt;
   String? updatedAt;
 
-  Reviews(
-      {this.id,
-      this.performerId,
-      this.averageRatings,
-      this.ratingCount,
-      this.createdAt,
-      this.updatedAt});
+  Reviews({this.id, this.performerId, this.averageRatings, this.ratingCount, this.createdAt, this.updatedAt});
 
   Reviews.fromJson(Map<String, dynamic> json) {
     id = json['id'];
