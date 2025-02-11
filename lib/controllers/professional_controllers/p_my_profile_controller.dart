@@ -36,8 +36,7 @@ class PMyProfileController extends GetxController {
       String responseBody1 = await response.stream.bytesToString();
       Map<String, dynamic> jsonResponse = json.decode(responseBody1);
       if (response.statusCode == 200) {
-        AuthPreferences.saveAuthTokenAndRole(
-            token.value, jsonResponse['data']['user_type'], refreshToken.value);
+        AuthPreferences.saveAuthTokenAndRole(token.value, jsonResponse['data']['user_type'], refreshToken.value);
         setUserData(PerformerModel.fromJson(jsonResponse['data']));
         String skills = "";
         for (int i = 0; i < performerdata.professions!.length; i++) {
@@ -79,9 +78,7 @@ class PMyProfileController extends GetxController {
           },
           {
             "title": "Phone Number",
-            "value": performerdata.userDetails!.contactPhone != null
-                ? performerdata.userDetails!.contactPhone
-                : "+1 534 54286425",
+            "value": performerdata.userDetails!.contactPhone != null ? performerdata.userDetails!.contactPhone : "+1 534 54286425",
           },
           {
             "title": "About",

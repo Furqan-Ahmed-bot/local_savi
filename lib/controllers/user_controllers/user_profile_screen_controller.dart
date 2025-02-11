@@ -35,8 +35,7 @@ class UserProfileScreenController extends GetxController {
       String responseBody1 = await response.stream.bytesToString();
       Map<String, dynamic> jsonResponse = json.decode(responseBody1);
       if (response.statusCode == 200) {
-        AuthPreferences.saveAuthTokenAndRole(
-            token.value, jsonResponse['data']['user_type'], refreshToken.value);
+        AuthPreferences.saveAuthTokenAndRole(token.value, jsonResponse['data']['user_type'], refreshToken.value);
         setUserData(JobProviderModel.fromJson(jsonResponse['data']));
 
         userData = [

@@ -116,22 +116,26 @@ class CreateProfileController extends GetxController {
             about: aboutcontroller.text,
             image: image!.path.toString());
       } else {
-        UserServices.instance.createJobPerformerProfile(
-            context: context,
-            address: addresscontroller.text,
-            gender: selectedGender,
-            dob: selectedDate.toString(),
-            phone: phonecontroller.text,
-            email: emailcontroller.text,
-            firstName: firstNamecontroller.text,
-            lastName: lastNamecontroller.text,
-            country: "US",
-            state: state.value,
-            city: city.value,
-            about: aboutcontroller.text,
-            image: image!.path.toString(),
-            workertype: role.value,
-            professionIds: createProfileTwoController.professionIds);
+        if (createProfileTwoController.professionIds.isEmpty) {
+          return Get.snackbar("Alert", "Please Select Profession", backgroundColor: ColorUtils.white);
+        } else {
+          UserServices.instance.createJobPerformerProfile(
+              context: context,
+              address: addresscontroller.text,
+              gender: selectedGender,
+              dob: selectedDate.toString(),
+              phone: phonecontroller.text,
+              email: emailcontroller.text,
+              firstName: firstNamecontroller.text,
+              lastName: lastNamecontroller.text,
+              country: "US",
+              state: state.value,
+              city: city.value,
+              about: aboutcontroller.text,
+              image: image!.path.toString(),
+              workertype: role.value,
+              professionIds: createProfileTwoController.professionIds);
+        }
       }
     } catch (e) {
       Get.snackbar("Error", "${e}", backgroundColor: ColorUtils.white);

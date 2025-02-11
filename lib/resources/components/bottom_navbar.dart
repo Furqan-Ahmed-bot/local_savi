@@ -153,48 +153,48 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                 ],
                               ),
                             ),
-                            40.verticalSpace,
-                            GestureDetector(
-                              onTap: () {
-                                Get.toNamed(RouteName.providerWalletScreen);
-                                // Get.to(() => goalsHistoryScreen());
-                              },
-                              child: Row(
-                                children: [
-                                  40.horizontalSpace,
-                                  Image.asset(
-                                    ImageAssets.drawerWallet,
-                                    scale: 2,
-                                  ),
-                                  20.horizontalSpace,
-                                  Text(
-                                    "My Wallet",
-                                    style: TextStyle(color: Colors.black),
-                                  )
-                                ],
-                              ),
-                            ),
-                            40.verticalSpace,
-                            GestureDetector(
-                              onTap: () {
-                                Get.toNamed(RouteName.paymentMethodScreen);
-                                // Get.to(() => goalsHistoryScreen());
-                              },
-                              child: Row(
-                                children: [
-                                  40.horizontalSpace,
-                                  Image.asset(
-                                    ImageAssets.drawerPaymentMethod,
-                                    scale: 3,
-                                  ),
-                                  20.horizontalSpace,
-                                  Text(
-                                    "Payment Method",
-                                    style: TextStyle(color: Colors.black),
-                                  )
-                                ],
-                              ),
-                            ),
+                            // 40.verticalSpace,
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     Get.toNamed(RouteName.providerWalletScreen);
+                            //     // Get.to(() => goalsHistoryScreen());
+                            //   },
+                            //   child: Row(
+                            //     children: [
+                            //       40.horizontalSpace,
+                            //       Image.asset(
+                            //         ImageAssets.drawerWallet,
+                            //         scale: 2,
+                            //       ),
+                            //       20.horizontalSpace,
+                            //       Text(
+                            //         "My Wallet",
+                            //         style: TextStyle(color: Colors.black),
+                            //       )
+                            //     ],
+                            //   ),
+                            // ),
+                            // 40.verticalSpace,
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     Get.toNamed(RouteName.paymentMethodScreen);
+                            //     // Get.to(() => goalsHistoryScreen());
+                            //   },
+                            //   child: Row(
+                            //     children: [
+                            //       40.horizontalSpace,
+                            //       Image.asset(
+                            //         ImageAssets.drawerPaymentMethod,
+                            //         scale: 3,
+                            //       ),
+                            //       20.horizontalSpace,
+                            //       Text(
+                            //         "Payment Method",
+                            //         style: TextStyle(color: Colors.black),
+                            //       )
+                            //     ],
+                            //   ),
+                            // ),
                             40.verticalSpace,
                             GestureDetector(
                               onTap: () {

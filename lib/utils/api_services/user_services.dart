@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_is_empty
 
 import 'dart:convert';
 import 'dart:developer';
@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import "package:http/http.dart" as http;
-import 'package:local_saviors/controllers/user_controllers/home_screen_controller.dart';
-import 'package:local_saviors/controllers/user_controllers/user_profile_screen_controller.dart';
 import 'package:local_saviors/models/bookmark_model.dart';
 import 'package:local_saviors/models/job_performer_model/job_performer_model.dart';
 import 'package:local_saviors/models/job_performer_model/performer_all_jobs_model.dart';
@@ -15,16 +13,16 @@ import 'package:local_saviors/models/job_provider_model/JobsModel.dart';
 import 'package:local_saviors/models/performer_model/performer_model.dart';
 import 'package:local_saviors/resources/components/bottom_navbar.dart';
 import 'package:local_saviors/resources/components/p_bottom_nav_bar.dart';
-
+import 'package:http_parser/http_parser.dart' as parser;
 import 'package:local_saviors/utils/api_services/app_urls.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
-import '../../controllers/professional_controllers/p_home_controller.dart';
 import '../../controllers/user_controllers/posted_job_screen_controller.dart';
 import '../../models/job_provider_model/job_provider_model.dart';
 import '../../resources/ prefrences/auth_prefrences.dart';
+import '../../resources/components/imagepicker_component.dart';
 import '../../screens/general_screens/create_profile_screen/create_profile__two_controller.dart';
 import '../routes/route_arguments.dart';
 
@@ -39,6 +37,8 @@ class UserServices {
   // final userProfile = Get.put(UserProfileScreenController());
   // final performerController = Get.put(PHomeController());
   final createProfileController = Get.put(CreatePorfileTwoController());
+  final imagePickerController = Get.put(ImagePickerController());
+
   loginService({required String userEmail, required String password, required context}) async {
     try {
       showDialog(
@@ -430,13 +430,24 @@ class UserServices {
         'longitude': '4234324234',
         'latitude': '342423423',
         'gender': gender.toUpperCase(),
-        'worker_type': 'PROFESSIONAL',
+        'worker_type': role.value,
       });
 
       for (var i = 0; i < professionIds.length; i++) {
         request.fields.addAll({"professions[$i]": professionIds[i]['id']});
       }
       request.files.add(await http.MultipartFile.fromPath('profile_picture', image));
+      if (imagePickerController.selectedImages.length > 0) {
+        for (var i = 0; i < imagePickerController.selectedImages.length; i++) {
+          var multipartFile = await http.MultipartFile.fromPath(
+            'documents',
+            imagePickerController.selectedImages[i].path,
+            filename: imagePickerController.selectedImages[i].path.split('/').last,
+            contentType: parser.MediaType("image", "${imagePickerController.selectedImages[i].path.split('.').last}"),
+          );
+          request.files.add(multipartFile);
+        }
+      }
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
