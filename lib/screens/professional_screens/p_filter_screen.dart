@@ -11,7 +11,6 @@ import 'package:local_saviors/resources/components/text_fields.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
-
 import '../../resources/map/map_screen.dart';
 import '../../utils/routes/routes.dart';
 
@@ -90,20 +89,184 @@ class PFilterScreen extends GetWidget<PFilterController> {
                       () => Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          EditText(
-                              width: 0.26.sw,
-                              hintText: "00",
-                              context: context,
-                              isDropDown: true,
-                              suffixIcon: ImageAssets.arrowDown,
-                              bordercolor: Colors.transparent),
-                          EditText(
-                              width: 0.26.sw,
-                              hintText: "00",
-                              context: context,
-                              isDropDown: true,
-                              suffixIcon: ImageAssets.arrowDown,
-                              bordercolor: Colors.transparent),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 0.28.sw,
+                                height: 0.07.sh,
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.symmetric(horizontal: 18),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: const Color(0xffDBE2EC)),
+                                  color: Colors.white,
+                                ),
+                                child: DropdownButtonFormField<String>(
+                                  decoration: InputDecoration(
+                                    suffixIcon: Container(
+                                      child: Image.asset(
+                                        ImageAssets.arrowDown,
+                                        scale: 2.5,
+                                      ),
+                                    ),
+                                    hintText: "00",
+                                    hintStyle: const TextStyle(
+                                      color: Color(0xffA5A5A5),
+                                    ), // Use hintText instead of labelText
+                                    border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.only(bottom: 0, top: 7.0),
+                                  ),
+                                  // value: controller.selectedHours,
+                                  icon: const SizedBox.shrink(),
+                                  items: [
+                                    '00',
+                                    '01',
+                                    '02',
+                                    '03',
+                                    '04',
+                                    '05',
+                                    '06',
+                                    '07',
+                                    '08',
+                                    '09',
+                                    '10',
+                                    '11',
+                                    '12',
+                                    '13',
+                                    '14',
+                                    '15',
+                                    '16',
+                                    '17',
+                                    '18',
+                                    '19',
+                                    '20',
+                                    '21',
+                                    '22',
+                                    '23',
+                                  ]
+                                      .map((gender) => DropdownMenuItem(
+                                            value: gender,
+                                            child: Text(
+                                              gender,
+                                              style: TextStyle(fontSize: 14.sp, color: const Color(0xffA5A5A5)),
+                                            ),
+                                          ))
+                                      .toList(),
+                                  onChanged: (value) {
+                                    controller.selectedHours = value;
+                                  },
+                                ),
+                              ),
+                              Container(
+                                height: 0.07.sh,
+                                width: 0.28.sw,
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.symmetric(horizontal: 18),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: const Color(0xffDBE2EC)),
+                                  color: Colors.white,
+                                ),
+                                child: DropdownButtonFormField<String>(
+                                  decoration: InputDecoration(
+                                    suffixIcon: Container(
+                                      child: Image.asset(
+                                        ImageAssets.arrowDown,
+                                        scale: 2.5,
+                                      ),
+                                    ),
+                                    hintText: "00",
+                                    hintStyle: const TextStyle(
+                                      color: Color(0xffA5A5A5),
+                                    ), // Use hintText instead of labelText
+                                    border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.only(bottom: 0, top: 7.0),
+                                  ),
+                                  // value: controller.selectedMints,
+                                  icon: const SizedBox.shrink(),
+                                  items: [
+                                    '00',
+                                    '01',
+                                    '02',
+                                    '03',
+                                    '04',
+                                    '05',
+                                    '06',
+                                    '07',
+                                    '08',
+                                    '09',
+                                    '10',
+                                    '11',
+                                    '12',
+                                    '13',
+                                    '14',
+                                    '15',
+                                    '16',
+                                    '17',
+                                    '18',
+                                    '19',
+                                    '20',
+                                    '21',
+                                    '22',
+                                    '23',
+                                    '24',
+                                    '25',
+                                    '26',
+                                    '27',
+                                    '28',
+                                    '29',
+                                    '30',
+                                    '31',
+                                    '32',
+                                    '33',
+                                    '34',
+                                    '35',
+                                    '36',
+                                    '37',
+                                    '38',
+                                    '39',
+                                    '40',
+                                    '41',
+                                    '42',
+                                    '43',
+                                    '44',
+                                    '45',
+                                    '46',
+                                    '47',
+                                    '48',
+                                    '49',
+                                    '50',
+                                    '51',
+                                    '52',
+                                    '53',
+                                    '54',
+                                    '55',
+                                    '56',
+                                    '57',
+                                    '58',
+                                    '59'
+                                  ]
+                                      .map((gender) => DropdownMenuItem(
+                                            value: gender,
+                                            child: Text(
+                                              gender,
+                                              style: TextStyle(fontSize: 14.sp, color: const Color(0xffA5A5A5)),
+                                            ),
+                                          ))
+                                      .toList(),
+                                  onChanged: (value) {
+                                    controller.selectedMints = value;
+
+                                    controller.selectedTimeWithDate.value = controller.selectedDate
+                                        .add(Duration(
+                                            hours: int.parse(controller.selectedHours ?? "00"), minutes: int.parse(controller.selectedMints ?? "00")))
+                                        .toIso8601String();
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
 
                           InkWell(
                             onTap: () {

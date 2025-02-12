@@ -9,6 +9,7 @@ late HomeScreenController hsController;
 late PHomeController phController;
 RxString role = "".obs;
 bool isProfileCreated = false;
+bool isHandyMan = false;
 RxString email = "".obs;
 var OTP;
 // RxString pass = "".obs;

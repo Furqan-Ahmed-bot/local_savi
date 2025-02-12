@@ -31,32 +31,36 @@ class PSearchResultScreen extends GetWidget<PSearchResultController> {
                       ? Center(
                           child: spinkit,
                         )
-                      : Column(
-                          children: [
-                            // 20.h.verticalSpace,
-                            Column(
-                              children: List.generate(
-                                  filterrController.filteredJobs.length,
-                                  (index) => InkWell(
-                                      onTap: () {
-                                        Get.toNamed(RouteName.pJobsDetailScreenPath, arguments: {
-                                          "showBottomButton": true,
-                                          "status": "Job Open",
-                                          "showActionButton": true,
-                                          "bottomButtonText": "Apply Now",
-                                          "jobId": filterrController.filteredJobs[index]['id']
-                                        });
-                                      },
-                                      child: applyJobCard(
-                                          context: context,
-                                          title: filterrController.filteredJobs[index]['title'],
-                                          desc: filterrController.filteredJobs[index]['description'],
-                                          budget: filterrController.filteredJobs[index]['budget'].toString(),
-                                          date: filterrController.filteredJobs[index]['job_date'],
-                                          time: filterrController.filteredJobs[index]['start_time']))),
+                      : filterrController.filteredJobs.isEmpty
+                          ? Center(
+                              child: Text('No Jobs Found'),
                             )
-                          ],
-                        )
+                          : Column(
+                              children: [
+                                // 20.h.verticalSpace,
+                                Column(
+                                  children: List.generate(
+                                      filterrController.filteredJobs.length,
+                                      (index) => InkWell(
+                                          onTap: () {
+                                            Get.toNamed(RouteName.pJobsDetailScreenPath, arguments: {
+                                              "showBottomButton": true,
+                                              "status": "Job Open",
+                                              "showActionButton": true,
+                                              "bottomButtonText": "Apply Now",
+                                              "jobId": filterrController.filteredJobs[index]['id']
+                                            });
+                                          },
+                                          child: applyJobCard(
+                                              context: context,
+                                              title: filterrController.filteredJobs[index]['title'],
+                                              desc: filterrController.filteredJobs[index]['description'],
+                                              budget: filterrController.filteredJobs[index]['budget'].toString(),
+                                              date: filterrController.filteredJobs[index]['job_date'],
+                                              time: filterrController.filteredJobs[index]['start_time']))),
+                                )
+                              ],
+                            )
                 ],
               ),
             )),

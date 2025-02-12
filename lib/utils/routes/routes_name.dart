@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:local_saviors/resources/components/bottom_navbar.dart';
 import 'package:local_saviors/resources/components/p_bottom_nav_bar.dart';
+import 'package:local_saviors/screens/general_screens/create_profile_screen/create_handyman_profile.dart';
 
 import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_screen.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_two_screen.dart';
@@ -238,6 +239,12 @@ class AppRoutes {
           transitionDuration: Duration(milliseconds: 250),
         ),
         GetPage(
+          name: RouteName.createHandyManProfilePath,
+          page: () => CreateHandymanProfile(),
+          binding: ScreenBindings(),
+          transitionDuration: Duration(milliseconds: 250),
+        ),
+        GetPage(
           name: RouteName.splashScreen,
           page: () => SplashScreen(),
           binding: ScreenBindings(),
@@ -260,11 +267,7 @@ class AppRoutes {
             binding: ScreenBindings()
             // transition: Transition.leftToRightWithFade,
             ),
-        GetPage(
-            name: RouteName.signup,
-            page: () => SignupScreen(),
-            transitionDuration: Duration(milliseconds: 250),
-            binding: ScreenBindings()
+        GetPage(name: RouteName.signup, page: () => SignupScreen(), transitionDuration: Duration(milliseconds: 250), binding: ScreenBindings()
 
             // transition: Transition.leftToRightWithFade,
             ),
@@ -273,21 +276,13 @@ class AppRoutes {
             page: () => ResetPasswordScreen(),
             transitionDuration: Duration(milliseconds: 250),
             binding: ScreenBindings()),
-        GetPage(
-            name: RouteName.prelogin,
-            page: () => PreLoginScreen(),
-            transitionDuration: Duration(milliseconds: 250),
-            binding: ScreenBindings()),
+        GetPage(name: RouteName.prelogin, page: () => PreLoginScreen(), transitionDuration: Duration(milliseconds: 250), binding: ScreenBindings()),
         GetPage(
             name: RouteName.addFundsScreenPath,
             page: () => AddFundsScreen(),
             transitionDuration: Duration(milliseconds: 250),
             binding: ScreenBindings()),
-        GetPage(
-            name: RouteName.login,
-            page: () => LoginScreen(),
-            transitionDuration: Duration(milliseconds: 250),
-            binding: ScreenBindings()),
+        GetPage(name: RouteName.login, page: () => LoginScreen(), transitionDuration: Duration(milliseconds: 250), binding: ScreenBindings()),
         GetPage(
             name: RouteName.forgetPassword,
             page: () => ForgetPasswordScreen(),

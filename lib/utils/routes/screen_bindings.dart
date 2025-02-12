@@ -48,6 +48,7 @@ import 'package:local_saviors/controllers/user_controllers/user_profile_screen_c
 import 'package:local_saviors/controllers/user_controllers/user_request_screen_controller.dart';
 import 'package:local_saviors/resources/components/bottom_navbar.dart';
 import 'package:local_saviors/resources/components/p_bottom_nav_bar.dart';
+import 'package:local_saviors/screens/general_screens/create_profile_screen/create_handyman_profile_controller.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile__two_controller.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_controller.dart';
 import 'package:local_saviors/screens/general_screens/forget_password_screen/forget_password_controller.dart';
@@ -77,6 +78,8 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => ResetPasswordController());
     Get.lazyPut(() => OtpVerificationController());
     Get.lazyPut(() => CreatePorfileTwoController());
+    Get.lazyPut(() => CreateHandymanPorfileController());
+
     Get.lazyPut(() => RoleTwoController());
 
     Get.lazyPut(() => NotificationScreenController());

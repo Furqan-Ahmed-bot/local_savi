@@ -7,6 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
+import 'package:local_saviors/screens/general_screens/create_profile_screen/create_handyman_profile.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_controller.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/phone_textform_widget/phone_textformwidget.dart';
 import 'package:local_saviors/utils/color_utils.dart';
@@ -359,8 +360,10 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                         onPress: () {
                           if (role.value == 'USER') {
                             controller.validation(context);
-                          } else {
+                          } else if (role.value == 'PROFESSIONAL') {
                             Get.toNamed(RouteName.cretaetProfileTwoPath);
+                          } else {
+                            Get.toNamed(RouteName.createHandyManProfilePath);
                           }
                         }),
                     25.verticalSpace

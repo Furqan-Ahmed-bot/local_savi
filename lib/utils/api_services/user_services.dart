@@ -403,7 +403,8 @@ class UserServices {
       required String about,
       required String image,
       required String workertype,
-      required List professionIds}) async {
+      required List professionIds,
+      required List categoryIds}) async {
     try {
       // log(createProfileController.professionIds.toString());
       showDialog(
@@ -433,9 +434,18 @@ class UserServices {
         'worker_type': role.value,
       });
 
-      for (var i = 0; i < professionIds.length; i++) {
-        request.fields.addAll({"professions[$i]": professionIds[i]['id']});
+      if (professionIds.length > 0) {
+        for (var i = 0; i < professionIds.length; i++) {
+          request.fields.addAll({"professions[$i]": professionIds[i]['id']});
+        }
       }
+
+      if (categoryIds.length > 0) {
+        for (var i = 0; i < categoryIds.length; i++) {
+          request.fields.addAll({"categories[$i]": categoryIds[i]['id']});
+        }
+      }
+
       request.files.add(await http.MultipartFile.fromPath('profile_picture', image));
       if (imagePickerController.selectedImages.length > 0) {
         for (var i = 0; i < imagePickerController.selectedImages.length; i++) {
@@ -451,6 +461,7 @@ class UserServices {
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
+      var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
         Get.back();
@@ -459,6 +470,7 @@ class UserServices {
           Get.to(() => PBottomNavBar());
         });
       } else {
+        responseData['message'];
         log(response.toString());
         Get.back();
       }
@@ -495,7 +507,7 @@ class UserServices {
               Get.toNamed(RouteName.createProfile);
             }
           }
-        } else if (role.value == 'PERFORMER' || role.value == 'PROFESSIONAL') {
+        } else if (role.value == 'PERFORMER' || role.value == 'PROFESSIONAL' || role.value == "HANDYMAN") {
           await phController.setPerformerData(PerformerModel.fromJson(jsonResponse['data']));
           phController.isLaoding.value = true;
           phController.listOfJobs = await getPerformerJobs();
@@ -605,8 +617,8 @@ class UserServices {
         'budget_type': budgetType, //FIXED
         'budget': budget.toString(),
         'address': address,
-        'state': state,
-        'city': city
+        'state': 'New York',
+        'city': 'New York'
       };
       request.fields.addAll(body);
 

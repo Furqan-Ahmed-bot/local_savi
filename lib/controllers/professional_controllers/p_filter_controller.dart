@@ -18,6 +18,7 @@ class PFilterController extends GetxController {
   var lat = 24.535;
   var long = 66.5;
   RxBool isLoading = false.obs;
+
   List filteredJobs = [];
   RxBool isAm = false.obs;
   RxDouble startDistance = 20.0.obs;
@@ -32,7 +33,12 @@ class PFilterController extends GetxController {
   RxDouble endPrice = 200.0.obs;
   RxDouble maxBudget = 150.0.obs;
 
+  String? selectedHours = '00';
+  String? selectedMints = '00';
+
   DateTime selectedDate = DateTime.now();
+  RxString selectedTimeWithDate = "".obs;
+
   var selectedDateFormat;
   var myFormat = DateFormat('MM/dd/yyyy');
   TextEditingController dateController = TextEditingController();
@@ -80,7 +86,7 @@ class PFilterController extends GetxController {
       if (jobTitleController.text.isNotEmpty) 'title': jobTitleController.text,
       if (keywordController.text.isNotEmpty) 'keyword': keywordController.text,
       if (selectedDateFormat != null) 'job_date': selectedDateFormat.toIso8601String(),
-      // if (startTime != null) 'start_time': startTime.toIso8601String(),
+      if (selectedTimeWithDate.value.isNotEmpty) 'start_time': "${selectedTimeWithDate.value}Z",
       if (lat != null) 'latitude': lat.toString(),
       if (long != null) 'longitude': long.toString(),
       if (minRadius.value != 0.0) 'min_radius': minRadius.value.toString(),

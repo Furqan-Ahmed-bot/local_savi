@@ -81,6 +81,7 @@ class SelectUserRoleTwo extends GetWidget<RoleTwoController> {
               20.verticalSpace,
               SelectRoleWidget(
                 onTap: () {
+                  isHandyMan = true;
                   role.value = "HANDYMAN";
 
                   Get.toNamed(RouteName.prelogin);

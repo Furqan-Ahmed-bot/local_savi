@@ -1,6 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors, sized_box_for_whitespace, avoid_unnecessary_containers
 
-import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
@@ -35,7 +34,7 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                     if (controller.dateController.text.isNotEmpty) {
                       if (controller.descEditingController.text.isNotEmpty) {
                         if (controller.addressEditingController.text.isNotEmpty) {
-                          if (controller.state.value != "") {
+                          if (controller.latitide != null) {
                             if (controller.listOfImages.isNotEmpty) {
                               controller.stepIndex.value = controller.stepIndex.value + 1;
                               controller.update();
@@ -49,7 +48,7 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                           } else {
                             Get.snackbar(
                               "Alert",
-                              "Please select State",
+                              "Please select Location",
                               backgroundColor: ColorUtils.white,
                             );
                           }
@@ -734,46 +733,46 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                             context: context,
                             controller: controller.addressEditingController,
                             bordercolor: Colors.transparent),
-                        10.verticalSpace,
-                        InkWell(
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                          },
-                          child: CSCPicker(
-                            showStates: true,
-                            showCities: true,
-                            dropdownDecoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                color: Colors.white,
-                                border: Border.all(color: Colors.grey.shade300, width: 1)),
-                            countrySearchPlaceholder: "Country",
-                            stateSearchPlaceholder: "State",
-                            citySearchPlaceholder: "City",
-                            countryDropdownLabel: "Country",
-                            stateDropdownLabel: "State",
-                            cityDropdownLabel: "City",
-                            defaultCountry: CscCountry.United_States,
-                            disableCountry: true,
-                            selectedItemStyle: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                            ),
-                            dropdownHeadingStyle: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold),
-                            dropdownItemStyle: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                            ),
-                            dropdownDialogRadius: 10.0,
-                            searchBarRadius: 10.0,
-                            onCountryChanged: (value) {},
-                            onStateChanged: (value) {
-                              controller.state.value = value.toString();
-                            },
-                            onCityChanged: (value) {
-                              controller.city.value = value.toString();
-                            },
-                          ),
-                        ),
+                        // 10.verticalSpace,
+                        // InkWell(
+                        //   onTap: () {
+                        //     FocusScope.of(context).unfocus();
+                        //   },
+                        //   child: CSCPicker(
+                        //     showStates: true,
+                        //     showCities: true,
+                        //     dropdownDecoration: BoxDecoration(
+                        //         borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        //         color: Colors.white,
+                        //         border: Border.all(color: Colors.grey.shade300, width: 1)),
+                        //     countrySearchPlaceholder: "Country",
+                        //     stateSearchPlaceholder: "State",
+                        //     citySearchPlaceholder: "City",
+                        //     countryDropdownLabel: "Country",
+                        //     stateDropdownLabel: "State",
+                        //     cityDropdownLabel: "City",
+                        //     defaultCountry: CscCountry.United_States,
+                        //     disableCountry: true,
+                        //     selectedItemStyle: const TextStyle(
+                        //       color: Colors.black,
+                        //       fontSize: 14,
+                        //     ),
+                        //     dropdownHeadingStyle: const TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold),
+                        //     dropdownItemStyle: const TextStyle(
+                        //       color: Colors.black,
+                        //       fontSize: 14,
+                        //     ),
+                        //     dropdownDialogRadius: 10.0,
+                        //     searchBarRadius: 10.0,
+                        //     onCountryChanged: (value) {},
+                        //     onStateChanged: (value) {
+                        //       controller.state.value = value.toString();
+                        //     },
+                        //     onCityChanged: (value) {
+                        //       controller.city.value = value.toString();
+                        //     },
+                        //   ),
+                        // ),
                         10.verticalSpace,
                         Text(
                           "Add Location",

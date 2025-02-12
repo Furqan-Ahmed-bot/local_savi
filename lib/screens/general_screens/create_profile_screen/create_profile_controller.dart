@@ -10,6 +10,7 @@ import 'package:local_saviors/utils/constant.dart';
 
 import '../../../utils/api_services/user_services.dart';
 import '../../../utils/color_utils.dart';
+import 'create_handyman_profile_controller.dart';
 import 'create_profile__two_controller.dart';
 
 class CreateProfileController extends GetxController {
@@ -22,6 +23,7 @@ class CreateProfileController extends GetxController {
   TextEditingController emailcontroller = TextEditingController(text: email.value);
   TextEditingController phonecontroller = TextEditingController();
   final createProfileTwoController = Get.put(CreatePorfileTwoController());
+  final createHandyManProfileController = Get.put(CreateHandymanPorfileController());
 
   var latitide;
   var longitude;
@@ -116,8 +118,12 @@ class CreateProfileController extends GetxController {
             about: aboutcontroller.text,
             image: image!.path.toString());
       } else {
-        if (createProfileTwoController.professionIds.isEmpty) {
-          return Get.snackbar("Alert", "Please Select Profession", backgroundColor: ColorUtils.white);
+        if (role.value == 'PROFFESIONAL') {
+          if (createProfileTwoController.professionIds.isEmpty) {
+            return Get.snackbar("Alert", "Please Select Profession", backgroundColor: ColorUtils.white);
+          } else {
+            return Get.snackbar("Alert", "Please Select Categories", backgroundColor: ColorUtils.white);
+          }
         } else {
           UserServices.instance.createJobPerformerProfile(
               context: context,
@@ -134,7 +140,8 @@ class CreateProfileController extends GetxController {
               about: aboutcontroller.text,
               image: image!.path.toString(),
               workertype: role.value,
-              professionIds: createProfileTwoController.professionIds);
+              professionIds: createProfileTwoController.professionIds,
+              categoryIds: createHandyManProfileController.professionIds);
         }
       }
     } catch (e) {

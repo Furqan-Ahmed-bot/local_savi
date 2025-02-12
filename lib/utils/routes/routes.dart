@@ -11,13 +11,13 @@ class RouteName {
   static const String resetPassword = '/resetPassword';
   static const String prelogin = '/prelogin';
   static const String cretaetProfileTwoPath = '/cretaetProfileTwoPath';
+  static const String createHandyManProfilePath = '/createHandyManProfilePath';
 
   static const String homeScreenPath = '/homeScreenPath';
   static const String jobsScreenPath = '/jobsScreenPath';
   static const String notificationsScreenPath = '/notificationsScreenPath';
   static const String bestPerformerScreenPath = '/bestPerformerScreenPath';
-  static const String bestPerformerDetailScreenPath =
-      '/bestPerformerDetailScreenPath';
+  static const String bestPerformerDetailScreenPath = '/bestPerformerDetailScreenPath';
   static const String userRequestScreenPath = '/userRequestScreenPath';
   static const String messagesScreenPath = '/messagesScreenPaths';
   static const String bottomNavBarScreenPath = '/bottomNavBarScreenPath';
@@ -36,12 +36,9 @@ class RouteName {
   static const String rescheduleJobScreenPath = '/rescheduleJobScreenPath';
   static const String rescheduleCardsScreenPath = '/rescheduleCardsScreenPath';
   static const String createJobPostScreenPath = '/createJobPostScreenPath';
-  static const String ongoingJobDetailScreenPath =
-      '/ongoingJobDetailScreenPath';
-  static const String upcomingJobDetailScreenPath =
-      '/upcomingJobDetailScreenPath';
-  static const String ratingAndReviewsScreenPath =
-      '/ratingAndReviewsScreenPath';
+  static const String ongoingJobDetailScreenPath = '/ongoingJobDetailScreenPath';
+  static const String upcomingJobDetailScreenPath = '/upcomingJobDetailScreenPath';
+  static const String ratingAndReviewsScreenPath = '/ratingAndReviewsScreenPath';
 
 //professional
   static const String pHomeScreenPath = '/pHomeScreenPath';
@@ -58,8 +55,7 @@ class RouteName {
   static const String psearchResultScreenPath = '/psearchResultScreenPath';
   static const String psearchFilterScreenPath = '/psearchFilterScreenPath';
   static const String pchatScreenPath = '/pchatScreenPath';
-  static const String pMessageDashboardScreenPath =
-      '/pMessageDashboardScreenPath';
+  static const String pMessageDashboardScreenPath = '/pMessageDashboardScreenPath';
   static const String walletScreen = '/walletScreen';
   static const String addBankScreen = '/addBankScreen';
   static const String providerWalletScreen = '/providerwalletScreen';
@@ -71,6 +67,5 @@ class RouteName {
   static const String aboutScreenPath = '/aboutScreenPath';
   static const String privacyPolicyScreenPath = '/privacyPolicyScreenPath';
   static const String changePassScreenPath = '/changePassScreenPath';
-  static const String termsAndConditionScreenPath =
-      '/termsAndConditionScreenPath';
+  static const String termsAndConditionScreenPath = '/termsAndConditionScreenPath';
 }
