@@ -207,7 +207,8 @@ Widget buildWalletBalanceCard(BuildContext context, {required String balance, Vo
                 side: BorderSide(
                   color: Colors.white.withOpacity(0.1),
                 )),
-            child: Text('Connect', style: TextStyle(color: Colors.white, fontSize: 11)),
+            child: Text(phController.performerdata.userDetails?.isStripeVerified == true ? 'Connected' : 'Connect',
+                style: TextStyle(color: Colors.white, fontSize: 11)),
           ),
         ),
       ],

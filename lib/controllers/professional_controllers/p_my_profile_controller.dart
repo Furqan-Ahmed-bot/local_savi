@@ -39,8 +39,10 @@ class PMyProfileController extends GetxController {
         AuthPreferences.saveAuthTokenAndRole(token.value, jsonResponse['data']['user_type'], refreshToken.value);
         setUserData(PerformerModel.fromJson(jsonResponse['data']));
         String skills = "";
-        for (int i = 0; i < performerdata.professions!.length; i++) {
-          skills = "$skills ${performerdata.professions![i].professionName}";
+        if (performerdata.professions != null) {
+          for (int i = 0; i < performerdata.professions!.length; i++) {
+            skills = "$skills ${performerdata.professions![i].professionName}";
+          }
         }
 
         dummyData = [
@@ -95,5 +97,5 @@ class PMyProfileController extends GetxController {
     }
   }
 
-  late List dummyData;
+  List dummyData = [];
 }

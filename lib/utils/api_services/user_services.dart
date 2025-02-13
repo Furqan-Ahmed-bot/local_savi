@@ -521,8 +521,6 @@ class UserServices {
             // } else {
             //   Get.toNamed(RouteName.createProfile);
             // }
-          } else {
-            Get.to(() => PBottomNavBar());
           }
         }
       } else {

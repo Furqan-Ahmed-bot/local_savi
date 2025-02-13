@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_collection_literals, unnecessary_string_interpolations
 
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -8,11 +8,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class ShowMapScreen extends StatefulWidget {
   final bool? isProfile;
   final LatLng? initialLocation;
-  const ShowMapScreen({
-    super.key,
-    this.initialLocation,
-    this.isProfile,
-  });
+  final address;
+  const ShowMapScreen({super.key, this.initialLocation, this.isProfile, this.address});
   @override
   _ShowMapScreenState createState() => _ShowMapScreenState();
 }
@@ -25,6 +22,7 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
   @override
   void initState() {
     super.initState();
+
     // Initialize selectedLocation with the initialLocation provided
     selectedLocation = widget.initialLocation;
   }
@@ -32,6 +30,10 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Container(
+        height: 100,
+        child: Center(child: Text('${widget.address}')),
+      ),
       appBar: AppBar(
         title: Text(widget.isProfile == true ? 'Your Location' : 'Select Location'),
         actions: [
@@ -52,6 +54,8 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
       body: Stack(
         children: [
           GoogleMap(
+            rotateGesturesEnabled: true,
+            scrollGesturesEnabled: true,
             onMapCreated: (controller) {
               print("Map created: $controller");
               _controller.complete(controller);
@@ -112,7 +116,7 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
                       ],
                     ),
                   ),
-                )
+                ),
         ],
       ),
     );

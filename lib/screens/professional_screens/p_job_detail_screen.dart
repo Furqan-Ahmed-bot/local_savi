@@ -2,11 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_job_detail_controller.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
+import 'package:local_saviors/resources/map/map_screen.dart';
+import 'package:local_saviors/resources/map/show_map_screen.dart';
 import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
@@ -379,13 +383,42 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                             ),
                                           ),
                                           5.w.horizontalSpace,
-                                          Text(
-                                            "(View Map)",
-                                            style: TextStyle(
-                                                fontSize: 14.sp,
-                                                color: ColorUtils.red,
-                                                decorationColor: ColorUtils.red,
-                                                decoration: TextDecoration.underline),
+                                          InkWell(
+                                            onTap: () async {
+                                              String address = '';
+                                              List<Placemark> placemarks = await placemarkFromCoordinates(
+                                                  double.parse(controller.jobDetailDatail['latitude']),
+                                                  double.parse(
+                                                    controller.jobDetailDatail['longitude'],
+                                                  ));
+
+                                              if (placemarks.isNotEmpty) {
+                                                Placemark place = placemarks[0];
+                                                address =
+                                                    '${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.country}';
+                                                print("Address: $address");
+
+                                                // You can display the address in a dialog, snackbar, or any widget
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  SnackBar(content: Text('Selected Location: $address')),
+                                                );
+                                              }
+
+                                              Get.to(() => ShowMapScreen(
+                                                    address: address,
+                                                    isProfile: true,
+                                                    initialLocation: LatLng(double.parse(controller.jobDetailDatail['latitude']),
+                                                        double.parse(controller.jobDetailDatail['longitude'])),
+                                                  ));
+                                            },
+                                            child: Text(
+                                              "(View Map)",
+                                              style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  color: ColorUtils.red,
+                                                  decorationColor: ColorUtils.red,
+                                                  decoration: TextDecoration.underline),
+                                            ),
                                           ),
                                         ],
                                       ),
