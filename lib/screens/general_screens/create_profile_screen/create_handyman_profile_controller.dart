@@ -37,7 +37,9 @@ class CreateHandymanPorfileController extends GetxController {
       proffesionsName.clear(); // Clear the list before adding new items
       proffesionsName.add('Select Category'); // Add "Select Profession" only once
       for (var i = 0; i < resData['data'].length; i++) {
-        proffesionsName.add(resData['data'][i]['category_name']);
+        if (!proffesionsName.contains(resData['data'][i]['category_name'])) {
+          proffesionsName.add(resData['data'][i]['category_name']);
+        }
       }
     } else {
       isLoading.value = false;

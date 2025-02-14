@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_if_null_operators
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -64,6 +66,8 @@ class EditProfileScreenController extends GetxController {
   DateTime selectedDate = DateTime.now();
   var myFormat = DateFormat('MM/dd/yyyy');
   TextEditingController dateController = TextEditingController();
+  var lat;
+  var long;
 
   Future getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -91,8 +95,8 @@ class EditProfileScreenController extends GetxController {
                         dob: selectedDate.toIso8601String(),
                         address: addresscontroller.text,
                         location: locationcontroller.text,
-                        lat: "23.2323",
-                        long: "68.6868",
+                        lat: lat != null ? lat : userdata.userDetails!.latitude,
+                        long: long != null ? lat : userdata.userDetails!.longitude,
                         email: emailcontroller.text,
                         phone: phonecontroller.text,
                         context: Get.context);
@@ -107,8 +111,8 @@ class EditProfileScreenController extends GetxController {
                     dob: selectedDate.toIso8601String(),
                     address: addresscontroller.text,
                     location: locationcontroller.text,
-                    lat: "23.2323",
-                    long: "68.6868",
+                    lat: lat != null ? lat : userdata.userDetails!.latitude,
+                    long: long != null ? lat : userdata.userDetails!.longitude,
                     email: emailcontroller.text,
                     phone: phonecontroller.text,
                     context: Get.context);

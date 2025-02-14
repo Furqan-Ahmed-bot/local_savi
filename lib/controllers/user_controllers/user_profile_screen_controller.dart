@@ -21,6 +21,7 @@ class UserProfileScreenController extends GetxController {
     update();
 
     print(userdata.email);
+    print(userdata.userDetails!.latitude);
   }
 
   getData() async {

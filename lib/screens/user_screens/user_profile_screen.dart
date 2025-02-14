@@ -140,12 +140,15 @@ class UserProfileScreen extends GetWidget<UserProfileScreenController> {
                                             // _controller.complete(controller);
                                           },
                                           initialCameraPosition: CameraPosition(
-                                            target: LatLng(0.3076178580522537, 5.718024496988206),
+                                            target: LatLng(double.parse(controller.userdata.userDetails!.latitude.toString()),
+                                                double.parse(controller.userdata.userDetails!.longitude.toString())),
                                             zoom: 5,
                                           ),
                                           onTap: (latLng) async {
-                                            LatLng? result =
-                                                await Get.to(() => MapScreen(initialLocation: LatLng(0.3076178580522537, 5.718024496988206)));
+                                            LatLng? result = await Get.to(() => ShowMapScreen(
+                                                isProfile: true,
+                                                initialLocation: LatLng(double.parse(controller.userdata.userDetails!.latitude.toString()),
+                                                    double.parse(controller.userdata.userDetails!.longitude.toString()))));
                                             // LatLng? result = await
                                             // Get.to(
                                             //   () => ShowMapScreen(
@@ -167,18 +170,6 @@ class UserProfileScreen extends GetWidget<UserProfileScreenController> {
                                             //   }
                                             // }
                                           },
-                                          markers: Set<Marker>.from([
-                                            // if (LatLng( 0.3076178580522537,  5.718024496988206) !=
-                                            //     null)
-                                            Marker(
-                                              markerId: MarkerId('selected_location'),
-                                              position: LatLng(0.3076178580522537, 5.718024496988206),
-                                            ),
-                                          ]),
-                                          circles: circles,
-                                          myLocationEnabled: true,
-                                          myLocationButtonEnabled: false,
-                                          zoomControlsEnabled: true,
                                         ),
                                       ),
                                     ),

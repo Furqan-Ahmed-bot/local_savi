@@ -698,18 +698,19 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                           //   scale: 2,
                                           // ),
                                           ),
-                                      InkWell(
-                                        onTap: () {
-                                          controller.listOfImages.removeAt(i);
-                                          controller.update();
-                                        },
-                                        child: Positioned(
-                                            top: 10.h,
-                                            right: 10.w,
-                                            child: Image.asset(
-                                              ImageAssets.helpFeedbackCUt,
-                                              scale: 2.5,
-                                            )),
+                                      Positioned(
+                                        top: 10.h,
+                                        right: 10.w,
+                                        child: InkWell(
+                                          onTap: () {
+                                            controller.listOfImages.removeAt(i);
+                                            controller.update();
+                                          },
+                                          child: Image.asset(
+                                            ImageAssets.helpFeedbackCUt,
+                                            scale: 2.5,
+                                          ),
+                                        ),
                                       )
                                     ],
                                   ),

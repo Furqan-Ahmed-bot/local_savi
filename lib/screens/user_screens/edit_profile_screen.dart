@@ -1,7 +1,9 @@
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:local_saviors/controllers/user_controllers/edit_profile_screen_controller.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/phone_textform_widget/phone_textformwidget.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/textfromfield_widget/textformfield_widget.dart';
@@ -10,8 +12,11 @@ import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 
 import '../../resources/components/round_button.dart';
+import '../../resources/map/show_map_screen.dart';
 
 class EditProfileScreen extends GetWidget<EditProfileScreenController> {
+  final Rx<LatLng> selectedLocation = LatLng(0.0, 0.0).obs;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,37 +60,24 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                             ? Container(
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  border: Border.all(
-                                      color: ColorUtils.red, width: 8),
+                                  border: Border.all(color: ColorUtils.red, width: 8),
                                 ),
                                 child: CircleAvatar(
                                   radius: 50,
-                                  backgroundImage: NetworkImage(
-                                      role.value == "USER"
-                                          ? controller.userdata.userDetails!
-                                                  .profilePicture ??
-                                              ""
-                                          : controller
-                                                  .performerdata
-                                                  .userDetails!
-                                                  .profilePicture ??
-                                              ""),
+                                  backgroundImage: NetworkImage(role.value == "USER"
+                                      ? controller.userdata.userDetails!.profilePicture ?? ""
+                                      : controller.performerdata.userDetails!.profilePicture ?? ""),
                                 ),
                               )
                             : Container(
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  border: Border.all(
-                                      color: ColorUtils.red, width: 8),
+                                  border: Border.all(color: ColorUtils.red, width: 8),
                                 ),
                                 child: CircleAvatar(
                                   radius: 50,
-                                  backgroundImage: controller.image != null
-                                      ? FileImage(controller.image!)
-                                      : null,
-                                  child: controller.image == null
-                                      ? Image.asset(ImageAssets.oliverImg)
-                                      : null,
+                                  backgroundImage: controller.image != null ? FileImage(controller.image!) : null,
+                                  child: controller.image == null ? Image.asset(ImageAssets.oliverImg) : null,
                                 ),
                               ),
                         Positioned(
@@ -141,10 +133,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                               letterSpacing: 0,
                             ),
                             border: InputBorder.none,
-                            contentPadding: const EdgeInsets.only(
-                                bottom: 12,
-                                top:
-                                    0.0), // this can adjust the label and text position
+                            contentPadding: const EdgeInsets.only(bottom: 12, top: 0.0), // this can adjust the label and text position
                             //or transparent
                           ),
                           textAlignVertical: TextAlignVertical.bottom,
@@ -175,10 +164,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                               letterSpacing: 0,
                             ),
                             border: InputBorder.none,
-                            contentPadding: const EdgeInsets.only(
-                                bottom: 12,
-                                top:
-                                    0.0), // this can adjust the label and text position
+                            contentPadding: const EdgeInsets.only(bottom: 12, top: 0.0), // this can adjust the label and text position
                             //or transparent
                           ),
                           textAlignVertical: TextAlignVertical.bottom,
@@ -209,8 +195,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                           color: Color(0xffA5A5A5),
                         ), // Use hintText instead of labelText
                         border: InputBorder.none,
-                        contentPadding:
-                            const EdgeInsets.only(bottom: 0, top: 7.0),
+                        contentPadding: const EdgeInsets.only(bottom: 0, top: 7.0),
                       ),
                       value: controller.selectedGender,
                       icon: const SizedBox.shrink(),
@@ -219,8 +204,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                                 value: gender,
                                 child: Text(
                                   gender,
-                                  style:
-                                      const TextStyle(color: Color(0xffA5A5A5)),
+                                  style: const TextStyle(color: Color(0xffA5A5A5)),
                                 ),
                               ))
                           .toList(),
@@ -252,61 +236,53 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                     },
                   ),
                   20.verticalSpace,
-                  InkWell(
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
+                  LabelTextFormFieldWidget(
+                    controller: cotnroller.locationcontroller,
+                    height: 50,
+                    labeltext: 'Location',
+                    issufficsenable: true,
+                    suffixicon: ImageAssets.userlocation,
+                    ontap: () {
+                      // controller.selectDate(context);
                     },
-                    child: CSCPicker(
-                      showStates: true,
-                      showCities: true,
-                      dropdownDecoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Colors.grey.shade300, width: 1)),
-                      countrySearchPlaceholder: "Country",
-                      stateSearchPlaceholder: "State",
-                      citySearchPlaceholder: "City",
-                      countryDropdownLabel: "Country",
-                      stateDropdownLabel: "State",
-                      cityDropdownLabel: "City",
-                      defaultCountry: CscCountry.United_States,
-                      disableCountry: true,
-                      selectedItemStyle: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
+                  ),
+                  20.verticalSpace,
+                  Container(
+                    height: 200,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                    child: GestureDetector(
+                      onTap: () async {},
+                      child: GoogleMap(
+                        onMapCreated: (controller) {
+                          print("Map created: $controller");
+                          // _controller.complete(controller);
+                        },
+                        initialCameraPosition: CameraPosition(
+                          target: LatLng(double.parse(controller.userdata.userDetails!.latitude.toString()),
+                              double.parse(controller.userdata.userDetails!.longitude.toString())),
+                          zoom: 5,
+                        ),
+                        onTap: (latLng) async {
+                          LatLng? result = await Get.to(() => ShowMapScreen(
+                              initialLocation: LatLng(double.parse(controller.userdata.userDetails!.latitude.toString()),
+                                  double.parse(controller.userdata.userDetails!.longitude.toString()))));
+
+                          if (result != null) {
+                            cotnroller.lat = result.latitude;
+                            cotnroller.long = result.longitude;
+                            List<Placemark> placemarks = await placemarkFromCoordinates(result.latitude, result.longitude);
+                            if (placemarks.isNotEmpty) {
+                              Placemark placemark = placemarks.first;
+                              String address = "${placemark.name}, ${placemark.locality}";
+                              cotnroller.locationcontroller.text = address;
+                            }
+                          }
+                        },
                       ),
-                      dropdownHeadingStyle: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold),
-                      dropdownItemStyle: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                      ),
-                      dropdownDialogRadius: 10.0,
-                      searchBarRadius: 10.0,
-                      onCountryChanged: (value) {},
-                      onStateChanged: (value) {
-                        controller.state.value = value.toString();
-                      },
-                      onCityChanged: (value) {
-                        controller.city.value = value.toString();
-                      },
                     ),
                   ),
                   20.verticalSpace,
-                  // LabelTextFormFieldWidget(
-                  //   height: 50,
-                  //   labeltext: 'Location',
-                  //   issufficsenable: true,
-                  //   suffixicon: ImageAssets.userlocation,
-                  //   ontap: () {
-                  //     // controller.selectDate(context);
-                  //   },
-                  // ),
-                  // 20.verticalSpace,
                   LabelTextFormFieldWidget(
                     maxlines: 5,
                     labeltext: 'About',
@@ -344,10 +320,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                           letterSpacing: 0,
                         ),
                         border: InputBorder.none,
-                        contentPadding: const EdgeInsets.only(
-                            bottom: 13,
-                            top:
-                                0.0), // this can adjust the label and text position
+                        contentPadding: const EdgeInsets.only(bottom: 13, top: 0.0), // this can adjust the label and text position
                         filled: true,
                         fillColor: Colors.transparent, //or transparent
                       ),
