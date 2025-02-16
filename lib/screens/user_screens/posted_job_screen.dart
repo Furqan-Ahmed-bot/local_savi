@@ -272,7 +272,7 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                   ),
                                   10.w.horizontalSpace,
                                   Text(
-                                    "${controller.jobDetailData['user_requests'].length.toString()} User Request",
+                                    "${controller.jobDetailData['user_requests'].length.toString()} Job Request",
                                     style: TextStyle(
                                         fontSize: 16.sp,
                                         color: ColorUtils.txtColor),
@@ -346,6 +346,7 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                               child: Image.network(
                                                   width: 100,
                                                   height: 100,
+                                                  fit: BoxFit.fill,
                                                   controller.jobDetailData[
                                                           'job_media'][index]
                                                       ['media_file']),

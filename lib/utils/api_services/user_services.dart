@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import "package:http/http.dart" as http;
+import 'package:local_saviors/controllers/professional_controllers/p_home_controller.dart';
 import 'package:local_saviors/models/bookmark_model.dart';
 import 'package:local_saviors/models/job_performer_model/job_performer_model.dart';
 import 'package:local_saviors/models/job_performer_model/performer_all_jobs_model.dart';
@@ -39,7 +40,10 @@ class UserServices {
   final createProfileController = Get.put(CreatePorfileTwoController());
   final imagePickerController = Get.put(ImagePickerController());
 
-  loginService({required String userEmail, required String password, required context}) async {
+  loginService(
+      {required String userEmail,
+      required String password,
+      required context}) async {
     try {
       showDialog(
           context: context,
@@ -55,7 +59,8 @@ class UserServices {
         'Content-Type': 'application/json',
       };
       var request = http.Request('POST', Uri.parse(UserUrls.loginUrl));
-      request.body = json.encode({"identifier": userEmail, "password": password, "fcm_token": "test"});
+      request.body = json.encode(
+          {"identifier": userEmail, "password": password, "fcm_token": "test"});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -66,19 +71,25 @@ class UserServices {
 
         token.value = responseData['data']['access_token'];
         refreshToken.value = responseData['data']['refresh_token'];
-        Get.close(1);
+
         if (responseData['data']['is_profile_completed']) {
           await getProfileService(context: context).then((value) {
-            role.value == "USER" ? Get.to(() => NavbarScreen()) : Get.to(() => PBottomNavBar());
+            Get.close(1);
+            role.value == "USER"
+                ? Get.to(() => NavbarScreen())
+                : Get.to(() => PBottomNavBar());
           });
         } else {
+          Get.close(1);
           email.value = userEmail;
-          Get.snackbar("Alert", "Please create your profile", backgroundColor: ColorUtils.white);
+          Get.snackbar("Alert", "Please create your profile",
+              backgroundColor: ColorUtils.white);
           Get.toNamed(RouteName.createProfile);
         }
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
         debugPrint(response.reasonPhrase);
       }
     } catch (e) {
@@ -126,7 +137,8 @@ class UserServices {
         OTP = responseData['data']['otp'];
         // pass.value = password;
         Get.close(1);
-        Get.snackbar("OTP CODE", responseData['data']['otp'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("OTP CODE", responseData['data']['otp'].toString(),
+            backgroundColor: ColorUtils.white);
         Get.toNamed(
             arguments: MyArguments(
               data: false,
@@ -134,7 +146,8 @@ class UserServices {
             RouteName.otpverification);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -142,7 +155,11 @@ class UserServices {
     }
   }
 
-  verifyOTPService({required String otp, required context, required bool isProfileCompleetd, isForgetPassword = false}) async {
+  verifyOTPService(
+      {required String otp,
+      required context,
+      required bool isProfileCompleetd,
+      isForgetPassword = false}) async {
     try {
       showDialog(
           context: context,
@@ -188,7 +205,8 @@ class UserServices {
       } else {
         Get.close(1);
         debugPrint(await response.stream.bytesToString());
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -226,10 +244,12 @@ class UserServices {
       if (response.statusCode == 200) {
         debugPrint(responseData);
         Get.close(1);
-        Get.snackbar("Success", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Success", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -275,7 +295,8 @@ class UserServices {
             RouteName.otpverification);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -298,7 +319,10 @@ class UserServices {
               ),
             );
           });
-      var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token.value
+      };
       var request = http.Request('POST', Uri.parse(UserUrls.resetPasswordUrl));
       request.body = json.encode({"password": password});
       request.headers.addAll(headers);
@@ -309,11 +333,13 @@ class UserServices {
       if (response.statusCode == 200) {
         debugPrint(responseData);
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
         Get.offAllNamed(RouteName.login);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -350,11 +376,12 @@ class UserServices {
           });
       var headers = {'Authorization': token.value};
 
-      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createProfileUrl));
+      var request =
+          http.MultipartRequest('POST', Uri.parse(UserUrls.createProfileUrl));
       request.fields.addAll({
         'address': address,
         'gender': gender.toUpperCase(),
-        'date_of_birth': "2004-03-04T17:22:09.895Z",
+        'date_of_birth': dob,
         //dob,
         // 'phone': phone,
         'contact_email': email,
@@ -368,15 +395,19 @@ class UserServices {
         'longitude': latitude.toString(),
         'latitude': longitude.toString()
       });
-      request.files.add(await http.MultipartFile.fromPath('profile_picture', image));
+      request.files
+          .add(await http.MultipartFile.fromPath('profile_picture', image));
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        Get.close(1);
-        await getProfileService(context: context, isAutoLogin: false).then((value) {
-          role.value == "USER" ? Get.to(() => NavbarScreen()) : Get.toNamed(RouteName.cretaetProfileTwoPath);
+        await getProfileService(context: context, isAutoLogin: false)
+            .then((value) {
+          Get.close(1);
+          role.value == "USER"
+              ? Get.to(() => NavbarScreen())
+              : Get.toNamed(RouteName.cretaetProfileTwoPath);
         });
       } else {
         log(response.toString());
@@ -419,7 +450,8 @@ class UserServices {
           });
       var headers = {'Authorization': token.value};
 
-      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createProviderProfileUrl));
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(UserUrls.createProviderProfileUrl));
       request.fields.addAll({
         'first_name': firstName,
         'last_name': lastName,
@@ -446,14 +478,17 @@ class UserServices {
         }
       }
 
-      request.files.add(await http.MultipartFile.fromPath('profile_picture', image));
+      request.files
+          .add(await http.MultipartFile.fromPath('profile_picture', image));
       if (imagePickerController.selectedImages.length > 0) {
         for (var i = 0; i < imagePickerController.selectedImages.length; i++) {
           var multipartFile = await http.MultipartFile.fromPath(
             'documents',
             imagePickerController.selectedImages[i].path,
-            filename: imagePickerController.selectedImages[i].path.split('/').last,
-            contentType: parser.MediaType("image", "${imagePickerController.selectedImages[i].path.split('.').last}"),
+            filename:
+                imagePickerController.selectedImages[i].path.split('/').last,
+            contentType: parser.MediaType("image",
+                "${imagePickerController.selectedImages[i].path.split('.').last}"),
           );
           request.files.add(multipartFile);
         }
@@ -466,7 +501,8 @@ class UserServices {
       if (response.statusCode == 200) {
         Get.back();
 
-        await getProfileService(context: context, isAutoLogin: false).then((value) {
+        await getProfileService(context: context, isAutoLogin: false)
+            .then((value) {
           Get.to(() => PBottomNavBar());
         });
       } else {
@@ -492,9 +528,11 @@ class UserServices {
       String responseBody1 = await response.stream.bytesToString();
       Map<String, dynamic> jsonResponse = json.decode(responseBody1);
       if (response.statusCode == 200) {
-        AuthPreferences.saveAuthTokenAndRole(token.value, jsonResponse['data']['user_type'], refreshToken.value);
+        AuthPreferences.saveAuthTokenAndRole(
+            token.value, jsonResponse['data']['user_type'], refreshToken.value);
         if (role.value == "USER") {
-          await hsController.setUserData(JobProviderModel.fromJson(jsonResponse['data']));
+          await hsController
+              .setUserData(JobProviderModel.fromJson(jsonResponse['data']));
           hsController.isLoading.value = true;
           hsController.listOfActiveJobs = await getUserActiveJobs();
           await hsController.getBestPerformers();
@@ -507,8 +545,11 @@ class UserServices {
               Get.toNamed(RouteName.createProfile);
             }
           }
-        } else if (role.value == 'PERFORMER' || role.value == 'PROFESSIONAL' || role.value == "HANDYMAN") {
-          await phController.setPerformerData(PerformerModel.fromJson(jsonResponse['data']));
+        } else if (role.value == 'PERFORMER' ||
+            role.value == 'PROFESSIONAL' ||
+            role.value == "HANDYMAN") {
+          await phController
+              .setPerformerData(PerformerModel.fromJson(jsonResponse['data']));
           phController.isLaoding.value = true;
           phController.listOfJobs = await getPerformerJobs();
           phController.isLaoding.value = false;
@@ -547,7 +588,10 @@ class UserServices {
               ),
             );
           });
-      var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token.value
+      };
       var request = http.Request('POST', Uri.parse(UserUrls.logoutUrl));
       request.body = json.encode({"refresh_token": refreshToken.value});
       request.headers.addAll(headers);
@@ -557,11 +601,13 @@ class UserServices {
 
       if (response.statusCode == 200) {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
         Get.offAllNamed(RouteName.selectRoleOne);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -601,7 +647,8 @@ class UserServices {
 
     try {
       var headers = {'Authorization': token.value};
-      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createJob));
+      var request =
+          http.MultipartRequest('POST', Uri.parse(UserUrls.createJob));
       var body = {
         'worker_type': WorkerType,
         'title': title,
@@ -622,7 +669,8 @@ class UserServices {
 
       for (var img in images) {
         // final compressedImg = await compressImage(img);
-        request.files.add(await http.MultipartFile.fromPath('job_images', img.path));
+        request.files
+            .add(await http.MultipartFile.fromPath('job_images', img.path));
       }
 
       request.headers.addAll(headers);
@@ -648,7 +696,9 @@ class UserServices {
                       20.h.verticalSpace,
                       Container(
                         padding: EdgeInsets.all(23.sp),
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColorUtils.jobIconBG),
                         child: Image.asset(
                           ImageAssets.congratulationsIcon,
                           scale: 2,
@@ -657,7 +707,8 @@ class UserServices {
                       20.h.verticalSpace,
                       Text(
                         "Congratulations!",
-                        style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 22.sp, fontWeight: FontWeight.w600),
                       ),
                       12.h.verticalSpace,
                       Padding(
@@ -665,7 +716,8 @@ class UserServices {
                         child: Text(
                           "Your job has been posted successfully!",
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal),
+                          style: TextStyle(
+                              fontSize: 14.sp, fontWeight: FontWeight.normal),
                         ),
                       ),
                     ],
@@ -681,7 +733,10 @@ class UserServices {
                           child: GestureDetector(
                             onTap: () {
                               Get.close(2);
-                              Get.toNamed(RouteName.jobPostedScreenPath, arguments: {'jobId': resposeDAta['data']['job_id']});
+                              Get.toNamed(RouteName.jobPostedScreenPath,
+                                  arguments: {
+                                    'jobId': resposeDAta['data']['job_id']
+                                  });
                             },
                             child: Container(
                               alignment: Alignment.center,
@@ -720,7 +775,8 @@ class UserServices {
   }) async {
     try {
       var headers = {'Authorization': token.value};
-      var request = http.Request('GET', Uri.parse(UserUrls.getAllJobs + filter));
+      var request =
+          http.Request('GET', Uri.parse(UserUrls.getAllJobs + filter));
 
       request.headers.addAll(headers);
 
@@ -733,7 +789,8 @@ class UserServices {
 
         if (jsonResponse.containsKey('data')) {
           List<dynamic> jsonData = jsonResponse['data'];
-          List<JobsModel> jobs = jsonData.map((jobJson) => JobsModel.fromJson(jobJson)).toList();
+          List<JobsModel> jobs =
+              jsonData.map((jobJson) => JobsModel.fromJson(jobJson)).toList();
           return jobs;
         } else {
           debugPrint("Error: Data key not found in response.");
@@ -754,7 +811,8 @@ class UserServices {
   }) async {
     try {
       var headers = {'Authorization': token.value};
-      var request = http.Request('GET', Uri.parse(UserUrls.getPerformerJobs + filter));
+      var request =
+          http.Request('GET', Uri.parse(UserUrls.getPerformerJobs + filter));
 
       request.headers.addAll(headers);
 
@@ -767,7 +825,9 @@ class UserServices {
 
         if (jsonResponse.containsKey('data')) {
           List<dynamic> jsonData = jsonResponse['data'];
-          List<PerformerAllJobsModel> jobs = jsonData.map((jobJson) => PerformerAllJobsModel.fromJson(jobJson)).toList();
+          List<PerformerAllJobsModel> jobs = jsonData
+              .map((jobJson) => PerformerAllJobsModel.fromJson(jobJson))
+              .toList();
           return jobs;
         } else {
           debugPrint("Error: Data key not found in response.");
@@ -783,10 +843,39 @@ class UserServices {
     }
   }
 
+  getCancelJobReasons() async {
+    try {
+      var headers = {'Authorization': token.value};
+      var request =
+          http.Request('GET', Uri.parse(UserUrls.getCancelJobReasons));
+
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        String cancelReasonsResponseBody =
+            await response.stream.bytesToString();
+
+        Map<String, dynamic> jsonResponse =
+            json.decode(cancelReasonsResponseBody);
+
+        return jsonResponse['data'];
+      } else {
+        debugPrint(response.reasonPhrase);
+        return [];
+      }
+    } catch (e) {
+      debugPrint("==> error: ${e.toString()}");
+      return [];
+    }
+  }
+
   Future getPerformerJobs() async {
     try {
       var headers = {'Authorization': token.value};
-      var request = http.Request('GET', Uri.parse(UserUrls.getPerformerAllJobs));
+      var request =
+          http.Request('GET', Uri.parse(UserUrls.getPerformerAllJobs));
 
       request.headers.addAll(headers);
 
@@ -799,7 +888,9 @@ class UserServices {
         Map<String, dynamic> jsonResponse = json.decode(perofrmerJobs);
 
         List<dynamic> jobData = jsonResponse['data'];
-        List<PerformerJobsModel> jobs = jobData.map((jobJson) => PerformerJobsModel.fromJson(jobJson)).toList();
+        List<PerformerJobsModel> jobs = jobData
+            .map((jobJson) => PerformerJobsModel.fromJson(jobJson))
+            .toList();
 
         return jobs;
       } else {
@@ -828,7 +919,8 @@ class UserServices {
 
     try {
       var headers = {'Authorization': token.value};
-      var request = http.Request('POST', Uri.parse(UserUrls.applyPerformerJob + jobId));
+      var request =
+          http.Request('POST', Uri.parse(UserUrls.applyPerformerJob + jobId));
 
       request.headers.addAll(headers);
 
@@ -852,7 +944,9 @@ class UserServices {
                       20.h.verticalSpace,
                       Container(
                         padding: EdgeInsets.all(23.sp),
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColorUtils.jobIconBG),
                         child: Image.asset(
                           ImageAssets.jobDoneIcon,
                           scale: 2,
@@ -889,10 +983,14 @@ class UserServices {
                         GestureDetector(
                           onTap: () {
                             Get.close(1);
+                            PHomeController pHomeController =
+                                Get.find<PHomeController>();
+                            pHomeController.getPerfJobs();
                           },
                           child: Container(
                             alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 30.w),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15.h, horizontal: 30.w),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.r),
                               color: ColorUtils.red,
@@ -911,7 +1009,8 @@ class UserServices {
             });
       } else {
         Get.close(1);
-        Get.snackbar("Alert", "Already Applied!", backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", "Already Applied!",
+            backgroundColor: ColorUtils.white);
         print(response.reasonPhrase);
       }
     } catch (e) {
@@ -923,7 +1022,8 @@ class UserServices {
   getSingleJobDetail({required String jobId}) async {
     try {
       var headers = {'Authorization': token.value};
-      var request = http.Request('GET', Uri.parse(UserUrls.getSingleJobDetail + jobId));
+      var request =
+          http.Request('GET', Uri.parse(UserUrls.getSingleJobDetail + jobId));
 
       request.headers.addAll(headers);
 
@@ -956,7 +1056,8 @@ class UserServices {
         });
     try {
       var headers = {'Authorization': token.value};
-      var request = http.Request('POST', Uri.parse(UserUrls.saveUnsavePBookmark + jobId));
+      var request =
+          http.Request('POST', Uri.parse(UserUrls.saveUnsavePBookmark + jobId));
 
       request.headers.addAll(headers);
 
@@ -966,10 +1067,12 @@ class UserServices {
 
       if (bookmarkResponse.statusCode == 200) {
         Get.close(1);
-        Get.snackbar("Success", jobMap['message'], backgroundColor: ColorUtils.white);
+        Get.snackbar("Success", jobMap['message'],
+            backgroundColor: ColorUtils.white);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", jobMap['message'], backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", jobMap['message'],
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       debugPrint("====> error: ${e}");
@@ -1031,7 +1134,219 @@ class UserServices {
     }
   }
 
-  acceptRejectJobRequest({context, required String id, required String status}) async {
+  cancelPerformerJob({
+    context,
+    required String reasonId,
+    required String id,
+  }) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: SizedBox(
+              child: spinkit,
+            ),
+          );
+        });
+    try {
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token.value
+      };
+
+      var request = http.Request('POST',
+          Uri.parse('https://api.localsaviors.com/api/v1/job/cancel_job/$id'));
+      request.body = json.encode({"is_custom": false, "reason_id": reasonId});
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        Get.close(1);
+        Get.snackbar("Success", "Job cancelled successfully",
+            backgroundColor: ColorUtils.white);
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                backgroundColor: ColorUtils.dialogeBGColor,
+                content: SizedBox(
+                  width: 1.0.sw,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      20.h.verticalSpace,
+                      Container(
+                        padding: EdgeInsets.all(23.sp),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColorUtils.jobIconBG),
+                        child: Image.asset(
+                          ImageAssets.jobDoneIcon,
+                          scale: 2,
+                        ),
+                      ),
+                      20.h.verticalSpace,
+                      Text(
+                        "Thank You!",
+                        style: TextStyle(
+                            fontSize: 22.sp, fontWeight: FontWeight.w600),
+                      ),
+                      12.h.verticalSpace,
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30.w),
+                        child: Text(
+                          "Your job cancellation request has been sent to admin. Please wait for further process",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 14.sp, fontWeight: FontWeight.normal),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                actions: [
+                  Container(
+                    width: 1.0.sw,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () async {
+                              await getPerformerJobs();
+                              Get.close(3);
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(vertical: 15.h),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.r),
+                                color: ColorUtils.red,
+                              ),
+                              child: Text(
+                                "Go Back",
+                                style: TextStyle(color: ColorUtils.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              );
+            });
+      } else {
+        var data = jsonDecode(await response.stream.bytesToString());
+        data['message'];
+        Get.close(1);
+        Get.snackbar("Alert", "Something went wrong",
+            backgroundColor: ColorUtils.white);
+      }
+
+      // var request = http.Request('PATCH', Uri.parse(UserUrls.cancelJob + id));
+      // request.body = json.encode({"is_custom": false, "reason_id": reasonId});
+      // request.headers.addAll(headers);
+
+      // http.StreamedResponse cancelledJobResponse = await request.send();
+
+      // if (cancelledJobResponse.statusCode == 200) {
+      //   Get.close(1);
+      //   Get.snackbar("Success", "Job cancelled successfully",
+      //       backgroundColor: ColorUtils.white);
+      //   showDialog(
+      //       context: context,
+      //       builder: (BuildContext context) {
+      //         return AlertDialog(
+      //           insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+      //           clipBehavior: Clip.antiAliasWithSaveLayer,
+      //           backgroundColor: ColorUtils.dialogeBGColor,
+      //           content: SizedBox(
+      //             width: 1.0.sw,
+      //             child: Column(
+      //               mainAxisSize: MainAxisSize.min,
+      //               children: [
+      //                 20.h.verticalSpace,
+      //                 Container(
+      //                   padding: EdgeInsets.all(23.sp),
+      //                   decoration: BoxDecoration(
+      //                       shape: BoxShape.circle,
+      //                       color: ColorUtils.jobIconBG),
+      //                   child: Image.asset(
+      //                     ImageAssets.jobDoneIcon,
+      //                     scale: 2,
+      //                   ),
+      //                 ),
+      //                 20.h.verticalSpace,
+      //                 Text(
+      //                   "Thank You!",
+      //                   style: TextStyle(
+      //                       fontSize: 22.sp, fontWeight: FontWeight.w600),
+      //                 ),
+      //                 12.h.verticalSpace,
+      //                 Padding(
+      //                   padding: EdgeInsets.symmetric(horizontal: 30.w),
+      //                   child: Text(
+      //                     "Your job cancellation request has been sent to admin. Please wait for further process",
+      //                     textAlign: TextAlign.center,
+      //                     style: TextStyle(
+      //                         fontSize: 14.sp, fontWeight: FontWeight.normal),
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ),
+      //           actions: [
+      //             Container(
+      //               width: 1.0.sw,
+      //               child: Row(
+      //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //                 children: [
+      //                   Expanded(
+      //                     child: GestureDetector(
+      //                       onTap: () {
+      //                         Get.close(3);
+      //                       },
+      //                       child: Container(
+      //                         alignment: Alignment.center,
+      //                         padding: EdgeInsets.symmetric(vertical: 15.h),
+      //                         decoration: BoxDecoration(
+      //                           borderRadius: BorderRadius.circular(10.r),
+      //                           color: ColorUtils.red,
+      //                         ),
+      //                         child: Text(
+      //                           "Go Back",
+      //                           style: TextStyle(color: ColorUtils.white),
+      //                         ),
+      //                       ),
+      //                     ),
+      //                   ),
+      //                 ],
+      //               ),
+      //             )
+      //           ],
+      //         );
+      //       });
+      // } else {
+      //   var data =
+      //       jsonDecode(await cancelledJobResponse.stream.bytesToString());
+      //   data['message'];
+      //   Get.close(1);
+      //   Get.snackbar("Alert", "Something went wrong",
+      //       backgroundColor: ColorUtils.white);
+      // }
+    } catch (e) {
+      Get.close(1);
+      debugPrint("===> error: ${e}");
+    }
+  }
+
+  acceptRejectJobRequest(
+      {context, required String id, required String status}) async {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -1044,8 +1359,12 @@ class UserServices {
         });
     try {
       final postedController = Get.put(PostedJobScreenController());
-      var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
-      var request = http.Request('PATCH', Uri.parse(UserUrls.acceptRejectJobRequest + id));
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token.value
+      };
+      var request = http.Request(
+          'PATCH', Uri.parse(UserUrls.acceptRejectJobRequest + id));
       request.body = json.encode({"status": status});
       request.headers.addAll(headers);
 
@@ -1055,12 +1374,14 @@ class UserServices {
         var data = jsonDecode(await response.stream.bytesToString());
         await postedController.getJobDetail();
         Get.close(2);
-        Get.snackbar("Success", data['message'], backgroundColor: ColorUtils.white);
+        Get.snackbar("Success", data['message'],
+            backgroundColor: ColorUtils.white);
       } else {
         var data = jsonDecode(await response.stream.bytesToString());
         data['message'];
         Get.close(1);
-        Get.snackbar("Alert", "Something went wrong", backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", "Something went wrong",
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);
@@ -1094,9 +1415,13 @@ class UserServices {
         });
     try {
       final bottomController = Get.put(BottomAppBarController());
-      var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
-      var request =
-          role.value == "USER" ? http.Request('PATCH', Uri.parse(UserUrls.editUser)) : http.Request('PATCH', Uri.parse(UserUrls.editProfessional));
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': token.value
+      };
+      var request = role.value == "USER"
+          ? http.Request('PATCH', Uri.parse(UserUrls.editUser))
+          : http.Request('PATCH', Uri.parse(UserUrls.editProfessional));
       request.body = json.encode({
         "description": about,
         "first_name": firstName,
@@ -1123,19 +1448,23 @@ class UserServices {
         http.StreamedResponse response = await request1.send();
         String responseBody1 = await response.stream.bytesToString();
         Map<String, dynamic> jsonResponse = json.decode(responseBody1);
-        AuthPreferences.saveAuthTokenAndRole(token.value, jsonResponse['data']['user_type'], refreshToken.value);
+        AuthPreferences.saveAuthTokenAndRole(
+            token.value, jsonResponse['data']['user_type'], refreshToken.value);
 
         if (role.value == "USER") {
-          hsController.setUserData(JobProviderModel.fromJson(jsonResponse['data']));
+          hsController
+              .setUserData(JobProviderModel.fromJson(jsonResponse['data']));
           hsController.update();
         } else {
-          phController.setPerformerData(PerformerModel.fromJson(jsonResponse['data']));
+          phController
+              .setPerformerData(PerformerModel.fromJson(jsonResponse['data']));
           phController.update();
         }
         Get.close(2);
         bottomController.itemSelect(0);
 
-        Get.snackbar("Success", "Profile update successfully", backgroundColor: ColorUtils.white);
+        Get.snackbar("Success", "Profile update successfully",
+            backgroundColor: ColorUtils.white);
       } else {
         jsonResponse['message'];
         Get.close(1);
@@ -1160,8 +1489,10 @@ class UserServices {
     try {
       var headers = {'Authorization': token.value};
 
-      var request = http.MultipartRequest('PATCH', Uri.parse(UserUrls.chanegUserProfilePic));
-      request.files.add(await http.MultipartFile.fromPath('profile_picture', image));
+      var request = http.MultipartRequest(
+          'PATCH', Uri.parse(UserUrls.chanegUserProfilePic));
+      request.files
+          .add(await http.MultipartFile.fromPath('profile_picture', image));
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -1182,7 +1513,8 @@ class UserServices {
     }
   }
 
-  sentInviteToPerformer({required String jobId, required String performerId, context}) async {
+  sentInviteToPerformer(
+      {required String jobId, required String performerId, context}) async {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -1195,7 +1527,10 @@ class UserServices {
         });
     try {
       var headers = {'Authorization': token.value};
-      var request = http.Request('POST', Uri.parse("${UserUrls.sentInviteToPerformer}$jobId&performer_id=$performerId"));
+      var request = http.Request(
+          'POST',
+          Uri.parse(
+              "${UserUrls.sentInviteToPerformer}$jobId&performer_id=$performerId"));
 
       request.headers.addAll(headers);
 
@@ -1205,10 +1540,12 @@ class UserServices {
 
       if (sentInvite.statusCode == 200) {
         Get.close(1);
-        Get.snackbar("Success", jobMap['message'], backgroundColor: ColorUtils.white);
+        Get.snackbar("Success", jobMap['message'],
+            backgroundColor: ColorUtils.white);
       } else {
         Get.close(1);
-        Get.snackbar("Alert", jobMap['message'], backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", jobMap['message'],
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       debugPrint("====> error: ${e}");

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_jobs_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
@@ -140,6 +141,21 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                                     });
                                               },
                                               child: activeJobCard(
+                                                  title: controller
+                                                      .upcomingJobsList[index]
+                                                      .title,
+                                                  desc: controller
+                                                      .upcomingJobsList[index]
+                                                      .description,
+                                                  budget: controller
+                                                      .upcomingJobsList[index]
+                                                      .budget,
+                                                  date: controller
+                                                      .upcomingJobsList[index]
+                                                      .jobDate,
+                                                  time: controller
+                                                      .upcomingJobsList[index]
+                                                      .startTime,
                                                   status: controller.names[
                                                       controller.selectedIndex
                                                           .value]))),
@@ -174,6 +190,26 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                                         });
                                                   },
                                                   child: activeJobCard(
+                                                      title: controller
+                                                          .ongoingJobsList[
+                                                              index]
+                                                          .title,
+                                                      desc: controller
+                                                          .ongoingJobsList[
+                                                              index]
+                                                          .description,
+                                                      budget: controller
+                                                          .ongoingJobsList[
+                                                              index]
+                                                          .budget,
+                                                      date: controller
+                                                          .ongoingJobsList[
+                                                              index]
+                                                          .jobDate,
+                                                      time: controller
+                                                          .ongoingJobsList[
+                                                              index]
+                                                          .startTime,
                                                       status: controller.names[
                                                           controller
                                                               .selectedIndex
@@ -220,7 +256,7 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                       : Column(
                                           children: List.generate(
                                               controller
-                                                  .listOfCancelledCard.length,
+                                                  .cancelledJobsList.length,
                                               (index) => GestureDetector(
                                                     onTap: () {
                                                       Get.toNamed(
@@ -228,10 +264,14 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                                               .cancelledJobScreenPath,
                                                           arguments: {
                                                             "isPending": controller
-                                                                            .listOfCancelledCard[
-                                                                        index][
-                                                                    "status"] ==
-                                                                "Pending",
+                                                                    .cancelledJobsList[
+                                                                        index]
+                                                                    .jobStatus !=
+                                                                "CANCELLED",
+                                                            "jobId": controller
+                                                                .cancelledJobsList[
+                                                                    index]
+                                                                .id,
                                                             "showCharge": false,
                                                           });
                                                     },
@@ -252,6 +292,9 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                                                 .circular(10.r),
                                                       ),
                                                       child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Row(
                                                             mainAxisAlignment:
@@ -274,7 +317,7 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                "${controller.listOfCancelledCard[index]["status"]} | ${controller.listOfCancelledCard[index]["date"]}",
+                                                                "${controller.cancelledJobsList[index].jobStatus} |   ${DateFormat('d MMMM').format(DateTime.parse(controller.cancelledJobsList[index].jobDate.toString()))}",
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         12.sp,
@@ -285,7 +328,7 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                                           ),
                                                           6.h.verticalSpace,
                                                           Text(
-                                                              "${controller.listOfCancelledCard[index]["desc"]}"),
+                                                              "${controller.cancelledJobsList[index].description}"),
                                                           12.h.verticalSpace,
                                                         ],
                                                       ),

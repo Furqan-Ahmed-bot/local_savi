@@ -14,7 +14,7 @@ class PJobsController extends GetxController {
   @override
   void onInit() {
     getJobs();
-    print("=====<>> init:");
+
     super.onInit();
   }
 
@@ -30,8 +30,8 @@ class PJobsController extends GetxController {
         .getPerformerAllFilteredJobs(filter: "ONGOING");
     completedJobsList = await UserServices.instance
         .getPerformerAllFilteredJobs(filter: "COMPLETED");
-    // cancelledJobsList =
-    //     await UserServices.instance.getPerformerAllJobs(filter: "CANCELLED");
+    cancelledJobsList = await UserServices.instance
+        .getPerformerAllFilteredJobs(filter: "CANCELLED");
     isLoading.value = false;
     update();
   }
@@ -44,31 +44,31 @@ class PJobsController extends GetxController {
     "Cancelled"
   ];
 
-  List listOfCancelledCard = [
-    {
-      "status": "Pending",
-      "date": "July 20",
-      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
-    },
-    {
-      "status": "Job Cancelled",
-      "date": "July 20",
-      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
-    },
-    {
-      "status": "Job Cancelled",
-      "date": "July 20",
-      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
-    },
-    {
-      "status": "Job Cancelled",
-      "date": "July 20",
-      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
-    },
-    {
-      "status": "Job Cancelled",
-      "date": "July 20",
-      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
-    },
-  ];
+  // List listOfCancelledCard = [
+  //   {
+  //     "status": "Pending",
+  //     "date": "July 20",
+  //     "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
+  //   },
+  //   {
+  //     "status": "Job Cancelled",
+  //     "date": "July 20",
+  //     "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
+  //   },
+  //   {
+  //     "status": "Job Cancelled",
+  //     "date": "July 20",
+  //     "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
+  //   },
+  //   {
+  //     "status": "Job Cancelled",
+  //     "date": "July 20",
+  //     "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
+  //   },
+  //   {
+  //     "status": "Job Cancelled",
+  //     "date": "July 20",
+  //     "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
+  //   },
+  // ];
 }

@@ -28,6 +28,7 @@ class ChatScreenController extends GetxController {
     performerId = Get.arguments['providerId'] ?? '';
     jobId = Get.arguments['jobId'] ?? '';
     username = Get.arguments['username'] ?? 'XYZ';
+    update();
     super.onInit();
   }
 

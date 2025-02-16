@@ -40,7 +40,7 @@ class phoneTextFormFieldWidget extends StatelessWidget {
           ),
         ),
         flagsButtonMargin: const EdgeInsets.symmetric(horizontal: 10),
-        disableLengthCheck: true,
+        // disableLengthCheck: true,
         dropdownDecoration: BoxDecoration(
           color: Colors.transparent,
           border: BorderDirectional(

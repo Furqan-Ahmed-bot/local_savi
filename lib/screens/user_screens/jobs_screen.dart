@@ -111,8 +111,15 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                                           controller.upcomingJobsList.length,
                                           (index) => GestureDetector(
                                               onTap: () {
-                                                Get.toNamed(RouteName
-                                                    .upcomingJobDetailScreenPath);
+                                                Get.toNamed(
+                                                    RouteName
+                                                        .upcomingJobDetailScreenPath,
+                                                    arguments: {
+                                                      "jobId": controller
+                                                          .upcomingJobsList[
+                                                              index]
+                                                          .id
+                                                    });
                                               },
                                               child: activeJobCard(
                                                   date: controller

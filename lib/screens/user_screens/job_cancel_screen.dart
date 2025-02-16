@@ -6,6 +6,7 @@ import 'package:local_saviors/controllers/user_controllers/job_cancel_screen_con
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
+import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 
 class JobCancelScreen extends GetWidget<JobCancelScreenController> {
@@ -96,106 +97,130 @@ class JobCancelScreen extends GetWidget<JobCancelScreenController> {
             }),
       ),
       body: myBackGround(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          appbar(
-            isMenu: false,
-            title: "Job Cancel",
-          ),
-          20.h.verticalSpace,
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.sp),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 1.0.sw,
-                  margin: EdgeInsets.only(bottom: 20.h),
-                  padding: EdgeInsets.all(15.sp),
-                  decoration: BoxDecoration(
-                      color: ColorUtils.borderColor.withOpacity(0.6),
-                      border:
-                          Border.all(width: 1.w, color: ColorUtils.borderColor),
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Note: ",
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Flexible(
-                        child: Text(
-                          "If you cancel the job, 15% charges will be deducted from your pay amount.",
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.normal,
-                              color: ColorUtils.textColor),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Text(
-                  "Select Reason",
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Obx(
-                  () => Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List.generate(5, (index) {
-                      return ListTile(
-                        horizontalTitleGap: 0,
-                        title: Text(
-                          controller.ListOfText[index],
-                          style: TextStyle(fontSize: 16.sp),
-                        ),
-                        leading: Radio<int>(
-                          value: index,
-                          activeColor: ColorUtils.blue,
-                          groupValue: controller.groupValue.value,
-                          onChanged: (int? value) {
-                            controller.groupValue.value = value!;
-                          },
+          child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            appbar(
+              isMenu: false,
+              title: "Job Cancel",
+            ),
+            20.h.verticalSpace,
+            Obx(
+              () => controller.isLoading.value
+                  ? Center(
+                      child: spinkit,
+                    )
+                  : GetBuilder<JobCancelScreenController>(
+                      builder: (controller) {
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 1.0.sw,
+                                margin: EdgeInsets.only(bottom: 20.h),
+                                padding: EdgeInsets.all(15.sp),
+                                decoration: BoxDecoration(
+                                    color:
+                                        ColorUtils.borderColor.withOpacity(0.6),
+                                    border: Border.all(
+                                        width: 1.w,
+                                        color: ColorUtils.borderColor),
+                                    borderRadius: BorderRadius.circular(10.r)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Note: ",
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        "If you cancel the job, 15% charges will be deducted from your pay amount.",
+                                        style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.normal,
+                                            color: ColorUtils.textColor),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                "Select Reason",
+                                style: TextStyle(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: List.generate(
+                                    controller.ListOfText.value.length,
+                                    (index) {
+                                  return ListTile(
+                                    horizontalTitleGap: 0,
+                                    title: Text(
+                                      controller.ListOfText.value[index]
+                                          ['reason_text'],
+                                      style: TextStyle(fontSize: 16.sp),
+                                    ),
+                                    leading: Radio<int>(
+                                      value: index,
+                                      activeColor: ColorUtils.blue,
+                                      groupValue: controller.groupValue.value,
+                                      onChanged: (int? value) {
+                                        controller.groupValue.value = value!;
+                                        print(
+                                            "====> group value: ${controller.groupValue.value}");
+                                      },
+                                    ),
+                                  );
+                                }),
+                              ),
+                              20.h.verticalSpace,
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.r),
+                                  color: ColorUtils.white,
+                                  border: Border.all(
+                                      width: 1.0.w,
+                                      color: ColorUtils.borderColor),
+                                ),
+                                child: TextField(
+                                  maxLines: 5,
+                                  onTapOutside: (event) {
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                  decoration: InputDecoration(
+                                    border: const OutlineInputBorder(
+                                        borderSide: BorderSide.none),
+                                    hintText: "Write a reaason",
+                                    hintStyle:
+                                        TextStyle(color: ColorUtils.grey),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 0.051.sw,
+                                        vertical: 0.016.sh),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       );
                     }),
-                  ),
-                ),
-                20.h.verticalSpace,
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.r),
-                    color: ColorUtils.white,
-                    border:
-                        Border.all(width: 1.0.w, color: ColorUtils.borderColor),
-                  ),
-                  child: TextField(
-                    maxLines: 5,
-                    onTapOutside: (event) {
-                      FocusScope.of(context).unfocus();
-                    },
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      hintText: "Write a reaason",
-                      hintStyle: TextStyle(color: ColorUtils.grey),
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal: 0.051.sw, vertical: 0.016.sh),
-                    ),
-                  ),
-                )
-              ],
             ),
-          ),
-        ],
+          ],
+        ),
       )),
     );
   }

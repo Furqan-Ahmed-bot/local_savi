@@ -9,7 +9,8 @@ class ShowMapScreen extends StatefulWidget {
   final bool? isProfile;
   final LatLng? initialLocation;
   final address;
-  const ShowMapScreen({super.key, this.initialLocation, this.isProfile, this.address});
+  const ShowMapScreen(
+      {super.key, this.initialLocation, this.isProfile, this.address});
   @override
   _ShowMapScreenState createState() => _ShowMapScreenState();
 }
@@ -35,7 +36,8 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
         child: Center(child: Text('${widget.address}')),
       ),
       appBar: AppBar(
-        title: Text(widget.isProfile == true ? 'Your Location' : 'Select Location'),
+        title: Text(
+            widget.isProfile == true ? 'Your Location' : 'Select Location'),
         actions: [
           widget.isProfile == true
               ? SizedBox.shrink()
@@ -129,7 +131,8 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
       List<Location> locations = await locationFromAddress(searchTerm);
       if (locations.isNotEmpty) {
         Location firstLocation = locations.first;
-        LatLng newLatLng = LatLng(firstLocation.latitude, firstLocation.longitude);
+        LatLng newLatLng =
+            LatLng(firstLocation.latitude, firstLocation.longitude);
         // Move the camera to the new location
         final GoogleMapController? controller = await _controller.future;
         if (controller != null) {
