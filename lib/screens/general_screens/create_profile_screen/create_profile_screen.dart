@@ -361,9 +361,11 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                           if (role.value == 'USER') {
                             controller.validation(context);
                           } else if (role.value == 'PROFESSIONAL') {
-                            Get.toNamed(RouteName.cretaetProfileTwoPath);
+                            controller.validation(context);
+                            // Get.toNamed(RouteName.cretaetProfileTwoPath);
                           } else {
-                            Get.toNamed(RouteName.createHandyManProfilePath);
+                            controller.validation(context);
+                            //Get.toNamed(RouteName.createHandyManProfilePath);
                           }
                         }),
                     25.verticalSpace

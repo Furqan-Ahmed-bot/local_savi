@@ -44,6 +44,7 @@ class UserRequestScreen extends GetWidget<UserRequestScreenController> {
               children: List.generate(
                   controller.listOfUserRequests.length,
                   (index) => userRequestCard(
+                      performer_id: controller.listOfUserRequests[index]['performer_id'],
                       isAccepted: controller.listOfUserRequests[index]['request_status'] == "ACCEPTED",
                       status: controller.listOfUserRequests[index]['request_status'],
                       isVerified: true,

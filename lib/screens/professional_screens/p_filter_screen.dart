@@ -258,10 +258,14 @@ class PFilterScreen extends GetWidget<PFilterController> {
                                   onChanged: (value) {
                                     controller.selectedMints = value;
 
-                                    controller.selectedTimeWithDate.value = controller.selectedDate
-                                        .add(Duration(
-                                            hours: int.parse(controller.selectedHours ?? "00"), minutes: int.parse(controller.selectedMints ?? "00")))
-                                        .toIso8601String();
+                                    DateTime localTime = controller.selectedDate.add(Duration(
+                                      hours: int.parse(controller.selectedHours ?? "00"),
+                                      minutes: int.parse(controller.selectedMints ?? "00"),
+                                    ));
+
+                                    DateTime utcTime = localTime.toUtc();
+
+                                    controller.selectedTimeWithDate.value = utcTime.toIso8601String();
                                   },
                                 ),
                               ),

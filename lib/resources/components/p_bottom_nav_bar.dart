@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unrelated_type_equality_checks, avoid_unnecessary_containers, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, sized_box_for_whitespace
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unrelated_type_equality_checks, avoid_unnecessary_containers, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, sized_box_for_whitespace, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,544 +32,549 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.white, systemNavigationBarColor: const Color(0xff4E7095)),
-      child: GetBuilder<PBottomAppBarController>(
-          // init: bottomController,
-          builder: (controller) {
-        return Container(
-          child: Scaffold(
-            key: _key,
-            drawer: Container(
-              child: Stack(clipBehavior: Clip.none, children: [
-                Drawer(
-                  width: 300,
-                  child: Container(
-                    height: 1.sh,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        colors: [
-                          Color(0xFFD6EFFF), // Light blue shade for the top
-                          Color(0xFFFFFFFF),
-                        ],
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: AnnotatedRegion(
+        value: SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.white, systemNavigationBarColor: const Color(0xff4E7095)),
+        child: GetBuilder<PBottomAppBarController>(
+            // init: bottomController,
+            builder: (controller) {
+          return Container(
+            child: Scaffold(
+              key: _key,
+              drawer: Container(
+                child: Stack(clipBehavior: Clip.none, children: [
+                  Drawer(
+                    width: 300,
+                    child: Container(
+                      height: 1.sh,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          colors: [
+                            Color(0xFFD6EFFF), // Light blue shade for the top
+                            Color(0xFFFFFFFF),
+                          ],
+                        ),
                       ),
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              70.verticalSpace,
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: SizedBox(
-                                      height: 90,
-                                      width: 90,
-                                      child: ClipOval(
-                                        child: Image.network(
-                                          loadingBuilder: (context, child, loadingProgress) {
-                                            if (loadingProgress == null) return child;
-                                            return const Center(
-                                              child: CircularProgressIndicator(),
-                                            );
-                                          },
-                                          errorBuilder: (context, error, stackTrace) {
-                                            return const Center(
-                                              child: CircularProgressIndicator(),
-                                            );
-                                          },
-                                          fit: BoxFit.cover,
-                                          '${phController.performerdata.userDetails?.profilePicture}',
-                                          scale: 2,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                70.verticalSpace,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Center(
+                                      child: SizedBox(
+                                        height: 90,
+                                        width: 90,
+                                        child: ClipOval(
+                                          child: Image.network(
+                                            loadingBuilder: (context, child, loadingProgress) {
+                                              if (loadingProgress == null) return child;
+                                              return const Center(
+                                                child: CircularProgressIndicator(),
+                                              );
+                                            },
+                                            errorBuilder: (context, error, stackTrace) {
+                                              return const Center(
+                                                child: CircularProgressIndicator(),
+                                              );
+                                            },
+                                            fit: BoxFit.cover,
+                                            '${phController.performerdata.userDetails?.profilePicture}',
+                                            scale: 2,
+                                          ),
                                         ),
                                       ),
                                     ),
+
+                                    // Container(
+                                    //   height: 140.h,
+                                    //   width: 140.w,
+                                    //   decoration: BoxDecoration(
+                                    //     border: Border.all(
+                                    //         color: Colors.white, width: 5),
+                                    //     shape: BoxShape.circle,
+                                    //   ),
+                                    //   child: CircleAvatar(
+                                    //     backgroundImage:
+                                    //         AssetImage("assets/profile.png"),
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
+                                16.verticalSpace,
+                                Center(
+                                  child: Text(
+                                    '${phController.performerdata.userDetails?.firstName}',
+                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
                                   ),
-
-                                  // Container(
-                                  //   height: 140.h,
-                                  //   width: 140.w,
-                                  //   decoration: BoxDecoration(
-                                  //     border: Border.all(
-                                  //         color: Colors.white, width: 5),
-                                  //     shape: BoxShape.circle,
-                                  //   ),
-                                  //   child: CircleAvatar(
-                                  //     backgroundImage:
-                                  //         AssetImage("assets/profile.png"),
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                              16.verticalSpace,
-                              Center(
-                                child: Text(
-                                  '${phController.performerdata.userDetails?.firstName}',
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
                                 ),
-                              ),
-                              Text(
-                                '${phController.performerdata.userDetails?.contactEmail}',
-                                style: TextStyle(fontSize: 15, color: Colors.black),
-                              )
-                            ],
-                          ),
-                          60.verticalSpace,
-                          GestureDetector(
-                            onTap: () {
-                              Get.back();
-                            },
-                            child: Row(
-                              children: [
-                                40.horizontalSpace,
-                                Image.asset(
-                                  ImageAssets.drawerHome,
-                                  scale: 2,
-                                ),
-                                20.horizontalSpace,
                                 Text(
-                                  "Home",
-                                  style: TextStyle(color: Colors.black),
+                                  '${phController.performerdata.userDetails?.contactEmail}',
+                                  style: TextStyle(fontSize: 15, color: Colors.black),
                                 )
                               ],
                             ),
-                          ),
-                          40.verticalSpace,
-                          GestureDetector(
-                            onTap: () {
-                              Get.back();
-
-                              Get.toNamed(RouteName.pMyProfileScreenPath);
-                            },
-                            child: Row(
-                              children: [
-                                40.horizontalSpace,
-                                Image.asset(
-                                  ImageAssets.drawerProfile,
-                                  scale: 2,
-                                ),
-                                20.horizontalSpace,
-                                Text(
-                                  "My Profile",
-                                  style: TextStyle(color: Colors.black),
-                                )
-                              ],
-                            ),
-                          ),
-                          40.verticalSpace,
-                          GestureDetector(
-                            onTap: () {
-                              Get.toNamed(RouteName.walletScreen);
-                              // Get.to(() => goalsHistoryScreen());
-                            },
-                            child: Row(
-                              children: [
-                                40.horizontalSpace,
-                                Image.asset(
-                                  ImageAssets.drawerWallet,
-                                  scale: 2,
-                                ),
-                                20.horizontalSpace,
-                                Text(
-                                  "My Wallet",
-                                  style: TextStyle(color: Colors.black),
-                                )
-                              ],
-                            ),
-                          ),
-                          40.verticalSpace,
-                          GestureDetector(
-                            onTap: () {
-                              Get.back();
-
-                              Get.toNamed(RouteName.pNotificaitonScreenPath);
-                            },
-                            child: Row(
-                              children: [
-                                40.horizontalSpace,
-                                Image.asset(
-                                  ImageAssets.drawerNotification,
-                                  scale: 2,
-                                ),
-                                20.horizontalSpace,
-                                Text(
-                                  "Notifications",
-                                  style: TextStyle(color: Colors.black),
-                                )
-                              ],
-                            ),
-                          ),
-                          40.verticalSpace,
-                          GestureDetector(
-                            onTap: () {
-                              Get.back();
-
-                              Get.toNamed(RouteName.pHelpFeedbackScreenPath);
-                            },
-                            child: Row(
-                              children: [
-                                40.horizontalSpace,
-                                Image.asset(
-                                  ImageAssets.drawerHelp,
-                                  scale: 2,
-                                ),
-                                20.horizontalSpace,
-                                Text(
-                                  "Help & Feedback",
-                                  style: TextStyle(color: Colors.black),
-                                )
-                              ],
-                            ),
-                          ),
-                          40.verticalSpace,
-                          GestureDetector(
-                            onTap: () {
-                              // Get.to(() => settingsScreen());
-                              Get.back();
-                              Get.toNamed(RouteName.settingScreenPath);
-                            },
-                            child: Row(
-                              children: [
-                                40.horizontalSpace,
-                                Image.asset(
-                                  ImageAssets.drawerSetting,
-                                  scale: 2,
-                                ),
-                                20.horizontalSpace,
-                                Text(
-                                  "Settings",
-                                  style: TextStyle(color: Colors.black),
-                                )
-                              ],
-                            ),
-                          ),
-                          40.verticalSpace,
-                          GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      backgroundColor: ColorUtils.dialogeBGColor,
-                                      content: SizedBox(
-                                        width: 1.0.sw,
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            20.h.verticalSpace,
-                                            Container(
-                                              padding: EdgeInsets.all(23.sp),
-                                              decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
-                                              child: Image.asset(
-                                                ImageAssets.logoutBigIcon,
-                                                scale: 2,
-                                              ),
-                                            ),
-                                            20.h.verticalSpace,
-                                            Text(
-                                              "Logout!",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: ColorUtils.black,
-                                                fontSize: 22.sp,
-                                              ),
-                                            ),
-                                            24.h.verticalSpace,
-                                            Text(
-                                              "Are you sure you want to Logout?",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: ColorUtils.black,
-                                                fontSize: 14.sp,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      actions: [
-                                        Container(
-                                          width: 1.0.sw,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: GestureDetector(
-                                                  onTap: () async {
-                                                    await AuthPreferences.clearAuthData();
-
-                                                    Get.offAllNamed(RouteName.selectRoleOne);
-                                                  },
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    padding: EdgeInsets.symmetric(vertical: 15.h),
-                                                    decoration: BoxDecoration(
-                                                        color: ColorUtils.white,
-                                                        borderRadius: BorderRadius.circular(10.r),
-                                                        border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
-                                                    child: const Text("Yes, Select"),
-                                                  ),
-                                                ),
-                                              ),
-                                              20.w.horizontalSpace,
-                                              Expanded(
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    Get.back();
-                                                  },
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    padding: EdgeInsets.symmetric(vertical: 15.h),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(10.r),
-                                                      color: ColorUtils.red,
-                                                    ),
-                                                    child: Text(
-                                                      "No",
-                                                      style: TextStyle(color: ColorUtils.white),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    );
-                                  });
-                            },
-                            child: Container(
-                              width: 0.55.sw,
-                              padding: EdgeInsets.symmetric(vertical: 20.h),
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.red,
-                                  borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), bottomRight: Radius.circular(20.r))),
+                            60.verticalSpace,
+                            GestureDetector(
+                              onTap: () {
+                                Get.back();
+                              },
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   40.horizontalSpace,
                                   Image.asset(
-                                    ImageAssets.drawerLogout,
+                                    ImageAssets.drawerHome,
                                     scale: 2,
                                   ),
                                   20.horizontalSpace,
                                   Text(
-                                    "Logout",
-                                    style: TextStyle(color: Colors.white),
+                                    "Home",
+                                    style: TextStyle(color: Colors.black),
                                   )
                                 ],
                               ),
                             ),
-                          ),
-                          20.verticalSpace,
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                    left: 280,
-                    top: 30,
-                    child: InkWell(
-                        onTap: () {
-                          Get.close(1);
-                        },
-                        child: Image.asset(ImageAssets.closeDrawer)))
-              ]),
-            ),
+                            40.verticalSpace,
+                            GestureDetector(
+                              onTap: () {
+                                Get.back();
 
-            appBar: controller.count == 0
-                ? AppBar(
-                    leading: InkWell(
-                      onTap: () {
-                        _key.currentState!.openDrawer();
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(left: 20.w, right: 10.w),
-                        // padding: EdgeInsets.all(8.sp),
-                        height: 40.h,
-                        width: 40.w,
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
-                        child: Image.asset(
-                          ImageAssets.menunicon,
-                          scale: 2,
+                                Get.toNamed(RouteName.pMyProfileScreenPath);
+                              },
+                              child: Row(
+                                children: [
+                                  40.horizontalSpace,
+                                  Image.asset(
+                                    ImageAssets.drawerProfile,
+                                    scale: 2,
+                                  ),
+                                  20.horizontalSpace,
+                                  Text(
+                                    "My Profile",
+                                    style: TextStyle(color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            ),
+                            40.verticalSpace,
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(RouteName.walletScreen);
+                                // Get.to(() => goalsHistoryScreen());
+                              },
+                              child: Row(
+                                children: [
+                                  40.horizontalSpace,
+                                  Image.asset(
+                                    ImageAssets.drawerWallet,
+                                    scale: 2,
+                                  ),
+                                  20.horizontalSpace,
+                                  Text(
+                                    "My Wallet",
+                                    style: TextStyle(color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            ),
+                            40.verticalSpace,
+                            GestureDetector(
+                              onTap: () {
+                                Get.back();
+
+                                Get.toNamed(RouteName.pNotificaitonScreenPath);
+                              },
+                              child: Row(
+                                children: [
+                                  40.horizontalSpace,
+                                  Image.asset(
+                                    ImageAssets.drawerNotification,
+                                    scale: 2,
+                                  ),
+                                  20.horizontalSpace,
+                                  Text(
+                                    "Notifications",
+                                    style: TextStyle(color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            ),
+                            40.verticalSpace,
+                            GestureDetector(
+                              onTap: () {
+                                Get.back();
+
+                                Get.toNamed(RouteName.pHelpFeedbackScreenPath);
+                              },
+                              child: Row(
+                                children: [
+                                  40.horizontalSpace,
+                                  Image.asset(
+                                    ImageAssets.drawerHelp,
+                                    scale: 2,
+                                  ),
+                                  20.horizontalSpace,
+                                  Text(
+                                    "Help & Feedback",
+                                    style: TextStyle(color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            ),
+                            40.verticalSpace,
+                            GestureDetector(
+                              onTap: () {
+                                // Get.to(() => settingsScreen());
+                                Get.back();
+                                Get.toNamed(RouteName.settingScreenPath);
+                              },
+                              child: Row(
+                                children: [
+                                  40.horizontalSpace,
+                                  Image.asset(
+                                    ImageAssets.drawerSetting,
+                                    scale: 2,
+                                  ),
+                                  20.horizontalSpace,
+                                  Text(
+                                    "Settings",
+                                    style: TextStyle(color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            ),
+                            40.verticalSpace,
+                            GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        backgroundColor: ColorUtils.dialogeBGColor,
+                                        content: SizedBox(
+                                          width: 1.0.sw,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              20.h.verticalSpace,
+                                              Container(
+                                                padding: EdgeInsets.all(23.sp),
+                                                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
+                                                child: Image.asset(
+                                                  ImageAssets.logoutBigIcon,
+                                                  scale: 2,
+                                                ),
+                                              ),
+                                              20.h.verticalSpace,
+                                              Text(
+                                                "Logout!",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: ColorUtils.black,
+                                                  fontSize: 22.sp,
+                                                ),
+                                              ),
+                                              24.h.verticalSpace,
+                                              Text(
+                                                "Are you sure you want to Logout?",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: ColorUtils.black,
+                                                  fontSize: 14.sp,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: [
+                                          Container(
+                                            width: 1.0.sw,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: GestureDetector(
+                                                    onTap: () async {
+                                                      await AuthPreferences.clearAuthData();
+
+                                                      Get.offAllNamed(RouteName.selectRoleOne);
+                                                    },
+                                                    child: Container(
+                                                      alignment: Alignment.center,
+                                                      padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                      decoration: BoxDecoration(
+                                                          color: ColorUtils.white,
+                                                          borderRadius: BorderRadius.circular(10.r),
+                                                          border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                                      child: const Text("Yes, Select"),
+                                                    ),
+                                                  ),
+                                                ),
+                                                20.w.horizontalSpace,
+                                                Expanded(
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      Get.back();
+                                                    },
+                                                    child: Container(
+                                                      alignment: Alignment.center,
+                                                      padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(10.r),
+                                                        color: ColorUtils.red,
+                                                      ),
+                                                      child: Text(
+                                                        "No",
+                                                        style: TextStyle(color: ColorUtils.white),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      );
+                                    });
+                              },
+                              child: Container(
+                                width: 0.55.sw,
+                                padding: EdgeInsets.symmetric(vertical: 20.h),
+                                decoration: BoxDecoration(
+                                    color: ColorUtils.red,
+                                    borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), bottomRight: Radius.circular(20.r))),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    40.horizontalSpace,
+                                    Image.asset(
+                                      ImageAssets.drawerLogout,
+                                      scale: 2,
+                                    ),
+                                    20.horizontalSpace,
+                                    Text(
+                                      "Logout",
+                                      style: TextStyle(color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            20.verticalSpace,
+                          ],
                         ),
                       ),
                     ),
-                    actions: [
-                      GestureDetector(
+                  ),
+                  Positioned(
+                      left: 280,
+                      top: 30,
+                      child: InkWell(
+                          onTap: () {
+                            Get.close(1);
+                          },
+                          child: Image.asset(ImageAssets.closeDrawer)))
+                ]),
+              ),
+
+              appBar: controller.count == 0
+                  ? AppBar(
+                      leading: InkWell(
                         onTap: () {
-                          Get.toNamed(RouteName.pNotificaitonScreenPath);
+                          _key.currentState!.openDrawer();
                         },
                         child: Container(
-                          margin: EdgeInsets.only(right: 20.w),
-                          padding: EdgeInsets.all(8.sp),
+                          margin: EdgeInsets.only(left: 20.w, right: 10.w),
+                          // padding: EdgeInsets.all(8.sp),
                           height: 40.h,
                           width: 40.w,
                           decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                           child: Image.asset(
-                            ImageAssets.notificationicon,
+                            ImageAssets.menunicon,
                             scale: 2,
                           ),
                         ),
                       ),
-                    ],
-                    title: Image.asset(
-                      ImageAssets.logoSamll,
-                      scale: 2,
-                    ),
-                    centerTitle: true,
-                    elevation: 0,
-                    backgroundColor: ColorUtils.primary,
-                  )
-                : controller.count == 1
-                    ? AppBar(
-                        leading: InkWell(
+                      actions: [
+                        GestureDetector(
                           onTap: () {
-                            _key.currentState!.openDrawer();
+                            Get.toNamed(RouteName.pNotificaitonScreenPath);
                           },
                           child: Container(
-                            margin: EdgeInsets.only(left: 20.w, right: 10.w),
-                            // padding: EdgeInsets.all(8.sp),
+                            margin: EdgeInsets.only(right: 20.w),
+                            padding: EdgeInsets.all(8.sp),
                             height: 40.h,
                             width: 40.w,
                             decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                             child: Image.asset(
-                              ImageAssets.menunicon,
+                              ImageAssets.notificationicon,
                               scale: 2,
                             ),
                           ),
                         ),
-                        actions: [
-                          GestureDetector(
+                      ],
+                      title: Image.asset(
+                        ImageAssets.logoSamll,
+                        scale: 2,
+                      ),
+                      centerTitle: true,
+                      elevation: 0,
+                      backgroundColor: ColorUtils.primary,
+                    )
+                  : controller.count == 1
+                      ? AppBar(
+                          leading: InkWell(
                             onTap: () {
-                              Get.toNamed(RouteName.pNotificaitonScreenPath);
+                              _key.currentState!.openDrawer();
                             },
                             child: Container(
-                              margin: EdgeInsets.only(right: 20.w),
-                              padding: EdgeInsets.all(8.sp),
+                              margin: EdgeInsets.only(left: 20.w, right: 10.w),
+                              // padding: EdgeInsets.all(8.sp),
                               height: 40.h,
                               width: 40.w,
                               decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                               child: Image.asset(
-                                ImageAssets.notificationicon,
+                                ImageAssets.menunicon,
                                 scale: 2,
                               ),
                             ),
                           ),
-                        ],
-                        title: Text(
-                          "Messages",
-                          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
-                        ),
-                        centerTitle: true,
-                        elevation: 0,
-                        backgroundColor: ColorUtils.primary,
-                      )
-                    : controller.count == 3
-                        ? AppBar(
-                            leading: InkWell(
+                          actions: [
+                            GestureDetector(
                               onTap: () {
-                                _key.currentState!.openDrawer();
+                                Get.toNamed(RouteName.pNotificaitonScreenPath);
                               },
                               child: Container(
-                                margin: EdgeInsets.only(left: 20.w, right: 10.w),
-                                // padding: EdgeInsets.all(8.sp),
+                                margin: EdgeInsets.only(right: 20.w),
+                                padding: EdgeInsets.all(8.sp),
                                 height: 40.h,
                                 width: 40.w,
                                 decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                                 child: Image.asset(
-                                  ImageAssets.menunicon,
+                                  ImageAssets.notificationicon,
                                   scale: 2,
                                 ),
                               ),
                             ),
-                            actions: [
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(RouteName.pNotificaitonScreenPath);
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(right: 20.w),
-                                  padding: EdgeInsets.all(8.sp),
-                                  height: 40.h,
-                                  width: 40.w,
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
-                                  child: Image.asset(
-                                    ImageAssets.notificationicon,
-                                    scale: 2,
-                                  ),
-                                ),
-                              ),
-                            ],
-                            title: Text(
-                              "Jobs",
-                              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
-                            ),
-                            centerTitle: true,
-                            elevation: 0,
-                            backgroundColor: ColorUtils.primary,
-                          )
-                        : AppBar(
-                            leading: InkWell(
-                              onTap: () {
-                                _key.currentState!.openDrawer();
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(left: 20.w, right: 10.w),
-                                // padding: EdgeInsets.all(8.sp),
-                                height: 40.h,
-                                width: 40.w,
-                                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
-                                child: Image.asset(
-                                  ImageAssets.menunicon,
-                                  scale: 2,
-                                ),
-                              ),
-                            ),
-                            actions: [
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(RouteName.pNotificaitonScreenPath);
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(right: 20.w),
-                                  padding: EdgeInsets.all(8.sp),
-                                  height: 40.h,
-                                  width: 40.w,
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
-                                  child: Image.asset(
-                                    ImageAssets.notificationicon,
-                                    scale: 2,
-                                  ),
-                                ),
-                              ),
-                            ],
-                            title: Text(
-                              "Saved Jobs",
-                              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
-                            ),
-                            centerTitle: true,
-                            elevation: 0,
-                            backgroundColor: ColorUtils.primary,
+                          ],
+                          title: Text(
+                            "Messages",
+                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
                           ),
-            extendBody: true,
-            // extendBody: true, extendBodyBehindAppBar: true,
-            backgroundColor: Colors.white,
-            bottomNavigationBar: buildMyNavBar2(context),
+                          centerTitle: true,
+                          elevation: 0,
+                          backgroundColor: ColorUtils.primary,
+                        )
+                      : controller.count == 3
+                          ? AppBar(
+                              leading: InkWell(
+                                onTap: () {
+                                  _key.currentState!.openDrawer();
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(left: 20.w, right: 10.w),
+                                  // padding: EdgeInsets.all(8.sp),
+                                  height: 40.h,
+                                  width: 40.w,
+                                  decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                  child: Image.asset(
+                                    ImageAssets.menunicon,
+                                    scale: 2,
+                                  ),
+                                ),
+                              ),
+                              actions: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(RouteName.pNotificaitonScreenPath);
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(right: 20.w),
+                                    padding: EdgeInsets.all(8.sp),
+                                    height: 40.h,
+                                    width: 40.w,
+                                    decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                    child: Image.asset(
+                                      ImageAssets.notificationicon,
+                                      scale: 2,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                              title: Text(
+                                "Jobs",
+                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                              ),
+                              centerTitle: true,
+                              elevation: 0,
+                              backgroundColor: ColorUtils.primary,
+                            )
+                          : AppBar(
+                              leading: InkWell(
+                                onTap: () {
+                                  _key.currentState!.openDrawer();
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(left: 20.w, right: 10.w),
+                                  // padding: EdgeInsets.all(8.sp),
+                                  height: 40.h,
+                                  width: 40.w,
+                                  decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                  child: Image.asset(
+                                    ImageAssets.menunicon,
+                                    scale: 2,
+                                  ),
+                                ),
+                              ),
+                              actions: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(RouteName.pNotificaitonScreenPath);
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(right: 20.w),
+                                    padding: EdgeInsets.all(8.sp),
+                                    height: 40.h,
+                                    width: 40.w,
+                                    decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                    child: Image.asset(
+                                      ImageAssets.notificationicon,
+                                      scale: 2,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                              title: Text(
+                                "Saved Jobs",
+                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                              ),
+                              centerTitle: true,
+                              elevation: 0,
+                              backgroundColor: ColorUtils.primary,
+                            ),
+              extendBody: true,
+              // extendBody: true, extendBodyBehindAppBar: true,
+              backgroundColor: Colors.white,
+              bottomNavigationBar: buildMyNavBar2(context),
 
-            // drawer: DrawerWidget(),
-            body: controller.bottomList[controller.count.value]['page'] as Widget,
-          ),
-        );
-      }),
+              // drawer: DrawerWidget(),
+              body: controller.bottomList[controller.count.value]['page'] as Widget,
+            ),
+          );
+        }),
+      ),
     );
   }
 
