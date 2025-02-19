@@ -23,7 +23,7 @@ class PostedJobScreenController extends GetxController {
         .getSingleJobDetail(jobId: jobId.value)
         .then((value) {
       isLoading.value = false;
-      jobDetailData = value;
+      jobDetailData = value['job'];
 
       update();
     });

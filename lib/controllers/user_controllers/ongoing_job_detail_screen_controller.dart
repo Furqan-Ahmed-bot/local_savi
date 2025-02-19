@@ -1,6 +1,28 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
+import 'package:local_saviors/utils/api_services/user_services.dart';
 
 class OngoingJobDetailScreenController extends GetxController {
+  RxString jobId = "".obs;
+  var jobDetailDatail = {};
+  RxBool isLoading = false.obs;
+
+  getData() async {
+    isLoading.value = true;
+    await UserServices.instance
+        .getSingleJobDetail(jobId: jobId.value)
+        .then((value) {
+      isLoading.value = false;
+      jobDetailDatail = value['job'];
+      log("==> jobDetails: ${jobDetailDatail}");
+      update();
+    });
+    isLoading.value = false;
+
+    // update();
+  }
+
   RxBool isReached = false.obs;
   List dummyData = [
     {
@@ -29,6 +51,9 @@ class OngoingJobDetailScreenController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    jobId.value = Get.arguments['jobId'] ?? "";
+
+    getData();
     isReached.value =
         Get.arguments != null ? Get.arguments['isReached'] ?? false : false;
   }

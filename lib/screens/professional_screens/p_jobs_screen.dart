@@ -247,6 +247,26 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                                             });
                                                       },
                                                       child: activeJobCard(
+                                                          title: controller
+                                                              .completedJobsList[
+                                                                  index]
+                                                              .title,
+                                                          desc: controller
+                                                              .completedJobsList[
+                                                                  index]
+                                                              .description,
+                                                          budget: controller
+                                                              .completedJobsList[
+                                                                  index]
+                                                              .budget,
+                                                          date: controller
+                                                              .completedJobsList[
+                                                                  index]
+                                                              .jobDate,
+                                                          time: controller
+                                                              .completedJobsList[
+                                                                  index]
+                                                              .startTime,
                                                           status: controller
                                                                   .names[
                                                               controller

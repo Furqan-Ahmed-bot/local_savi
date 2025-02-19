@@ -10,8 +10,6 @@ import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/resources/map/show_map_screen.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
-import 'package:local_saviors/utils/images/image_assets.dart';
-import 'package:local_saviors/utils/routes/routes.dart';
 
 class UpcomingJobDetailScreen
     extends GetWidget<UpcomingJobDetailScreenController> {

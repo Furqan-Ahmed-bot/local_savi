@@ -22,7 +22,7 @@ class UpcomingJobDetailScreenController extends GetxController {
         .getSingleJobDetail(jobId: jobId.value)
         .then((value) {
       isLoading.value = false;
-      jobDetailDatail = value;
+      jobDetailDatail = value['job'];
       log("==> jobDetails: ${jobDetailDatail}");
       update();
     });

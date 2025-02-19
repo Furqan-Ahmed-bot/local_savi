@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_job_detail_controller.dart';
+import 'package:local_saviors/controllers/professional_controllers/p_jobs_controller.dart';
+import 'package:local_saviors/controllers/user_controllers/posted_job_screen_controller.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 
@@ -27,17 +29,18 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                 padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
                 child: RoundButton(
                   title: controller.buttonText.value,
-                  onPress: () {
+                  onPress: () async {
                     controller.buttonText.value == "Cancel Job"
                         ? showCancelDialog(context, controller.jobId.value)
-                        : controller.buttonText.value == "On The Way"
-                            ? controller.buttonText.value = "Arrived"
-                            : controller.buttonText.value == "Arrived"
-                                ? controller.buttonText.value =
-                                    "Mark As Completed"
+                        : (controller.buttonText.value == "On The Way" &&
+                                controller.isTraseable.value == false)
+                            ? (controller.journeyChange("ONTHEWAY"))
+                            : controller.buttonText.value == "Arrived" &&
+                                    controller.isTraseable.value == true
+                                ? (controller.journeyChange("ARRIVED"))
                                 : controller.buttonText.value ==
                                         "Mark As Completed"
-                                    ? showThankyouDialog(context)
+                                    ? (controller.journeyChange("COMPLETED"))
                                     : controller.buttonText.value == "Apply Now"
                                         ? UserServices.instance
                                             .applyPerformerJob(
@@ -607,81 +610,84 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
           );
         });
   }
+}
 
-  void showThankyouDialog(context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            backgroundColor: ColorUtils.dialogeBGColor,
-            content: SizedBox(
+void showThankyouDialog(context) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          backgroundColor: ColorUtils.dialogeBGColor,
+          content: SizedBox(
+            width: 1.0.sw,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                20.h.verticalSpace,
+                Container(
+                  padding: EdgeInsets.all(23.sp),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: ColorUtils.jobIconBG),
+                  child: Image.asset(
+                    ImageAssets.jobDoneIcon,
+                    scale: 2,
+                  ),
+                ),
+                20.h.verticalSpace,
+                Text(
+                  "Thank You!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: ColorUtils.black,
+                    fontSize: 22.sp,
+                  ),
+                ),
+                20.h.verticalSpace,
+                Text(
+                  "Your request has been submitted",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: ColorUtils.black,
+                    fontSize: 16.sp,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            Container(
               width: 1.0.sw,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  20.h.verticalSpace,
-                  Container(
-                    padding: EdgeInsets.all(23.sp),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: ColorUtils.jobIconBG),
-                    child: Image.asset(
-                      ImageAssets.jobDoneIcon,
-                      scale: 2,
-                    ),
-                  ),
-                  20.h.verticalSpace,
-                  Text(
-                    "Thank You!",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: ColorUtils.black,
-                      fontSize: 22.sp,
-                    ),
-                  ),
-                  20.h.verticalSpace,
-                  Text(
-                    "Your request has been submitted",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: ColorUtils.black,
-                      fontSize: 16.sp,
+                  GestureDetector(
+                    onTap: () {
+                      PJobsController pJobsController =
+                          Get.find<PJobsController>();
+                      pJobsController.getJobs();
+                      Get.close(2);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(
+                          vertical: 15.h, horizontal: 30.w),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.r),
+                        color: ColorUtils.red,
+                      ),
+                      child: Text(
+                        "Go Back",
+                        style: TextStyle(color: ColorUtils.white),
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-            actions: [
-              Container(
-                width: 1.0.sw,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.close(2);
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(
-                            vertical: 15.h, horizontal: 30.w),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          color: ColorUtils.red,
-                        ),
-                        child: Text(
-                          "Go Back",
-                          style: TextStyle(color: ColorUtils.white),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          );
-        });
-  }
+            )
+          ],
+        );
+      });
 }
