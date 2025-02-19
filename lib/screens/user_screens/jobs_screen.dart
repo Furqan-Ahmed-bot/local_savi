@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:local_saviors/controllers/user_controllers/jobs_screen_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
@@ -159,9 +160,10 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                                               controller.ongoingJobsList.length,
                                               (index) => GestureDetector(
                                                   onTap: () {
-                                                    Get.toNamed(RouteName
-                                                        .ongoingJobDetailScreenPath,
-                                                         arguments: {
+                                                    Get.toNamed(
+                                                        RouteName
+                                                            .ongoingJobDetailScreenPath,
+                                                        arguments: {
                                                           "jobId": controller
                                                               .ongoingJobsList[
                                                                   index]
@@ -238,80 +240,89 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                                           : const Center(
                                               child: Text(
                                                   " No Completed Jobs Available"))
-                                      : Column(
-                                          children: List.generate(
-                                              controller
-                                                  .listOfCancelledCard.length,
-                                              (index) => GestureDetector(
-                                                    onTap: () {
-                                                      Get.toNamed(
-                                                          RouteName
-                                                              .cancelledJobScreenPath,
-                                                          arguments: {
-                                                            "isPending": controller
-                                                                            .listOfCancelledCard[
-                                                                        index][
-                                                                    "status"] ==
-                                                                "Pending"
-                                                          });
-                                                    },
-                                                    child: Container(
-                                                      width: 1.0.sw,
-                                                      margin: EdgeInsets.only(
-                                                          bottom: 16.h),
-                                                      padding:
-                                                          EdgeInsets.all(10.sp),
-                                                      decoration: BoxDecoration(
-                                                        color: ColorUtils.white,
-                                                        border: Border.all(
-                                                            width: 1.w,
+                                      : controller.cancelledJobsList.isEmpty
+                                          ? const Center(
+                                              child: Text(
+                                                  " No Cancelled Jobs Available"))
+                                          : Column(
+                                              children: List.generate(
+                                                  controller
+                                                      .cancelledJobsList.length,
+                                                  (index) => GestureDetector(
+                                                        onTap: () {
+                                                          Get.toNamed(
+                                                              RouteName
+                                                                  .cancelledJobScreenPath,
+                                                              arguments: {
+                                                                "jobId": controller
+                                                                    .cancelledJobsList[
+                                                                        index]
+                                                                    .id,
+                                                                "isPending":
+                                                                    false
+                                                              });
+                                                        },
+                                                        child: Container(
+                                                          width: 1.0.sw,
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  bottom: 16.h),
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  10.sp),
+                                                          decoration:
+                                                              BoxDecoration(
                                                             color: ColorUtils
-                                                                .borderColor),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.r),
-                                                      ),
-                                                      child: Column(
-                                                        children: [
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
+                                                                .white,
+                                                            border: Border.all(
+                                                                width: 1.w,
+                                                                color: ColorUtils
+                                                                    .borderColor),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.r),
+                                                          ),
+                                                          child: Column(
                                                             children: [
-                                                              Container(
-                                                                width: 0.43.sw,
-                                                                child: Text(
-                                                                  "Job Details",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    width:
+                                                                        0.43.sw,
+                                                                    child: Text(
+                                                                      "Job Details",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
                                                                               .bold,
-                                                                      fontSize:
-                                                                          16.sp,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis),
-                                                                ),
+                                                                          fontSize: 16
+                                                                              .sp,
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis),
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    "${controller.cancelledJobsList[index].jobStatus} |  ${DateFormat("d MMMM").format(DateTime.parse(controller.cancelledJobsList[index].startTime.toString()))}",
+                                                                    style: TextStyle(
+                                                                        fontSize: 12
+                                                                            .sp,
+                                                                        color: ColorUtils
+                                                                            .borderColor),
+                                                                  )
+                                                                ],
                                                               ),
+                                                              6.h.verticalSpace,
                                                               Text(
-                                                                "${controller.listOfCancelledCard[index]["status"]} | ${controller.listOfCancelledCard[index]["date"]}",
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        12.sp,
-                                                                    color: ColorUtils
-                                                                        .borderColor),
-                                                              )
+                                                                  "${controller.cancelledJobsList[index].description}"),
+                                                              12.h.verticalSpace,
                                                             ],
                                                           ),
-                                                          6.h.verticalSpace,
-                                                          Text(
-                                                              "${controller.listOfCancelledCard[index]["desc"]}"),
-                                                          12.h.verticalSpace,
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  )),
-                                        )),
+                                                        ),
+                                                      )),
+                                            )),
             ),
           ],
         ),
