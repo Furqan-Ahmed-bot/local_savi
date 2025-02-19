@@ -29,8 +29,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  insetPadding:
-                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
                                   backgroundColor: ColorUtils.dialogeBGColor,
                                   content: SizedBox(
@@ -41,9 +40,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                                         20.h.verticalSpace,
                                         Container(
                                           padding: EdgeInsets.all(23.sp),
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: ColorUtils.jobIconBG),
+                                          decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
                                           child: Image.asset(
                                             ImageAssets.deleteBigIcon,
                                             scale: 2,
@@ -74,8 +71,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                                     Container(
                                       width: 1.0.sw,
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
                                             child: GestureDetector(
@@ -84,19 +80,12 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 15.h),
+                                                padding: EdgeInsets.symmetric(vertical: 15.h),
                                                 decoration: BoxDecoration(
                                                     color: ColorUtils.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r),
-                                                    border: Border.all(
-                                                        width: 1.w,
-                                                        color: ColorUtils
-                                                            .borderColor)),
-                                                child:
-                                                    const Text("Yes, Select"),
+                                                    borderRadius: BorderRadius.circular(10.r),
+                                                    border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                                child: const Text("Yes, Select"),
                                               ),
                                             ),
                                           ),
@@ -108,18 +97,14 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 15.h),
+                                                padding: EdgeInsets.symmetric(vertical: 15.h),
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.r),
+                                                  borderRadius: BorderRadius.circular(10.r),
                                                   color: ColorUtils.red,
                                                 ),
                                                 child: Text(
                                                   "No",
-                                                  style: TextStyle(
-                                                      color: ColorUtils.white),
+                                                  style: TextStyle(color: ColorUtils.white),
                                                 ),
                                               ),
                                             ),
@@ -136,9 +121,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                           padding: EdgeInsets.all(8.sp),
                           height: 40.h,
                           width: 40.w,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: ColorUtils.appbarButtonBG),
+                          decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                           child: Image.asset(
                             ImageAssets.deleteIcon,
                             scale: 2,
@@ -148,36 +131,30 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                     ]),
                     Expanded(
                         child: ListView(
-                      padding: EdgeInsets.only(
-                          left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
+                      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
                       children: [
                         20.h.verticalSpace,
                         Text(
                           "Employee",
-                          style: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                         ),
                         12.h.verticalSpace,
                         shortlistUserCard(
                             context: context,
-                            name: controller.jobDetailDatail['performer']
-                                    ['user_details']['first_name'] +
+                            name: controller.jobDetailDatail['performer']['user_details']['first_name'] +
                                 " " +
-                                controller.jobDetailDatail['performer']
-                                    ['user_details']['last_name'],
+                                controller.jobDetailDatail['performer']['user_details']['last_name'],
                             rating: "(4.5)",
                             isVerified: true,
                             showSelectJobButton: false,
-                            image: controller.jobDetailDatail['performer']
-                                ['user_details']['profile_picture']),
+                            image: controller.jobDetailDatail['performer']['user_details']['profile_picture']),
                         28.h.verticalSpace,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               "Job Details",
-                              style: TextStyle(
-                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                             ),
                             Row(
                               children: [
@@ -188,10 +165,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                                 8.w.horizontalSpace,
                                 Text(
                                   controller.jobDetailDatail['job_status'],
-                                  style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.normal,
-                                      color: ColorUtils.blue),
+                                  style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal, color: ColorUtils.blue),
                                 ),
                               ],
                             ),
@@ -204,18 +178,12 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                         20.h.verticalSpace,
                         Text(
                           controller.jobDetailDatail['title'] ?? "",
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                              color: ColorUtils.black),
+                          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
                         ),
                         10.h.verticalSpace,
                         Text(
                           controller.jobDetailDatail['description'],
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.normal,
-                              color: ColorUtils.textColor),
+                          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal, color: ColorUtils.textColor),
                         ),
                         24.h.verticalSpace,
                         Column(
@@ -225,20 +193,16 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: List.generate(
-                                    controller
-                                        .jobDetailDatail['job_media'].length,
+                                    controller.jobDetailDatail['job_media'].length,
                                     (index) => Padding(
                                           padding: EdgeInsets.only(right: 10.w),
                                           child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.r),
+                                            borderRadius: BorderRadius.circular(10.r),
                                             child: Image.network(
                                                 height: 80,
                                                 width: 80,
                                                 fit: BoxFit.fill,
-                                                controller.jobDetailDatail[
-                                                        'job_media'][index]
-                                                    ['media_file']),
+                                                controller.jobDetailDatail['job_media'][index]['media_file']),
                                           ),
                                         )),
                               ),
@@ -248,8 +212,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
 
                             Column(children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
@@ -280,8 +243,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                               ),
                               10.h.verticalSpace,
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
@@ -297,12 +259,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                                   ),
                                   Flexible(
                                     child: Text(
-                                      (controller.jobDetailDatail['budget']
-                                                  .toString() +
-                                              "-" +
-                                              controller.jobDetailDatail[
-                                                  'budget_type'])
-                                          .toString(),
+                                      (controller.jobDetailDatail['budget'].toString() + "-" + controller.jobDetailDatail['budget_type']).toString(),
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w500,
@@ -317,8 +274,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                               ),
                               10.h.verticalSpace,
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
@@ -334,9 +290,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                                   ),
                                   Flexible(
                                     child: Text(
-                                      DateFormat("HH:mm").format(DateTime.parse(
-                                          controller
-                                              .jobDetailDatail['start_time'])),
+                                      DateFormat("HH:mm").format(DateTime.parse(controller.jobDetailDatail['start_time'])),
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w500,
@@ -351,8 +305,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                               ),
                               10.h.verticalSpace,
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
@@ -368,9 +321,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                                   ),
                                   Flexible(
                                     child: Text(
-                                      DateFormat("MMM d, yyyy").format(
-                                          DateTime.parse(controller
-                                              .jobDetailDatail['job_date'])),
+                                      DateFormat("MMM d, yyyy").format(DateTime.parse(controller.jobDetailDatail['job_date'])),
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w500,
@@ -385,8 +336,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                               ),
                               10.h.verticalSpace,
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
@@ -465,8 +415,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -482,28 +431,25 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                                     ),
                                     Row(
                                       children: [
-                                        Text(
-                                          controller
-                                              .jobDetailDatail['location'],
-                                          style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w500,
+                                        Container(
+                                          width: 120,
+                                          child: Text(
+                                            controller.jobDetailDatail['location'],
+                                            style: TextStyle(
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                         ),
                                         5.w.horizontalSpace,
                                         InkWell(
                                           onTap: () async {
                                             String address = '';
-                                            List<Placemark> placemarks =
-                                                await placemarkFromCoordinates(
-                                                    double.parse(controller
-                                                            .jobDetailDatail[
-                                                        'latitude']),
-                                                    double.parse(
-                                                      controller
-                                                              .jobDetailDatail[
-                                                          'longitude'],
-                                                    ));
+                                            List<Placemark> placemarks = await placemarkFromCoordinates(
+                                                double.parse(controller.jobDetailDatail['latitude']),
+                                                double.parse(
+                                                  controller.jobDetailDatail['longitude'],
+                                                ));
 
                                             if (placemarks.isNotEmpty) {
                                               Placemark place = placemarks[0];
@@ -512,24 +458,16 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                                               print("Address: $address");
 
                                               // You can display the address in a dialog, snackbar, or any widget
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                    content: Text(
-                                                        'Selected Location: $address')),
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(content: Text('Selected Location: $address')),
                                               );
                                             }
 
                                             Get.to(() => ShowMapScreen(
                                                   address: address,
                                                   isProfile: true,
-                                                  initialLocation: LatLng(
-                                                      double.parse(controller
-                                                              .jobDetailDatail[
-                                                          'latitude']),
-                                                      double.parse(controller
-                                                              .jobDetailDatail[
-                                                          'longitude'])),
+                                                  initialLocation: LatLng(double.parse(controller.jobDetailDatail['latitude']),
+                                                      double.parse(controller.jobDetailDatail['longitude'])),
                                                 ));
                                           },
                                           child: Text(
@@ -538,8 +476,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                                                 fontSize: 14.sp,
                                                 color: ColorUtils.red,
                                                 decorationColor: ColorUtils.red,
-                                                decoration:
-                                                    TextDecoration.underline),
+                                                decoration: TextDecoration.underline),
                                           ),
                                         ),
                                       ],

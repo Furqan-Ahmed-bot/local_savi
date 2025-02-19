@@ -5,13 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/user_controllers/best_performer_detail_screen_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
+import 'package:local_saviors/resources/extensions/context_extension.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
-class BestPerformerDetailScreen
-    extends GetWidget<BestPerformerDetailScreenController> {
+class BestPerformerDetailScreen extends GetWidget<BestPerformerDetailScreenController> {
   @override
   Widget build(BuildContext context) {
     return myBackGround(
@@ -22,17 +22,14 @@ class BestPerformerDetailScreen
             controller.showChat.value
                 ? GestureDetector(
                     onTap: () {
-                      Get.toNamed(RouteName.chatScreenPath,
-                          arguments: {"showUserDetail": false});
+                      Get.toNamed(RouteName.chatScreenPath, arguments: {"showUserDetail": false});
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: 20.w),
                       padding: EdgeInsets.all(8.sp),
                       height: 40.h,
                       width: 40.w,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: ColorUtils.appbarButtonBG),
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                       child: Image.asset(
                         ImageAssets.msgIcon,
                         color: ColorUtils.red,
@@ -47,11 +44,9 @@ class BestPerformerDetailScreen
         ),
         Expanded(
             child: ListView(
-          padding:
-              EdgeInsets.only(left: 20.w, right: 20.w, top: 46.h, bottom: 30.h),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 46.h, bottom: 30.h),
           children: [
-            GetBuilder<BestPerformerDetailScreenController>(
-                builder: (controller) {
+            GetBuilder<BestPerformerDetailScreenController>(builder: (controller) {
               return controller.isLoading.value
                   ? Center(
                       child: spinkit,
@@ -65,8 +60,7 @@ class BestPerformerDetailScreen
                               width: 100,
                               child: ClipOval(
                                 child: Image.network(
-                                  loadingBuilder:
-                                      (context, child, loadingProgress) {
+                                  loadingBuilder: (context, child, loadingProgress) {
                                     if (loadingProgress == null) return child;
                                     return const Center(
                                       child: CircularProgressIndicator(),
@@ -78,8 +72,7 @@ class BestPerformerDetailScreen
                                     );
                                   },
                                   fit: BoxFit.cover,
-                                  controller.bestPerformers['user_details']
-                                      ['profile_picture'],
+                                  controller.bestPerformers['user_details']['profile_picture'],
                                   scale: 2,
                                 ),
                               ),
@@ -94,13 +87,8 @@ class BestPerformerDetailScreen
                         ),
                         16.h.verticalSpace,
                         Text(
-                          controller.bestPerformers['user_details']
-                                  ['first_name'] +
-                              " " +
-                              controller.bestPerformers['user_details']
-                                  ['last_name'],
-                          style: TextStyle(
-                              fontSize: 24.sp, fontWeight: FontWeight.bold),
+                          controller.bestPerformers['user_details']['first_name'] + " " + controller.bestPerformers['user_details']['last_name'],
+                          style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
                         ),
                         12.h.verticalSpace,
                         GestureDetector(
@@ -122,9 +110,7 @@ class BestPerformerDetailScreen
                               5.w.horizontalSpace,
                               Text(
                                 "Rating",
-                                style: TextStyle(
-                                    fontSize: 18.sp,
-                                    decoration: TextDecoration.underline),
+                                style: TextStyle(fontSize: 18.sp, decoration: TextDecoration.underline),
                               ),
                               10.w.horizontalSpace,
                               Container(
@@ -140,9 +126,7 @@ class BestPerformerDetailScreen
                               5.w.horizontalSpace,
                               Text(
                                 "Reviews",
-                                style: TextStyle(
-                                    fontSize: 18.sp,
-                                    decoration: TextDecoration.underline),
+                                style: TextStyle(fontSize: 18.sp, decoration: TextDecoration.underline),
                               ),
                             ],
                           ),
@@ -160,8 +144,7 @@ class BestPerformerDetailScreen
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.w),
                               color: ColorUtils.white,
-                              border: Border.all(
-                                  width: 1.w, color: ColorUtils.borderColor)),
+                              border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -172,18 +155,14 @@ class BestPerformerDetailScreen
                                     // mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Container(
                                             // width: 0.3.sw,
-                                            margin:
-                                                EdgeInsets.only(right: 20.w),
+                                            margin: EdgeInsets.only(right: 20.w),
                                             child: Text(
-                                              controller.dummyData[index]
-                                                  ['title'],
+                                              controller.dummyData[index]['title'],
                                               style: TextStyle(
                                                 fontSize: 16.sp,
                                                 fontWeight: FontWeight.w600,
@@ -192,8 +171,7 @@ class BestPerformerDetailScreen
                                           ),
                                           Flexible(
                                             child: Text(
-                                              controller.dummyData[index]
-                                                  ["value"],
+                                              controller.dummyData[index]["value"],
                                               style: TextStyle(
                                                 fontSize: 16.sp,
                                                 fontWeight: FontWeight.w400,
@@ -204,8 +182,7 @@ class BestPerformerDetailScreen
                                       ),
                                       16.h.verticalSpace,
                                       Divider(
-                                        color: ColorUtils.borderColor
-                                            .withOpacity(0.5),
+                                        color: ColorUtils.borderColor.withOpacity(0.5),
                                       ),
                                       16.h.verticalSpace,
                                     ],
@@ -225,28 +202,38 @@ class BestPerformerDetailScreen
                                 // scale: 2,
                               ),
                               10.h.verticalSpace,
-                              Text(
-                                "Professional Documents",
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
+                              if (controller.bestPerformers['documents'] != null) ...[
+                                Text(
+                                  "Professional Documents",
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                              10.h.verticalSpace,
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Image.asset(
-                                    ImageAssets.oliverCertificateImg,
-                                    scale: 2,
-                                  ),
-                                  Image.asset(
-                                    ImageAssets.oliverCertificateImg,
-                                    scale: 2,
-                                  ),
-                                ],
-                              )
+                                10.h.verticalSpace,
+                                GridView.builder(
+                                  padding: EdgeInsets.all(0),
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 15, mainAxisExtent: 117),
+                                  itemCount: controller.bestPerformers['documents'].length,
+                                  itemBuilder: (_, i) {
+                                    return Container(
+                                      height: 117.h,
+                                      width: 117.w,
+                                      decoration: BoxDecoration(
+                                        color: context.primary,
+                                        borderRadius: BorderRadius.circular(7.r),
+                                        image: DecorationImage(
+                                          image: NetworkImage(controller.bestPerformers['documents'][i]['media_file']),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
                             ],
                           ),
                         )
