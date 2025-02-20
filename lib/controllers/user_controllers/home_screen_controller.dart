@@ -21,6 +21,12 @@ class HomeScreenController extends GetxController {
     print(userdata.email);
   }
 
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+  }
+
   List dummyData = [
     {
       "name": "Oliver Mark",

@@ -156,7 +156,7 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                                             : Row(
                                                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: List.generate(
-                                                    3,
+                                                    controller.bestPerformers.length,
                                                     (index) => Expanded(
                                                           child: GestureDetector(
                                                             onTap: () {
@@ -257,7 +257,7 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Acctive Jobs",
+                                      "Active Jobs",
                                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp, color: ColorUtils.black),
                                     ),
                                     6.w.horizontalSpace,

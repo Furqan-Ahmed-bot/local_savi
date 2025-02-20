@@ -4,6 +4,8 @@ import 'package:local_saviors/utils/color_utils.dart';
 
 import '../controllers/professional_controllers/p_home_controller.dart';
 import '../controllers/user_controllers/home_screen_controller.dart';
+import '../resources/components/sockets/chats_controller.dart';
+import '../resources/components/sockets/sockets.dart';
 
 late HomeScreenController hsController;
 late PHomeController phController;
@@ -11,6 +13,11 @@ RxString role = "".obs;
 bool isProfileCreated = false;
 bool isHandyMan = false;
 RxString email = "".obs;
+late SocketController socketController;
+late GetChatController chatController;
+
+var userId;
+
 var OTP;
 // RxString pass = "".obs;
 // RxString ppas = "".obs;

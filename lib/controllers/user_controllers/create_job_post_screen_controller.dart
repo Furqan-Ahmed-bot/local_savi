@@ -76,6 +76,34 @@ class CreateJobPostScreenController extends GetxController {
     }
   }
 
+  bool isTimeValid(DateTime selectedDate, String selectedHours, String selectedMints, bool isAm) {
+    DateTime now = DateTime.now();
+
+    // Convert selected hours to 24-hour format based on AM/PM
+    int hours = int.parse(selectedHours);
+    if (!isAm && hours != 12) {
+      hours += 12; // Convert to 24-hour format for PM
+    } else if (isAm && hours == 12) {
+      hours = 0; // 12 AM is 00:00 in 24-hour format
+    }
+
+    DateTime selectedTime = DateTime(
+      selectedDate.year,
+      selectedDate.month,
+      selectedDate.day,
+      hours,
+      int.parse(selectedMints),
+    );
+
+    // If the selected date is today, check if the selected time is after the current time
+    if (selectedDate.year == now.year && selectedDate.month == now.month && selectedDate.day == now.day) {
+      return selectedTime.isAfter(now);
+    }
+
+    // If the selected date is in the future, the time is always valid
+    return true;
+  }
+
   List ListOfText = [
     // {
     //   "title": "Wallet",

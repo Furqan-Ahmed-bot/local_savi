@@ -1,7 +1,10 @@
 class UserUrls {
   // static const baseUrl = "https://26ltv180-9001.euw.devtunnels.ms/api/v1/";
   //static const baseUrl = "https://26ltv180-9001.euw.devtunnels.ms/api/v1/";
-  static const baseUrl = "https://api.localsaviors.com/api/v1/";
+  // static const baseUrl = "https://api.localsaviors.com/api/v1/";
+
+  static const socketUrl = 'https://26ltv180-9001.euw.devtunnels.ms';
+  static const baseUrl = 'https://26ltv180-9001.euw.devtunnels.ms/api/v1/';
 
   static const loginUrl = "${baseUrl}user/login";
   static const signupUrl = "${baseUrl}user/register";
@@ -33,6 +36,8 @@ class UserUrls {
   static const editProfessional = "${baseUrl}user/provider";
   static const chanegUserProfilePic = "${baseUrl}user/profile_picture";
 
+  static const getProffesions = "${baseUrl}public/professions";
+
   //Performer
 
   static const getJobProviderInfo = "${baseUrl}user";
@@ -46,6 +51,8 @@ class UserUrls {
   static const journeyStatus = "${baseUrl}job/job_journey_status/"; //job id
   static const createUserDispute = "${baseUrl}job/dispute/"; //job id
 
+  static const cancelperformerJob = "${baseUrl}job/cancel_job";
+
   //connect stripe
 
   static const connectStripe = "${baseUrl}transaction/connect_stripe";
@@ -58,6 +65,10 @@ class UserUrls {
   //Review
 
   static const giveReview = "${baseUrl}user_reviews";
+
+  //categories
+
+  static const getCategories = "${baseUrl}public/categories";
 
   //PayNow
 

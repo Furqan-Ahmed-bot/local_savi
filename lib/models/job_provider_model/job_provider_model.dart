@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_this
 
 class JobProviderModel {
+  String? userID;
   String? email;
   String? userType;
   String? phone;
@@ -9,6 +10,7 @@ class JobProviderModel {
   JobProviderModel({this.email, this.userType, this.phone, this.userDetails});
 
   JobProviderModel.fromJson(Map<String, dynamic> json) {
+    userID = json['user_id'];
     email = json['email'];
     userType = json['user_type'];
     phone = json['phone'];
@@ -17,6 +19,7 @@ class JobProviderModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['user_id'] = this.userID;
     data['email'] = this.email;
     data['user_type'] = this.userType;
     data['phone'] = this.phone;

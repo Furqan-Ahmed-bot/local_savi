@@ -10,6 +10,8 @@ import 'package:local_saviors/utils/routes/routes.dart';
 import 'package:local_saviors/utils/routes/screen_bindings.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'controllers/user_controllers/home_screen_controller.dart';
+import 'resources/components/sockets/chats_controller.dart';
+import 'resources/components/sockets/sockets.dart';
 import 'utils/routes/routes_name.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
@@ -18,6 +20,11 @@ void main() {
   Stripe.publishableKey = "pk_test_51Q5Qo3COooK1jUT3eDq4GfwDaWj1poPVKM3fC7aUr0GppsWaHwVM4PSQowX6GbEA7cTUloh9g7TjjCRCKJ7qhbBV00lG4mWbuY";
   hsController = Get.put(HomeScreenController());
   phController = Get.put(PHomeController());
+  socketController = Get.put(SocketController());
+  chatController = Get.put(GetChatController());
+
+  socketController.connectSocket();
+
   runApp(const MyApp());
 }
 

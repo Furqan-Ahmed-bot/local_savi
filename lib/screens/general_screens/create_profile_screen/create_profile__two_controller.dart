@@ -6,6 +6,8 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../utils/api_services/app_urls.dart';
+
 class CreatePorfileTwoController extends GetxController {
   String selectedProfession = 'Select Profession';
   List<String> proffesionsName = [];
@@ -27,7 +29,7 @@ class CreatePorfileTwoController extends GetxController {
 
   getProffessions() async {
     isLoading.value = true;
-    final uri = Uri.parse("https://api.localsaviors.com/api/v1/public/professions");
+    final uri = Uri.parse("${UserUrls.getProffesions}");
 
     http.Response response = await http.get(uri);
     var resData = json.decode(response.body.toString());

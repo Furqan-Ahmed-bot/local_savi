@@ -506,9 +506,15 @@ Widget messageUserCard({
               child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.r), border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
-                child: Image.asset(
-                  image,
-                  scale: 2,
+                child: ClipRect(
+                  clipBehavior: Clip.hardEdge,
+                  child: Image.network(
+                    image,
+                    fit: BoxFit.cover,
+                    scale: 1,
+                    height: 60,
+                    width: 60,
+                  ),
                 ),
               ),
             ),
@@ -530,12 +536,9 @@ Widget messageUserCard({
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 0.5.sw,
-                  child: Text(
-                    name,
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
-                  ),
+                Text(
+                  name,
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
                 ),
                 Text(
                   date,

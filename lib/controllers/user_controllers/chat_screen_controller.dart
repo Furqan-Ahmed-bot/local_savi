@@ -17,6 +17,8 @@ class ChatScreenController extends GetxController {
   RxBool showUserDetail = true.obs;
   final decidedAmountController = TextEditingController();
 
+  final messageController = TextEditingController();
+
   var username;
   var performerId;
   var jobId;

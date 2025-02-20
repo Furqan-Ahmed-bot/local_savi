@@ -1,10 +1,11 @@
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_string_interpolations
 
 import 'dart:convert';
 import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:local_saviors/utils/api_services/app_urls.dart';
 
 class CreateHandymanPorfileController extends GetxController {
   String selectedProfession = 'Select Category';
@@ -27,7 +28,7 @@ class CreateHandymanPorfileController extends GetxController {
 
   getCategories() async {
     isLoading.value = true;
-    final uri = Uri.parse("https://api.localsaviors.com/api/v1/public/categories");
+    final uri = Uri.parse("${UserUrls.getCategories}");
 
     http.Response response = await http.get(uri);
     var resData = json.decode(response.body.toString());

@@ -479,7 +479,26 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                                 ))
                                             .toList(),
                                         onChanged: (value) {
-                                          controller.selectedHours = value;
+                                          if (value != null) {
+                                            controller.selectedHours = value;
+
+                                            // Check if the selected time is valid
+                                            if (!controller.isTimeValid(controller.selectedDate, controller.selectedHours ?? "00",
+                                                controller.selectedMints ?? "00", controller.isAm.value)) {
+                                              // Show an error message or reset the selection
+                                              Get.snackbar("Invalid Time", "You cannot select a time earlier than the current time for today.");
+                                              return;
+                                            }
+
+                                            DateTime localTime = controller.selectedDate.add(Duration(
+                                              hours: int.parse(controller.selectedHours ?? "00"),
+                                              minutes: int.parse(controller.selectedMints ?? "00"),
+                                            ));
+
+                                            DateTime utcTime = localTime.toUtc();
+
+                                            controller.selectedTimeWithDate.value = utcTime.toIso8601String();
+                                          }
                                         },
                                       ),
                                     ),
@@ -581,55 +600,77 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                                 ))
                                             .toList(),
                                         onChanged: (value) {
-                                          controller.selectedMints = value;
+                                          if (value != null) {
+                                            controller.selectedMints = value;
 
-                                          DateTime localTime = controller.selectedDate.add(Duration(
-                                            hours: int.parse(controller.selectedHours ?? "00"),
-                                            minutes: int.parse(controller.selectedMints ?? "00"),
-                                          ));
+                                            // Check if the selected time is valid
+                                            if (!controller.isTimeValid(controller.selectedDate, controller.selectedHours ?? "00",
+                                                controller.selectedMints ?? "00", controller.isAm.value)) {
+                                              // Show an error message or reset the selection
+                                              Get.snackbar("Invalid Time", "You cannot select a time earlier than the current time for today.");
+                                              return;
+                                            }
 
-                                          DateTime utcTime = localTime.toUtc();
+                                            DateTime localTime = controller.selectedDate.add(Duration(
+                                              hours: int.parse(controller.selectedHours ?? "00"),
+                                              minutes: int.parse(controller.selectedMints ?? "00"),
+                                            ));
 
-                                          controller.selectedTimeWithDate.value = utcTime.toIso8601String();
+                                            DateTime utcTime = localTime.toUtc();
+
+                                            controller.selectedTimeWithDate.value = utcTime.toIso8601String();
+                                          }
                                         },
                                       ),
                                     ),
                                   ],
                                 ),
-
                                 InkWell(
                                   onTap: () {
                                     controller.isAm.value = true;
+
+                                    // Check if the selected time is valid after changing AM/PM
+                                    if (!controller.isTimeValid(controller.selectedDate, controller.selectedHours ?? "00",
+                                        controller.selectedMints ?? "00", controller.isAm.value)) {
+                                      Get.snackbar("Invalid Time", "You cannot select a time earlier than the current time for today.");
+                                    }
                                   },
                                   child: Container(
                                     padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
                                     decoration: BoxDecoration(
-                                        color: controller.isAm.value ? ColorUtils.blue : ColorUtils.white,
-                                        borderRadius: BorderRadius.circular(10.r),
-                                        border: Border.all(width: 1.w, color: controller.isAm.value ? ColorUtils.blue : ColorUtils.borderColor)),
+                                      color: controller.isAm.value ? ColorUtils.blue : ColorUtils.white,
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      border: Border.all(width: 1.w, color: controller.isAm.value ? ColorUtils.blue : ColorUtils.borderColor),
+                                    ),
                                     child: Text(
                                       "AM",
                                       style: TextStyle(fontSize: 16, color: controller.isAm.value ? ColorUtils.white : ColorUtils.black),
                                     ),
                                   ),
                                 ),
-                                // 10.horizontalSpace,
                                 InkWell(
                                   onTap: () {
                                     controller.isAm.value = false;
+
+                                    // Check if the selected time is valid after changing AM/PM
+                                    if (!controller.isTimeValid(controller.selectedDate, controller.selectedHours ?? "00",
+                                        controller.selectedMints ?? "00", controller.isAm.value)) {
+                                      Get.snackbar("Invalid Time", "You cannot select a time earlier than the current time for today.");
+                                    }
                                   },
                                   child: Container(
                                     padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
                                     decoration: BoxDecoration(
-                                        color: controller.isAm.value ? ColorUtils.white : ColorUtils.blue,
-                                        borderRadius: BorderRadius.circular(10.r),
-                                        border: Border.all(width: 1.w, color: controller.isAm.value ? ColorUtils.borderColor : ColorUtils.blue)),
+                                      color: controller.isAm.value ? ColorUtils.white : ColorUtils.blue,
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      border: Border.all(width: 1.w, color: controller.isAm.value ? ColorUtils.borderColor : ColorUtils.blue),
+                                    ),
                                     child: Text(
                                       "PM",
                                       style: TextStyle(fontSize: 16, color: controller.isAm.value ? ColorUtils.black : ColorUtils.white),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),

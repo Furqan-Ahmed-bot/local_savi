@@ -11,8 +11,7 @@ import 'package:local_saviors/resources/map/show_map_screen.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 
-class UpcomingJobDetailScreen
-    extends GetWidget<UpcomingJobDetailScreenController> {
+class UpcomingJobDetailScreen extends GetWidget<UpcomingJobDetailScreenController> {
   @override
   Widget build(BuildContext context) {
     return myBackGround(
@@ -29,36 +28,30 @@ class UpcomingJobDetailScreen
                 ),
                 Expanded(
                     child: ListView(
-                  padding: EdgeInsets.only(
-                      left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
                   children: [
                     shortlistUserCard(
+                        jobId: controller.jobDetailDatail['id'],
+                        id: controller.jobDetailDatail['performer']['id'],
                         context: context,
-                        name: controller.jobDetailDatail['performer']
-                                ['user_details']['first_name'] +
+                        name: controller.jobDetailDatail['performer']['user_details']['first_name'] +
                             " " +
-                            controller.jobDetailDatail['performer']
-                                ['user_details']['last_name'],
+                            controller.jobDetailDatail['performer']['user_details']['last_name'],
                         rating: "(4.5)",
                         isVerified: true,
                         showSelectJobButton: false,
-                        image: controller.jobDetailDatail['performer']
-                            ['user_details']['profile_picture']),
+                        image: controller.jobDetailDatail['performer']['user_details']['profile_picture']),
                     28.h.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "Job Details",
-                          style: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           controller.jobDetailDatail['job_status'],
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.normal,
-                              color: ColorUtils.blue),
+                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal, color: ColorUtils.blue),
                         ),
                       ],
                     ),
@@ -69,18 +62,12 @@ class UpcomingJobDetailScreen
                     20.h.verticalSpace,
                     Text(
                       controller.jobDetailDatail['title'] ?? "",
-                      style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          color: ColorUtils.black),
+                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
                     ),
                     10.h.verticalSpace,
                     Text(
                       controller.jobDetailDatail['description'],
-                      style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.normal,
-                          color: ColorUtils.textColor),
+                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal, color: ColorUtils.textColor),
                     ),
                     24.h.verticalSpace,
                     Column(
@@ -95,15 +82,9 @@ class UpcomingJobDetailScreen
                                 (index) => Padding(
                                       padding: EdgeInsets.only(right: 10.w),
                                       child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(10.r),
+                                        borderRadius: BorderRadius.circular(10.r),
                                         child: Image.network(
-                                            height: 80,
-                                            width: 80,
-                                            fit: BoxFit.fill,
-                                            controller.jobDetailDatail[
-                                                    'job_media'][index]
-                                                ['media_file']),
+                                            height: 80, width: 80, fit: BoxFit.fill, controller.jobDetailDatail['job_media'][index]['media_file']),
                                       ),
                                     )),
                           ),
@@ -160,12 +141,7 @@ class UpcomingJobDetailScreen
                               ),
                               Flexible(
                                 child: Text(
-                                  (controller.jobDetailDatail['budget']
-                                              .toString() +
-                                          "-" +
-                                          controller
-                                              .jobDetailDatail['budget_type'])
-                                      .toString(),
+                                  (controller.jobDetailDatail['budget'].toString() + "-" + controller.jobDetailDatail['budget_type']).toString(),
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -196,9 +172,7 @@ class UpcomingJobDetailScreen
                               ),
                               Flexible(
                                 child: Text(
-                                  DateFormat("HH:mm").format(DateTime.parse(
-                                      controller
-                                          .jobDetailDatail['start_time'])),
+                                  DateFormat("HH:mm").format(DateTime.parse(controller.jobDetailDatail['start_time'])),
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -229,9 +203,7 @@ class UpcomingJobDetailScreen
                               ),
                               Flexible(
                                 child: Text(
-                                  DateFormat("MMM d, yyyy").format(
-                                      DateTime.parse(controller
-                                          .jobDetailDatail['job_date'])),
+                                  DateFormat("MMM d, yyyy").format(DateTime.parse(controller.jobDetailDatail['job_date'])),
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -352,15 +324,11 @@ class UpcomingJobDetailScreen
                                     InkWell(
                                       onTap: () async {
                                         String address = '';
-                                        List<Placemark> placemarks =
-                                            await placemarkFromCoordinates(
-                                                double.parse(
-                                                    controller.jobDetailDatail[
-                                                        'latitude']),
-                                                double.parse(
-                                                  controller.jobDetailDatail[
-                                                      'longitude'],
-                                                ));
+                                        List<Placemark> placemarks = await placemarkFromCoordinates(
+                                            double.parse(controller.jobDetailDatail['latitude']),
+                                            double.parse(
+                                              controller.jobDetailDatail['longitude'],
+                                            ));
 
                                         if (placemarks.isNotEmpty) {
                                           Placemark place = placemarks[0];
@@ -369,24 +337,16 @@ class UpcomingJobDetailScreen
                                           print("Address: $address");
 
                                           // You can display the address in a dialog, snackbar, or any widget
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                                content: Text(
-                                                    'Selected Location: $address')),
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text('Selected Location: $address')),
                                           );
                                         }
 
                                         Get.to(() => ShowMapScreen(
                                               address: address,
                                               isProfile: true,
-                                              initialLocation: LatLng(
-                                                  double.parse(controller
-                                                          .jobDetailDatail[
-                                                      'latitude']),
-                                                  double.parse(controller
-                                                          .jobDetailDatail[
-                                                      'longitude'])),
+                                              initialLocation: LatLng(double.parse(controller.jobDetailDatail['latitude']),
+                                                  double.parse(controller.jobDetailDatail['longitude'])),
                                             ));
                                       },
                                       child: Text(
@@ -395,8 +355,7 @@ class UpcomingJobDetailScreen
                                             fontSize: 14.sp,
                                             color: ColorUtils.red,
                                             decorationColor: ColorUtils.red,
-                                            decoration:
-                                                TextDecoration.underline),
+                                            decoration: TextDecoration.underline),
                                       ),
                                     ),
                                   ],

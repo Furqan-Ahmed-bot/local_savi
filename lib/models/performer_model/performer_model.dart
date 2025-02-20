@@ -178,7 +178,7 @@ class Documents {
 class Review {
   String? id;
   String? performerId;
-  double? averageRatings;
+  dynamic averageRatings;
   int? ratingCount;
   String? createdAt;
   String? updatedAt;
