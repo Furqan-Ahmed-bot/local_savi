@@ -7,7 +7,6 @@ import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
-import 'package:local_saviors/utils/images/image_assets.dart';
 
 class PCancelJobReasonScreen extends GetWidget<PCancelJobReasonController> {
   @override

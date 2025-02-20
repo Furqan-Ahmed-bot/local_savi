@@ -8,7 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_job_detail_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_jobs_controller.dart';
-import 'package:local_saviors/controllers/user_controllers/posted_job_screen_controller.dart';
+
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 
@@ -25,33 +25,40 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
     return Scaffold(
       bottomNavigationBar: Obx(
         () => controller.showBottomButton.value
-            ? Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
-                child: RoundButton(
-                  title: controller.buttonText.value,
-                  onPress: () async {
-                    controller.buttonText.value == "Cancel Job"
-                        ? showCancelDialog(context, controller.jobId.value)
-                        : (controller.buttonText.value == "On The Way" &&
-                                controller.isTraseable.value == false)
-                            ? (controller.journeyChange("ONTHEWAY"))
-                            : controller.buttonText.value == "Arrived" &&
-                                    controller.isTraseable.value == true
-                                ? (controller.journeyChange("ARRIVED"))
-                                : controller.buttonText.value ==
-                                        "Mark As Completed"
-                                    ? (controller.journeyChange("COMPLETED"))
-                                    : controller.buttonText.value == "Apply Now"
-                                        ? UserServices.instance
-                                            .applyPerformerJob(
-                                                context: context,
-                                                jobId: controller.jobId.value)
-                                        : showThankyouDialog(context);
-                  },
-                  buttonColor: ColorUtils.red,
-                  width: 1.0.sw,
-                ),
-              )
+            ? controller.isLoading.value
+                ? SizedBox()
+                : Padding(
+                    padding:
+                        EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
+                    child: RoundButton(
+                      title: controller.buttonText.value,
+                      onPress: () async {
+                        controller.buttonText.value == "Cancel Job"
+                            ? showCancelDialog(context, controller.jobId.value)
+                            : (controller.buttonText.value == "On The Way")
+                                ? (controller.journeyChange("ONTHEWAY"))
+                                : controller.buttonText.value == "Arrived"
+                                    ? (controller.journeyChange("ARRIVED"))
+                                    : controller.buttonText.value ==
+                                            "Mark As Completed"
+                                        ? (controller
+                                            .journeyChange("COMPLETED"))
+                                        : controller.buttonText.value ==
+                                                "Apply Now"
+                                            ? UserServices.instance
+                                                .applyPerformerJob(
+                                                    context: context,
+                                                    jobId:
+                                                        controller.jobId.value)
+                                            : controller.buttonText.value ==
+                                                    "COMPLETED"
+                                                ? () {}
+                                                : showThankyouDialog(context);
+                      },
+                      buttonColor: ColorUtils.red,
+                      width: 1.0.sw,
+                    ),
+                  )
             : const SizedBox.shrink(),
       ),
       body: GetBuilder<PJobDetailController>(builder: (controller) {
@@ -412,95 +419,95 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                 // ),
                                 // 10.h.verticalSpace,
                               ]),
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        // width: 0.3.sw,
-                                        margin: EdgeInsets.only(right: 20.w),
-                                        child: Text(
-                                          "Job Location",
-                                          style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w600,
-                                          ),
+                              SizedBox(
+                                width: 1.0.sw,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(right: 20.w),
+                                      child: Text(
+                                        "Job Location",
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      Row(
-                                        children: [
-                                          Text(
+                                    ),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 0.45.sw,
+                                          child: Text(
                                             controller
                                                 .jobDetailDatail['location'],
                                             style: TextStyle(
+                                              overflow: TextOverflow.ellipsis,
                                               fontSize: 16.sp,
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
-                                          5.w.horizontalSpace,
-                                          InkWell(
-                                            onTap: () async {
-                                              String address = '';
-                                              List<Placemark> placemarks =
-                                                  await placemarkFromCoordinates(
+                                        ),
+                                        5.w.horizontalSpace,
+                                        InkWell(
+                                          onTap: () async {
+                                            String address = '';
+                                            List<Placemark> placemarks =
+                                                await placemarkFromCoordinates(
+                                                    double.parse(controller
+                                                            .jobDetailDatail[
+                                                        'latitude']),
+                                                    double.parse(
+                                                      controller
+                                                              .jobDetailDatail[
+                                                          'longitude'],
+                                                    ));
+
+                                            if (placemarks.isNotEmpty) {
+                                              Placemark place = placemarks[0];
+                                              address =
+                                                  '${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.country}';
+                                              print("Address: $address");
+
+                                              // You can display the address in a dialog, snackbar, or any widget
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                    content: Text(
+                                                        'Selected Location: $address')),
+                                              );
+                                            }
+
+                                            Get.to(() => ShowMapScreen(
+                                                  address: address,
+                                                  isProfile: true,
+                                                  initialLocation: LatLng(
                                                       double.parse(controller
                                                               .jobDetailDatail[
                                                           'latitude']),
-                                                      double.parse(
-                                                        controller
-                                                                .jobDetailDatail[
-                                                            'longitude'],
-                                                      ));
-
-                                              if (placemarks.isNotEmpty) {
-                                                Placemark place = placemarks[0];
-                                                address =
-                                                    '${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.country}';
-                                                print("Address: $address");
-
-                                                // You can display the address in a dialog, snackbar, or any widget
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                      content: Text(
-                                                          'Selected Location: $address')),
-                                                );
-                                              }
-
-                                              Get.to(() => ShowMapScreen(
-                                                    address: address,
-                                                    isProfile: true,
-                                                    initialLocation: LatLng(
-                                                        double.parse(controller
-                                                                .jobDetailDatail[
-                                                            'latitude']),
-                                                        double.parse(controller
-                                                                .jobDetailDatail[
-                                                            'longitude'])),
-                                                  ));
-                                            },
-                                            child: Text(
-                                              "(View Map)",
-                                              style: TextStyle(
-                                                  fontSize: 14.sp,
-                                                  color: ColorUtils.red,
-                                                  decorationColor:
-                                                      ColorUtils.red,
-                                                  decoration:
-                                                      TextDecoration.underline),
-                                            ),
+                                                      double.parse(controller
+                                                              .jobDetailDatail[
+                                                          'longitude'])),
+                                                ));
+                                          },
+                                          child: Text(
+                                            "(View Map)",
+                                            style: TextStyle(
+                                                fontSize: 14.sp,
+                                                color: ColorUtils.red,
+                                                decorationColor: ColorUtils.red,
+                                                decoration:
+                                                    TextDecoration.underline),
                                           ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  30.h.verticalSpace
-                                ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
+                              30.h.verticalSpace
                             ],
                           ),
                         ],

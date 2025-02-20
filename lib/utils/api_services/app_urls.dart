@@ -46,7 +46,7 @@ class UserUrls {
   static const getBestPerformers = "${baseUrl}user_reviews/top";
   static const getBestPerformersProfile = "${baseUrl}user/provider";
   static const assignJob = "${baseUrl}job/assign_job";
-  static const getCancelJobReasons = "${baseUrl}reasons?type=CANCEL";
+  static const getCancelJobReasons = "${baseUrl}reasons?type=";
   static const cancelJob = "${baseUrl}job/cancel_job/"; //job id
   static const journeyStatus = "${baseUrl}job/job_journey_status/"; //job id
   static const createUserDispute = "${baseUrl}job/dispute/"; //job id

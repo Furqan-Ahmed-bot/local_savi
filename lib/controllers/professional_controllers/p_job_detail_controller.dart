@@ -109,10 +109,21 @@ class PJobDetailController extends GetxController {
         .then((value) {
       isLoading.value = false;
       jobDetailDatail = value['job'];
-      isTraseable.value = value['trackable'];
-      isTraseable.value == false
-          ? buttonText.value = "On The Way"
-          : buttonText.value = "Arrived";
+      value['job']['job_journey'] != null &&
+              value['job']['job_journey'] == "ONTHEWAY"
+          ? buttonText.value = "Arrived"
+          : value['job']['job_journey'] != null &&
+                  value['job']['job_journey'] == "ARRIVED"
+              ? buttonText.value = "Mark As Completed"
+              : value['job']['job_journey'] != null &&
+                      value['job']['job_journey'] == "COMPLETED"
+                  ? buttonText.value = "COMPLETED"
+                  : buttonText.value = buttonText.value;
+
+      // isTraseable.value = value['trackable'];
+      // isTraseable.value == false
+      //     ? buttonText.value = "On The Way"
+      //     : buttonText.value = "Arrived";
       log("==> jobDetails: ${jobDetailDatail}");
       update();
     });

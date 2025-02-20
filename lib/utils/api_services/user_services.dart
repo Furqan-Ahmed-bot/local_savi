@@ -845,11 +845,11 @@ class UserServices {
     }
   }
 
-  getCancelJobReasons() async {
+  getCancelJobReasons({String reason = "CANCEL"}) async {
     try {
       var headers = {'Authorization': token.value};
       var request =
-          http.Request('GET', Uri.parse(UserUrls.getCancelJobReasons));
+          http.Request('GET', Uri.parse(UserUrls.getCancelJobReasons + reason));
 
       request.headers.addAll(headers);
 
@@ -1370,7 +1370,7 @@ class UserServices {
 
       var request =
           http.Request('POST', Uri.parse(UserUrls.createUserDispute + id));
-      request.body = json.encode({"is_custom": true, "custom_reason": dispute});
+      request.body = json.encode({"is_custom": false, "reason_id": dispute});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();

@@ -25,19 +25,10 @@ class OngoingJobDetailScreen
             )
           : Column(
               children: [
-                appbar(isMenu: false, title: "Job Details", actions: [
-                  InkWell(
-                    onTap: () {
-                      controller.isReached.value = true;
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      child: Text("Reached",
-                          style: TextStyle(
-                              fontSize: 16.sp, fontWeight: FontWeight.bold)),
-                    ),
-                  )
-                ]),
+                appbar(
+                  isMenu: false,
+                  title: "Job Details",
+                ),
                 Expanded(
                     child: ListView(
                   padding: EdgeInsets.only(
@@ -729,12 +720,16 @@ class OngoingJobDetailScreen
                                       ),
                                       Row(
                                         children: [
-                                          Text(
-                                            controller
-                                                .jobDetailDatail['location'],
-                                            style: TextStyle(
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w500,
+                                          SizedBox(
+                                            width: 0.45.sw,
+                                            child: Text(
+                                              controller
+                                                  .jobDetailDatail['location'],
+                                              style: TextStyle(
+                                                overflow: TextOverflow.ellipsis,
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
                                           ),
                                           5.w.horizontalSpace,

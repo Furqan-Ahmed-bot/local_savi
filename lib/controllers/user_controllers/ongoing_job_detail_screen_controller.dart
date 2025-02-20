@@ -15,6 +15,17 @@ class OngoingJobDetailScreenController extends GetxController {
         .then((value) {
       isLoading.value = false;
       jobDetailDatail = value['job'];
+      value['job']['job_journey'] != null &&
+              value['job']['job_journey'] == "ONTHEWAY"
+          ? isReached.value = false
+          : value['job']['job_journey'] != null &&
+                  value['job']['job_journey'] == "ARRIVED"
+              ? isReached.value = true
+              : value['job']['job_journey'] != null &&
+                      value['job']['job_journey'] == "COMPLETED"
+                  ? isReached.value = true
+                  : isReached.value = false;
+
       log("==> jobDetails: ${jobDetailDatail}");
       update();
     });
