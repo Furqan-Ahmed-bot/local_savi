@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/utils/constant.dart';
 
+import '../../../resources/components/imagepicker_component.dart';
 import '../../../utils/api_services/user_services.dart';
 import '../../../utils/color_utils.dart';
 import '../../../utils/routes/routes.dart';
@@ -25,6 +26,7 @@ class CreateProfileController extends GetxController {
   TextEditingController phonecontroller = TextEditingController();
   final createProfileTwoController = Get.put(CreatePorfileTwoController());
   final createHandyManProfileController = Get.put(CreateHandymanPorfileController());
+  final imagePickerController = Get.put(ImagePickerController());
 
   var latitide;
   var longitude;
@@ -142,7 +144,8 @@ class CreateProfileController extends GetxController {
                 lat: latitide,
                 long: longitude,
                 professionIds: createProfileTwoController.professionIds,
-                categoryIds: createHandyManProfileController.professionIds);
+                categoryIds: createHandyManProfileController.professionIds,
+                documents: imagePickerController.selectedImages.value);
           }
         } else {
           Get.toNamed(RouteName.createHandyManProfilePath);

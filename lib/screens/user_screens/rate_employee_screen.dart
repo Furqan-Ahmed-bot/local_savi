@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -19,71 +21,13 @@ class RateEmployeeScreen extends GetWidget<RateEmployeeScreenController> {
             buttonColor: ColorUtils.red,
             title: "Submit",
             onPress: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      backgroundColor: ColorUtils.dialogeBGColor,
-                      content: SizedBox(
-                        width: 1.0.sw,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            20.h.verticalSpace,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Image.asset(
-                                  ImageAssets.cutIcon,
-                                  scale: 2,
-                                ),
-                              ],
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(23.sp),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: ColorUtils.jobIconBG),
-                              child: Image.asset(
-                                ImageAssets.shareIcon,
-                                scale: 2,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      actions: [
-                        Container(
-                          width: 1.0.sw,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 15.h),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.r),
-                                      color: ColorUtils.red,
-                                    ),
-                                    child: Text(
-                                      "Share Your Experience",
-                                      style: TextStyle(color: ColorUtils.white),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    );
-                  });
+              if (controller.ratingValue == 0.0) {
+                Get.snackbar('Alert', 'Please Select Rating');
+              } else if (controller.reviewController.text.isEmpty) {
+                Get.snackbar('Alert', 'Please Enter Review');
+              } else {
+                controller.addReview(context);
+              }
             }),
       ),
       body: myBackGround(
@@ -94,83 +38,78 @@ class RateEmployeeScreen extends GetWidget<RateEmployeeScreenController> {
             title: "Rate Employee",
           ),
           Expanded(
-              child: ListView(
-                  padding: EdgeInsets.only(
-                      left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
-                  children: [
-                20.h.verticalSpace,
-                shortlistUserCard(
-                    context: context,
-                    name: "Oliver Mark",
-                    rating: "(4.5)",
-                    isVerified: true,
-                    isJobCompleted: true,
-                    showMessageButton: false,
-                    showSelectJobButton: false,
-                    image: ImageAssets.oliverImg),
-                // 20.h.verticalSpace,
-                Container(
-                  padding: EdgeInsets.only(top: 24.h, bottom: 34.h),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.sp),
-                    color: ColorUtils.white,
-                    border:
-                        Border.all(width: 1.0.w, color: ColorUtils.borderColor),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Give a Rate",
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      20.h.verticalSpace,
-                      RatingBar.builder(
-                        initialRating: 3,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemSize: 30.sp,
-                        glow: false,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) => Image.asset(
-                          ImageAssets.starIcon,
-                          scale: 2,
-                        ),
-                        onRatingUpdate: (rating) {
-                          controller.ratingValue.value = rating;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                20.h.verticalSpace,
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.r),
-                    color: ColorUtils.white,
-                    border:
-                        Border.all(width: 1.0.w, color: ColorUtils.borderColor),
-                  ),
-                  child: TextField(
-                    maxLines: 4,
-                    onTapOutside: (event) {
-                      FocusScope.of(context).unfocus();
-                    },
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      hintText: "Write a review",
-                      hintStyle: TextStyle(color: ColorUtils.grey),
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal: 0.051.sw, vertical: 0.016.sh),
+              child: ListView(padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h, top: 20.h), children: [
+            20.h.verticalSpace,
+            shortlistUserCard(
+                context: context,
+                name: controller.performerdetails['performer']['user_details']['first_name'],
+                rating: "(4.5)",
+                isVerified: true,
+                isJobCompleted: true,
+                showMessageButton: false,
+                showSelectJobButton: false,
+                image: controller.performerdetails['performer']['user_details']['profile_picture']),
+            // 20.h.verticalSpace,
+            Container(
+              padding: EdgeInsets.only(top: 24.h, bottom: 34.h),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.sp),
+                color: ColorUtils.white,
+                border: Border.all(width: 1.0.w, color: ColorUtils.borderColor),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Give a Rate",
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                )
-              ])),
+                  20.h.verticalSpace,
+                  RatingBar.builder(
+                    initialRating: 3,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemSize: 30.sp,
+                    glow: false,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => Image.asset(
+                      ImageAssets.starIcon,
+                      scale: 2,
+                    ),
+                    onRatingUpdate: (rating) {
+                      controller.ratingValue.value = rating;
+                    },
+                  ),
+                ],
+              ),
+            ),
+            20.h.verticalSpace,
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.r),
+                color: ColorUtils.white,
+                border: Border.all(width: 1.0.w, color: ColorUtils.borderColor),
+              ),
+              child: TextField(
+                controller: controller.reviewController,
+                maxLines: 4,
+                onTapOutside: (event) {
+                  FocusScope.of(context).unfocus();
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(borderSide: BorderSide.none),
+                  hintText: "Write a review",
+                  hintStyle: TextStyle(color: ColorUtils.grey),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 0.051.sw, vertical: 0.016.sh),
+                ),
+              ),
+            )
+          ])),
         ],
       )),
     );

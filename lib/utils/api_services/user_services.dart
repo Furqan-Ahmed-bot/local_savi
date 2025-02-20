@@ -38,7 +38,6 @@ class UserServices {
   // final userProfile = Get.put(UserProfileScreenController());
   // final performerController = Get.put(PHomeController());
   final createProfileController = Get.put(CreatePorfileTwoController());
-  final imagePickerController = Get.put(ImagePickerController());
 
   loginService(
       {required String userEmail,
@@ -419,27 +418,29 @@ class UserServices {
     }
   }
 
-  createJobPerformerProfile(
-      {required String address,
-      required String gender,
-      required String dob,
-      required String phone,
-      required String email,
-      required String firstName,
-      required String lastName,
-      required String country,
-      required String state,
-      required context,
-      required String city,
-      required String about,
-      required String image,
-      required String workertype,
-      required List professionIds,
-      required var lat,
-      required var long,
-      required List categoryIds}) async {
+  createJobPerformerProfile({
+    required String address,
+    required String gender,
+    required String dob,
+    required String phone,
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String country,
+    required String state,
+    required context,
+    required String city,
+    required String about,
+    required String image,
+    required String workertype,
+    required List professionIds,
+    required var lat,
+    required var long,
+    required List categoryIds,
+    List? documents,
+  }) async {
     try {
-      // log(createProfileController.professionIds.toString());
+      log(documents!.length.toString());
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -482,15 +483,14 @@ class UserServices {
 
       request.files
           .add(await http.MultipartFile.fromPath('profile_picture', image));
-      if (imagePickerController.selectedImages.length > 0) {
-        for (var i = 0; i < imagePickerController.selectedImages.length; i++) {
+      if (documents.length > 0) {
+        for (var i = 0; i < documents.length; i++) {
           var multipartFile = await http.MultipartFile.fromPath(
             'documents',
-            imagePickerController.selectedImages[i].path,
-            filename:
-                imagePickerController.selectedImages[i].path.split('/').last,
-            contentType: parser.MediaType("image",
-                "${imagePickerController.selectedImages[i].path.split('.').last}"),
+            documents[i].path,
+            filename: documents[i].path.split('/').last,
+            contentType: parser.MediaType(
+                "image", "${documents[i].path.split('.').last}"),
           );
           request.files.add(multipartFile);
         }
@@ -1370,7 +1370,7 @@ class UserServices {
 
       var request =
           http.Request('POST', Uri.parse(UserUrls.createUserDispute + id));
-      request.body = json.encode({"is_custom": false, "reason_id": dispute});
+      request.body = json.encode({"is_custom": true, "custom_reason": dispute});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();

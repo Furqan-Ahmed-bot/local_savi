@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_my_profile_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
+import 'package:local_saviors/resources/extensions/context_extension.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
@@ -96,7 +97,7 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                 ),
                                 10.w.horizontalSpace,
                                 Text(
-                                  "(${controller.performerdata.reviews!.averageRatings.toString()})",
+                                  "(${controller.performerdata.review!.averageRatings.toString()})",
                                   style: TextStyle(fontSize: 18.sp),
                                 ),
                                 5.w.horizontalSpace,
@@ -112,7 +113,7 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                 ),
                                 10.w.horizontalSpace,
                                 Text(
-                                  "${controller.performerdata.reviews!.ratingCount.toString()}",
+                                  "${controller.performerdata.review!.ratingCount.toString()}",
                                   style: TextStyle(fontSize: 18.sp),
                                 ),
                                 5.w.horizontalSpace,
@@ -250,19 +251,28 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                   ),
                                 ),
                                 10.h.verticalSpace,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Image.asset(
-                                      ImageAssets.oliverCertificateImg,
-                                      scale: 2,
-                                    ),
-                                    Image.asset(
-                                      ImageAssets.oliverCertificateImg,
-                                      scale: 2,
-                                    ),
-                                  ],
-                                )
+                                GridView.builder(
+                                  padding: EdgeInsets.all(0),
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 15, mainAxisExtent: 117),
+                                  itemCount: controller.performerdata.documents!.length,
+                                  itemBuilder: (_, i) {
+                                    return Container(
+                                      height: 117.h,
+                                      width: 117.w,
+                                      decoration: BoxDecoration(
+                                        color: context.primary,
+                                        borderRadius: BorderRadius.circular(7.r),
+                                        image: DecorationImage(
+                                          image: NetworkImage(controller.performerdata.documents![i].mediaFile.toString()),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ],
                             ),
                           )
