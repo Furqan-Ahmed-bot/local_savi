@@ -23,6 +23,7 @@ class ChatScreenController extends GetxController {
   var performerId;
   var jobId;
   var profile_picture;
+  var chatId;
 
   @override
   void onInit() {
@@ -30,11 +31,14 @@ class ChatScreenController extends GetxController {
     performerId = Get.arguments['providerId'] ?? '';
     jobId = Get.arguments['jobId'] ?? '';
     username = Get.arguments['username'] ?? 'XYZ';
+    chatId = Get.arguments['chat_id'];
+    profile_picture = Get.arguments['profile_picture'];
+
     update();
     super.onInit();
   }
 
-  assignJob(BuildContext context) async {
+  assignJob(BuildContext context, jobId, performerId) async {
     try {
       // Show loading dialog
       showDialog(

@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
@@ -9,11 +9,34 @@ import 'package:local_saviors/resources/components/sockets/sockets.dart';
 import 'package:local_saviors/resources/components/text_fields.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
+import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
-class ChatScreen extends GetWidget<ChatScreenController> {
+class ChatScreen extends StatefulWidget {
+  const ChatScreen({
+    super.key,
+  });
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final controller = Get.put(ChatScreenController());
   final socketController = Get.put(SocketController());
+
+  @override
+  void initState() {
+    socketController.joinChatRoom(jobId: controller.jobId, chatId: controller.chatId, id: controller.performerId);
+
+    if (controller.chatId != null) {
+      chatController.getSingleChat(controller.chatId);
+    }
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +46,7 @@ class ChatScreen extends GetWidget<ChatScreenController> {
           height: 100.h,
           child: EditText(
               context: context,
-              controller: controller.messageController,
+              controller: socketController.messageController,
               needSuffix: true,
               suffixWidget: Container(
                 child: Row(
@@ -37,9 +60,11 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                     10.horizontalSpace,
                     InkWell(
                       onTap: () {
-                        socketController.message(
-                            jobId: controller.jobId, message: controller.messageController.text, recipientId: controller.performerId);
-                        print('Hello');
+                        if (socketController.messageController.text.isNotEmpty) {
+                          socketController.message(
+                              jobId: controller.jobId, message: socketController.messageController.text, recipientId: controller.performerId);
+                          print('Hello');
+                        }
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.w),
@@ -72,7 +97,7 @@ class ChatScreen extends GetWidget<ChatScreenController> {
           children: [
             appbar(
               isMenu: false,
-              title: controller.username,
+              title: '${controller.username}',
             ),
             controller.showUserDetail.value
                 ? Container(
@@ -114,9 +139,15 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                                   ),
                                   Positioned(
                                       right: 0,
-                                      child: Image.asset(
-                                        ImageAssets.verifiedIcon,
-                                        scale: 2,
+                                      child: SizedBox(
+                                        height: 40,
+                                        width: 40,
+                                        child: ClipRect(
+                                          child: Image.network(
+                                            '${controller.profile_picture}',
+                                            scale: 2,
+                                          ),
+                                        ),
                                       ))
                                 ],
                               ),
@@ -273,7 +304,8 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                                                                                 child: GestureDetector(
                                                                                   onTap: () {
                                                                                     // Get.back();
-                                                                                    controller.assignJob(context);
+                                                                                    controller.assignJob(
+                                                                                        context, controller.jobId, controller.performerId);
                                                                                   },
                                                                                   child: Container(
                                                                                     alignment: Alignment.center,
@@ -359,57 +391,74 @@ class ChatScreen extends GetWidget<ChatScreenController> {
                 : SizedBox.shrink(),
             controller.showUserDetail.value ? 20.verticalSpace : 0.verticalSpace,
             controller.showUserDetail.value
-                ? Container(
-                    padding: EdgeInsets.all(15.sp),
-                    margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
-                    width: 1.0.sw,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        border: Border.all(
-                          width: 1.w,
-                          color: ColorUtils.borderColor.withOpacity(0.5),
-                        ),
-                        color: ColorUtils.white),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Job Details",
-                              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-                            ),
-                            const Spacer(),
-                            Text(
-                              "July 20",
-                              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400, color: ColorUtils.borderColor),
-                            ),
-                          ],
-                        ),
-                        5.verticalSpace,
-                        Text(
-                          "Lorem ipsum dolor sit amet consectetur adipiscing elit odio.",
-                          style: TextStyle(fontSize: 16.sp, color: ColorUtils.textColor),
-                        ),
-                      ],
-                    ),
+                ? Obx(
+                    () => chatController.isMessagesLoading.value
+                        ? Center(
+                            child: spinkit,
+                          )
+                        : controller.chatId == null
+                            ? Container()
+                            : Container(
+                                padding: EdgeInsets.all(15.sp),
+                                margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
+                                width: 1.0.sw,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.r),
+                                    border: Border.all(
+                                      width: 1.w,
+                                      color: ColorUtils.borderColor.withOpacity(0.5),
+                                    ),
+                                    color: ColorUtils.white),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Job Details",
+                                          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    5.verticalSpace,
+                                    Text(
+                                      "${chatController.jobDetails['title']}",
+                                      style: TextStyle(fontSize: 16.sp, color: ColorUtils.textColor),
+                                    ),
+                                    5.verticalSpace,
+                                    Text(
+                                      "${chatController.jobDetails['description']}",
+                                      style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400, color: ColorUtils.textColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
                   )
                 : SizedBox.shrink(),
             controller.showUserDetail.value ? 100.verticalSpace : 20.verticalSpace,
             Expanded(
-                child: ListView(padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h, top: 20.h), children: [
-              getReceiverView(
-                  clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
-                  context: context,
-                  text: "Lorem ipsum dolor sit amet consectetur adipiscing elit tincidunt taciti Dolor sit am."),
-              getSenderView(
-                  clipper: ChatBubbleClipper5(type: BubbleType.sendBubble),
-                  context: context,
-                  text: "Lorem ipsum dolor sit amet consectetur adipiscing elit tincidunt taciti Dolor sit am."),
-              getReceiverView(
-                  clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
-                  context: context,
-                  text: "Lorem ipsum dolor sit amet consectetur adipiscing elit tincidunt taciti Dolor sit am.")
-            ]))
+                child: Obx(
+              () => chatController.isMessagesLoading.value
+                  ? Center(
+                      child: Container(
+                        color: Colors.transparent,
+                      ),
+                    )
+                  : ListView.builder(
+                      reverse: true,
+                      itemCount: chatController.allMessages.length,
+                      itemBuilder: (context, index) {
+                        return chatController.allMessages[index]['recipient_id'] != controller.performerId
+                            ? getReceiverView(
+                                clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+                                context: context,
+                                text: "${chatController.allMessages[index]['message']}")
+                            : getSenderView(
+                                clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+                                context: context,
+                                text: "${chatController.allMessages[index]['message']}");
+                      }),
+            ))
           ],
         ));
       }),

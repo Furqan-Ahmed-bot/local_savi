@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 import 'package:intl/intl.dart';
-import 'package:local_saviors/controllers/professional_controllers/p_home_controller.dart';
+import 'package:local_saviors/resources/components/dateformate/dateformatController.dart';
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/color_utils.dart';
@@ -483,11 +482,11 @@ Widget messageUserCard({
   required bool isVerified,
   required String image,
   required String name,
-  required String date,
+  required var date,
   required String desc,
 }) {
   return Container(
-    padding: EdgeInsets.all(15.sp),
+    padding: EdgeInsets.all(15.r),
     margin: EdgeInsets.only(bottom: 16.h),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
@@ -496,8 +495,9 @@ Widget messageUserCard({
           color: ColorUtils.borderColor,
         ),
         color: ColorUtils.white),
-    width: 1.0.sw,
+    // width: 1.0.sw,
     child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stack(
           children: [
@@ -528,34 +528,27 @@ Widget messageUserCard({
                 : const SizedBox(),
           ],
         ),
-        20.w.horizontalSpace,
+        10.w.horizontalSpace,
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  name,
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
-                ),
-                Text(
-                  date,
-                  style: TextStyle(color: ColorUtils.borderColor, fontWeight: FontWeight.w400, fontSize: 12.sp),
-                ),
-              ],
+            Text(
+              name,
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
             ),
             5.h.verticalSpace,
-            Container(
-              width: 0.65.sw,
-              child: Text(
-                desc,
-                style: TextStyle(fontSize: 16.sp),
-              ),
+            Text(
+              desc,
+              style: TextStyle(fontSize: 16.sp),
             )
           ],
-        )
+        ),
+        Spacer(),
+        Text(
+          dateFormat().formatTime(DateTime.parse(date)),
+          style: TextStyle(color: ColorUtils.borderColor, fontWeight: FontWeight.w400, fontSize: 12.sp),
+        ),
       ],
     ),
   );
@@ -681,6 +674,7 @@ Widget shortlistUserCard({
   required String name,
   required String rating,
   String? performerId,
+  var profilePicture,
   String? jobId,
   required context,
   bool showSelectJobButton = true,
@@ -834,8 +828,12 @@ Widget shortlistUserCard({
                                             child: InkWell(
                                               onTap: () async {
                                                 // await UserServices.instance.acceptRejectJobRequest(context: context, id: id!, status: "ACCEPTED");
-                                                Get.toNamed(RouteName.chatScreenPath,
-                                                    arguments: {"providerId": id, "jobId": jobId, 'username': name});
+                                                Get.toNamed(RouteName.chatScreenPath, arguments: {
+                                                  "providerId": id,
+                                                  "jobId": jobId,
+                                                  'username': name,
+                                                  'profile_picture': profilePicture
+                                                });
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,

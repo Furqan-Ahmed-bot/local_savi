@@ -1,6 +1,5 @@
-// ignore_for_file: unnecessary_string_interpolations
+// ignore_for_file: unnecessary_string_interpolations, prefer_if_null_operators
 
-import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -9,7 +8,6 @@ import 'package:local_saviors/utils/constant.dart';
 
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
-import '../../../controllers/user_controllers/user_profile_screen_controller.dart';
 import 'chats_controller.dart';
 
 class SocketController extends GetxController {
@@ -69,12 +67,32 @@ class SocketController extends GetxController {
       }
     });
 
-    socket?.on('allChats-user_id-${hsController.userdata.userID}', (message) {
+    socket?.on('allChats-user_id-${hsController.userdata.userID != null ? hsController.userdata.userID : phController.performerdata.userId}',
+        (message) {
       chatController.loading.value = true;
       try {
         log('privateMessage: $message');
         chatController.chatsdata(message);
         // chatController.allMessages.insert(0, message);
+      } catch (e, stackTrace) {
+        log('Error handling privateMessage event: $e');
+        log('Stack trace: $stackTrace');
+      }
+    });
+
+    socket?.on('privateMessage', (message) {
+      try {
+        log('privateMessage: $message');
+        chatController.allMessages.insert(0, message);
+      } catch (e, stackTrace) {
+        log('Error handling privateMessage event: $e');
+        log('Stack trace: $stackTrace');
+      }
+    });
+
+    socket?.on('private_message_success', (message) {
+      try {
+        log('privateMessage: $message');
       } catch (e, stackTrace) {
         log('Error handling privateMessage event: $e');
         log('Stack trace: $stackTrace');
@@ -123,20 +141,21 @@ class SocketController extends GetxController {
   //   }
   // }
 
-  joinChatRoom({dynamic id, dynamic chatId}) {
+  joinChatRoom({dynamic id, dynamic chatId, dynamic jobId}) {
     if (chatId != null) {
-      socket!.emit("joinPrivateChat", {
+      socket!.emit("join_private_chat", {
         "chat_id": chatId,
         "access_token": token.value,
       });
     } else {
-      socket!.emit("joinPrivateChat", {
+      socket!.emit("join_private_chat", {
         "recipient_id": id,
+        "job_id": jobId,
         "access_token": token.value,
       });
     }
 
-    socket!.on('joinedPrivateChatSuccess', (data) {
+    socket!.on('joined_private_chat_success', (data) {
       log("Joined Room $id $data");
     });
   }
@@ -157,6 +176,7 @@ class SocketController extends GetxController {
     };
     chatController.allMessages.insert(0, map);
     socket?.emit("private_chat_message", map);
+
     messageController.clear();
   }
 
