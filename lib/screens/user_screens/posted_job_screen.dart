@@ -63,7 +63,8 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                   InkWell(
                     onTap: () {
                       Get.back();
-                      Get.toNamed(RouteName.editJobScreenPath);
+                      Get.toNamed(RouteName.editJobScreenPath,
+                          arguments: {"jobDetail": controller.jobDetailData});
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
