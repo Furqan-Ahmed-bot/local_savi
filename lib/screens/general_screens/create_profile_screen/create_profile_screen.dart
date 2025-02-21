@@ -36,23 +36,23 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
             ],
           ),
         ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            centerTitle: true,
-            automaticallyImplyLeading: false,
-            title: Text(
-              'Create Profile',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Scaffold(
             backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
-          body: SingleChildScrollView(
-            child: InkWell(
-              onTap: () {
-                FocusScope.of(context).unfocus();
-              },
+            appBar: AppBar(
+              centerTitle: true,
+              automaticallyImplyLeading: false,
+              title: Text(
+                'Create Profile',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),
+            body: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -67,12 +67,17 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                           Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              border: Border.all(color: ColorUtils.red, width: 8),
+                              border:
+                                  Border.all(color: ColorUtils.red, width: 8),
                             ),
                             child: CircleAvatar(
                               radius: 50,
-                              backgroundImage: controller.image != null ? FileImage(controller.image!) : null,
-                              child: controller.image == null ? Image.asset(ImageAssets.oliverImg) : null,
+                              backgroundImage: controller.image != null
+                                  ? FileImage(controller.image!)
+                                  : null,
+                              child: controller.image == null
+                                  ? Image.asset(ImageAssets.oliverImg)
+                                  : null,
                             ),
                           ),
                           Positioned(
@@ -126,7 +131,10 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                                 letterSpacing: 0,
                               ),
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(bottom: 12, top: 0.0), // this can adjust the label and text position
+                              contentPadding: const EdgeInsets.only(
+                                  bottom: 12,
+                                  top:
+                                      0.0), // this can adjust the label and text position
                               //or transparent
                             ),
                             textAlignVertical: TextAlignVertical.bottom,
@@ -158,7 +166,10 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                                 letterSpacing: 0,
                               ),
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(bottom: 12, top: 0.0), // this can adjust the label and text position
+                              contentPadding: const EdgeInsets.only(
+                                  bottom: 12,
+                                  top:
+                                      0.0), // this can adjust the label and text position
                               //or transparent
                             ),
                             textAlignVertical: TextAlignVertical.bottom,
@@ -287,12 +298,16 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                           controller.latitide = result.latitude;
                           controller.longitude = result.longitude;
 
-                          List<Placemark> placemarks = await placemarkFromCoordinates(result.latitude, result.longitude);
+                          List<Placemark> placemarks =
+                              await placemarkFromCoordinates(
+                                  result.latitude, result.longitude);
                           if (placemarks.isNotEmpty) {
                             Placemark placemark = placemarks.first;
-                            String address = "${placemark.name}, ${placemark.locality}";
+                            String address =
+                                "${placemark.name}, ${placemark.locality}";
 
-                            controller.locationcontroller.text = address.toString();
+                            controller.locationcontroller.text =
+                                address.toString();
 
                             print(address);
                           }
@@ -340,7 +355,10 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                             letterSpacing: 0,
                           ),
                           border: InputBorder.none,
-                          contentPadding: const EdgeInsets.only(bottom: 13, top: 0.0), // this can adjust the label and text position
+                          contentPadding: const EdgeInsets.only(
+                              bottom: 13,
+                              top:
+                                  0.0), // this can adjust the label and text position
                           filled: true,
                           fillColor: Colors.transparent, //or transparent
                         ),

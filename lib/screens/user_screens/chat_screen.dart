@@ -28,7 +28,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    socketController.joinChatRoom(jobId: controller.jobId, chatId: controller.chatId, id: controller.performerId);
+    socketController.joinChatRoom(
+        jobId: controller.jobId,
+        chatId: controller.chatId,
+        id: controller.performerId);
 
     if (controller.chatId != null) {
       chatController.getSingleChat(controller.chatId);
@@ -40,57 +43,57 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-          color: ColorUtils.white,
-          padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
-          height: 100.h,
-          child: EditText(
-              context: context,
-              controller: socketController.messageController,
-              needSuffix: true,
-              suffixWidget: Container(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Image.asset(
-                      ImageAssets.attachIcon,
-                      scale: 3,
-                    ),
-                    10.horizontalSpace,
-                    InkWell(
-                      onTap: () {
-                        if (socketController.messageController.text.isNotEmpty) {
-                          socketController.message(
-                              jobId: controller.jobId, message: socketController.messageController.text, recipientId: controller.performerId);
-                          print('Hello');
-                        }
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.w),
-                        padding: EdgeInsets.all(5.sp),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.r),
-                          color: ColorUtils.red,
-                        ),
-                        child: Image.asset(
-                          ImageAssets.sendIcon,
-                          scale: 2,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              bordercolor: ColorUtils.borderColor,
-              hintText: "Type your message here...")
+      // bottomNavigationBar: Container(
+      //     color: ColorUtils.white,
+      //     padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
+      //     height: 100.h,
+      //     child: EditText(
+      //         context: context,
+      //         controller: socketController.messageController,
+      //         needSuffix: true,
+      //         suffixWidget: Container(
+      //           child: Row(
+      //             mainAxisSize: MainAxisSize.min,
+      //             mainAxisAlignment: MainAxisAlignment.end,
+      //             children: [
+      //               Image.asset(
+      //                 ImageAssets.attachIcon,
+      //                 scale: 3,
+      //               ),
+      //               10.horizontalSpace,
+      //               InkWell(
+      //                 onTap: () {
+      //                   if (socketController.messageController.text.isNotEmpty) {
+      //                     socketController.message(
+      //                         jobId: controller.jobId, message: socketController.messageController.text, recipientId: controller.performerId);
+      //                     print('Hello');
+      //                   }
+      //                 },
+      //                 child: Container(
+      //                   margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.w),
+      //                   padding: EdgeInsets.all(5.sp),
+      //                   decoration: BoxDecoration(
+      //                     borderRadius: BorderRadius.circular(5.r),
+      //                     color: ColorUtils.red,
+      //                   ),
+      //                   child: Image.asset(
+      //                     ImageAssets.sendIcon,
+      //                     scale: 2,
+      //                   ),
+      //                 ),
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //         bordercolor: ColorUtils.borderColor,
+      //         hintText: "Type your message here...")
 
-          // AuthTextField(
-          //     borderWidth: 1.0.w,
-          //     borderColor: ColorUtils.borderColor,
-          //     suffixIcon: ImageAssets.sendIcon,
-          //     hint: "Type your reviews"),
-          ),
+      //     // AuthTextField(
+      //     //     borderWidth: 1.0.w,
+      //     //     borderColor: ColorUtils.borderColor,
+      //     //     suffixIcon: ImageAssets.sendIcon,
+      //     //     hint: "Type your reviews"),
+      //     ),
       body: GetBuilder<ChatScreenController>(builder: (controller) {
         return myBackGround(
             child: Column(
@@ -116,10 +119,11 @@ class _ChatScreenState extends State<ChatScreen> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
-                              "title": "Employee Profile",
-                              "showChat": true,
-                            });
+                            Get.toNamed(RouteName.bestPerformerDetailScreenPath,
+                                arguments: {
+                                  "title": "Employee Profile",
+                                  "showChat": true,
+                                });
                           },
                           child: Row(
                             children: [
@@ -129,8 +133,12 @@ class _ChatScreenState extends State<ChatScreen> {
                                     borderRadius: BorderRadius.circular(100.r),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(100.r),
-                                          border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
+                                          borderRadius:
+                                              BorderRadius.circular(100.r),
+                                          border: Border.all(
+                                              width: 1.w,
+                                              color: ColorUtils.borderColor
+                                                  .withOpacity(0.5))),
                                       child: Image.asset(
                                         ImageAssets.oliverImg,
                                         scale: 2,
@@ -158,7 +166,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                 children: [
                                   Text(
                                     "${controller.username}",
-                                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16.sp),
                                   ),
                                   5.h.verticalSpace,
                                   Row(
@@ -205,13 +215,18 @@ class _ChatScreenState extends State<ChatScreen> {
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                backgroundColor: ColorUtils.dialogeBGColor,
+                                                insetPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 20.w),
+                                                clipBehavior:
+                                                    Clip.antiAliasWithSaveLayer,
+                                                backgroundColor:
+                                                    ColorUtils.dialogeBGColor,
                                                 content: SizedBox(
                                                   width: 1.0.sw,
                                                   child: Column(
-                                                    mainAxisSize: MainAxisSize.min,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
                                                     children: [
                                                       20.h.verticalSpace,
                                                       Image.asset(
@@ -221,18 +236,22 @@ class _ChatScreenState extends State<ChatScreen> {
                                                       20.h.verticalSpace,
                                                       Text(
                                                         "Select For Job!",
-                                                        textAlign: TextAlign.center,
+                                                        textAlign:
+                                                            TextAlign.center,
                                                         style: TextStyle(
-                                                          color: ColorUtils.black,
+                                                          color:
+                                                              ColorUtils.black,
                                                           fontSize: 22.sp,
                                                         ),
                                                       ),
                                                       24.h.verticalSpace,
                                                       Text(
                                                         "Are you sure you want select William Roy for your job?",
-                                                        textAlign: TextAlign.center,
+                                                        textAlign:
+                                                            TextAlign.center,
                                                         style: TextStyle(
-                                                          color: ColorUtils.black,
+                                                          color:
+                                                              ColorUtils.black,
                                                           fontSize: 14.sp,
                                                         ),
                                                       ),
@@ -243,25 +262,40 @@ class _ChatScreenState extends State<ChatScreen> {
                                                   Container(
                                                     width: 1.0.sw,
                                                     child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
                                                         Expanded(
-                                                          child: GestureDetector(
+                                                          child:
+                                                              GestureDetector(
                                                             onTap: () {
                                                               Get.back();
                                                               // controller.isPendingJob.value = true;
 
                                                               showDialog(
-                                                                  context: context,
-                                                                  builder: (BuildContext context) {
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (BuildContext
+                                                                          context) {
                                                                     return AlertDialog(
-                                                                      insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                                                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                                      backgroundColor: ColorUtils.dialogeBGColor,
-                                                                      content: SizedBox(
-                                                                        width: 1.0.sw,
-                                                                        child: Column(
-                                                                          mainAxisSize: MainAxisSize.min,
+                                                                      insetPadding:
+                                                                          EdgeInsets.symmetric(
+                                                                              horizontal: 20.w),
+                                                                      clipBehavior:
+                                                                          Clip.antiAliasWithSaveLayer,
+                                                                      backgroundColor:
+                                                                          ColorUtils
+                                                                              .dialogeBGColor,
+                                                                      content:
+                                                                          SizedBox(
+                                                                        width: 1.0
+                                                                            .sw,
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
                                                                           children: [
                                                                             20.h.verticalSpace,
                                                                             Image.asset(
@@ -296,16 +330,18 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                       ),
                                                                       actions: [
                                                                         Container(
-                                                                          width: 1.0.sw,
-                                                                          child: Row(
-                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                          width:
+                                                                              1.0.sw,
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
                                                                             children: [
                                                                               Expanded(
                                                                                 child: GestureDetector(
                                                                                   onTap: () {
                                                                                     // Get.back();
-                                                                                    controller.assignJob(
-                                                                                        context, controller.jobId, controller.performerId);
+                                                                                    controller.assignJob(context, controller.jobId, controller.performerId);
                                                                                   },
                                                                                   child: Container(
                                                                                     alignment: Alignment.center,
@@ -329,32 +365,61 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                   });
                                                             },
                                                             child: Container(
-                                                              alignment: Alignment.center,
-                                                              padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      vertical:
+                                                                          15.h),
                                                               decoration: BoxDecoration(
-                                                                  color: ColorUtils.white,
-                                                                  borderRadius: BorderRadius.circular(10.r),
-                                                                  border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
-                                                              child: const Text("Yes, Select"),
+                                                                  color:
+                                                                      ColorUtils
+                                                                          .white,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(10
+                                                                              .r),
+                                                                  border: Border.all(
+                                                                      width:
+                                                                          1.w,
+                                                                      color: ColorUtils
+                                                                          .borderColor)),
+                                                              child: const Text(
+                                                                  "Yes, Select"),
                                                             ),
                                                           ),
                                                         ),
                                                         20.w.horizontalSpace,
                                                         Expanded(
-                                                          child: GestureDetector(
+                                                          child:
+                                                              GestureDetector(
                                                             onTap: () {
                                                               Get.back();
                                                             },
                                                             child: Container(
-                                                              alignment: Alignment.center,
-                                                              padding: EdgeInsets.symmetric(vertical: 15.h),
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(10.r),
-                                                                color: ColorUtils.red,
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      vertical:
+                                                                          15.h),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.r),
+                                                                color:
+                                                                    ColorUtils
+                                                                        .red,
                                                               ),
                                                               child: Text(
                                                                 "No",
-                                                                style: TextStyle(color: ColorUtils.white),
+                                                                style: TextStyle(
+                                                                    color: ColorUtils
+                                                                        .white),
                                                               ),
                                                             ),
                                                           ),
@@ -370,15 +435,22 @@ class _ChatScreenState extends State<ChatScreen> {
                                         // width: 120.w,
                                         alignment: Alignment.center,
                                         // margin: EdgeInsets.only(right: 10.w),
-                                        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 10.h, horizontal: 15.w),
 
                                         decoration: BoxDecoration(
                                             color: ColorUtils.red,
-                                            borderRadius: BorderRadius.circular(10.sp),
-                                            border: Border.all(width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
+                                            borderRadius:
+                                                BorderRadius.circular(10.sp),
+                                            border: Border.all(
+                                                width: 1.w,
+                                                color: ColorUtils.red
+                                                    .withOpacity(0.5))),
                                         child: Text(
                                           "Select for job",
-                                          style: TextStyle(fontSize: 14.sp, color: ColorUtils.white),
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              color: ColorUtils.white),
                                         ),
                                       ),
                                     )
@@ -389,7 +461,9 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   )
                 : SizedBox.shrink(),
-            controller.showUserDetail.value ? 20.verticalSpace : 0.verticalSpace,
+            controller.showUserDetail.value
+                ? 20.verticalSpace
+                : 0.verticalSpace,
             controller.showUserDetail.value
                 ? Obx(
                     () => chatController.isMessagesLoading.value
@@ -400,13 +474,15 @@ class _ChatScreenState extends State<ChatScreen> {
                             ? Container()
                             : Container(
                                 padding: EdgeInsets.all(15.sp),
-                                margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
+                                margin: EdgeInsets.only(
+                                    left: 20.w, right: 20.w, top: 10.h),
                                 width: 1.0.sw,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.r),
                                     border: Border.all(
                                       width: 1.w,
-                                      color: ColorUtils.borderColor.withOpacity(0.5),
+                                      color: ColorUtils.borderColor
+                                          .withOpacity(0.5),
                                     ),
                                     color: ColorUtils.white),
                                 child: Column(
@@ -416,26 +492,35 @@ class _ChatScreenState extends State<ChatScreen> {
                                       children: [
                                         Text(
                                           "Job Details",
-                                          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                          style: TextStyle(
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ],
                                     ),
                                     5.verticalSpace,
                                     Text(
                                       "${chatController.jobDetails['title']}",
-                                      style: TextStyle(fontSize: 16.sp, color: ColorUtils.textColor),
+                                      style: TextStyle(
+                                          fontSize: 16.sp,
+                                          color: ColorUtils.textColor),
                                     ),
                                     5.verticalSpace,
                                     Text(
                                       "${chatController.jobDetails['description']}",
-                                      style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400, color: ColorUtils.textColor),
+                                      style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorUtils.textColor),
                                     ),
                                   ],
                                 ),
                               ),
                   )
                 : SizedBox.shrink(),
-            controller.showUserDetail.value ? 100.verticalSpace : 20.verticalSpace,
+            controller.showUserDetail.value
+                ? 100.verticalSpace
+                : 20.verticalSpace,
             Expanded(
                 child: Obx(
               () => chatController.isMessagesLoading.value
@@ -448,17 +533,79 @@ class _ChatScreenState extends State<ChatScreen> {
                       reverse: true,
                       itemCount: chatController.allMessages.length,
                       itemBuilder: (context, index) {
-                        return chatController.allMessages[index]['recipient_id'] != controller.performerId
+                        return chatController.allMessages[index]
+                                    ['recipient_id'] !=
+                                controller.performerId
                             ? getReceiverView(
-                                clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+                                clipper: ChatBubbleClipper5(
+                                    type: BubbleType.receiverBubble),
                                 context: context,
-                                text: "${chatController.allMessages[index]['message']}")
+                                text:
+                                    "${chatController.allMessages[index]['message']}")
                             : getSenderView(
-                                clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+                                clipper: ChatBubbleClipper5(
+                                    type: BubbleType.receiverBubble),
                                 context: context,
-                                text: "${chatController.allMessages[index]['message']}");
+                                text:
+                                    "${chatController.allMessages[index]['message']}");
                       }),
-            ))
+            )),
+            Container(
+                color: ColorUtils.white,
+                padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
+                height: 100.h,
+                child: EditText(
+                    context: context,
+                    controller: socketController.messageController,
+                    needSuffix: true,
+                    suffixWidget: Container(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Image.asset(
+                            ImageAssets.attachIcon,
+                            scale: 3,
+                          ),
+                          10.horizontalSpace,
+                          InkWell(
+                            onTap: () {
+                              if (socketController
+                                  .messageController.text.isNotEmpty) {
+                                socketController.message(
+                                    jobId: controller.jobId,
+                                    message:
+                                        socketController.messageController.text,
+                                    recipientId: controller.performerId);
+                                print('Hello');
+                              }
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 4.w, vertical: 1.w),
+                              padding: EdgeInsets.all(5.sp),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.r),
+                                color: ColorUtils.red,
+                              ),
+                              child: Image.asset(
+                                ImageAssets.sendIcon,
+                                scale: 2,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    bordercolor: ColorUtils.borderColor,
+                    hintText: "Type your message here...")
+
+                // AuthTextField(
+                //     borderWidth: 1.0.w,
+                //     borderColor: ColorUtils.borderColor,
+                //     suffixIcon: ImageAssets.sendIcon,
+                //     hint: "Type your reviews"),
+                ),
           ],
         ));
       }),
