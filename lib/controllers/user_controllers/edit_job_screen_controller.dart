@@ -47,72 +47,73 @@ class EditJobScreenController extends GetxController {
 
   @override
   void onInit() {
-    // jobDetail = Get.arguments['jobDetail'] ??
-    jobDetail = {
-      "id": "59e01a22-ac4c-41dc-9cf1-6f02ffe452f2",
-      "user_id": "82cdc4a2-168e-4f1c-a85b-33a9778a2b15",
-      "performer_id": null,
-      "payment_intent_id": null,
-      "transaction_id": null,
-      "payout_id": null,
-      "transfer_id": null,
-      "category_id": null,
-      "title": "wow edit",
-      "job_date": "2025-12-15T13:00:00.000Z",
-      "start_time": "2025-12-15T13:00:00.000Z",
-      "description":
-          "this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! ",
-      "location": "kharadar, Uk",
-      "latitude": "24.5324",
-      "longitude": "66.432234",
-      "tax_amount": null,
-      "net_amount": null,
-      "commission_charges": null,
-      "gross_amount": null,
-      "is_paid": false,
-      "completed_at": null,
-      "decided_cost": null,
-      "job_status": "OPEN",
-      "payment_status": "PENDING",
-      "worker_type": "PROFESSIONAL",
-      "job_type": "WORKINGHOUR",
-      "budget_type": "FIXED",
-      "job_journey": null,
-      "createdAt": "2025-02-21T05:22:01.000Z",
-      "updatedAt": "2025-02-21T05:24:27.861Z",
-      "address": "tin tapak",
-      "city": "tapak",
-      "state": "tin",
-      "budget": 100,
-      "is_paid_to_performer": false,
-      "invite_users": [],
-      "user_requests": [],
-      "performer": null,
-      "category": null,
-      "dispute": null,
-      "job_media": [
-        {
-          "id": "66166473-af58-4853-8b0c-be8f59efaf76",
-          "job_id": "59e01a22-ac4c-41dc-9cf1-6f02ffe452f2",
-          "media_name": "job_images",
-          "media_file":
-              "https://local-saviour-backend.s3.us-east-2.amazonaws.com/job_images/-1740115321416-download (1).jpg",
-          "createdAt": "2025-02-21T05:22:01.000Z",
-          "updatedAt": "2025-02-21T05:22:01.482Z"
-        },
-        {
-          "id": "92e22c45-2a57-4ba8-aab3-bbe0fa63601a",
-          "job_id": "59e01a22-ac4c-41dc-9cf1-6f02ffe452f2",
-          "media_name": "job_images",
-          "media_file":
-              "https://local-saviour-backend.s3.us-east-2.amazonaws.com/job_images/-1740115467810-download (1).jpg",
-          "createdAt": "2025-02-21T05:24:28.000Z",
-          "updatedAt": "2025-02-21T05:24:27.866Z"
-        }
-      ],
-      "cancel_job": null,
-      "performer_average_ratings": 0
-    };
+    jobDetail = Get.arguments['jobDetail'] ?? {};
+    // jobDetail = {
+    //   "id": "59e01a22-ac4c-41dc-9cf1-6f02ffe452f2",
+    //   "user_id": "82cdc4a2-168e-4f1c-a85b-33a9778a2b15",
+    //   "performer_id": null,
+    //   "payment_intent_id": null,
+    //   "transaction_id": null,
+    //   "payout_id": null,
+    //   "transfer_id": null,
+    //   "category_id": null,
+    //   "title": "wow edit",
+    //   "job_date": "2025-12-15T13:00:00.000Z",
+    //   "start_time": "2025-12-15T13:00:00.000Z",
+    //   "description":
+    //       "this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! this is testing job! ",
+    //   "location": "kharadar, Uk",
+    //   "latitude": "24.5324",
+    //   "longitude": "66.432234",
+    //   "tax_amount": null,
+    //   "net_amount": null,
+    //   "commission_charges": null,
+    //   "gross_amount": null,
+    //   "is_paid": false,
+    //   "completed_at": null,
+    //   "decided_cost": null,
+    //   "job_status": "OPEN",
+    //   "payment_status": "PENDING",
+    //   "worker_type": "PROFESSIONAL",
+    //   "job_type": "WORKINGHOUR",
+    //   "budget_type": "FIXED",
+    //   "job_journey": null,
+    //   "createdAt": "2025-02-21T05:22:01.000Z",
+    //   "updatedAt": "2025-02-21T05:24:27.861Z",
+    //   "address": "tin tapak",
+    //   "city": "tapak",
+    //   "state": "tin",
+    //   "budget": 100,
+    //   "is_paid_to_performer": false,
+    //   "invite_users": [],
+    //   "user_requests": [],
+    //   "performer": null,
+    //   "category": null,
+    //   "dispute": null,
+    //   "job_media": [
+    //     {
+    //       "id": "66166473-af58-4853-8b0c-be8f59efaf76",
+    //       "job_id": "59e01a22-ac4c-41dc-9cf1-6f02ffe452f2",
+    //       "media_name": "job_images",
+    //       "media_file":
+    //           "https://local-saviour-backend.s3.us-east-2.amazonaws.com/job_images/-1740115321416-download (1).jpg",
+    //       "createdAt": "2025-02-21T05:22:01.000Z",
+    //       "updatedAt": "2025-02-21T05:22:01.482Z"
+    //     },
+    //     {
+    //       "id": "92e22c45-2a57-4ba8-aab3-bbe0fa63601a",
+    //       "job_id": "59e01a22-ac4c-41dc-9cf1-6f02ffe452f2",
+    //       "media_name": "job_images",
+    //       "media_file":
+    //           "https://local-saviour-backend.s3.us-east-2.amazonaws.com/job_images/-1740115467810-download (1).jpg",
+    //       "createdAt": "2025-02-21T05:24:28.000Z",
+    //       "updatedAt": "2025-02-21T05:24:27.866Z"
+    //     }
+    //   ],
+    //   "cancel_job": null,
+    //   "performer_average_ratings": 0
+    // };
+
     groupValue.value = jobDetail['worker_type'] == "PROFESSIONAL" ? 0 : 1;
     titleController.text = jobDetail['title'];
     dateController.text = jobDetail['job_date'];
