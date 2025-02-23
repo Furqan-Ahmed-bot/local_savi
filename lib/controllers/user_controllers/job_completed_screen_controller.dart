@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'dart:developer';
 
 import 'package:get/get.dart';
@@ -18,9 +20,7 @@ class JobCompletedScreenController extends GetxController {
 
   getData() async {
     isLoading.value = true;
-    await UserServices.instance
-        .getSingleJobDetail(jobId: jobId.value)
-        .then((value) {
+    await UserServices.instance.getSingleJobDetail(jobId: jobId.value).then((value) {
       isLoading.value = false;
       jobDetailDatail = value['job'];
       log("==> jobDetails: ${jobDetailDatail}");

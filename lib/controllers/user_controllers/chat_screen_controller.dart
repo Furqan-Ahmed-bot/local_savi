@@ -27,7 +27,7 @@ class ChatScreenController extends GetxController {
 
   @override
   void onInit() {
-    // showUserDetail.value = Get.arguments != null ? Get.arguments['showUserDetail'] : true;
+    showUserDetail.value = Get.arguments['showUserDetail'] != null ? Get.arguments['showUserDetail'] : true;
     performerId = Get.arguments['providerId'] ?? '';
     jobId = Get.arguments['jobId'] ?? '';
     username = Get.arguments['username'] ?? 'XYZ';

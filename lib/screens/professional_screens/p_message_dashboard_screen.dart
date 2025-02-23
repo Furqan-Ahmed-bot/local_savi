@@ -63,7 +63,9 @@ class _PMessageDashboardScreenState extends State<PMessageDashboardScreen> {
                                   Get.toNamed(RouteName.chatScreenPath, arguments: {
                                     "providerId": '${chatController.AllChats[index]['user_one_id']}',
                                     "jobId": '${chatController.AllChats[index]['job_id']}',
-                                    "username": 'XYZ',
+                                    "username":
+                                        '${chatController.AllChats[index]["user_one"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_two"]["user_details"]["last_name"]}',
+                                    'profile_picture': chatController.AllChats[index]["user_one"]["user_details"]["profile_picture"],
                                     'chat_id': "${chatController.AllChats[index]['id']}",
                                   });
 
@@ -86,7 +88,7 @@ class _PMessageDashboardScreenState extends State<PMessageDashboardScreen> {
                                       )
                                     : messageUserCard(
                                         isVerified: true,
-                                        date: chatController.AllChats[index]["chat_messages"][0]["createdAt"],
+                                        date: DateTime.now(),
                                         image: chatController.AllChats[index]["user_one"]["user_details"]["profile_picture"],
                                         name:
                                             "${chatController.AllChats[index]["user_one"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_one"]["user_details"]["last_name"]}",

@@ -51,21 +51,28 @@ Widget getSenderView({CustomClipper? clipper, BuildContext? context, String? tex
       ],
     );
 
-Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? text}) => Row(
+Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? text, var image, var username}) => Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.asset(
-          ImageAssets.oliverImg,
-          scale: 2,
+        SizedBox(
+          height: 40,
+          width: 40,
+          child: ClipOval(
+            child: Image.network(
+              fit: BoxFit.cover,
+              '${image}',
+              scale: 2,
+            ),
+          ),
         ),
         10.horizontalSpace,
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              "Oliver Mark",
+            Text(
+              "${username}",
               softWrap: true,
               style: TextStyle(height: 0.5, fontSize: 16, fontWeight: FontWeight.w400),
             ),
@@ -546,7 +553,8 @@ Widget messageUserCard({
         ),
         Spacer(),
         Text(
-          dateFormat().formatTime(DateTime.parse(date)),
+          // dateFormat().formatTime(DateTime.parse(date)),
+          '',
           style: TextStyle(color: ColorUtils.borderColor, fontWeight: FontWeight.w400, fontSize: 12.sp),
         ),
       ],
@@ -894,7 +902,8 @@ Widget shortlistUserCard({
                 showMessageButton
                     ? InkWell(
                         onTap: () {
-                          Get.toNamed(RouteName.chatScreenPath, arguments: {"providerId": id, "jobId": jobId, "username": name});
+                          Get.toNamed(RouteName.chatScreenPath,
+                              arguments: {"providerId": id, "jobId": jobId, "username": name, 'profile_picture': profilePicture});
                         },
                         child: Container(
                           padding: EdgeInsets.all(10.sp),

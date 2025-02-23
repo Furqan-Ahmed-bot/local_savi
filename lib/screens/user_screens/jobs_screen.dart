@@ -129,6 +129,8 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                                                             arguments: {"jobId": controller.completedJobsList[index].id});
                                                       },
                                                       child: activeJobCard(
+                                                          time: controller.completedJobsList[index].startTime,
+                                                          budget: controller.completedJobsList[index].budget,
                                                           date: controller.completedJobsList[index].startTime,
                                                           workerType: controller.completedJobsList[index].workerType,
                                                           desc: controller.completedJobsList[index].description,

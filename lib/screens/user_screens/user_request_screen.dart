@@ -53,7 +53,7 @@ class UserRequestScreen extends GetWidget<UserRequestScreenController> {
                       name: controller.listOfUserRequests[index]['performer']['user_details']['first_name'] +
                           " " +
                           controller.listOfUserRequests[index]['performer']['user_details']['last_name'],
-                      rating: "(4.5)")),
+                      rating: "${controller.listOfUserRequests[index]['performer']['user_ratings'][0]['average_ratings']}")),
             ),
           ]));
         })

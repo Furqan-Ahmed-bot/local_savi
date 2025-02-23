@@ -140,11 +140,13 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                         ),
                         12.h.verticalSpace,
                         shortlistUserCard(
+                            profilePicture: controller.jobDetailDatail['performer']['user_details']['profile_picture'],
+                            id: controller.jobDetailDatail['performer']['id'],
                             context: context,
                             name: controller.jobDetailDatail['performer']['user_details']['first_name'] +
                                 " " +
                                 controller.jobDetailDatail['performer']['user_details']['last_name'],
-                            rating: "(4.5)",
+                            rating: "${controller.jobDetailDatail['performer_average_ratings']}",
                             isVerified: true,
                             showSelectJobButton: false,
                             image: controller.jobDetailDatail['performer']['user_details']['profile_picture']),

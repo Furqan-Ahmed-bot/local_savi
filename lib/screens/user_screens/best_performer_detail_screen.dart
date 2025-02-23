@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:local_saviors/controllers/user_controllers/best_performer_detail_screen_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/resources/extensions/context_extension.dart';
@@ -10,6 +11,8 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
+
+import '../../resources/map/show_map_screen.dart';
 
 class BestPerformerDetailScreen extends GetWidget<BestPerformerDetailScreenController> {
   @override
@@ -197,9 +200,50 @@ class BestPerformerDetailScreen extends GetWidget<BestPerformerDetailScreenContr
                                 ),
                               ),
                               10.h.verticalSpace,
-                              Image.asset(
-                                ImageAssets.mapimg,
-                                // scale: 2,
+                              Container(
+                                height: 200,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                                child: GestureDetector(
+                                  onTap: () async {},
+                                  child: GoogleMap(
+                                    onMapCreated: (controller) {
+                                      print("Map created: $controller");
+                                      // _controller.complete(controller);
+                                    },
+                                    initialCameraPosition: CameraPosition(
+                                      target: LatLng(double.parse(controller.bestPerformers['user_details']['latitude']),
+                                          double.parse(controller.bestPerformers['user_details']['longitude'])),
+                                      zoom: 5,
+                                    ),
+                                    onTap: (latLng) async {
+                                      LatLng? result = await Get.to(() => ShowMapScreen(
+                                          isProfile: true,
+                                          initialLocation: LatLng(double.parse(controller.bestPerformers['user_details']['latitude']),
+                                              double.parse(controller.bestPerformers['user_details']['longitude']))));
+                                      // LatLng? result = await
+                                      // Get.to(
+                                      //   () => ShowMapScreen(
+                                      //     isProfile: true,
+                                      //     initialLocation: LatLng(3076178580522537, 718024496988206),
+                                      //   ),
+                                      // );
+                                      // if (result != null) {
+                                      //   // Get the address from the coordinates using reverse geocoding
+                                      //   List<Placemark> placemarks =
+                                      //       await placemarkFromCoordinates(
+                                      //           result.latitude,
+                                      //           result.longitude);
+                                      //   if (placemarks.isNotEmpty) {
+                                      //     Placemark placemark =
+                                      //         placemarks.first;
+                                      //     String address =
+                                      //         "${placemark.name}, ${placemark.locality}";
+                                      //   }
+                                      // }
+                                    },
+                                  ),
+                                ),
                               ),
                               10.h.verticalSpace,
                               if (controller.bestPerformers['documents'] != null) ...[

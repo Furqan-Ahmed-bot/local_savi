@@ -313,11 +313,14 @@ class UpcomingJobDetailScreen extends GetWidget<UpcomingJobDetailScreenControlle
                                 ),
                                 Row(
                                   children: [
-                                    Text(
-                                      controller.jobDetailDatail['location'],
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500,
+                                    Container(
+                                      width: 120,
+                                      child: Text(
+                                        controller.jobDetailDatail['location'],
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                     5.w.horizontalSpace,

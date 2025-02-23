@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/controllers/user_controllers/posted_job_screen_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
@@ -9,6 +11,8 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
+
+import '../../resources/map/show_map_screen.dart';
 
 class PostedJobScreen extends GetWidget<PostedJobScreenController> {
   @override
@@ -532,13 +536,42 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                               ),
                                             ),
                                             5.w.horizontalSpace,
-                                            Text(
-                                              "(View Map)",
-                                              style: TextStyle(
-                                                  fontSize: 14.sp,
-                                                  color: ColorUtils.red,
-                                                  decorationColor: ColorUtils.red,
-                                                  decoration: TextDecoration.underline),
+                                            InkWell(
+                                              onTap: () async {
+                                                String address = '';
+                                                List<Placemark> placemarks = await placemarkFromCoordinates(
+                                                    double.parse(controller.jobDetailData['latitude']),
+                                                    double.parse(
+                                                      controller.jobDetailData['longitude'],
+                                                    ));
+
+                                                if (placemarks.isNotEmpty) {
+                                                  Placemark place = placemarks[0];
+                                                  address =
+                                                      '${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.country}';
+                                                  print("Address: $address");
+
+                                                  // You can display the address in a dialog, snackbar, or any widget
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    SnackBar(content: Text('Selected Location: $address')),
+                                                  );
+                                                }
+
+                                                Get.to(() => ShowMapScreen(
+                                                      address: address,
+                                                      isProfile: true,
+                                                      initialLocation: LatLng(double.parse(controller.jobDetailData['latitude']),
+                                                          double.parse(controller.jobDetailData['longitude'])),
+                                                    ));
+                                              },
+                                              child: Text(
+                                                "(View Map)",
+                                                style: TextStyle(
+                                                    fontSize: 14.sp,
+                                                    color: ColorUtils.red,
+                                                    decorationColor: ColorUtils.red,
+                                                    decoration: TextDecoration.underline),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -660,7 +693,8 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                     name: controller.jobDetailData['invite_users'][index]['performer']['user_details']['first_name'] +
                                         " " +
                                         controller.jobDetailData['invite_users'][index]['performer']['user_details']['last_name'],
-                                    rating: controller.listOfBestPerformers[index]['rating']))
+                                    rating:
+                                        controller.jobDetailData['user_requests'][0]['performer']['user_ratings'][0]['average_ratings'].toString()))
                             : [const Text("No shortlist users")],
                       )
                     ],
