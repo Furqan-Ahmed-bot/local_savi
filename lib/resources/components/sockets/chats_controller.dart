@@ -13,8 +13,9 @@ class GetChatController extends GetxController {
   RxBool isMessagesLoading = false.obs;
   RxList AllChats = [].obs;
   RxList allMessages = [].obs;
-
+  var avgRatings;
   Map jobDetails = {};
+  bool isJobAssigned = false;
   chatsdata(data) {
     AllChats.value = data;
 
@@ -39,7 +40,9 @@ class GetChatController extends GetxController {
       if (resData['status']['success'] == true) {
         isMessagesLoading.value = false;
         jobDetails = resData['data']['jobs'];
+        isJobAssigned = resData['data']['job_already_assigned'];
         allMessages.value = resData['data']['chat_messages'];
+        avgRatings = resData['data']['review']['average_ratings'];
       } else {
         isMessagesLoading.value = false;
         resData['status'];

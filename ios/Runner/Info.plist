@@ -30,8 +30,14 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Library</string>
+	<key>NSCameraUsageDescription</key>
+    <string>We need access to your camera to take photos that you can upload when creating your profile</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photo library to select image that you can upload when creating your profile</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Need location to show bussiness which are near to you.</string> 
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>

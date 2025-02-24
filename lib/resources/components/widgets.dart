@@ -132,9 +132,16 @@ Widget ratingReviewCard({
       children: [
         Row(
           children: [
-            Image.asset(
-              image,
-              scale: 2,
+            SizedBox(
+              height: 40,
+              width: 40,
+              child: ClipOval(
+                child: Image.network(
+                  fit: BoxFit.cover,
+                  image,
+                  scale: 2,
+                ),
+              ),
             ),
             11.w.horizontalSpace,
             Column(
@@ -150,7 +157,7 @@ Widget ratingReviewCard({
                 ),
                 // 6.h.verticalSpace,
                 Text(
-                  dateTime,
+                  dateFormat.formatCreatedAt(dateTime),
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18.sp, color: ColorUtils.txtGrey),
                 ),
               ],
@@ -553,7 +560,7 @@ Widget messageUserCard({
         ),
         Spacer(),
         Text(
-          dateFormat().formatTime(DateTime.parse(date)),
+          date.isNotEmpty ? dateFormat().formatTime(DateTime.parse(date)) : "",
           style: TextStyle(color: ColorUtils.borderColor, fontWeight: FontWeight.w400, fontSize: 12.sp),
         ),
       ],
@@ -683,6 +690,7 @@ Widget shortlistUserCard({
   String? performerId,
   var profilePicture,
   String? jobId,
+  String? chatId,
   required context,
   bool showSelectJobButton = true,
 }) {
@@ -839,6 +847,7 @@ Widget shortlistUserCard({
                                                   "providerId": id,
                                                   "jobId": jobId,
                                                   'username': name,
+                                                  'chat_id': chatId,
                                                   'profile_picture': profilePicture
                                                 });
                                               },
@@ -902,7 +911,7 @@ Widget shortlistUserCard({
                     ? InkWell(
                         onTap: () {
                           Get.toNamed(RouteName.chatScreenPath,
-                              arguments: {"providerId": id, "jobId": jobId, "username": name, 'profile_picture': profilePicture});
+                              arguments: {"providerId": id, "jobId": jobId, "username": name, 'profile_picture': profilePicture, 'chat_id': chatId});
                         },
                         child: Container(
                           padding: EdgeInsets.all(10.sp),

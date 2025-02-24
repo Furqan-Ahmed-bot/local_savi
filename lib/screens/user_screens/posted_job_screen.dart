@@ -686,6 +686,7 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                     id: controller.jobDetailData['invite_users'][index]['performer_id'],
                                     jobId: controller.jobDetailData['invite_users'][index]['job_id'],
                                     context: context,
+                                    chatId: controller.jobDetailData['chat_id'],
                                     profilePicture: controller.jobDetailData['user_requests'][0]['performer']['user_details']['profile_picture'],
                                     showSelectJobButton: controller.jobDetailData['invite_users'][index]['invite_status'] == "ACCEPTED",
                                     isVerified: controller.listOfBestPerformers[index]['isVerified'],

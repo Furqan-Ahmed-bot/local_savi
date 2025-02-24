@@ -96,7 +96,7 @@ class BestPerformerDetailScreen extends GetWidget<BestPerformerDetailScreenContr
                         12.h.verticalSpace,
                         GestureDetector(
                           onTap: () {
-                            Get.toNamed(RouteName.ratingAndReviewsScreenPath);
+                            Get.toNamed(RouteName.ratingAndReviewsScreenPath, arguments: {'user_id': controller.bestPerformers['user_id']});
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +107,7 @@ class BestPerformerDetailScreen extends GetWidget<BestPerformerDetailScreenContr
                               ),
                               10.w.horizontalSpace,
                               Text(
-                                "(${controller.bestPerformers['user_details']['average_ratings'] ?? 0})",
+                                "(${controller.bestPerformers['review']['average_ratings'] ?? 0})",
                                 style: TextStyle(fontSize: 18.sp),
                               ),
                               5.w.horizontalSpace,
@@ -123,7 +123,7 @@ class BestPerformerDetailScreen extends GetWidget<BestPerformerDetailScreenContr
                               ),
                               10.w.horizontalSpace,
                               Text(
-                                "${controller.bestPerformers['user_details']['rating_count'] ?? 0}",
+                                "${controller.bestPerformers['review']['rating_count'] ?? 0}",
                                 style: TextStyle(fontSize: 18.sp),
                               ),
                               5.w.horizontalSpace,

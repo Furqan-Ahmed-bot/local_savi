@@ -177,7 +177,7 @@ Widget buildWalletBalanceCard(BuildContext context, {required String balance, Vo
                 ),
                 7.h.verticalSpace,
                 Text(
-                  "\$$balance",
+                  "\$${balance}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
                   // style:  context.,
                 ),

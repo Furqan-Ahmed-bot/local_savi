@@ -80,19 +80,24 @@ class _PMessageDashboardScreenState extends State<PMessageDashboardScreen> {
                                 child: chatController.AllChats[index]["user_one_id"] == phController.performerdata.userId
                                     ? messageUserCard(
                                         isVerified: true,
-                                        date: chatController.AllChats[index]["chat_messages"][0]["createdAt"],
+                                        date: chatController.AllChats[index]['chat_messages'].isNotEmpty
+                                            ? chatController.AllChats[index]['chat_messages'][0]['createdAt']
+                                            : "",
                                         image: chatController.AllChats[index]["user_two"]["user_details"]["profile_picture"],
                                         name:
                                             "${chatController.AllChats[index]["user_two"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_two"]["user_details"]["last_name"]}",
-                                        desc: "${chatController.AllChats[0]['chat_messages'][0]['message']}",
+                                        desc:
+                                            "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
                                       )
                                     : messageUserCard(
                                         isVerified: true,
-                                        date: DateTime.now(),
+                                        date: chatController.AllChats[index]['chat_messages'].isNotEmpty
+                                            ? chatController.AllChats[index]['chat_messages'][0]['createdAt']
+                                            : "",
                                         image: chatController.AllChats[index]["user_one"]["user_details"]["profile_picture"],
                                         name:
                                             "${chatController.AllChats[index]["user_one"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_one"]["user_details"]["last_name"]}",
-                                        desc: "${chatController.AllChats[0]['chat_messages'][0]['message']}",
+                                        desc: "${chatController.AllChats[index]['chat_messages'][0]['message']}",
                                       )),
                           ),
                         ),

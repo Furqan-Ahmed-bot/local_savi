@@ -140,6 +140,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                         ),
                         12.h.verticalSpace,
                         shortlistUserCard(
+                            chatId: controller.jobDetailDatail['chat_id'],
                             profilePicture: controller.jobDetailDatail['performer']['user_details']['profile_picture'],
                             id: controller.jobDetailDatail['performer']['id'],
                             context: context,

@@ -1,4 +1,4 @@
-package com.example.local_saviors
+package com.localsaviors.theapptitude
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity

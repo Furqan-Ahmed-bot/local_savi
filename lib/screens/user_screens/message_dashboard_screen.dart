@@ -82,20 +82,25 @@ class _MessageDashboardScreenState extends State<MessageDashboardScreen> {
                               child: chatController.AllChats[index]["user_one_id"] == hsController.userdata.userID
                                   ? messageUserCard(
                                       isVerified: true,
-                                      date: chatController.AllChats[index]['chat_messages'][0]['createdAt'],
+                                      date: chatController.AllChats[index]['chat_messages'].isNotEmpty
+                                          ? chatController.AllChats[index]['chat_messages'][0]['createdAt']
+                                          : "",
                                       image: chatController.AllChats[index]["user_two"]["user_details"]["profile_picture"],
                                       name:
                                           "${chatController.AllChats[index]["user_two"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_two"]["user_details"]["last_name"]}",
                                       desc:
-                                          "${chatController.AllChats[0]['chat_messages'].isNotEmpty ? chatController.AllChats[0]['chat_messages'][0]['message'] : ''}",
+                                          "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
                                     )
                                   : messageUserCard(
                                       isVerified: true,
-                                      date: chatController.AllChats[index]['chat_messages'][0]['createdAt'],
+                                      date: chatController.AllChats[index]['chat_messages'].isNotEmpty
+                                          ? chatController.AllChats[index]['chat_messages'][0]['createdAt']
+                                          : "",
                                       image: chatController.AllChats[index]["user_one"]["user_details"]["profile_picture"],
                                       name:
                                           "${chatController.AllChats[index]["user_one"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_one"]["user_details"]["last_name"]}",
-                                      desc: "${chatController.AllChats[0]['chat_messages'][0]['message']}",
+                                      desc:
+                                          "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
                                     ),
                             ),
                           ),
