@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,12 +18,16 @@ import 'utils/routes/routes_name.dart';
 final navigationKey = GlobalKey<NavigatorState>();
 
 void main() {
-  Stripe.publishableKey =
-      "pk_test_51Q5Qo3COooK1jUT3eDq4GfwDaWj1poPVKM3fC7aUr0GppsWaHwVM4PSQowX6GbEA7cTUloh9g7TjjCRCKJ7qhbBV00lG4mWbuY";
+  Stripe.publishableKey = "pk_test_51Q5Qo3COooK1jUT3eDq4GfwDaWj1poPVKM3fC7aUr0GppsWaHwVM4PSQowX6GbEA7cTUloh9g7TjjCRCKJ7qhbBV00lG4mWbuY";
   hsController = Get.put(HomeScreenController());
   phController = Get.put(PHomeController());
   socketController = Get.put(SocketController());
   chatController = Get.put(GetChatController());
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   socketController.connectSocket();
 
@@ -42,8 +47,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            appBarTheme:
-                AppBarTheme(elevation: 0, surfaceTintColor: Colors.transparent),
+            appBarTheme: AppBarTheme(elevation: 0, surfaceTintColor: Colors.transparent),
             applyElevationOverlayColor: false,
             splashColor: Colors.transparent,
             splashFactory: NoSplash.splashFactory,

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class dateFormat {
   String formatTime(DateTime dateTime) {
     final now = DateTime.now();
@@ -19,5 +21,18 @@ class dateFormat {
       final months = (difference.inDays / 30).floor();
       return '$months month${months == 1 ? '' : 's'} ago';
     }
+  }
+
+  static String formatCreatedAt(String createdAt) {
+    // Parse the input date string into a DateTime object
+    DateTime dateTime = DateTime.parse(createdAt);
+
+    // Define the desired output format
+    final DateFormat formatter = DateFormat('MMM d, y | h:mm a');
+
+    // Format the DateTime object into the desired string format
+    String formattedDate = formatter.format(dateTime);
+
+    return formattedDate;
   }
 }

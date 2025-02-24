@@ -51,7 +51,7 @@ Widget getSenderView({CustomClipper? clipper, BuildContext? context, String? tex
       ],
     );
 
-Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? text, var image, var username}) => Row(
+Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? text, var image, var username, var datetime}) => Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -95,12 +95,12 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? t
             5.verticalSpace,
             SizedBox(
               width: 0.65.sw,
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Spacer(),
                   Text(
-                    "03:35 pm",
+                    dateFormat().formatTime(DateTime.parse(datetime)),
                     style: TextStyle(
                       fontSize: 12,
                     ),
@@ -553,8 +553,7 @@ Widget messageUserCard({
         ),
         Spacer(),
         Text(
-          // dateFormat().formatTime(DateTime.parse(date)),
-          '',
+          dateFormat().formatTime(DateTime.parse(date)),
           style: TextStyle(color: ColorUtils.borderColor, fontWeight: FontWeight.w400, fontSize: 12.sp),
         ),
       ],

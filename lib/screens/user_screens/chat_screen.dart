@@ -472,6 +472,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       itemBuilder: (context, index) {
                         return chatController.allMessages[index]['recipient_id'] != controller.performerId
                             ? getReceiverView(
+                                datetime: chatController.allMessages[index]['createdAt'],
                                 image: controller.profile_picture,
                                 username: controller.username,
                                 clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),

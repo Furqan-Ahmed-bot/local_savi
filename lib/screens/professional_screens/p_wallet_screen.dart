@@ -6,11 +6,11 @@ import 'package:get/get.dart';
 import 'package:local_saviors/controllers/professional_controllers/payment_method_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/wallet_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
-import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 
+import '../../resources/components/dateformate/dateformatController.dart';
 import 'p_payment_method_screen.dart';
 
 class WalletScreen extends GetWidget<WalletController> with WidgetsBindingObserver {
@@ -100,20 +100,26 @@ class WalletScreen extends GetWidget<WalletController> with WidgetsBindingObserv
                         Divider(),
 
                         Obx(
-                          () => Container(
-                            height: 0.52.sh,
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              padding: EdgeInsets.symmetric(vertical: 30.h),
-                              itemBuilder: (_, i) => transactionTile(context),
-                              separatorBuilder: (_, i) => Divider(
-                                height: 26.h,
-                                thickness: 1.h,
-                                color: const Color(0XFFBAC7DC),
-                              ),
-                              itemCount: controller.currentIndex == 0 ? 4 : 6,
-                            ),
-                          ),
+                          () => paymentController.isLoading.value
+                              ? Center(
+                                  child: spinkit,
+                                )
+                              : paymentController.allTranscations.isEmpty
+                                  ? Text('No Current Transcations')
+                                  : Container(
+                                      height: 0.52.sh,
+                                      child: ListView.separated(
+                                        shrinkWrap: true,
+                                        padding: EdgeInsets.symmetric(vertical: 30.h),
+                                        itemBuilder: (_, i) => transactionTile(context, paymentController.allTranscations[i]),
+                                        separatorBuilder: (_, i) => Divider(
+                                          height: 26.h,
+                                          thickness: 1.h,
+                                          color: const Color(0XFFBAC7DC),
+                                        ),
+                                        itemCount: paymentController.allTranscations.length,
+                                      ),
+                                    ),
                         )
                         // buildTransctions(context),
                       ],
@@ -216,26 +222,27 @@ Widget buildWalletBalanceCard(BuildContext context, {required String balance, Vo
   );
 }
 
-Widget buildTransctions(BuildContext context) {
-  return Container(
-    height: 100,
-    // Ensure the Container has constraints to define its size
-    constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.6),
-    child: ListView.separated(
-      shrinkWrap: true,
-      padding: EdgeInsets.symmetric(vertical: 30.h),
-      itemBuilder: (_, i) => transactionTile(context),
-      separatorBuilder: (_, i) => Divider(
-        height: 26.h,
-        thickness: 1.h,
-        color: const Color(0XFF03384C),
-      ),
-      itemCount: 6,
-    ),
-  );
-}
+// Widget buildTransctions(BuildContext context) {
+//   return Container(
+//     height: 100,
+//     // Ensure the Container has constraints to define its size
+//     constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.6),
+//     child: ListView.separated(
+//       shrinkWrap: true,
+//       padding: EdgeInsets.symmetric(vertical: 30.h),
+//       itemBuilder: (_, i) => transactionTile(context),
+//       separatorBuilder: (_, i) => Divider(
+//         height: 26.h,
+//         thickness: 1.h,
+//         color: const Color(0XFF03384C),
+//       ),
+//       itemCount: 6,
+//     ),
+//   );
+// }
 
-Widget transactionTile(BuildContext context) {
+Widget transactionTile(BuildContext context, var data) {
+  String formattedDate = dateFormat.formatCreatedAt(data['createdAt']);
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -257,16 +264,19 @@ Widget transactionTile(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Job: Lorem ipsum dolor sit amet..',
+                '${data['jobs']['title']}',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               9.h.verticalSpace,
               Text(
-                'Refund - Aug 25, 2022 | 10:00 AM',
+                '${data['details']}',
                 style: TextStyle(),
               ),
+              Text(
+                '${formattedDate}',
+              )
             ],
           ),
         ],
@@ -275,10 +285,10 @@ Widget transactionTile(BuildContext context) {
       Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(' \$32.00', style: TextStyle(fontWeight: FontWeight.bold, color: ColorUtils.blue)),
+          Text(' \$${data['amount']}', style: TextStyle(fontWeight: FontWeight.bold, color: ColorUtils.blue)),
           11.h.verticalSpace,
           Text(
-            'Credit',
+            '${data['transaction_type']}',
             style: TextStyle(
               fontWeight: FontWeight.w500,
             ),
