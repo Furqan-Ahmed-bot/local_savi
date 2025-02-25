@@ -28,19 +28,27 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    socketController.joinChatRoom(jobId: controller.jobId, chatId: controller.chatId, id: controller.performerId);
-
-    if (controller.chatId != null) {
-      chatController.getSingleChat(controller.chatId);
-    }
-
     super.initState();
+    chatController.isMessagesLoading.value = true;
+    // Join the chat room and pass the callback to handle the success response
+    socketController.joinChatRoom(
+        jobId: controller.jobId,
+        chatId: controller.chatId,
+        id: controller.performerId,
+        onSuccess: (data) {
+          // Get the chatId once the socket response is successful
+          if (data != null && data['chat_id'] != null) {
+            data['chat_id']; // Update the chatId with the response
+            // Now, call the API to get the single chat
+            chatController.getSingleChat(data['chat_id']);
+          }
+        });
   }
 
   @override
   void dispose() {
     chatController.allMessages.clear();
-    // TODO: implement dispose
+
     super.dispose();
   }
 
@@ -121,7 +129,9 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: Obx(
                       () => chatController.isMessagesLoading.value
                           ? Center(
-                              child: spinkit,
+                              child: Container(
+                                color: Colors.transparent,
+                              ),
                             )
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -189,7 +199,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                       Obx(
                                         () => chatController.isMessagesLoading.value
                                             ? Center(
-                                                child: spinkit,
+                                                child: Container(
+                                                  color: Colors.transparent,
+                                                ),
                                               )
                                             : Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,8 +220,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         scale: 2,
                                                       ),
                                                       7.w.horizontalSpace,
-                                                      const Text(
-                                                        "(4.5)",
+                                                      Text(
+                                                        "(${chatController.avgRatings})",
                                                         style: TextStyle(),
                                                       )
                                                     ],
@@ -241,170 +253,172 @@ class _ChatScreenState extends State<ChatScreen> {
                                             )
                                           : GestureDetector(
                                               onTap: () {
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (BuildContext context) {
-                                                      return AlertDialog(
-                                                        insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                                                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                        backgroundColor: ColorUtils.dialogeBGColor,
-                                                        content: SizedBox(
-                                                          width: 1.0.sw,
-                                                          child: Column(
-                                                            mainAxisSize: MainAxisSize.min,
-                                                            children: [
-                                                              20.h.verticalSpace,
-                                                              Image.asset(
-                                                                ImageAssets.jobBigIcon,
-                                                                scale: 2,
-                                                              ),
-                                                              20.h.verticalSpace,
-                                                              Text(
-                                                                "Select For Job!",
-                                                                textAlign: TextAlign.center,
-                                                                style: TextStyle(
-                                                                  color: ColorUtils.black,
-                                                                  fontSize: 22.sp,
-                                                                ),
-                                                              ),
-                                                              24.h.verticalSpace,
-                                                              Text(
-                                                                "Are you sure you want select William Roy for your job?",
-                                                                textAlign: TextAlign.center,
-                                                                style: TextStyle(
-                                                                  color: ColorUtils.black,
-                                                                  fontSize: 14.sp,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        actions: [
-                                                          Container(
+                                                if (!chatController.isJobAssigned) {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext context) {
+                                                        return AlertDialog(
+                                                          insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                                                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                          backgroundColor: ColorUtils.dialogeBGColor,
+                                                          content: SizedBox(
                                                             width: 1.0.sw,
-                                                            child: Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            child: Column(
+                                                              mainAxisSize: MainAxisSize.min,
                                                               children: [
-                                                                Expanded(
-                                                                  child: GestureDetector(
-                                                                    onTap: () {
-                                                                      Get.back();
-                                                                      // controller.isPendingJob.value = true;
-
-                                                                      showDialog(
-                                                                          context: context,
-                                                                          builder: (BuildContext context) {
-                                                                            return AlertDialog(
-                                                                              insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                                                                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                                              backgroundColor: ColorUtils.dialogeBGColor,
-                                                                              content: SizedBox(
-                                                                                width: 1.0.sw,
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.min,
-                                                                                  children: [
-                                                                                    20.h.verticalSpace,
-                                                                                    Image.asset(
-                                                                                      ImageAssets.jobBigIcon,
-                                                                                      scale: 2,
-                                                                                    ),
-                                                                                    20.h.verticalSpace,
-                                                                                    Text(
-                                                                                      "Decided Amount",
-                                                                                      textAlign: TextAlign.center,
-                                                                                      style: TextStyle(
-                                                                                        color: ColorUtils.black,
-                                                                                        fontSize: 22.sp,
-                                                                                      ),
-                                                                                    ),
-                                                                                    24.h.verticalSpace,
-                                                                                    EditText(
-                                                                                      context: context,
-                                                                                      bordercolor: Colors.amberAccent,
-                                                                                      controller: controller.decidedAmountController,
-                                                                                    )
-                                                                                    // Text(
-                                                                                    //   "Are you sure you want select William Roy for your job?",
-                                                                                    //   textAlign: TextAlign.center,
-                                                                                    //   style: TextStyle(
-                                                                                    //     color: ColorUtils.black,
-                                                                                    //     fontSize: 14.sp,
-                                                                                    //   ),
-                                                                                    // ),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                              actions: [
-                                                                                Container(
-                                                                                  width: 1.0.sw,
-                                                                                  child: Row(
-                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                    children: [
-                                                                                      Expanded(
-                                                                                        child: GestureDetector(
-                                                                                          onTap: () {
-                                                                                            // Get.back();
-                                                                                            controller.assignJob(
-                                                                                                context, controller.jobId, controller.performerId);
-                                                                                          },
-                                                                                          child: Container(
-                                                                                            alignment: Alignment.center,
-                                                                                            padding: EdgeInsets.symmetric(vertical: 15.h),
-                                                                                            decoration: BoxDecoration(
-                                                                                              borderRadius: BorderRadius.circular(10.r),
-                                                                                              color: ColorUtils.red,
-                                                                                            ),
-                                                                                            child: Text(
-                                                                                              "Confirm",
-                                                                                              style: TextStyle(color: ColorUtils.white),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                )
-                                                                              ],
-                                                                            );
-                                                                          });
-                                                                    },
-                                                                    child: Container(
-                                                                      alignment: Alignment.center,
-                                                                      padding: EdgeInsets.symmetric(vertical: 15.h),
-                                                                      decoration: BoxDecoration(
-                                                                          color: ColorUtils.white,
-                                                                          borderRadius: BorderRadius.circular(10.r),
-                                                                          border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
-                                                                      child: const Text("Yes, Select"),
-                                                                    ),
+                                                                20.h.verticalSpace,
+                                                                Image.asset(
+                                                                  ImageAssets.jobBigIcon,
+                                                                  scale: 2,
+                                                                ),
+                                                                20.h.verticalSpace,
+                                                                Text(
+                                                                  "Select For Job!",
+                                                                  textAlign: TextAlign.center,
+                                                                  style: TextStyle(
+                                                                    color: ColorUtils.black,
+                                                                    fontSize: 22.sp,
                                                                   ),
                                                                 ),
-                                                                20.w.horizontalSpace,
-                                                                Expanded(
-                                                                  child: GestureDetector(
-                                                                    onTap: () {
-                                                                      Get.back();
-                                                                    },
-                                                                    child: Container(
-                                                                      alignment: Alignment.center,
-                                                                      padding: EdgeInsets.symmetric(vertical: 15.h),
-                                                                      decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(10.r),
-                                                                        color: ColorUtils.red,
-                                                                      ),
-                                                                      child: Text(
-                                                                        "No",
-                                                                        style: TextStyle(color: ColorUtils.white),
-                                                                      ),
-                                                                    ),
+                                                                24.h.verticalSpace,
+                                                                Text(
+                                                                  "Are you sure you want select William Roy for your job?",
+                                                                  textAlign: TextAlign.center,
+                                                                  style: TextStyle(
+                                                                    color: ColorUtils.black,
+                                                                    fontSize: 14.sp,
                                                                   ),
                                                                 ),
                                                               ],
                                                             ),
-                                                          )
-                                                        ],
-                                                      );
-                                                    });
+                                                          ),
+                                                          actions: [
+                                                            Container(
+                                                              width: 1.0.sw,
+                                                              child: Row(
+                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                children: [
+                                                                  Expanded(
+                                                                    child: GestureDetector(
+                                                                      onTap: () {
+                                                                        Get.back();
+                                                                        // controller.isPendingJob.value = true;
+
+                                                                        showDialog(
+                                                                            context: context,
+                                                                            builder: (BuildContext context) {
+                                                                              return AlertDialog(
+                                                                                insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                                                                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                                                backgroundColor: ColorUtils.dialogeBGColor,
+                                                                                content: SizedBox(
+                                                                                  width: 1.0.sw,
+                                                                                  child: Column(
+                                                                                    mainAxisSize: MainAxisSize.min,
+                                                                                    children: [
+                                                                                      20.h.verticalSpace,
+                                                                                      Image.asset(
+                                                                                        ImageAssets.jobBigIcon,
+                                                                                        scale: 2,
+                                                                                      ),
+                                                                                      20.h.verticalSpace,
+                                                                                      Text(
+                                                                                        "Decided Amount",
+                                                                                        textAlign: TextAlign.center,
+                                                                                        style: TextStyle(
+                                                                                          color: ColorUtils.black,
+                                                                                          fontSize: 22.sp,
+                                                                                        ),
+                                                                                      ),
+                                                                                      24.h.verticalSpace,
+                                                                                      EditText(
+                                                                                        context: context,
+                                                                                        bordercolor: Colors.amberAccent,
+                                                                                        controller: controller.decidedAmountController,
+                                                                                      )
+                                                                                      // Text(
+                                                                                      //   "Are you sure you want select William Roy for your job?",
+                                                                                      //   textAlign: TextAlign.center,
+                                                                                      //   style: TextStyle(
+                                                                                      //     color: ColorUtils.black,
+                                                                                      //     fontSize: 14.sp,
+                                                                                      //   ),
+                                                                                      // ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                                actions: [
+                                                                                  Container(
+                                                                                    width: 1.0.sw,
+                                                                                    child: Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                      children: [
+                                                                                        Expanded(
+                                                                                          child: GestureDetector(
+                                                                                            onTap: () {
+                                                                                              // Get.back();
+                                                                                              controller.assignJob(
+                                                                                                  context, controller.jobId, controller.performerId);
+                                                                                            },
+                                                                                            child: Container(
+                                                                                              alignment: Alignment.center,
+                                                                                              padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                                                              decoration: BoxDecoration(
+                                                                                                borderRadius: BorderRadius.circular(10.r),
+                                                                                                color: ColorUtils.red,
+                                                                                              ),
+                                                                                              child: Text(
+                                                                                                "Confirm",
+                                                                                                style: TextStyle(color: ColorUtils.white),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  )
+                                                                                ],
+                                                                              );
+                                                                            });
+                                                                      },
+                                                                      child: Container(
+                                                                        alignment: Alignment.center,
+                                                                        padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                                        decoration: BoxDecoration(
+                                                                            color: ColorUtils.white,
+                                                                            borderRadius: BorderRadius.circular(10.r),
+                                                                            border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                                                        child: const Text("Yes, Select"),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  20.w.horizontalSpace,
+                                                                  Expanded(
+                                                                    child: GestureDetector(
+                                                                      onTap: () {
+                                                                        Get.back();
+                                                                      },
+                                                                      child: Container(
+                                                                        alignment: Alignment.center,
+                                                                        padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                                        decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(10.r),
+                                                                          color: ColorUtils.red,
+                                                                        ),
+                                                                        child: Text(
+                                                                          "No",
+                                                                          style: TextStyle(color: ColorUtils.white),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            )
+                                                          ],
+                                                        );
+                                                      });
+                                                }
                                               },
                                               child: Container(
                                                 // width: 120.w,
@@ -417,7 +431,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                                     borderRadius: BorderRadius.circular(10.sp),
                                                     border: Border.all(width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
                                                 child: Text(
-                                                  "Select for job",
+                                                  chatController.isJobAssigned ? 'Selected For Job' : "Select for job",
                                                   style: TextStyle(fontSize: 14.sp, color: ColorUtils.white),
                                                 ),
                                               ),

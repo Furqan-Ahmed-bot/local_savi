@@ -1127,7 +1127,7 @@ Widget activeJobCard({
                 ),
                 6.h.verticalSpace,
                 Text(
-                  budget != null ? "\$$budget" : "",
+                  budget != null ? "\$${budget}" : "",
                   style: TextStyle(
                     color: ColorUtils.black,
                     fontSize: 16.sp,

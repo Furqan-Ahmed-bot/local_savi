@@ -16,27 +16,25 @@ import '../../utils/routes/routes.dart';
 class OngoingJobDetailScreenController extends GetxController {
   RxString jobId = "".obs;
   var jobDetailDatail = {};
+  RxBool isTrackable = false.obs;
   RxBool isLoading = false.obs;
 
   getData() async {
     isLoading.value = true;
-    await UserServices.instance
-        .getSingleJobDetail(jobId: jobId.value)
-        .then((value) {
+    await UserServices.instance.getSingleJobDetail(jobId: jobId.value).then((value) {
       isLoading.value = false;
       jobDetailDatail = value['job'];
-      value['job']['job_journey'] != null &&
-              value['job']['job_journey'] == "ONTHEWAY"
+      isTrackable.value = value['trackable'];
+      value['job']['job_journey'] != null && value['job']['job_journey'] == "ONTHEWAY"
           ? isReached.value = false
-          : value['job']['job_journey'] != null &&
-                  value['job']['job_journey'] == "ARRIVED"
+          : value['job']['job_journey'] != null && value['job']['job_journey'] == "ARRIVED"
               ? isReached.value = false
-              : value['job']['job_journey'] != null &&
-                      value['job']['job_journey'] == "COMPLETED"
+              : value['job']['job_journey'] != null && value['job']['job_journey'] == "COMPLETED"
                   ? isReached.value = true
                   : isReached.value = false;
 
       log("==> jobDetails: ${jobDetailDatail}");
+      log("==> isTrackable: ${isTrackable}");
       update();
     });
     isLoading.value = false;
@@ -75,8 +73,7 @@ class OngoingJobDetailScreenController extends GetxController {
     jobId.value = Get.arguments['jobId'] ?? "";
 
     getData();
-    isReached.value =
-        Get.arguments != null ? Get.arguments['isReached'] ?? false : false;
+    isReached.value = Get.arguments != null ? Get.arguments['isReached'] ?? false : false;
   }
 
   payNow(context, performerData) async {
@@ -91,12 +88,8 @@ class OngoingJobDetailScreenController extends GetxController {
               ),
             );
           });
-      var headers = {
-        'Content-Type': 'application/json',
-        'Authorization': token.value
-      };
-      var request =
-          http.Request('POST', Uri.parse("${UserUrls.payNow}/${jobId.value}"));
+      var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
+      var request = http.Request('POST', Uri.parse("${UserUrls.payNow}/${jobId.value}"));
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -118,9 +111,7 @@ class OngoingJobDetailScreenController extends GetxController {
                       20.h.verticalSpace,
                       Container(
                         padding: EdgeInsets.all(23.sp),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: ColorUtils.jobIconBG),
+                        decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
                         child: Image.asset(
                           ImageAssets.jobDoneIcon,
                           scale: 2,
@@ -164,9 +155,7 @@ class OngoingJobDetailScreenController extends GetxController {
                               decoration: BoxDecoration(
                                   color: ColorUtils.white,
                                   borderRadius: BorderRadius.circular(10.r),
-                                  border: Border.all(
-                                      width: 1.w,
-                                      color: ColorUtils.borderColor)),
+                                  border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
                               child: const Text("Go back"),
                             ),
                           ),
@@ -176,11 +165,7 @@ class OngoingJobDetailScreenController extends GetxController {
                           child: GestureDetector(
                             onTap: () {
                               Get.close(2);
-                              Get.offAndToNamed(
-                                  RouteName.rateEmployeeScreenPath,
-                                  arguments: {
-                                    'performer_details': performerData
-                                  });
+                              Get.offAndToNamed(RouteName.rateEmployeeScreenPath, arguments: {'performer_details': performerData});
                             },
                             child: Container(
                               alignment: Alignment.center,
@@ -205,8 +190,7 @@ class OngoingJobDetailScreenController extends GetxController {
       } else {
         responseData['message'];
         Get.close(1);
-        Get.snackbar("Alert", responseData['message'].toString(),
-            backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.close(1);

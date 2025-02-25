@@ -63,7 +63,9 @@ class PHomeScreen extends GetWidget<PHomeController> {
                                                     title: controller.listOfJobs[index].title,
                                                     status: controller.listOfJobs[index].jobStatus,
                                                     desc: controller.listOfJobs[index].description,
-                                                    budget: controller.listOfJobs[index].budget,
+                                                    budget: controller.listOfJobs[index].decidedCost != null
+                                                        ? controller.listOfJobs[index].decidedCost.toString()
+                                                        : controller.listOfJobs[index].budget,
                                                     date: controller.listOfJobs[index].jobDate,
                                                     time: controller.listOfJobs[index].jobTime,
                                                     // time: controller.listOfJobs[index].,

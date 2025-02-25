@@ -24,6 +24,7 @@ var OTP;
 // RxString pemail = "".obs;
 RxString token = "".obs;
 RxString refreshToken = "".obs;
+var googleMapKey = 'AIzaSyC1K7IVLFLcoZlIeGBqzWVaJ5AK4g0uTf0';
 
 final spinkit = SpinKitFadingCircle(
   color: ColorUtils.red,

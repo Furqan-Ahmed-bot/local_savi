@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +13,8 @@ import 'package:local_saviors/resources/map/show_map_screen.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
+
+import '../../resources/map/poly_lines.dart';
 
 class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController> {
   @override
@@ -41,26 +45,36 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                             color: ColorUtils.trakNowbgColor),
                         child: Column(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      ImageAssets.greenVerifiedIcon,
-                                      scale: 2,
-                                    ),
-                                    10.w.horizontalSpace,
-                                    Text(
-                                      "${controller.jobDetailDatail['performer']['user_details']['first_name'] + " " + controller.jobDetailDatail['performer']['user_details']['last_name']} On the way",
-                                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                controller.isReached.value
-                                    ? SizedBox.shrink()
-                                    : GestureDetector(
+                            controller.isTrackable.value == false
+                                ? SizedBox.shrink()
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            ImageAssets.greenVerifiedIcon,
+                                            scale: 2,
+                                          ),
+                                          10.w.horizontalSpace,
+                                          Text(
+                                            "${controller.jobDetailDatail['performer']['user_details']['first_name'] + " " + controller.jobDetailDatail['performer']['user_details']['last_name']} On the way",
+                                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                      GestureDetector(
                                         onTap: () {
+                                          Get.to(
+                                              () => BarDetailsScreen(
+                                                    barName: '',
+                                                    barLocation: LatLng(double.parse(controller.jobDetailDatail['latitude']),
+                                                        double.parse(controller.jobDetailDatail['longitude'])),
+                                                    barAddress: controller.jobDetailDatail['location'] ?? 'N/A',
+                                                    barlat: double.parse(controller.jobDetailDatail['latitude']) ?? 0.0,
+                                                    barlong: double.parse(controller.jobDetailDatail['longitude']) ?? 0.0,
+                                                  ),
+                                              transition: Transition.fadeIn);
                                           // Get.back();
                                         },
                                         child: Container(
@@ -76,8 +90,8 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                                           ),
                                         ),
                                       ),
-                              ],
-                            ),
+                                    ],
+                                  ),
                             controller.isReached.value ? 20.h.verticalSpace : 0.h.verticalSpace,
                             controller.isReached.value
                                 ? Row(
@@ -226,7 +240,7 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                         name: controller.jobDetailDatail['performer']['user_details']['first_name'] +
                             " " +
                             controller.jobDetailDatail['performer']['user_details']['last_name'],
-                        rating: "(4.5)",
+                        rating: "(${controller.jobDetailDatail['performer_average_ratings']})",
                         isVerified: true,
                         showSelectJobButton: false,
                         image: controller.jobDetailDatail['performer']['user_details']['profile_picture']),

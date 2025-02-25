@@ -141,7 +141,26 @@ class SocketController extends GetxController {
   //   }
   // }
 
-  joinChatRoom({dynamic id, dynamic chatId, dynamic jobId}) {
+  // joinChatRoom({dynamic id, dynamic chatId, dynamic jobId}) {
+  //   if (chatId != null) {
+  //     socket!.emit("join_private_chat", {
+  //       "chat_id": chatId,
+  //       "access_token": token.value,
+  //     });
+  //   } else {
+  //     socket!.emit("join_private_chat", {
+  //       "recipient_id": id,
+  //       "job_id": jobId,
+  //       "access_token": token.value,
+  //     });
+  //   }
+
+  //   socket!.on('joined_private_chat_success', (data) {
+  //     log("Joined Room $id $data");
+  //   });
+  // }
+
+  joinChatRoom({dynamic id, dynamic chatId, dynamic jobId, Function? onSuccess}) async {
     if (chatId != null) {
       socket!.emit("join_private_chat", {
         "chat_id": chatId,
@@ -157,6 +176,10 @@ class SocketController extends GetxController {
 
     socket!.on('joined_private_chat_success', (data) {
       log("Joined Room $id $data");
+      // If success callback is provided, call it
+      if (onSuccess != null) {
+        onSuccess(data);
+      }
     });
   }
 

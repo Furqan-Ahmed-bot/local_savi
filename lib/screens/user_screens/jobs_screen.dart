@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_if_null_operators
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -72,7 +74,9 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                                             },
                                             child: activeJobCard(
                                                 time: controller.openJobsList[index].startTime,
-                                                budget: controller.openJobsList[index].budget,
+                                                budget: controller.openJobsList[index].decidedCost != null
+                                                    ? controller.openJobsList[index].decidedCost.toString()
+                                                    : controller.openJobsList[index].budget,
                                                 date: controller.openJobsList[index].startTime,
                                                 workerType: controller.openJobsList[index].workerType,
                                                 desc: controller.openJobsList[index].description,
@@ -92,7 +96,9 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                                               },
                                               child: activeJobCard(
                                                   time: controller.upcomingJobsList[index].startTime,
-                                                  budget: controller.upcomingJobsList[index].budget,
+                                                  budget: controller.upcomingJobsList[index].decidedCost != null
+                                                      ? controller.upcomingJobsList[index].decidedCost.toString()
+                                                      : controller.upcomingJobsList[index].budget,
                                                   date: controller.upcomingJobsList[index].startTime,
                                                   workerType: controller.upcomingJobsList[index].workerType,
                                                   desc: controller.upcomingJobsList[index].description,
@@ -111,7 +117,9 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                                                   },
                                                   child: activeJobCard(
                                                       time: controller.ongoingJobsList[index].startTime,
-                                                      budget: controller.ongoingJobsList[index].budget,
+                                                      budget: controller.ongoingJobsList[index].decidedCost != null
+                                                          ? controller.ongoingJobsList[index].decidedCost.toString()
+                                                          : controller.ongoingJobsList[index].budget,
                                                       date: controller.ongoingJobsList[index].startTime,
                                                       workerType: controller.ongoingJobsList[index].workerType,
                                                       desc: controller.ongoingJobsList[index].description,
@@ -130,7 +138,9 @@ class JobsScreen extends GetWidget<JobsScreenController> {
                                                       },
                                                       child: activeJobCard(
                                                           time: controller.completedJobsList[index].startTime,
-                                                          budget: controller.completedJobsList[index].budget,
+                                                          budget: controller.completedJobsList[index].decidedCost != null
+                                                              ? controller.completedJobsList[index].decidedCost.toString()
+                                                              : controller.completedJobsList[index].budget,
                                                           date: controller.completedJobsList[index].startTime,
                                                           workerType: controller.completedJobsList[index].workerType,
                                                           desc: controller.completedJobsList[index].description,
