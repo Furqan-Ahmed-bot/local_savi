@@ -16,8 +16,7 @@ import 'package:local_saviors/utils/images/image_assets.dart';
 
 import '../../resources/map/poly_lines.dart';
 
-class OngoingJobDetailScreen
-    extends GetWidget<OngoingJobDetailScreenController> {
+class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController> {
   @override
   Widget build(BuildContext context) {
     return myBackGround(
@@ -34,28 +33,23 @@ class OngoingJobDetailScreen
                 ),
                 Expanded(
                     child: ListView(
-                  padding: EdgeInsets.only(
-                      left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
                   children: [
                     20.h.verticalSpace,
                     Obx(
                       () => controller.isReached.value == true
                           ? Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 15.h, horizontal: 10.w),
+                              padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
-                                  border: Border.all(
-                                      width: 1.w,
-                                      color: ColorUtils.borderColor),
+                                  border: Border.all(width: 1.w, color: ColorUtils.borderColor),
                                   color: ColorUtils.trakNowbgColor),
                               child: Column(
                                 children: [
                                   controller.isTrackable.value == false
                                       ? SizedBox.shrink()
                                       : Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Row(
                                               children: [
@@ -66,10 +60,7 @@ class OngoingJobDetailScreen
                                                 10.w.horizontalSpace,
                                                 Text(
                                                   "${controller.jobDetailDatail['performer']['user_details']['first_name'] + " " + controller.jobDetailDatail['performer']['user_details']['last_name']} On the way",
-                                                  style: TextStyle(
-                                                      fontSize: 16.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                                                 ),
                                               ],
                                             ),
@@ -78,55 +69,31 @@ class OngoingJobDetailScreen
                                                 Get.to(
                                                     () => BarDetailsScreen(
                                                           barName: '',
-                                                          barLocation: LatLng(
-                                                              double.parse(controller
-                                                                      .jobDetailDatail[
-                                                                  'latitude']),
-                                                              double.parse(controller
-                                                                      .jobDetailDatail[
-                                                                  'longitude'])),
-                                                          barAddress: controller
-                                                                      .jobDetailDatail[
-                                                                  'location'] ??
-                                                              'N/A',
-                                                          barlat: double.parse(
-                                                                  controller
-                                                                          .jobDetailDatail[
-                                                                      'latitude']) ??
-                                                              0.0,
-                                                          barlong: double.parse(
-                                                                  controller
-                                                                          .jobDetailDatail[
-                                                                      'longitude']) ??
-                                                              0.0,
+                                                          barLocation: LatLng(double.parse(controller.jobDetailDatail['latitude']),
+                                                              double.parse(controller.jobDetailDatail['longitude'])),
+                                                          barAddress: controller.jobDetailDatail['location'] ?? 'N/A',
+                                                          barlat: double.parse(controller.jobDetailDatail['latitude']) ?? 0.0,
+                                                          barlong: double.parse(controller.jobDetailDatail['longitude']) ?? 0.0,
                                                         ),
-                                                    transition:
-                                                        Transition.fadeIn);
+                                                    transition: Transition.fadeIn);
                                                 // Get.back();
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 7.h,
-                                                    horizontal: 20.w),
+                                                padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 20.w),
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.r),
+                                                  borderRadius: BorderRadius.circular(10.r),
                                                   color: ColorUtils.red,
                                                 ),
                                                 child: Text(
                                                   "Track Now",
-                                                  style: TextStyle(
-                                                      color: ColorUtils.white),
+                                                  style: TextStyle(color: ColorUtils.white),
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                  controller.isReached.value
-                                      ? 20.h.verticalSpace
-                                      : 0.h.verticalSpace,
+                                  controller.isReached.value ? 20.h.verticalSpace : 0.h.verticalSpace,
                                   controller.isReached.value
                                       ? Row(
                                           children: [
@@ -135,71 +102,41 @@ class OngoingJobDetailScreen
                                               onTap: () {
                                                 showDialog(
                                                     context: context,
-                                                    builder:
-                                                        (BuildContext context) {
+                                                    builder: (BuildContext context) {
                                                       return AlertDialog(
-                                                        insetPadding: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal:
-                                                                    20.w),
-                                                        clipBehavior: Clip
-                                                            .antiAliasWithSaveLayer,
-                                                        backgroundColor:
-                                                            ColorUtils
-                                                                .dialogeBGColor,
+                                                        insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                        backgroundColor: ColorUtils.dialogeBGColor,
                                                         content: SizedBox(
                                                           width: 1.0.sw,
                                                           child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
+                                                            mainAxisSize: MainAxisSize.min,
                                                             children: [
                                                               20.h.verticalSpace,
                                                               Container(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(23
-                                                                            .sp),
-                                                                decoration: BoxDecoration(
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                    color: ColorUtils
-                                                                        .jobIconBG),
-                                                                child:
-                                                                    Image.asset(
-                                                                  ImageAssets
-                                                                      .payNowIcon,
+                                                                padding: EdgeInsets.all(23.sp),
+                                                                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
+                                                                child: Image.asset(
+                                                                  ImageAssets.payNowIcon,
                                                                   scale: 2,
                                                                 ),
                                                               ),
                                                               20.h.verticalSpace,
                                                               Text(
                                                                 "Pay Now!",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style:
-                                                                    TextStyle(
-                                                                  color:
-                                                                      ColorUtils
-                                                                          .black,
-                                                                  fontSize:
-                                                                      22.sp,
+                                                                textAlign: TextAlign.center,
+                                                                style: TextStyle(
+                                                                  color: ColorUtils.black,
+                                                                  fontSize: 22.sp,
                                                                 ),
                                                               ),
                                                               24.h.verticalSpace,
                                                               Text(
                                                                 "Are your sure you want to pay?",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style:
-                                                                    TextStyle(
-                                                                  color:
-                                                                      ColorUtils
-                                                                          .black,
-                                                                  fontSize:
-                                                                      14.sp,
+                                                                textAlign: TextAlign.center,
+                                                                style: TextStyle(
+                                                                  color: ColorUtils.black,
+                                                                  fontSize: 14.sp,
                                                                 ),
                                                               ),
                                                             ],
@@ -209,68 +146,40 @@ class OngoingJobDetailScreen
                                                           Container(
                                                             width: 1.0.sw,
                                                             child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               children: [
                                                                 Expanded(
-                                                                  child:
-                                                                      GestureDetector(
+                                                                  child: GestureDetector(
                                                                     onTap: () {
-                                                                      controller.payNow(
-                                                                          context,
-                                                                          controller
-                                                                              .jobDetailDatail);
+                                                                      controller.payNow(context, controller.jobDetailDatail);
                                                                     },
-                                                                    child:
-                                                                        Container(
-                                                                      alignment:
-                                                                          Alignment
-                                                                              .center,
-                                                                      padding: EdgeInsets.symmetric(
-                                                                          vertical:
-                                                                              15.h),
+                                                                    child: Container(
+                                                                      alignment: Alignment.center,
+                                                                      padding: EdgeInsets.symmetric(vertical: 15.h),
                                                                       decoration: BoxDecoration(
-                                                                          color: ColorUtils
-                                                                              .white,
-                                                                          borderRadius: BorderRadius.circular(10
-                                                                              .r),
-                                                                          border: Border.all(
-                                                                              width: 1.w,
-                                                                              color: ColorUtils.borderColor)),
-                                                                      child: const Text(
-                                                                          "Yes, Select"),
+                                                                          color: ColorUtils.white,
+                                                                          borderRadius: BorderRadius.circular(10.r),
+                                                                          border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                                                      child: const Text("Yes, Select"),
                                                                     ),
                                                                   ),
                                                                 ),
                                                                 20.w.horizontalSpace,
                                                                 Expanded(
-                                                                  child:
-                                                                      GestureDetector(
+                                                                  child: GestureDetector(
                                                                     onTap: () {
                                                                       Get.back();
                                                                     },
-                                                                    child:
-                                                                        Container(
-                                                                      alignment:
-                                                                          Alignment
-                                                                              .center,
-                                                                      padding: EdgeInsets.symmetric(
-                                                                          vertical:
-                                                                              15.h),
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10.r),
-                                                                        color: ColorUtils
-                                                                            .red,
+                                                                    child: Container(
+                                                                      alignment: Alignment.center,
+                                                                      padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(10.r),
+                                                                        color: ColorUtils.red,
                                                                       ),
-                                                                      child:
-                                                                          Text(
+                                                                      child: Text(
                                                                         "No",
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                ColorUtils.white),
+                                                                        style: TextStyle(color: ColorUtils.white),
                                                                       ),
                                                                     ),
                                                                   ),
@@ -284,19 +193,14 @@ class OngoingJobDetailScreen
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 7.h,
-                                                    horizontal: 25.w),
+                                                padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 25.w),
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.r),
+                                                  borderRadius: BorderRadius.circular(10.r),
                                                   color: ColorUtils.red,
                                                 ),
                                                 child: Text(
                                                   "Pay Now",
-                                                  style: TextStyle(
-                                                      color: ColorUtils.white),
+                                                  style: TextStyle(color: ColorUtils.white),
                                                 ),
                                               ),
                                             ),
@@ -329,25 +233,20 @@ class OngoingJobDetailScreen
                     20.h.verticalSpace,
                     Text(
                       "Employee",
-                      style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                     ),
                     12.h.verticalSpace,
                     shortlistUserCard(
-                        profilePicture: controller.jobDetailDatail['performer']
-                            ['user_details']['profile_picture'],
+                        id: controller.jobDetailDatail['performer_id'],
+                        profilePicture: controller.jobDetailDatail['performer']['user_details']['profile_picture'],
                         context: context,
-                        name: controller.jobDetailDatail['performer']
-                                ['user_details']['first_name'] +
+                        name: controller.jobDetailDatail['performer']['user_details']['first_name'] +
                             " " +
-                            controller.jobDetailDatail['performer']
-                                ['user_details']['last_name'],
-                        rating:
-                            "(${controller.jobDetailDatail['performer_average_ratings']})",
+                            controller.jobDetailDatail['performer']['user_details']['last_name'],
+                        rating: "(${controller.jobDetailDatail['performer_average_ratings']})",
                         isVerified: true,
                         showSelectJobButton: false,
-                        image: controller.jobDetailDatail['performer']
-                            ['user_details']['profile_picture']),
+                        image: controller.jobDetailDatail['performer']['user_details']['profile_picture']),
                     28.h.verticalSpace,
                     GestureDetector(
                       onTap: () {},
@@ -359,17 +258,11 @@ class OngoingJobDetailScreen
                             children: [
                               Text(
                                 "Job Details",
-                                style: TextStyle(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                controller.jobDetailDatail['job_journey'] ??
-                                    controller.jobDetailDatail['job_status'],
-                                style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.normal,
-                                    color: ColorUtils.blue),
+                                controller.jobDetailDatail['job_journey'] ?? controller.jobDetailDatail['job_status'],
+                                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal, color: ColorUtils.blue),
                               ),
                             ],
                           ),
@@ -380,18 +273,12 @@ class OngoingJobDetailScreen
                           20.h.verticalSpace,
                           Text(
                             controller.jobDetailDatail['title'] ?? "",
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
-                                color: ColorUtils.black),
+                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
                           ),
                           10.h.verticalSpace,
                           Text(
                             controller.jobDetailDatail['description'],
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.normal,
-                                color: ColorUtils.textColor),
+                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal, color: ColorUtils.textColor),
                           ),
                           24.h.verticalSpace,
                           Column(
@@ -402,21 +289,16 @@ class OngoingJobDetailScreen
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: List.generate(
-                                      controller
-                                          .jobDetailDatail['job_media'].length,
+                                      controller.jobDetailDatail['job_media'].length,
                                       (index) => Padding(
-                                            padding:
-                                                EdgeInsets.only(right: 10.w),
+                                            padding: EdgeInsets.only(right: 10.w),
                                             child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.r),
+                                              borderRadius: BorderRadius.circular(10.r),
                                               child: Image.network(
                                                   height: 80,
                                                   width: 80,
                                                   fit: BoxFit.fill,
-                                                  controller.jobDetailDatail[
-                                                          'job_media'][index]
-                                                      ['media_file']),
+                                                  controller.jobDetailDatail['job_media'][index]['media_file']),
                                             ),
                                           )),
                                 ),
@@ -426,8 +308,7 @@ class OngoingJobDetailScreen
 
                               Column(children: [
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -443,8 +324,7 @@ class OngoingJobDetailScreen
                                     ),
                                     Flexible(
                                       child: Text(
-                                        controller
-                                            .jobDetailDatail['worker_type'],
+                                        controller.jobDetailDatail['worker_type'],
                                         style: TextStyle(
                                           fontSize: 16.sp,
                                           fontWeight: FontWeight.w500,
@@ -455,13 +335,11 @@ class OngoingJobDetailScreen
                                 ),
                                 10.h.verticalSpace,
                                 Divider(
-                                  color:
-                                      ColorUtils.borderColor.withOpacity(0.5),
+                                  color: ColorUtils.borderColor.withOpacity(0.5),
                                 ),
                                 10.h.verticalSpace,
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -477,11 +355,7 @@ class OngoingJobDetailScreen
                                     ),
                                     Flexible(
                                       child: Text(
-                                        (controller.jobDetailDatail['budget']
-                                                    .toString() +
-                                                "-" +
-                                                controller.jobDetailDatail[
-                                                    'budget_type'])
+                                        (controller.jobDetailDatail['budget'].toString() + "-" + controller.jobDetailDatail['budget_type'])
                                             .toString(),
                                         style: TextStyle(
                                           fontSize: 16.sp,
@@ -493,13 +367,11 @@ class OngoingJobDetailScreen
                                 ),
                                 10.h.verticalSpace,
                                 Divider(
-                                  color:
-                                      ColorUtils.borderColor.withOpacity(0.5),
+                                  color: ColorUtils.borderColor.withOpacity(0.5),
                                 ),
                                 10.h.verticalSpace,
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -515,10 +387,7 @@ class OngoingJobDetailScreen
                                     ),
                                     Flexible(
                                       child: Text(
-                                        DateFormat("HH:mm").format(
-                                            DateTime.parse(
-                                                controller.jobDetailDatail[
-                                                    'start_time'])),
+                                        DateFormat("HH:mm").format(DateTime.parse(controller.jobDetailDatail['start_time'])),
                                         style: TextStyle(
                                           fontSize: 16.sp,
                                           fontWeight: FontWeight.w500,
@@ -529,13 +398,11 @@ class OngoingJobDetailScreen
                                 ),
                                 10.h.verticalSpace,
                                 Divider(
-                                  color:
-                                      ColorUtils.borderColor.withOpacity(0.5),
+                                  color: ColorUtils.borderColor.withOpacity(0.5),
                                 ),
                                 10.h.verticalSpace,
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -551,9 +418,7 @@ class OngoingJobDetailScreen
                                     ),
                                     Flexible(
                                       child: Text(
-                                        DateFormat("MMM d, yyyy").format(
-                                            DateTime.parse(controller
-                                                .jobDetailDatail['job_date'])),
+                                        DateFormat("MMM d, yyyy").format(DateTime.parse(controller.jobDetailDatail['job_date'])),
                                         style: TextStyle(
                                           fontSize: 16.sp,
                                           fontWeight: FontWeight.w500,
@@ -564,13 +429,11 @@ class OngoingJobDetailScreen
                                 ),
                                 10.h.verticalSpace,
                                 Divider(
-                                  color:
-                                      ColorUtils.borderColor.withOpacity(0.5),
+                                  color: ColorUtils.borderColor.withOpacity(0.5),
                                 ),
                                 10.h.verticalSpace,
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
@@ -597,8 +460,7 @@ class OngoingJobDetailScreen
                                 ),
                                 10.h.verticalSpace,
                                 Divider(
-                                  color:
-                                      ColorUtils.borderColor.withOpacity(0.5),
+                                  color: ColorUtils.borderColor.withOpacity(0.5),
                                 ),
                                 10.h.verticalSpace,
                               ]),
@@ -650,10 +512,8 @@ class OngoingJobDetailScreen
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         // width: 0.3.sw,
@@ -671,8 +531,7 @@ class OngoingJobDetailScreen
                                           SizedBox(
                                             width: 0.45.sw,
                                             child: Text(
-                                              controller
-                                                  .jobDetailDatail['location'],
+                                              controller.jobDetailDatail['location'],
                                               style: TextStyle(
                                                 overflow: TextOverflow.ellipsis,
                                                 fontSize: 16.sp,
@@ -684,16 +543,11 @@ class OngoingJobDetailScreen
                                           InkWell(
                                             onTap: () async {
                                               String address = '';
-                                              List<Placemark> placemarks =
-                                                  await placemarkFromCoordinates(
-                                                      double.parse(controller
-                                                              .jobDetailDatail[
-                                                          'latitude']),
-                                                      double.parse(
-                                                        controller
-                                                                .jobDetailDatail[
-                                                            'longitude'],
-                                                      ));
+                                              List<Placemark> placemarks = await placemarkFromCoordinates(
+                                                  double.parse(controller.jobDetailDatail['latitude']),
+                                                  double.parse(
+                                                    controller.jobDetailDatail['longitude'],
+                                                  ));
 
                                               if (placemarks.isNotEmpty) {
                                                 Placemark place = placemarks[0];
@@ -702,24 +556,16 @@ class OngoingJobDetailScreen
                                                 print("Address: $address");
 
                                                 // You can display the address in a dialog, snackbar, or any widget
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                      content: Text(
-                                                          'Selected Location: $address')),
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  SnackBar(content: Text('Selected Location: $address')),
                                                 );
                                               }
 
                                               Get.to(() => ShowMapScreen(
                                                     address: address,
                                                     isProfile: true,
-                                                    initialLocation: LatLng(
-                                                        double.parse(controller
-                                                                .jobDetailDatail[
-                                                            'latitude']),
-                                                        double.parse(controller
-                                                                .jobDetailDatail[
-                                                            'longitude'])),
+                                                    initialLocation: LatLng(double.parse(controller.jobDetailDatail['latitude']),
+                                                        double.parse(controller.jobDetailDatail['longitude'])),
                                                   ));
                                             },
                                             child: Text(
@@ -727,10 +573,8 @@ class OngoingJobDetailScreen
                                               style: TextStyle(
                                                   fontSize: 14.sp,
                                                   color: ColorUtils.red,
-                                                  decorationColor:
-                                                      ColorUtils.red,
-                                                  decoration:
-                                                      TextDecoration.underline),
+                                                  decorationColor: ColorUtils.red,
+                                                  decoration: TextDecoration.underline),
                                             ),
                                           ),
                                         ],

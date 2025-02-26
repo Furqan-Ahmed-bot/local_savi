@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -141,7 +143,10 @@ class UpcomingJobDetailScreen extends GetWidget<UpcomingJobDetailScreenControlle
                               ),
                               Flexible(
                                 child: Text(
-                                  (controller.jobDetailDatail['budget'].toString() + "-" + controller.jobDetailDatail['budget_type']).toString(),
+                                  (controller.jobDetailDatail['decided_cost'] != null
+                                          ? controller.jobDetailDatail['decided_cost'].toString() + "-" + controller.jobDetailDatail['budget_type']
+                                          : controller.jobDetailDatail['budget'].toString() + "-" + controller.jobDetailDatail['budget_type'])
+                                      .toString(),
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,

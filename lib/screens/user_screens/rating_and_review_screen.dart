@@ -75,10 +75,6 @@ class RatingAndReviewScreen extends GetWidget<RatingAndReviewScreenController> {
                                 18.h.verticalSpace,
                                 Row(
                                   children: [
-                                    Image.asset(
-                                      ImageAssets.starRatingIcon,
-                                      scale: 2,
-                                    ),
                                     8.w.horizontalSpace,
                                     Image.asset(
                                       ImageAssets.starRatingIcon,

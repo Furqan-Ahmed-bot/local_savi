@@ -82,7 +82,7 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? t
               margin: EdgeInsets.only(top: 20.h),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
-                width: 0.6.sw,
+                // width: 0.6.sw,
                 child: Text(
                   text.toString(),
                   style: TextStyle(
@@ -94,7 +94,7 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? t
             ),
             5.verticalSpace,
             SizedBox(
-              width: 0.65.sw,
+              // width: 0.65.sw,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -266,6 +266,7 @@ Widget userRequestCard({
                               borderRadius: BorderRadius.circular(1000.r),
                               border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
                           child: Image.network(
+                            fit: BoxFit.cover,
                             image,
                             height: 50,
                             width: 50,
@@ -717,12 +718,12 @@ Widget shortlistUserCard({
                         ? {
                             'id': id,
                             "title": "Shortlist User",
-                            "showChat": true,
+                            "showChat": false,
                           }
                         : {
                             'id': id,
                             "title": "Employee Profile",
-                            "showChat": true,
+                            "showChat": false,
                           });
               },
               child: Row(

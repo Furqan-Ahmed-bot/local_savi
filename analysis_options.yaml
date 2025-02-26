@@ -10,6 +10,7 @@
 analyzer:
   errors:
     prefer_const_constructors_in_immutables: ignore
+    depend_on_referenced_packages: ignore
 include: package:flutter_lints/flutter.yaml
 
 linter:

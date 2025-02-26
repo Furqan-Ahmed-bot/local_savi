@@ -1,10 +1,10 @@
 class UserUrls {
   // static const baseUrl = "https://26ltv180-9001.euw.devtunnels.ms/api/v1/";
-  //static const baseUrl = "https://26ltv180-9001.euw.devtunnels.ms/api/v1/";
-  static const baseUrl = "https://api.localsaviors.com/api/v1/";
+  static const baseUrl = "https://26ltv180-9001.euw.devtunnels.ms/api/v1/";
+  // static const baseUrl = "https://api.localsaviors.com/api/v1/";
 
-  //static const socketUrl = 'https://26ltv180-9001.euw.devtunnels.ms';
-  static const socketUrl = 'https://api.localsaviors.com';
+  static const socketUrl = 'https://26ltv180-9001.euw.devtunnels.ms';
+  //static const socketUrl = 'https://api.localsaviors.com';
   //static const baseUrl = 'https://26ltv180-9001.euw.devtunnels.ms/api/v1/';
 
   static const loginUrl = "${baseUrl}user/login";
@@ -63,6 +63,7 @@ class UserUrls {
   static const getAllTranscations = "${baseUrl}transaction";
   static const transferAmount = "${baseUrl}transaction/create_payout";
   static const getPersonalBalance = "${baseUrl}transaction/get_balance";
+  static const getAccountRestriction = "${baseUrl}transaction/account_restriction";
 
   //Review
 

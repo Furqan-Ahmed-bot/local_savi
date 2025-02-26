@@ -111,8 +111,8 @@ class EditProfileScreenController extends GetxController {
                     dob: selectedDate.toIso8601String(),
                     address: addresscontroller.text,
                     location: locationcontroller.text,
-                    lat: lat != null ? lat : userdata.userDetails!.latitude,
-                    long: long != null ? lat : userdata.userDetails!.longitude,
+                    lat: lat != null ? lat : phController.performerdata.userDetails!.latitude,
+                    long: long != null ? lat : phController.performerdata.userDetails!.longitude,
                     email: emailcontroller.text,
                     phone: phonecontroller.text,
                     context: Get.context);

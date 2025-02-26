@@ -117,29 +117,21 @@ class EditJobScreenController extends GetxController {
     groupValue.value = jobDetail['worker_type'] == "PROFESSIONAL" ? 0 : 1;
     titleController.text = jobDetail['title'];
     dateController.text = jobDetail['job_date'];
-    selectedHours =
-        DateTime.parse(jobDetail['start_time']).hour.toString().padLeft(2, '0');
-    selectedMints = DateTime.parse(jobDetail['start_time'])
-        .minute
-        .toString()
-        .padLeft(2, '0');
+    selectedHours = DateTime.parse(jobDetail['start_time']).hour.toString().padLeft(2, '0');
+    selectedMints = DateTime.parse(jobDetail['start_time']).minute.toString().padLeft(2, '0');
     latitide = jobDetail['latitude'];
     longitude = jobDetail["longitude"];
-    selectedDate = DateTime.parse(jobDetail['job_date'])
-        .toLocal()
-        .copyWith(hour: 0, minute: 0, second: 0, millisecond: 0);
+    selectedDate = DateTime.parse(jobDetail['job_date']).toLocal().copyWith(hour: 0, minute: 0, second: 0, millisecond: 0);
     selectedTimeWithDate.value = jobDetail['start_time'];
     descController.text = jobDetail['description'];
     listOfNetworkImages = jobDetail['job_media'];
     addressController.text = jobDetail['location'];
-    selectedLocation.value = LatLng(double.parse(jobDetail['latitude']),
-        double.parse(jobDetail["longitude"]));
+    selectedLocation.value = LatLng(double.parse(jobDetail['latitude']), double.parse(jobDetail["longitude"]));
 
     fixedAmoount.value = jobDetail['budget_type'] == "FIXED" ? 0 : 1;
     priceController.text = jobDetail['budget'].toString();
 
-    getPostion(double.parse(jobDetail['latitude']),
-        double.parse(jobDetail["longitude"]));
+    getPostion(double.parse(jobDetail['latitude']), double.parse(jobDetail["longitude"]));
 
     update();
     super.onInit();
@@ -175,7 +167,7 @@ class EditJobScreenController extends GetxController {
       },
       context: context,
       initialDate: selectedDate,
-      firstDate: DateTime(DateTime.now().year - 100),
+      firstDate: DateTime.now(),
       lastDate: DateTime(DateTime.now().year + 100),
     );
     if (picked != null && picked != selectedDate) {
@@ -185,8 +177,7 @@ class EditJobScreenController extends GetxController {
     }
   }
 
-  bool isTimeValid(DateTime selectedDate, String selectedHours,
-      String selectedMints, bool isAm) {
+  bool isTimeValid(DateTime selectedDate, String selectedHours, String selectedMints, bool isAm) {
     DateTime now = DateTime.now();
 
     // Convert selected hours to 24-hour format based on AM/PM
@@ -206,9 +197,7 @@ class EditJobScreenController extends GetxController {
     );
 
     // If the selected date is today, check if the selected time is after the current time
-    if (selectedDate.year == now.year &&
-        selectedDate.month == now.month &&
-        selectedDate.day == now.day) {
+    if (selectedDate.year == now.year && selectedDate.month == now.month && selectedDate.day == now.day) {
       return selectedTime.isAfter(now);
     }
 

@@ -50,4 +50,24 @@ class WalletController extends GetxController {
       update();
     }
   }
+
+  Future accountRestriction() async {
+    try {
+      var headers = {'Authorization': token.value};
+
+      final uri = Uri.parse("${UserUrls.getAccountRestriction}");
+
+      http.Response response = await http.get(uri, headers: headers);
+      var resData = json.decode(response.body.toString());
+      if (resData['status']['success'] == true) {
+        url = resData['data'];
+        launchUrl(Uri.parse(resData['data'])).asStream();
+      } else {
+        resData['status'];
+        update();
+      }
+    } catch (e) {
+      update();
+    }
+  }
 }
