@@ -505,32 +505,34 @@ class _ChatScreenState extends State<ChatScreen> {
               isMenu: false,
               title: '${controller.username}',
             ),
-            Expanded(
-                child: Obx(
+            Obx(
               () => chatController.isMessagesLoading.value
                   ? Center(
                       child: Container(
                         color: Colors.transparent,
                       ),
                     )
-                  : ListView.builder(
-                      reverse: true,
-                      itemCount: chatController.allMessages.length,
-                      itemBuilder: (context, index) {
-                        return chatController.allMessages[index]['recipient_id'] != controller.performerId
-                            ? getReceiverView(
-                                datetime: chatController.allMessages[index]['createdAt'],
-                                image: controller.profile_picture,
-                                username: controller.username,
-                                clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
-                                context: context,
-                                text: "${chatController.allMessages[index]['message']}")
-                            : getSenderView(
-                                clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
-                                context: context,
-                                text: "${chatController.allMessages[index]['message']}");
-                      }),
-            )),
+                  : Expanded(
+                      child: ListView.builder(
+                          reverse: true,
+                          shrinkWrap: true,
+                          itemCount: chatController.allMessages.length,
+                          itemBuilder: (context, index) {
+                            return chatController.allMessages[index]['recipient_id'] != controller.performerId
+                                ? getReceiverView(
+                                    datetime: chatController.allMessages[index]['createdAt'],
+                                    image: controller.profile_picture,
+                                    username: controller.username,
+                                    clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+                                    context: context,
+                                    text: "${chatController.allMessages[index]['message']}")
+                                : getSenderView(
+                                    clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+                                    context: context,
+                                    text: "${chatController.allMessages[index]['message']}");
+                          }),
+                    ),
+            ),
             Container(
                 color: ColorUtils.white,
                 padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),

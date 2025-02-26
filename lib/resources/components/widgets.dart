@@ -66,11 +66,12 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? t
             ),
           ),
         ),
-        10.horizontalSpace,
+        12.horizontalSpace,
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisSize: MainAxisSize.min,
           children: [
+            10.h.verticalSpace,
             Text(
               "${username}",
               softWrap: true,
@@ -82,7 +83,7 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? t
               margin: EdgeInsets.only(top: 20.h),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
-                // width: 0.6.sw,
+                width: 0.6.sw,
                 child: Text(
                   text.toString(),
                   style: TextStyle(
@@ -94,11 +95,11 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? t
             ),
             5.verticalSpace,
             SizedBox(
-              // width: 0.65.sw,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Spacer(),
+                  // Spacer(),
+
                   Text(
                     dateFormat().formatTime(DateTime.parse(datetime)),
                     style: TextStyle(
@@ -111,7 +112,7 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? t
           ],
         ),
       ],
-    );
+    ).paddingOnly(top: 20.h);
 
 Widget ratingReviewCard({
   required String image,
