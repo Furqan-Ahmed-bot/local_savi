@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/controllers/user_controllers/posted_job_screen_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
+import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
@@ -25,7 +26,8 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
             onTap: () {
               showModalBottomSheet(
                 context: context,
-                builder: (context) => Column(mainAxisSize: MainAxisSize.min, children: [
+                builder: (context) =>
+                    Column(mainAxisSize: MainAxisSize.min, children: [
                   20.h.verticalSpace,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,7 +38,10 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                       Text(
                         "Options",
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: ColorUtils.black, fontSize: 16.sp, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            color: ColorUtils.black,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold),
                       ),
                       InkWell(
                         onTap: () {
@@ -44,7 +49,9 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                         },
                         child: Container(
                           margin: EdgeInsets.only(right: 20.w),
-                          decoration: BoxDecoration(color: const Color(0xFF00000091), borderRadius: BorderRadius.circular(7.r)),
+                          decoration: BoxDecoration(
+                              color: const Color(0xFF00000091),
+                              borderRadius: BorderRadius.circular(7.r)),
                           child: Image.asset(
                             ImageAssets.cutIcon,
                             scale: 2,
@@ -61,7 +68,8 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                   InkWell(
                     onTap: () {
                       Get.back();
-                      Get.toNamed(RouteName.editJobScreenPath, arguments: {"jobDetail": controller.jobDetailData});
+                      Get.toNamed(RouteName.editJobScreenPath,
+                          arguments: {"jobDetail": controller.jobDetailData});
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +101,8 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                              insetPadding:
+                                  EdgeInsets.symmetric(horizontal: 20.w),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               backgroundColor: ColorUtils.dialogeBGColor,
                               content: SizedBox(
@@ -104,7 +113,9 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                     20.h.verticalSpace,
                                     Container(
                                       padding: EdgeInsets.all(23.sp),
-                                      decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: ColorUtils.jobIconBG),
                                       child: Image.asset(
                                         ImageAssets.deleteBigIcon,
                                         scale: 2,
@@ -135,20 +146,30 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                 Container(
                                   width: 1.0.sw,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Expanded(
                                         child: GestureDetector(
-                                          onTap: () {
-                                            Get.close(3);
+                                          onTap: () async {
+                                            await UserServices.instance
+                                                .deleteJob(
+                                                    jobId:
+                                                        controller.jobId.value,
+                                                    context: context);
                                           },
                                           child: Container(
                                             alignment: Alignment.center,
-                                            padding: EdgeInsets.symmetric(vertical: 15.h),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 15.h),
                                             decoration: BoxDecoration(
                                                 color: ColorUtils.white,
-                                                borderRadius: BorderRadius.circular(10.r),
-                                                border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.r),
+                                                border: Border.all(
+                                                    width: 1.w,
+                                                    color: ColorUtils
+                                                        .borderColor)),
                                             child: const Text("Yes, Select"),
                                           ),
                                         ),
@@ -161,14 +182,17 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                           },
                                           child: Container(
                                             alignment: Alignment.center,
-                                            padding: EdgeInsets.symmetric(vertical: 15.h),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 15.h),
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10.r),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r),
                                               color: ColorUtils.red,
                                             ),
                                             child: Text(
                                               "No",
-                                              style: TextStyle(color: ColorUtils.white),
+                                              style: TextStyle(
+                                                  color: ColorUtils.white),
                                             ),
                                           ),
                                         ),
@@ -207,7 +231,8 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
               padding: EdgeInsets.all(8.sp),
               height: 40.h,
               width: 40.w,
-              decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
               child: Image.asset(
                 ImageAssets.threeDots,
                 color: ColorUtils.red,
@@ -224,14 +249,20 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
               : GetBuilder<PostedJobScreenController>(builder: (controller) {
                   return Expanded(
                       child: ListView(
-                    padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
+                    padding: EdgeInsets.only(
+                        left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(RouteName.userRequestScreenPath, arguments: {"users": controller.jobDetailData['user_requests']});
+                          Get.toNamed(RouteName.userRequestScreenPath,
+                              arguments: {
+                                "users":
+                                    controller.jobDetailData['user_requests']
+                              });
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.w, vertical: 10.h),
                           decoration: BoxDecoration(
                             border: Border.all(
                               width: 1.w,
@@ -252,7 +283,9 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                   10.w.horizontalSpace,
                                   Text(
                                     "${controller.jobDetailData['user_requests'].length.toString()} Job Request",
-                                    style: TextStyle(fontSize: 16.sp, color: ColorUtils.txtColor),
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
+                                        color: ColorUtils.txtColor),
                                   )
                                 ],
                               ),
@@ -270,11 +303,15 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                         children: [
                           Text(
                             "Job Details",
-                            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 20.sp, fontWeight: FontWeight.bold),
                           ),
                           Text(
                             controller.jobDetailData['job_status'],
-                            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal, color: ColorUtils.blue),
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.normal,
+                                color: ColorUtils.blue),
                           ),
                         ],
                       ),
@@ -285,12 +322,18 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                       20.h.verticalSpace,
                       Text(
                         controller.jobDetailData['title'],
-                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                            color: ColorUtils.black),
                       ),
                       10.h.verticalSpace,
                       Text(
                         controller.jobDetailData['description'],
-                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.normal, color: ColorUtils.textColor),
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.normal,
+                            color: ColorUtils.textColor),
                       ),
                       24.h.verticalSpace,
                       Obx(
@@ -302,24 +345,31 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                   // mainAxisAlignment:
                                   //     MainAxisAlignment.spaceBetween,
                                   children: List.generate(
-                                      controller.jobDetailData['job_media'].length,
+                                      controller
+                                          .jobDetailData['job_media'].length,
                                       (index) => Padding(
-                                            padding: EdgeInsets.only(left: 10.w),
+                                            padding:
+                                                EdgeInsets.only(left: 10.w),
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(20),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
                                               child: Image.network(
                                                   width: 100,
                                                   height: 100,
                                                   fit: BoxFit.fill,
-                                                  controller.jobDetailData['job_media'][index]['media_file']),
+                                                  controller.jobDetailData[
+                                                          'job_media'][index]
+                                                      ['media_file']),
                                             ),
                                           )),
                                 ),
                                 30.h.verticalSpace,
                                 Column(children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         // width: 0.3.sw,
@@ -334,7 +384,8 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                       ),
                                       Flexible(
                                         child: Text(
-                                          controller.jobDetailData['worker_type'],
+                                          controller
+                                              .jobDetailData['worker_type'],
                                           style: TextStyle(
                                             fontSize: 16.sp,
                                             fontWeight: FontWeight.w500,
@@ -345,12 +396,15 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                   ),
                                   10.h.verticalSpace,
                                   Divider(
-                                    color: ColorUtils.borderColor.withOpacity(0.5),
+                                    color:
+                                        ColorUtils.borderColor.withOpacity(0.5),
                                   ),
                                   10.h.verticalSpace,
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         // width: 0.3.sw,
@@ -365,7 +419,12 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                       ),
                                       Flexible(
                                         child: Text(
-                                          (controller.jobDetailData['budget'].toString() + "-" + controller.jobDetailData['budget_type']).toString(),
+                                          (controller.jobDetailData['budget']
+                                                      .toString() +
+                                                  "-" +
+                                                  controller.jobDetailData[
+                                                      'budget_type'])
+                                              .toString(),
                                           style: TextStyle(
                                             fontSize: 16.sp,
                                             fontWeight: FontWeight.w500,
@@ -376,12 +435,15 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                   ),
                                   10.h.verticalSpace,
                                   Divider(
-                                    color: ColorUtils.borderColor.withOpacity(0.5),
+                                    color:
+                                        ColorUtils.borderColor.withOpacity(0.5),
                                   ),
                                   10.h.verticalSpace,
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         // width: 0.3.sw,
@@ -396,7 +458,10 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                       ),
                                       Flexible(
                                         child: Text(
-                                          DateFormat("HH:mm").format(DateTime.parse(controller.jobDetailData['start_time'])),
+                                          DateFormat("HH:mm").format(
+                                              DateTime.parse(
+                                                  controller.jobDetailData[
+                                                      'start_time'])),
                                           style: TextStyle(
                                             fontSize: 16.sp,
                                             fontWeight: FontWeight.w500,
@@ -407,12 +472,15 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                   ),
                                   10.h.verticalSpace,
                                   Divider(
-                                    color: ColorUtils.borderColor.withOpacity(0.5),
+                                    color:
+                                        ColorUtils.borderColor.withOpacity(0.5),
                                   ),
                                   10.h.verticalSpace,
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         // width: 0.3.sw,
@@ -427,7 +495,9 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                       ),
                                       Flexible(
                                         child: Text(
-                                          DateFormat("MMM d, yyyy").format(DateTime.parse(controller.jobDetailData['job_date'])),
+                                          DateFormat("MMM d, yyyy").format(
+                                              DateTime.parse(controller
+                                                  .jobDetailData['job_date'])),
                                           style: TextStyle(
                                             fontSize: 16.sp,
                                             fontWeight: FontWeight.w500,
@@ -438,12 +508,15 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                   ),
                                   10.h.verticalSpace,
                                   Divider(
-                                    color: ColorUtils.borderColor.withOpacity(0.5),
+                                    color:
+                                        ColorUtils.borderColor.withOpacity(0.5),
                                   ),
                                   10.h.verticalSpace,
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         // width: 0.3.sw,
@@ -469,7 +542,8 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                   ),
                                   10.h.verticalSpace,
                                   Divider(
-                                    color: ColorUtils.borderColor.withOpacity(0.5),
+                                    color:
+                                        ColorUtils.borderColor.withOpacity(0.5),
                                   ),
                                   10.h.verticalSpace,
                                   // Row(
@@ -509,8 +583,10 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                 Column(
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Container(
                                           // width: 0.3.sw,
@@ -528,7 +604,8 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                             Container(
                                               width: 120,
                                               child: Text(
-                                                controller.jobDetailData['location'],
+                                                controller
+                                                    .jobDetailData['location'],
                                                 style: TextStyle(
                                                   fontSize: 16.sp,
                                                   fontWeight: FontWeight.w500,
@@ -539,29 +616,43 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                             InkWell(
                                               onTap: () async {
                                                 String address = '';
-                                                List<Placemark> placemarks = await placemarkFromCoordinates(
-                                                    double.parse(controller.jobDetailData['latitude']),
-                                                    double.parse(
-                                                      controller.jobDetailData['longitude'],
-                                                    ));
+                                                List<Placemark> placemarks =
+                                                    await placemarkFromCoordinates(
+                                                        double.parse(controller
+                                                                .jobDetailData[
+                                                            'latitude']),
+                                                        double.parse(
+                                                          controller
+                                                                  .jobDetailData[
+                                                              'longitude'],
+                                                        ));
 
                                                 if (placemarks.isNotEmpty) {
-                                                  Placemark place = placemarks[0];
+                                                  Placemark place =
+                                                      placemarks[0];
                                                   address =
                                                       '${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.country}';
                                                   print("Address: $address");
 
                                                   // You can display the address in a dialog, snackbar, or any widget
-                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                    SnackBar(content: Text('Selected Location: $address')),
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                        content: Text(
+                                                            'Selected Location: $address')),
                                                   );
                                                 }
 
                                                 Get.to(() => ShowMapScreen(
                                                       address: address,
                                                       isProfile: true,
-                                                      initialLocation: LatLng(double.parse(controller.jobDetailData['latitude']),
-                                                          double.parse(controller.jobDetailData['longitude'])),
+                                                      initialLocation: LatLng(
+                                                          double.parse(controller
+                                                                  .jobDetailData[
+                                                              'latitude']),
+                                                          double.parse(controller
+                                                                  .jobDetailData[
+                                                              'longitude'])),
                                                     ));
                                               },
                                               child: Text(
@@ -569,8 +660,10 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                                 style: TextStyle(
                                                     fontSize: 14.sp,
                                                     color: ColorUtils.red,
-                                                    decorationColor: ColorUtils.red,
-                                                    decoration: TextDecoration.underline),
+                                                    decorationColor:
+                                                        ColorUtils.red,
+                                                    decoration: TextDecoration
+                                                        .underline),
                                               ),
                                             ),
                                           ],
@@ -585,7 +678,8 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.isViewDetail.value = !controller.isViewDetail.value;
+                          controller.isViewDetail.value =
+                              !controller.isViewDetail.value;
                         },
                         child: Obx(
                           () => Row(
@@ -605,9 +699,14 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                     ),
                               10.w.horizontalSpace,
                               Text(
-                                controller.isViewDetail.value ? "Close Details" : "View Details",
+                                controller.isViewDetail.value
+                                    ? "Close Details"
+                                    : "View Details",
                                 style: TextStyle(
-                                    fontSize: 18.sp, color: ColorUtils.red, decorationColor: ColorUtils.red, decoration: TextDecoration.underline),
+                                    fontSize: 18.sp,
+                                    color: ColorUtils.red,
+                                    decorationColor: ColorUtils.red,
+                                    decoration: TextDecoration.underline),
                               ),
                             ],
                           ),
@@ -623,16 +722,25 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                         children: [
                           Text(
                             "You have sent invitation ${controller.jobDetailData['invite_users'].length.toString()} users",
-                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400, color: ColorUtils.textColor),
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w400,
+                                color: ColorUtils.textColor),
                           ),
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed(RouteName.inviteUserScreenPath, arguments: {"users": controller.jobDetailData['invite_users']});
+                              Get.toNamed(RouteName.inviteUserScreenPath,
+                                  arguments: {
+                                    "users":
+                                        controller.jobDetailData['invite_users']
+                                  });
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20.w, vertical: 12.h),
                               decoration: BoxDecoration(
-                                border: Border.all(width: 1.w, color: ColorUtils.borderColor),
+                                border: Border.all(
+                                    width: 1.w, color: ColorUtils.borderColor),
                                 borderRadius: BorderRadius.circular(10.r),
                                 color: ColorUtils.white,
                               ),
@@ -645,7 +753,9 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                   7.w.horizontalSpace,
                                   Text(
                                     "Re-Hire",
-                                    style: TextStyle(fontSize: 14.sp, color: ColorUtils.black),
+                                    style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: ColorUtils.black),
                                   )
                                 ],
                               ),
@@ -683,19 +793,23 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                             ? List.generate(
                                 controller.jobDetailData['invite_users'].length,
                                 (index) => shortlistUserCard(
-                                    id: controller.jobDetailData['invite_users'][index]['performer_id'],
-                                    jobId: controller.jobDetailData['invite_users'][index]['job_id'],
+                                    id: controller.jobDetailData['invite_users']
+                                        [index]['performer_id'],
+                                    jobId: controller.jobDetailData['invite_users']
+                                        [index]['job_id'],
                                     context: context,
                                     chatId: controller.jobDetailData['chat_id'],
-                                    profilePicture: controller.jobDetailData['user_requests'][0]['performer']['user_details']['profile_picture'],
-                                    showSelectJobButton: controller.jobDetailData['invite_users'][index]['invite_status'] == "ACCEPTED",
-                                    isVerified: controller.listOfBestPerformers[index]['isVerified'],
-                                    image: controller.jobDetailData['invite_users'][index]['performer']['user_details']['profile_picture'],
-                                    name: controller.jobDetailData['invite_users'][index]['performer']['user_details']['first_name'] +
-                                        " " +
-                                        controller.jobDetailData['invite_users'][index]['performer']['user_details']['last_name'],
-                                    rating:
-                                        controller.jobDetailData['user_requests'][0]['performer']['user_ratings'][0]['average_ratings'].toString()))
+                                    profilePicture: controller.jobDetailData['user_requests'][0]['performer']
+                                        ['user_details']['profile_picture'],
+                                    showSelectJobButton: controller.jobDetailData['invite_users']
+                                            [index]['invite_status'] ==
+                                        "ACCEPTED",
+                                    isVerified: controller.listOfBestPerformers[index]
+                                        ['isVerified'],
+                                    image: controller.jobDetailData['invite_users'][index]
+                                        ['performer']['user_details']['profile_picture'],
+                                    name: controller.jobDetailData['invite_users'][index]['performer']['user_details']['first_name'] + " " + controller.jobDetailData['invite_users'][index]['performer']['user_details']['last_name'],
+                                    rating: controller.jobDetailData['user_requests'][0]['performer']['user_ratings'][0]['average_ratings'].toString()))
                             : [const Text("No shortlist users")],
                       )
                     ],
