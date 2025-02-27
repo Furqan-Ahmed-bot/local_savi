@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_jobs_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_saved_jobs_controller.dart';
+import 'package:local_saviors/controllers/professional_controllers/wallet_controller.dart';
 import 'package:local_saviors/screens/professional_screens/p_home_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_jobs_screen.dart';
 import 'package:local_saviors/screens/professional_screens/p_message_dashboard_screen.dart';
@@ -28,6 +29,7 @@ bool subcription = false;
 class _PBottomNavBarState extends State<PBottomNavBar> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   final pBottomController = Get.put(PBottomAppBarController());
+  final walletController = Get.put(WalletController());
   // var performerData = Get.put(PHomeController());
 
   @override
@@ -167,24 +169,27 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                               ),
                             ),
                             40.verticalSpace,
-                            GestureDetector(
-                              onTap: () {
-                                Get.toNamed(RouteName.walletScreen);
-                                // Get.to(() => goalsHistoryScreen());
-                              },
-                              child: Row(
-                                children: [
-                                  40.horizontalSpace,
-                                  Image.asset(
-                                    ImageAssets.drawerWallet,
-                                    scale: 2,
-                                  ),
-                                  20.horizontalSpace,
-                                  Text(
-                                    "My Wallet",
-                                    style: TextStyle(color: Colors.black),
-                                  )
-                                ],
+                            Obx(
+                              () => GestureDetector(
+                                onTap: () {
+                                  walletController.accountRestriction();
+                                  // Get.toNamed(RouteName.walletScreen);
+                                  // Get.to(() => goalsHistoryScreen());
+                                },
+                                child: Row(
+                                  children: [
+                                    40.horizontalSpace,
+                                    Image.asset(
+                                      ImageAssets.drawerWallet,
+                                      scale: 2,
+                                    ),
+                                    20.horizontalSpace,
+                                    Text(
+                                      walletController.isLoading.value ? 'Please Wait' : "My Wallet",
+                                      style: TextStyle(color: Colors.black),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                             40.verticalSpace,
