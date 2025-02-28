@@ -23,6 +23,7 @@ class ImagePickerController extends GetxController {
           print(selectedImage.value);
         }
       }
+      update();
     } catch (e) {
       Get.snackbar('Error', 'Failed to pick image: $e');
     }
@@ -30,5 +31,6 @@ class ImagePickerController extends GetxController {
 
   void removeImage(int index) {
     selectedImages.removeAt(index);
+    update();
   }
 }

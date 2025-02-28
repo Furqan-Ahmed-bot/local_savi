@@ -1,9 +1,11 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, prefer_typing_uninitialized_variables, non_constant_identifier_names
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import "package:http/http.dart" as http;
+import 'package:http_parser/http_parser.dart' as parser;
 
 import '../../../utils/api_services/app_urls.dart';
 import '../../../utils/constant.dart';
@@ -51,6 +53,56 @@ class GetChatController extends GetxController {
     } catch (e) {
       isMessagesLoading.value = false;
       update();
+    }
+  }
+
+  sendMedia({
+    context,
+    required List categoryIds,
+    List? documents,
+  }) async {
+    try {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: Colors.transparent,
+              content: SizedBox(
+                child: spinkit,
+              ),
+            );
+          });
+      var headers = {'Authorization': token.value};
+
+      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createProviderProfileUrl));
+
+      if (documents != null) {
+        for (var i = 0; i < documents.length; i++) {
+          var multipartFile = await http.MultipartFile.fromPath(
+            'documents',
+            documents[i].path,
+            filename: documents[i].path.split('/').last,
+            contentType: parser.MediaType("image", "${documents[i].path.split('.').last}"),
+          );
+          request.files.add(multipartFile);
+        }
+      }
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+      var responseData = jsonDecode(await response.stream.bytesToString());
+
+      if (response.statusCode == 200) {
+        Get.back();
+      } else {
+        responseData['message'];
+        print(response.toString());
+        Get.back();
+      }
+    } catch (e) {
+      Get.back();
+
+      debugPrint("==> error: ${e.toString()}");
     }
   }
   // Future<void> getChat({reciverid, chatid}) async {

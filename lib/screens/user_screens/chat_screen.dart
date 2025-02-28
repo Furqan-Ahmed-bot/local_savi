@@ -1,10 +1,14 @@
 // ignore_for_file: use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors
 
+import 'dart:io';
+
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/user_controllers/chat_screen_controller.dart';
+import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/resources/components/sockets/sockets.dart';
 import 'package:local_saviors/resources/components/text_fields.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
@@ -12,6 +16,8 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
+
+import '../../resources/components/imagepicker_component.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({
@@ -25,6 +31,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final controller = Get.put(ChatScreenController());
   final socketController = Get.put(SocketController());
+  final imagePickerController = Get.put(ImagePickerController());
 
   @override
   void initState() {
@@ -525,11 +532,15 @@ class _ChatScreenState extends State<ChatScreen> {
                                     username: controller.username,
                                     clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
                                     context: context,
-                                    text: "${chatController.allMessages[index]['message']}")
+                                    text: "${chatController.allMessages[index]['message']}",
+                                    //attachment: chatController.allMessages[index]['attachment']
+                                  )
                                 : getSenderView(
                                     clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
                                     context: context,
-                                    text: "${chatController.allMessages[index]['message']}");
+                                    text: "${chatController.allMessages[index]['message']}",
+                                    //  attachment: chatController.allMessages[index]['attachment']
+                                  );
                           }),
                     ),
             ),
@@ -546,10 +557,171 @@ class _ChatScreenState extends State<ChatScreen> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Image.asset(
-                            ImageAssets.attachIcon,
-                            scale: 3,
-                          ),
+                          // InkWell(
+                          //   onTap: () {
+                          //     showModalBottomSheet(
+                          //       context: context,
+                          //       isScrollControlled: true, // Allows the bottom sheet to resize based on content
+                          //       backgroundColor: Colors.transparent, // Makes the sheet background transparent for rounded corners
+                          //       builder: (_) {
+                          //         return Padding(
+                          //           padding: EdgeInsets.only(
+                          //             bottom: MediaQuery.of(context).viewInsets.bottom,
+                          //           ),
+                          //           child: Container(
+                          //             padding: EdgeInsets.all(20.r),
+                          //             decoration: BoxDecoration(
+                          //               borderRadius: BorderRadius.only(
+                          //                 topLeft: Radius.circular(30.r),
+                          //                 topRight: Radius.circular(30.r),
+                          //               ),
+                          //               gradient: LinearGradient(
+                          //                 transform: const GradientRotation(5),
+                          //                 colors: [Colors.blue, Colors.red],
+                          //                 begin: Alignment.centerLeft,
+                          //                 end: Alignment.centerRight,
+                          //               ),
+                          //             ),
+                          //             child: Wrap(
+                          //               children: [
+                          //                 GetBuilder(
+                          //                   init: imagePickerController,
+                          //                   builder: (_) {
+                          //                     return Column(
+                          //                       children: [
+                          //                         GridView.builder(
+                          //                           physics: NeverScrollableScrollPhysics(),
+                          //                           itemCount: imagePickerController.selectedImages.length + 1,
+                          //                           shrinkWrap: true,
+                          //                           padding: EdgeInsets.symmetric(horizontal: 0.w),
+                          //                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          //                             crossAxisSpacing: 10,
+                          //                             mainAxisSpacing: 10,
+                          //                             crossAxisCount: 4,
+                          //                           ),
+                          //                           itemBuilder: (context, index) {
+                          //                             if (index == imagePickerController.selectedImages.length) {
+                          //                               // Add new image button
+                          //                               return GestureDetector(
+                          //                                 onTap: () {
+                          //                                   imagePickerController.pickImages(isMultiImage: true);
+                          //                                 },
+                          //                                 child: DottedBorder(
+                          //                                   radius: Radius.circular(15.r),
+                          //                                   borderType: BorderType.RRect,
+                          //                                   strokeCap: StrokeCap.round,
+                          //                                   dashPattern: const [5, 5],
+                          //                                   strokeWidth: 1.5,
+                          //                                   color: Colors.white,
+                          //                                   child: Container(
+                          //                                     decoration: BoxDecoration(
+                          //                                       color: ColorUtils.red,
+                          //                                       borderRadius: BorderRadius.all(Radius.circular(10)),
+                          //                                     ),
+                          //                                     child: Center(
+                          //                                       child: Column(
+                          //                                         mainAxisAlignment: MainAxisAlignment.center,
+                          //                                         children: [
+                          //                                           5.verticalSpace,
+                          //                                           Image.asset(
+                          //                                             ImageAssets.addCircleRed,
+                          //                                             scale: 2.5,
+                          //                                             color: Colors.white,
+                          //                                           ),
+                          //                                           5.verticalSpace,
+                          //                                           Text(
+                          //                                             'Add',
+                          //                                             style: TextStyle(color: Colors.white, fontSize: 12),
+                          //                                           )
+                          //                                         ],
+                          //                                       ),
+                          //                                     ),
+                          //                                   ),
+                          //                                 ),
+                          //                               );
+                          //                             } else {
+                          //                               // Display selected image
+                          //                               final imagePath = imagePickerController.selectedImages[index];
+                          //                               return Stack(
+                          //                                 children: [
+                          //                                   Container(
+                          //                                     decoration: BoxDecoration(
+                          //                                       image: DecorationImage(
+                          //                                         image: imagePath.path.startsWith('http')
+                          //                                             ? NetworkImage(imagePath.path) as ImageProvider
+                          //                                             : FileImage(File(imagePath.path)),
+                          //                                         fit: BoxFit.cover,
+                          //                                       ),
+                          //                                       borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                          //                                     ),
+                          //                                   ),
+                          //                                   Positioned(
+                          //                                     right: 5,
+                          //                                     top: 5,
+                          //                                     child: GestureDetector(
+                          //                                       onTap: () {
+                          //                                         imagePickerController.removeImage(index);
+                          //                                       },
+                          //                                       child: SizedBox(
+                          //                                         height: 25.h,
+                          //                                         width: 25.w,
+                          //                                         child: Image.asset(
+                          //                                           ImageAssets.bigCross,
+                          //                                           scale: 2.5,
+                          //                                         ),
+                          //                                       ),
+                          //                                     ),
+                          //                                   ),
+                          //                                 ],
+                          //                               );
+                          //                             }
+                          //                           },
+                          //                         ),
+                          //                         20.h.verticalSpace,
+
+                          //                         RoundButton(
+
+                          //                           height: 50, width: 150, title: 'Send', onPress: () {}),
+                          //                         // CustomButton(
+                          //                         //   title: "Send",
+                          //                         //   onTap: () {
+                          //                         //     fileUploadController.uploadChatMedia(
+                          //                         //       context: context,
+                          //                         //       onSuccess: () async {
+                          //                         //         await chatController.addChatFromSenderSide(
+                          //                         //           content: message.text,
+                          //                         //           chatId: chatId,
+                          //                         //           mediaID: fileUploadController.imageIdsList,
+                          //                         //           images: fileUploadController.chatImageList,
+                          //                         //         );
+                          //                         //         fileUploadController.imageIdsList.clear();
+                          //                         //         fileUploadController.chatImageList.clear();
+                          //                         //         message.clear();
+                          //                         //         Get.close(1);
+                          //                         //       },
+                          //                         //       onError: (e) {
+                          //                         //         errorSnack(context: context, message: e);
+                          //                         //       },
+                          //                         //     );
+                          //                         //   },
+                          //                         // ),
+                          //                         10.h.verticalSpace,
+                          //                       ],
+                          //                     );
+                          //                   },
+                          //                 ),
+                          //               ],
+                          //             ),
+                          //           ),
+                          //         );
+                          //       },
+                          //     );
+                          //   },
+                          //   child: Image.asset(
+                          //     ImageAssets.attachIcon,
+                          //     scale: 3,
+                          //   ),
+                          // ),
                           10.horizontalSpace,
                           InkWell(
                             onTap: () {
