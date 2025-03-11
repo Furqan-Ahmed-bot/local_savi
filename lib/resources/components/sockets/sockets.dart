@@ -1,10 +1,13 @@
-// ignore_for_file: unnecessary_string_interpolations, prefer_if_null_operators
+// ignore_for_file: unnecessary_string_interpolations, prefer_if_null_operators, unnecessary_brace_in_string_interps, avoid_print
 
+import 'dart:convert';
 import 'dart:developer';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:local_saviors/utils/api_services/app_urls.dart';
 import 'package:local_saviors/utils/constant.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
@@ -15,7 +18,14 @@ class SocketController extends GetxController {
   final chatController = Get.put(GetChatController());
   // final myUserData = Get.find<UserProfileScreenController>();
   // final ChatController chatController = Get.find();
+  Rx<GoogleMapController?> mapController = Rx<GoogleMapController?>(null);
+  Rx<LatLng?> otherUserLocation = Rx<LatLng?>(null);
+  RxSet<Polyline> polylines = <Polyline>{}.obs;
+  RxList<LatLng> trackingRoute = <LatLng>[].obs;
   TextEditingController messageController = TextEditingController();
+  LatLng? userLLocation;
+  var userlat;
+  var userlng;
 
   connectSocket() {
     socket = io.io("${UserUrls.socketUrl}", <String, dynamic>{
@@ -119,46 +129,161 @@ class SocketController extends GetxController {
     });
   }
 
-  // addChatListeners() {
-  //   try {
-  //     chatController.loading.value = true;
+  leaveChatRoom(chatId) {
+    socket!.emit("leave_chat", {"access_token": token.value, "chat_id": chatId});
+  }
 
-  //     if (userRole == "THERAPIST") {
-  //       log('Id  ${getUserData.therapistData.id}');
-  //       socket?.on('allChats-user_id-${getUserData.therapistData.id}', (data) {
-  //         chatController.chatsdata(data);
-  //         log("New Message recieved $data");
-  //       });
-  //     } else {
-  //       log('Id  ${getUserData.userdata.userDetails!.first.userId}');
-  //       socket?.on('allChats-user_id-${getUserData.userdata.userDetails!.first.userId}', (data) {
-  //         chatController.chatsdata(data);
-  //         log("New Message recieved $data");
-  //       });
+  // getTrackingData(jobId) {
+  //   socket!.on('track_now_cfddec10-a1cd-4812-8792-52da328e9b24', (data) {
+  //     try {
+  //       print(data);
+  //     } catch (e) {
+  //       print(e);
   //     }
-  //   } catch (e) {
-  //     log(e.toString(), name: "Error in Chat Listener");
-  //   }
-  // }
-
-  // joinChatRoom({dynamic id, dynamic chatId, dynamic jobId}) {
-  //   if (chatId != null) {
-  //     socket!.emit("join_private_chat", {
-  //       "chat_id": chatId,
-  //       "access_token": token.value,
-  //     });
-  //   } else {
-  //     socket!.emit("join_private_chat", {
-  //       "recipient_id": id,
-  //       "job_id": jobId,
-  //       "access_token": token.value,
-  //     });
-  //   }
-
-  //   socket!.on('joined_private_chat_success', (data) {
-  //     log("Joined Room $id $data");
   //   });
   // }
+
+  void getTrackingData(String jobId) {
+    socket!.on('track_now_cfddec10-a1cd-4812-8792-52da328e9b24', (data) {
+      try {
+        double lat = double.parse(data['latitude'].toString());
+        double lng = double.parse(data['longitude'].toString());
+        otherUserLocation.value = LatLng(lat, lng);
+
+        // If my location is available, fetch route
+        if (userlat != null) {
+          _fetchRoute();
+        }
+      } catch (e) {
+        log("Error in getTrackingData: $e");
+      }
+    });
+  }
+
+  Future<void> _fetchRoute() async {
+    if (userlat == null || otherUserLocation.value == null) return;
+
+    String url =
+        'https://maps.googleapis.com/maps/api/directions/json?origin=${userlat},${userlng}&destination=${otherUserLocation.value!.latitude},${otherUserLocation.value!.longitude}&key=$googleMapKey';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['routes'].isNotEmpty) {
+          final route = data['routes'][0]['overview_polyline']['points'];
+          final routePoints = _decodePolyline(route);
+
+          polylines.clear();
+          polylines.add(
+            Polyline(
+              polylineId: const PolylineId("tracking_route"),
+              points: routePoints,
+              color: Colors.blue,
+              width: 5,
+            ),
+          );
+
+          _moveCameraToRoute(routePoints);
+        } else {
+          log('No routes found');
+        }
+      } else {
+        log('Failed to fetch directions');
+      }
+    } catch (e) {
+      log('Error fetching route: $e');
+    }
+  }
+
+  /// 🔹 Decode Polyline
+  List<LatLng> _decodePolyline(String polyline) {
+    List<LatLng> points = [];
+    int index = 0, len = polyline.length;
+    int lat = 0, lng = 0;
+
+    while (index < len) {
+      int b, shift = 0, result = 0;
+      do {
+        b = polyline.codeUnitAt(index++) - 63;
+        result |= (b & 0x1F) << shift;
+        shift += 5;
+      } while (b >= 0x20);
+      int dlat = (result & 1) != 0 ? ~(result >> 1) : (result >> 1);
+      lat += dlat;
+
+      shift = 0;
+      result = 0;
+      do {
+        b = polyline.codeUnitAt(index++) - 63;
+        result |= (b & 0x1F) << shift;
+        shift += 5;
+      } while (b >= 0x20);
+      int dlng = (result & 1) != 0 ? ~(result >> 1) : (result >> 1);
+      lng += dlng;
+
+      points.add(LatLng(lat / 1E5, lng / 1E5));
+    }
+    return points;
+  }
+
+  /// 🗺 Move Camera to Route
+  void _moveCameraToRoute(List<LatLng> routePoints) {
+    if (mapController.value == null || routePoints.isEmpty) return;
+
+    LatLngBounds bounds = LatLngBounds(
+      southwest: LatLng(
+        routePoints.map((p) => p.latitude).reduce((a, b) => a < b ? a : b),
+        routePoints.map((p) => p.longitude).reduce((a, b) => a < b ? a : b),
+      ),
+      northeast: LatLng(
+        routePoints.map((p) => p.latitude).reduce((a, b) => a > b ? a : b),
+        routePoints.map((p) => p.longitude).reduce((a, b) => a > b ? a : b),
+      ),
+    );
+
+    mapController.value!.animateCamera(CameraUpdate.newLatLngBounds(bounds, 40));
+  }
+
+  void onMapCreated(GoogleMapController controller) {
+    mapController.value = controller;
+  }
+
+  // void getTrackingData(String jobId) {
+  //   socket!.on('track_now_${jobId}', (data) {
+  //     try {
+  //       double lat = double.parse(data['latitude'].toString());
+  //       double lng = double.parse(data['longitude'].toString());
+  //       LatLng newLocation = LatLng(lat, lng);
+
+  //       trackingRoute.add(newLocation);
+  //       updatePolyline();
+  //       moveCameraToLocation(newLocation);
+  //     } catch (e) {
+  //       log("Error in getTrackingData: $e");
+  //     }
+  //   });
+  // }
+
+  // void updatePolyline() {
+  //   polylines.clear();
+  //   polylines.add(
+  //     Polyline(
+  //       polylineId: const PolylineId("tracking_route"),
+  //       points: trackingRoute,
+  //       color: Colors.blue,
+  //       width: 5,
+  //     ),
+  //   );
+  // }
+
+  // void moveCameraToLocation(LatLng location) {
+  //   mapController.value?.animateCamera(CameraUpdate.newLatLng(location));
+  // }
+
+  giveTrackingData(jobId, lat, lng) {
+    socket?.emit("track_now", {'job_id': '${jobId}', 'latitude': lat, 'longitude': lng});
+  }
 
   joinChatRoom({dynamic id, dynamic chatId, dynamic jobId, Function? onSuccess}) async {
     if (chatId != null) {
@@ -183,21 +308,22 @@ class SocketController extends GetxController {
     });
   }
 
-  leaveChatRoom() {
-    socket!.off('joinedPrivateChatSuccess');
-  }
+  // leaveChatRoom() {
+  //   socket!.off('joinedPrivateChatSuccess');
+  // }
 
-  message({String? chatId, String? message, String? recipientId, String? jobId}) {
+  message({String? chatId, String? message, String? recipientId, String? jobId, var attachment}) {
     Map<String, dynamic> map = {
-      if (chatId != 0) "chatId": chatId,
+      if (chatId != null) "chat_id": chatId,
       "message": message,
       "access_token": token.value,
       "recipient_id": recipientId,
+      if (attachment != null) "attachment": attachment,
       "job_id": jobId
 
       //  "createdAt": DateTime.now().toIso8601String(),
     };
-    chatController.allMessages.insert(0, map);
+    chatController.allMessages.insert(0, [map]);
     socket?.emit("private_chat_message", map);
 
     messageController.clear();

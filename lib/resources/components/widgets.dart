@@ -1,5 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +14,9 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
-Widget getSenderView({CustomClipper? clipper, BuildContext? context, String? text}) => Column(
+import 'image_viewer.dart';
+
+Widget getSenderView({CustomClipper? clipper, BuildContext? context, var text, dynamic attachment}) => Column(
       children: [
         ChatBubble(
           clipper: clipper,
@@ -22,14 +26,104 @@ Widget getSenderView({CustomClipper? clipper, BuildContext? context, String? tex
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 5.w),
             width: 0.6.sw,
-            child: Text(
-              text.toString(),
-              style: TextStyle(
-                  color: ColorUtils.textColor,
-                  // fontFamily: Font.interRegular,
-                  fontSize: 12.sp),
-              textAlign: TextAlign.left,
-            ),
+            child: attachment[0]['attachment'] != null && attachment.length >= 1
+                ?
+
+                // GridView.builder(
+                //     shrinkWrap: true,
+                //     itemCount: attachment.length,
+                //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                //         crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 15, mainAxisExtent: 117),
+                //     itemBuilder: (context, index) {
+                //       return Image.network(attachment[index]['attachment']);
+                //     })
+
+                Builder(
+                    builder: (context) {
+                      final attachments = attachment;
+                      final imageCount = attachments.length;
+                      int crossAxisCount = imageCount == 2 ? 2 : 1;
+                      double childAspectRatio = 1;
+                      if (imageCount == 4) {
+                        crossAxisCount = 2;
+                        childAspectRatio = 1;
+                      } else if (imageCount > 4) {
+                        crossAxisCount = 2;
+                        childAspectRatio = 1;
+                      }
+                      return GridView.builder(
+                        padding: const EdgeInsets.all(8.0),
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: imageCount > 4 ? 4 : imageCount,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount,
+                          mainAxisSpacing: 10.h,
+                          crossAxisSpacing: 10.w,
+                          childAspectRatio: childAspectRatio,
+                        ),
+                        itemBuilder: (_, index2) {
+                          final image = attachments[index2];
+                          // final isHttpImage = image["attachment"].startsWith("https");
+                          return InkWell(
+                            onTap: () {
+                              // Get.to(() => ImageViewerScreen(
+                              //       images: chatController.chatList[index]["attachments"],
+                              //       initialIndex: index2,
+                              //     ));
+                            },
+                            child: Stack(
+                              children: [
+                                Container(
+                                  clipBehavior: Clip.hardEdge,
+                                  decoration: BoxDecoration(
+                                    image:
+                                        //  isHttpImage
+                                        //     ?
+                                        DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(image["attachment"]),
+                                    ),
+
+                                    // : DecorationImage(
+                                    //     fit: BoxFit.cover,
+                                    //     image: FileImage(File(image["media"]["path"])),
+                                    //   ),
+                                    borderRadius: BorderRadius.circular(8.r),
+                                  ),
+                                ),
+                                // Display overlay for more than 4 images
+                                if (index2 == 3 && imageCount > 4)
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.6),
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "+${imageCount - 4}",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  )
+                : Text(
+                    text![0]['message'] ?? '',
+                    style: TextStyle(
+                        color: ColorUtils.textColor,
+                        // fontFamily: Font.interRegular,
+                        fontSize: 12.sp),
+                    textAlign: TextAlign.left,
+                  ),
           ),
         ),
         5.verticalSpace,
@@ -50,8 +144,7 @@ Widget getSenderView({CustomClipper? clipper, BuildContext? context, String? tex
         20.verticalSpace,
       ],
     );
-
-Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? text, var image, var username, var datetime}) => Row(
+Widget getReceiverView({CustomClipper? clipper, BuildContext? context, var text, var image, var username, var datetime, dynamic attachment}) => Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -84,13 +177,102 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? t
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 width: 0.6.sw,
-                child: Text(
-                  text.toString(),
-                  style: TextStyle(
-                      color: ColorUtils.textColor,
-                      // fontFamily: Font.interRegular,
-                      fontSize: 12.sp),
-                ),
+                child: attachment[0]['attachment'] != null && attachment.length >= 1
+                    ?
+                    // GridView.builder(
+                    //     shrinkWrap: true,
+                    //     itemCount: attachment.length,
+                    //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    //         crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 15, mainAxisExtent: 117),
+                    //     itemBuilder: (context, index) {
+                    //       return Image.network(attachment[index]['attachment']);
+                    //     })
+
+                    Builder(
+                        builder: (context) {
+                          final attachments = attachment;
+                          final imageCount = attachments.length;
+                          int crossAxisCount = imageCount == 2 ? 2 : 1;
+                          double childAspectRatio = 1;
+                          if (imageCount == 4) {
+                            crossAxisCount = 2;
+                            childAspectRatio = 1;
+                          } else if (imageCount > 4) {
+                            crossAxisCount = 2;
+                            childAspectRatio = 1;
+                          }
+                          return GridView.builder(
+                            padding: const EdgeInsets.all(8.0),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: imageCount > 4 ? 4 : imageCount,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: crossAxisCount,
+                              mainAxisSpacing: 10.h,
+                              crossAxisSpacing: 10.w,
+                              childAspectRatio: childAspectRatio,
+                            ),
+                            itemBuilder: (_, index2) {
+                              final image = attachments[index2];
+                              //  final isHttpImage = image["attachment"].startsWith("https");
+                              return InkWell(
+                                onTap: () {
+                                  Get.to(() => ImageViewerScreen(
+                                        images: attachments,
+                                        initialIndex: index2,
+                                      ));
+                                },
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      clipBehavior: Clip.hardEdge,
+                                      decoration: BoxDecoration(
+                                        image:
+                                            // isHttpImage
+                                            //     ?
+                                            DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(image["attachment"]),
+                                        ),
+                                        // : DecorationImage(
+                                        //     fit: BoxFit.cover,
+                                        //     image: FileImage(File(image["media"]["path"])),
+                                        //   ),
+                                        borderRadius: BorderRadius.circular(8.r),
+                                      ),
+                                    ),
+                                    // Display overlay for more than 4 images
+                                    if (index2 == 3 && imageCount > 4)
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.black.withOpacity(0.6),
+                                          borderRadius: BorderRadius.circular(8.r),
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "+${imageCount - 4}",
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      )
+                    : Text(
+                        text![0]['message'] ?? '',
+                        style: TextStyle(
+                            color: ColorUtils.textColor,
+                            // fontFamily: Font.interRegular,
+                            fontSize: 12.sp),
+                        textAlign: TextAlign.left,
+                      ),
               ),
             ),
             5.verticalSpace,
@@ -99,13 +281,12 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, String? t
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   // Spacer(),
-
-                  Text(
-                    dateFormat().formatTime(DateTime.parse(datetime)),
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
-                  ),
+                  // Text(
+                  //   dateFormat().formatTime(DateTime.parse(datetime[0]['createdAt'])),
+                  //   style: TextStyle(
+                  //     fontSize: 12,
+                  //   ),
+                  // ),
                 ],
               ),
             )
@@ -850,7 +1031,7 @@ Widget shortlistUserCard({
                                                   "jobId": jobId,
                                                   'username': name,
                                                   'chat_id': chatId,
-                                                  'profile_picture': profilePicture
+                                                  'profile_picture': image
                                                 });
                                               },
                                               child: Container(

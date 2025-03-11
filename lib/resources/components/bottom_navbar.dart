@@ -812,7 +812,7 @@ class BottomAppBarController extends GetxController {
     count.value = index;
     if (index == 2) {
       var jobcontroller = Get.find<JobsScreenController>();
-      jobcontroller.getJobs();
+      jobcontroller.getJobs('OPEN');
     } else if (index == 0) {
       // var homeController = Get.find<HomeScreenController>();
       hsController.isLoading.value = true;

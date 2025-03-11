@@ -37,16 +37,15 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     chatController.isMessagesLoading.value = true;
-    // Join the chat room and pass the callback to handle the success response
     socketController.joinChatRoom(
         jobId: controller.jobId,
         chatId: controller.chatId,
         id: controller.performerId,
         onSuccess: (data) {
-          // Get the chatId once the socket response is successful
           if (data != null && data['chat_id'] != null) {
-            data['chat_id']; // Update the chatId with the response
-            // Now, call the API to get the single chat
+            data['chat_id'];
+            controller.chatId = data['chat_id'];
+
             chatController.getSingleChat(data['chat_id']);
           }
         });
@@ -55,6 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void dispose() {
     chatController.allMessages.clear();
+    socketController.leaveChatRoom(controller.chatId);
 
     super.dispose();
   }
@@ -96,8 +96,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                       GestureDetector(
                                         onTap: () {
                                           Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
+                                            'id': controller.performerId,
                                             "title": "Employee Profile",
-                                            "showChat": true,
+                                            "showChat": false,
                                           });
                                         },
                                         child: Row(
@@ -525,25 +526,30 @@ class _ChatScreenState extends State<ChatScreen> {
                           shrinkWrap: true,
                           itemCount: chatController.allMessages.length,
                           itemBuilder: (context, index) {
-                            return chatController.allMessages[index]['recipient_id'] != controller.performerId
+                            return chatController.allMessages[index][0]['recipient_id'] != controller.performerId
                                 ? getReceiverView(
-                                    datetime: chatController.allMessages[index]['createdAt'],
+                                    datetime: chatController.allMessages[index],
                                     image: controller.profile_picture,
                                     username: controller.username,
                                     clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
                                     context: context,
-                                    text: "${chatController.allMessages[index]['message']}",
-                                    //attachment: chatController.allMessages[index]['attachment']
-                                  )
+                                    text: chatController.allMessages[index],
+                                    attachment: chatController.allMessages[index])
                                 : getSenderView(
                                     clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
                                     context: context,
-                                    text: "${chatController.allMessages[index]['message']}",
-                                    //  attachment: chatController.allMessages[index]['attachment']
-                                  );
+                                    text: chatController.allMessages[index],
+                                    attachment: chatController.allMessages[index]);
                           }),
                     ),
             ),
+            // chatController.chatAllowed == false
+            //     ? SafeArea(
+            //         child: Text(
+            //         'No More Chat is Allowed',
+            //         style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 18.sp),
+            //       ))
+            //     :
             Container(
                 color: ColorUtils.white,
                 padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
@@ -557,171 +563,179 @@ class _ChatScreenState extends State<ChatScreen> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          // InkWell(
-                          //   onTap: () {
-                          //     showModalBottomSheet(
-                          //       context: context,
-                          //       isScrollControlled: true, // Allows the bottom sheet to resize based on content
-                          //       backgroundColor: Colors.transparent, // Makes the sheet background transparent for rounded corners
-                          //       builder: (_) {
-                          //         return Padding(
-                          //           padding: EdgeInsets.only(
-                          //             bottom: MediaQuery.of(context).viewInsets.bottom,
-                          //           ),
-                          //           child: Container(
-                          //             padding: EdgeInsets.all(20.r),
-                          //             decoration: BoxDecoration(
-                          //               borderRadius: BorderRadius.only(
-                          //                 topLeft: Radius.circular(30.r),
-                          //                 topRight: Radius.circular(30.r),
-                          //               ),
-                          //               gradient: LinearGradient(
-                          //                 transform: const GradientRotation(5),
-                          //                 colors: [Colors.blue, Colors.red],
-                          //                 begin: Alignment.centerLeft,
-                          //                 end: Alignment.centerRight,
-                          //               ),
-                          //             ),
-                          //             child: Wrap(
-                          //               children: [
-                          //                 GetBuilder(
-                          //                   init: imagePickerController,
-                          //                   builder: (_) {
-                          //                     return Column(
-                          //                       children: [
-                          //                         GridView.builder(
-                          //                           physics: NeverScrollableScrollPhysics(),
-                          //                           itemCount: imagePickerController.selectedImages.length + 1,
-                          //                           shrinkWrap: true,
-                          //                           padding: EdgeInsets.symmetric(horizontal: 0.w),
-                          //                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          //                             crossAxisSpacing: 10,
-                          //                             mainAxisSpacing: 10,
-                          //                             crossAxisCount: 4,
-                          //                           ),
-                          //                           itemBuilder: (context, index) {
-                          //                             if (index == imagePickerController.selectedImages.length) {
-                          //                               // Add new image button
-                          //                               return GestureDetector(
-                          //                                 onTap: () {
-                          //                                   imagePickerController.pickImages(isMultiImage: true);
-                          //                                 },
-                          //                                 child: DottedBorder(
-                          //                                   radius: Radius.circular(15.r),
-                          //                                   borderType: BorderType.RRect,
-                          //                                   strokeCap: StrokeCap.round,
-                          //                                   dashPattern: const [5, 5],
-                          //                                   strokeWidth: 1.5,
-                          //                                   color: Colors.white,
-                          //                                   child: Container(
-                          //                                     decoration: BoxDecoration(
-                          //                                       color: ColorUtils.red,
-                          //                                       borderRadius: BorderRadius.all(Radius.circular(10)),
-                          //                                     ),
-                          //                                     child: Center(
-                          //                                       child: Column(
-                          //                                         mainAxisAlignment: MainAxisAlignment.center,
-                          //                                         children: [
-                          //                                           5.verticalSpace,
-                          //                                           Image.asset(
-                          //                                             ImageAssets.addCircleRed,
-                          //                                             scale: 2.5,
-                          //                                             color: Colors.white,
-                          //                                           ),
-                          //                                           5.verticalSpace,
-                          //                                           Text(
-                          //                                             'Add',
-                          //                                             style: TextStyle(color: Colors.white, fontSize: 12),
-                          //                                           )
-                          //                                         ],
-                          //                                       ),
-                          //                                     ),
-                          //                                   ),
-                          //                                 ),
-                          //                               );
-                          //                             } else {
-                          //                               // Display selected image
-                          //                               final imagePath = imagePickerController.selectedImages[index];
-                          //                               return Stack(
-                          //                                 children: [
-                          //                                   Container(
-                          //                                     decoration: BoxDecoration(
-                          //                                       image: DecorationImage(
-                          //                                         image: imagePath.path.startsWith('http')
-                          //                                             ? NetworkImage(imagePath.path) as ImageProvider
-                          //                                             : FileImage(File(imagePath.path)),
-                          //                                         fit: BoxFit.cover,
-                          //                                       ),
-                          //                                       borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                          //                                     ),
-                          //                                   ),
-                          //                                   Positioned(
-                          //                                     right: 5,
-                          //                                     top: 5,
-                          //                                     child: GestureDetector(
-                          //                                       onTap: () {
-                          //                                         imagePickerController.removeImage(index);
-                          //                                       },
-                          //                                       child: SizedBox(
-                          //                                         height: 25.h,
-                          //                                         width: 25.w,
-                          //                                         child: Image.asset(
-                          //                                           ImageAssets.bigCross,
-                          //                                           scale: 2.5,
-                          //                                         ),
-                          //                                       ),
-                          //                                     ),
-                          //                                   ),
-                          //                                 ],
-                          //                               );
-                          //                             }
-                          //                           },
-                          //                         ),
-                          //                         20.h.verticalSpace,
+                          InkWell(
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true, // Allows the bottom sheet to resize based on content
+                                backgroundColor: Colors.transparent, // Makes the sheet background transparent for rounded corners
+                                builder: (_) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context).viewInsets.bottom,
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.all(20.r),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(30.r),
+                                          topRight: Radius.circular(30.r),
+                                        ),
+                                        gradient: LinearGradient(
+                                          transform: const GradientRotation(5),
+                                          colors: [Colors.blue, Colors.red],
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                        ),
+                                      ),
+                                      child: Wrap(
+                                        children: [
+                                          GetBuilder(
+                                            init: imagePickerController,
+                                            builder: (_) {
+                                              return Column(
+                                                children: [
+                                                  GridView.builder(
+                                                    physics: NeverScrollableScrollPhysics(),
+                                                    itemCount: imagePickerController.selectedImages.length + 1,
+                                                    shrinkWrap: true,
+                                                    padding: EdgeInsets.symmetric(horizontal: 0.w),
+                                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisSpacing: 10,
+                                                      mainAxisSpacing: 10,
+                                                      crossAxisCount: 4,
+                                                    ),
+                                                    itemBuilder: (context, index) {
+                                                      if (index == imagePickerController.selectedImages.length) {
+                                                        // Add new image button
+                                                        return GestureDetector(
+                                                          onTap: () {
+                                                            imagePickerController.pickImages(isMultiImage: true);
+                                                          },
+                                                          child: DottedBorder(
+                                                            radius: Radius.circular(15.r),
+                                                            borderType: BorderType.RRect,
+                                                            strokeCap: StrokeCap.round,
+                                                            dashPattern: const [5, 5],
+                                                            strokeWidth: 1.5,
+                                                            color: Colors.white,
+                                                            child: Container(
+                                                              decoration: BoxDecoration(
+                                                                color: ColorUtils.red,
+                                                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                              ),
+                                                              child: Center(
+                                                                child: Column(
+                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                  children: [
+                                                                    5.verticalSpace,
+                                                                    Image.asset(
+                                                                      ImageAssets.addCircleRed,
+                                                                      scale: 2.5,
+                                                                      color: Colors.white,
+                                                                    ),
+                                                                    5.verticalSpace,
+                                                                    Text(
+                                                                      'Add',
+                                                                      style: TextStyle(color: Colors.white, fontSize: 12),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      } else {
+                                                        // Display selected image
+                                                        final imagePath = imagePickerController.selectedImages[index];
+                                                        return Stack(
+                                                          children: [
+                                                            Container(
+                                                              decoration: BoxDecoration(
+                                                                image: DecorationImage(
+                                                                  image: imagePath.path.startsWith('http')
+                                                                      ? NetworkImage(imagePath.path) as ImageProvider
+                                                                      : FileImage(File(imagePath.path)),
+                                                                  fit: BoxFit.cover,
+                                                                ),
+                                                                borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                                              ),
+                                                            ),
+                                                            Positioned(
+                                                              right: 5,
+                                                              top: 5,
+                                                              child: GestureDetector(
+                                                                onTap: () {
+                                                                  imagePickerController.removeImage(index);
+                                                                },
+                                                                child: SizedBox(
+                                                                  height: 25.h,
+                                                                  width: 25.w,
+                                                                  child: Image.asset(
+                                                                    ImageAssets.bigCross,
+                                                                    scale: 2.5,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
+                                                  20.h.verticalSpace,
 
-                          //                         RoundButton(
-
-                          //                           height: 50, width: 150, title: 'Send', onPress: () {}),
-                          //                         // CustomButton(
-                          //                         //   title: "Send",
-                          //                         //   onTap: () {
-                          //                         //     fileUploadController.uploadChatMedia(
-                          //                         //       context: context,
-                          //                         //       onSuccess: () async {
-                          //                         //         await chatController.addChatFromSenderSide(
-                          //                         //           content: message.text,
-                          //                         //           chatId: chatId,
-                          //                         //           mediaID: fileUploadController.imageIdsList,
-                          //                         //           images: fileUploadController.chatImageList,
-                          //                         //         );
-                          //                         //         fileUploadController.imageIdsList.clear();
-                          //                         //         fileUploadController.chatImageList.clear();
-                          //                         //         message.clear();
-                          //                         //         Get.close(1);
-                          //                         //       },
-                          //                         //       onError: (e) {
-                          //                         //         errorSnack(context: context, message: e);
-                          //                         //       },
-                          //                         //     );
-                          //                         //   },
-                          //                         // ),
-                          //                         10.h.verticalSpace,
-                          //                       ],
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               ],
-                          //             ),
-                          //           ),
-                          //         );
-                          //       },
-                          //     );
-                          //   },
-                          //   child: Image.asset(
-                          //     ImageAssets.attachIcon,
-                          //     scale: 3,
-                          //   ),
-                          // ),
+                                                  RoundButton(
+                                                      height: 50,
+                                                      width: 150,
+                                                      title: 'Send',
+                                                      onPress: () {
+                                                        chatController.sendMedia(
+                                                            context: context,
+                                                            attachments: imagePickerController.selectedImages,
+                                                            chatId: controller.chatId,
+                                                            recipient_id: controller.performerId);
+                                                      }),
+                                                  // CustomButton(
+                                                  //   title: "Send",
+                                                  //   onTap: () {
+                                                  //     fileUploadController.uploadChatMedia(
+                                                  //       context: context,
+                                                  //       onSuccess: () async {
+                                                  //         await chatController.addChatFromSenderSide(
+                                                  //           content: message.text,
+                                                  //           chatId: chatId,
+                                                  //           mediaID: fileUploadController.imageIdsList,
+                                                  //           images: fileUploadController.chatImageList,
+                                                  //         );
+                                                  //         fileUploadController.imageIdsList.clear();
+                                                  //         fileUploadController.chatImageList.clear();
+                                                  //         message.clear();
+                                                  //         Get.close(1);
+                                                  //       },
+                                                  //       onError: (e) {
+                                                  //         errorSnack(context: context, message: e);
+                                                  //       },
+                                                  //     );
+                                                  //   },
+                                                  // ),
+                                                  10.h.verticalSpace,
+                                                ],
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Image.asset(
+                              ImageAssets.attachIcon,
+                              scale: 3,
+                            ),
+                          ),
                           10.horizontalSpace,
                           InkWell(
                             onTap: () {

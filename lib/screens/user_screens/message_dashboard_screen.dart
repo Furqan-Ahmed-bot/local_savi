@@ -89,7 +89,7 @@ class _MessageDashboardScreenState extends State<MessageDashboardScreen> {
                                       name:
                                           "${chatController.AllChats[index]["user_two"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_two"]["user_details"]["last_name"]}",
                                       desc:
-                                          "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
+                                          "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] == null ? 'Photo' : chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
                                     )
                                   : messageUserCard(
                                       isVerified: true,
@@ -100,7 +100,7 @@ class _MessageDashboardScreenState extends State<MessageDashboardScreen> {
                                       name:
                                           "${chatController.AllChats[index]["user_one"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_one"]["user_details"]["last_name"]}",
                                       desc:
-                                          "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
+                                          "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] == null ? 'Photo' : chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
                                     ),
                             ),
                           ),

@@ -72,6 +72,8 @@ class OngoingJobDetailScreenController extends GetxController {
     super.onInit();
     jobId.value = Get.arguments['jobId'] ?? "";
 
+    socketController.getTrackingData(jobId.value);
+
     getData();
     isReached.value = Get.arguments != null ? Get.arguments['isReached'] ?? false : false;
   }

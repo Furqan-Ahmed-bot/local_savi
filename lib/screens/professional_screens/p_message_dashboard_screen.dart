@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_if_null_operators
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -87,7 +89,7 @@ class _PMessageDashboardScreenState extends State<PMessageDashboardScreen> {
                                         name:
                                             "${chatController.AllChats[index]["user_two"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_two"]["user_details"]["last_name"]}",
                                         desc:
-                                            "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
+                                            "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] == null ? 'Photo' : chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
                                       )
                                     : messageUserCard(
                                         isVerified: true,
@@ -97,7 +99,8 @@ class _PMessageDashboardScreenState extends State<PMessageDashboardScreen> {
                                         image: chatController.AllChats[index]["user_one"]["user_details"]["profile_picture"],
                                         name:
                                             "${chatController.AllChats[index]["user_one"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_one"]["user_details"]["last_name"]}",
-                                        desc: "${chatController.AllChats[index]['chat_messages'][0]['message']}",
+                                        desc:
+                                            "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] == null ? 'Photo' : chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
                                       )),
                           ),
                         ),

@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,9 +11,11 @@ import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../resources/map/trackingController.dart';
 import '../../utils/api_services/user_services.dart';
 
 class HomeScreen extends GetWidget<HomeScreenController> {
+  final trackinController = Get.put(DriverGoogleMapController());
   @override
   Widget build(BuildContext context) {
     return myBackGround(
@@ -71,13 +73,18 @@ class HomeScreen extends GetWidget<HomeScreenController> {
                                             ImageAssets.userProfileImg,
                                             scale: 2,
                                           )
-                                        : Container(
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: CircleAvatar(
-                                              radius: 25,
-                                              backgroundImage: NetworkImage(controller.userdata.userDetails!.profilePicture ?? ""),
+                                        : InkWell(
+                                            onTap: () {
+                                              trackinController.checkLocationPermission('0ac3f730-82c4-47f1-afc9-548f66e948d9');
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: CircleAvatar(
+                                                radius: 25,
+                                                backgroundImage: NetworkImage(controller.userdata.userDetails!.profilePicture ?? ""),
+                                              ),
                                             ),
                                           ),
                                   ],

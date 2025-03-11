@@ -740,10 +740,9 @@ class UserServices {
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
+      String responseBody = await response.stream.bytesToString();
 
       if (response.statusCode == 200) {
-        String responseBody = await response.stream.bytesToString();
-
         Map<String, dynamic> jsonResponse = json.decode(responseBody);
 
         if (jsonResponse.containsKey('data')) {
@@ -1009,7 +1008,7 @@ class UserServices {
         jobsResponse;
         Get.close(4);
         var jobsController = Get.find<JobsScreenController>();
-        jobsController.getJobs();
+        jobsController.getJobs("OPEN");
       } else {
         Get.back();
       }

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:local_saviors/utils/routes/routes_name.dart';
 
 import '../../utils/images/image_assets.dart';
 import 'splash_services.dart';
@@ -21,7 +20,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     splashScreen.isLogin();
-
     super.initState();
   }
 
@@ -29,21 +27,13 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(ImageAssets.splashScreen),
-                  fit: BoxFit.cover)),
+          decoration: BoxDecoration(image: DecorationImage(image: AssetImage(ImageAssets.splashScreen), fit: BoxFit.cover)),
           height: Get.height,
           width: Get.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                  height: 0.5.sh,
-                  width: 0.5.sw,
-                  child: Image(image: AssetImage(ImageAssets.logo)))
-            ],
+            children: [Container(height: 0.5.sh, width: 0.5.sw, child: Image(image: AssetImage(ImageAssets.logo)))],
           )),
     );
   }

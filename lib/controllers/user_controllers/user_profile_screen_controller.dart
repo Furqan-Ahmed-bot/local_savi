@@ -10,11 +10,6 @@ import 'package:local_saviors/utils/constant.dart';
 class UserProfileScreenController extends GetxController {
   JobProviderModel userdata = JobProviderModel();
   RxBool isLoading = false.obs;
-  @override
-  void onInit() {
-    getData();
-    super.onInit();
-  }
 
   setUserData(JobProviderModel data) {
     userdata = data;

@@ -9,8 +9,11 @@ import 'package:http_parser/http_parser.dart' as parser;
 
 import '../../../utils/api_services/app_urls.dart';
 import '../../../utils/constant.dart';
+import '../imagepicker_component.dart';
 
 class GetChatController extends GetxController {
+  final imagePickerController = Get.put(ImagePickerController());
+
   RxBool loading = false.obs;
   RxBool isMessagesLoading = false.obs;
   RxList AllChats = [].obs;
@@ -18,6 +21,7 @@ class GetChatController extends GetxController {
   var avgRatings;
   Map jobDetails = {};
   bool isJobAssigned = false;
+  bool chatAllowed = true;
   chatsdata(data) {
     AllChats.value = data;
 
@@ -43,6 +47,7 @@ class GetChatController extends GetxController {
         isMessagesLoading.value = false;
         jobDetails = resData['data']['jobs'];
         isJobAssigned = resData['data']['job_already_assigned'];
+        chatAllowed = resData['data']['chat_allowed'];
         allMessages.value = resData['data']['chat_messages'];
         avgRatings = resData['data']['review']['average_ratings'];
       } else {
@@ -56,11 +61,7 @@ class GetChatController extends GetxController {
     }
   }
 
-  sendMedia({
-    context,
-    required List categoryIds,
-    List? documents,
-  }) async {
+  sendMedia({context, List? attachments, var chatId, var recipient_id}) async {
     try {
       showDialog(
           context: context,
@@ -74,15 +75,15 @@ class GetChatController extends GetxController {
           });
       var headers = {'Authorization': token.value};
 
-      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.createProviderProfileUrl));
+      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.sendMedia));
 
-      if (documents != null) {
-        for (var i = 0; i < documents.length; i++) {
+      if (attachments != null) {
+        for (var i = 0; i < attachments.length; i++) {
           var multipartFile = await http.MultipartFile.fromPath(
-            'documents',
-            documents[i].path,
-            filename: documents[i].path.split('/').last,
-            contentType: parser.MediaType("image", "${documents[i].path.split('.').last}"),
+            'attachment',
+            attachments[i].path,
+            filename: attachments[i].path.split('/').last,
+            contentType: parser.MediaType("image", "${attachments[i].path.split('.').last}"),
           );
           request.files.add(multipartFile);
         }
@@ -93,7 +94,13 @@ class GetChatController extends GetxController {
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        Get.back();
+        var urls = responseData['data']['urls'];
+        for (var i = 0; i < urls.length; i++) {
+          socketController.message(chatId: chatId, attachment: urls[i]['path'], recipientId: recipient_id);
+        }
+
+        Get.close(2);
+        imagePickerController.selectedImages.clear();
       } else {
         responseData['message'];
         print(response.toString());

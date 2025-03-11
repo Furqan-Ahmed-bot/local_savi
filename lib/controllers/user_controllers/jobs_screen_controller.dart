@@ -6,23 +6,21 @@ class JobsScreenController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxBool isLoading = false.obs;
 
-  @override
-  void onInit() {
-    getJobs();
-    super.onInit();
-  }
-
 //[OPEN, UPCOMING, ONGOING, COMPLETED, CANCELLED]
-  getJobs() async {
+  getJobs(status) async {
     isLoading.value = true;
-    openJobsList = await UserServices.instance.getAllJobs(filter: "OPEN");
-    upcomingJobsList =
-        await UserServices.instance.getAllJobs(filter: "UPCOMING");
-    ongoingJobsList = await UserServices.instance.getAllJobs(filter: "ONGOING");
-    completedJobsList =
-        await UserServices.instance.getAllJobs(filter: "COMPLETED");
-    cancelledJobsList =
-        await UserServices.instance.getAllJobs(filter: "CANCELLED");
+    if (status == "OPEN") {
+      openJobsList = await UserServices.instance.getAllJobs(filter: "OPEN");
+    } else if (status == "UPCOMING") {
+      upcomingJobsList = await UserServices.instance.getAllJobs(filter: "UPCOMING");
+    } else if (status == "ONGOING") {
+      ongoingJobsList = await UserServices.instance.getAllJobs(filter: "ONGOING");
+    } else if (status == "COMPLETED") {
+      completedJobsList = await UserServices.instance.getAllJobs(filter: "COMPLETED");
+    } else {
+      cancelledJobsList = await UserServices.instance.getAllJobs(filter: "CANCELLED");
+    }
+
     isLoading.value = false;
     update();
   }
@@ -33,39 +31,13 @@ class JobsScreenController extends GetxController {
   List<JobsModel> completedJobsList = [];
   List<JobsModel> cancelledJobsList = [];
 
-  List<String> names = [
-    "Open",
-    "Upcoming",
-    "Ongoing",
-    "Completed",
-    "Cancelled"
-  ];
+  List<String> names = ["Open", "Upcoming", "Ongoing", "Completed", "Cancelled"];
 
   List listOfCancelledCard = [
-    {
-      "status": "Pending",
-      "date": "July 20",
-      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
-    },
-    {
-      "status": "Job Cancelled",
-      "date": "July 20",
-      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
-    },
-    {
-      "status": "Job Cancelled",
-      "date": "July 20",
-      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
-    },
-    {
-      "status": "Job Cancelled",
-      "date": "July 20",
-      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
-    },
-    {
-      "status": "Job Cancelled",
-      "date": "July 20",
-      "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."
-    },
+    {"status": "Pending", "date": "July 20", "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."},
+    {"status": "Job Cancelled", "date": "July 20", "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."},
+    {"status": "Job Cancelled", "date": "July 20", "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."},
+    {"status": "Job Cancelled", "date": "July 20", "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."},
+    {"status": "Job Cancelled", "date": "July 20", "desc": "Lorem ipsum dolor sit amet consectetur adipiscing elit odio."},
   ];
 }

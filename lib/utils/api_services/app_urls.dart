@@ -80,6 +80,7 @@ class UserUrls {
   //chats
 
   static const getSingleChat = "${baseUrl}chat";
+  static const sendMedia = "${baseUrl}attachment";
 }
 
 // class ProfessionalUrls {

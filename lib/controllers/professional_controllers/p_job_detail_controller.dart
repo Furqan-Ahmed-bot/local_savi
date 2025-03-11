@@ -12,6 +12,8 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:http/http.dart' as http;
 
+import '../../resources/map/trackingController.dart';
+
 class PJobDetailController extends GetxController {
   RxBool showBottomButton = false.obs;
   RxBool showActionButton = false.obs;
@@ -21,6 +23,8 @@ class PJobDetailController extends GetxController {
   RxString jobId = "".obs;
   var jobDetailDatail = {};
   RxBool isTraseable = false.obs;
+
+  final trackingController = Get.put(DriverGoogleMapController());
 
   List dummyData = [
     {
@@ -53,11 +57,12 @@ class PJobDetailController extends GetxController {
     buttonText.value = Get.arguments['bottomButtonText'] ?? "";
     jobId.value = Get.arguments['jobId'] ?? "";
 
+    socketController.getTrackingData(jobId.value);
     getData();
     super.onInit();
   }
 
-  journeyChange(String status) async {
+  journeyChange(String status, {var lat, var lng}) async {
     showDialog(
         context: Get.context!,
         builder: (BuildContext context) {
@@ -69,15 +74,10 @@ class PJobDetailController extends GetxController {
           );
         });
 
-    var headers = {
-      'Content-Type': 'application/json',
-      'Authorization': token.value
-    };
+    var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
 
-    var request =
-        http.Request('POST', Uri.parse(UserUrls.journeyStatus + jobId.value));
-    request.body = json.encode(
-        {"status": status, "latitude": "24.881423", "longitude": "67.067795"});
+    var request = http.Request('POST', Uri.parse(UserUrls.journeyStatus + jobId.value));
+    request.body = json.encode({"status": status, "latitude": "24.881423", "longitude": "67.067795"});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -85,38 +85,36 @@ class PJobDetailController extends GetxController {
     if (response.statusCode == 200) {
       Get.close(1);
       if (status == "ONTHEWAY") {
+        trackingController.checkLocationPermission(jobId.value);
         buttonText.value = "Arrived";
+        socketController.giveTrackingData(jobId, lat, lng);
       } else if (status == "ARRIVED") {
+        // trackingController.checkLocationPermission(jobId.value);
         buttonText.value = "Mark As Completed";
       } else if (status == "COMPLETED") {
+        //trackingController.checkLocationPermission(jobId.value);
+
         showThankyouDialog(Get.context);
       }
-      Get.snackbar("Success", "Job Status Changed",
-          backgroundColor: ColorUtils.white);
+      Get.snackbar("Success", "Job Status Changed", backgroundColor: ColorUtils.white);
     } else {
       var data = jsonDecode(await response.stream.bytesToString());
       data['message'];
       Get.close(1);
-      Get.snackbar("Alert", "Something went wrong",
-          backgroundColor: ColorUtils.white);
+      Get.snackbar("Alert", "Something went wrong", backgroundColor: ColorUtils.white);
     }
   }
 
   getData() async {
     isLoading.value = true;
-    await UserServices.instance
-        .getSingleJobDetail(jobId: jobId.value)
-        .then((value) {
+    await UserServices.instance.getSingleJobDetail(jobId: jobId.value).then((value) {
       isLoading.value = false;
       jobDetailDatail = value['job'];
-      value['job']['job_journey'] != null &&
-              value['job']['job_journey'] == "ONTHEWAY"
+      value['job']['job_journey'] != null && value['job']['job_journey'] == "ONTHEWAY"
           ? buttonText.value = "Arrived"
-          : value['job']['job_journey'] != null &&
-                  value['job']['job_journey'] == "ARRIVED"
+          : value['job']['job_journey'] != null && value['job']['job_journey'] == "ARRIVED"
               ? buttonText.value = "Mark As Completed"
-              : value['job']['job_journey'] != null &&
-                      value['job']['job_journey'] == "COMPLETED"
+              : value['job']['job_journey'] != null && value['job']['job_journey'] == "COMPLETED"
                   ? buttonText.value = "COMPLETED"
                   : buttonText.value = buttonText.value;
 

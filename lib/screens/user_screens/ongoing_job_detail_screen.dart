@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -36,9 +36,10 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                   padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
                   children: [
                     20.h.verticalSpace,
-                    Obx(
-                      () => controller.isReached.value == true
-                          ? Container(
+                    Obx(() =>
+                            // controller.isReached.value == true
+                            //     ?
+                            Container(
                               padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
@@ -73,7 +74,7 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                                                               double.parse(controller.jobDetailDatail['longitude'])),
                                                           barAddress: controller.jobDetailDatail['location'] ?? 'N/A',
                                                           barlat: double.parse(controller.jobDetailDatail['latitude']) ?? 0.0,
-                                                          barlong: double.parse(controller.jobDetailDatail['longitude']) ?? 0.0,
+                                                          barlng: double.parse(controller.jobDetailDatail['longitude']) ?? 0.0,
                                                         ),
                                                     transition: Transition.fadeIn);
                                                 // Get.back();
@@ -96,6 +97,7 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                                   controller.isReached.value ? 20.h.verticalSpace : 0.h.verticalSpace,
                                   controller.isReached.value
                                       ? Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             30.w.horizontalSpace,
                                             GestureDetector(
@@ -228,8 +230,8 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                                 ],
                               ),
                             )
-                          : SizedBox(),
-                    ),
+                        // : SizedBox(),
+                        ),
                     20.h.verticalSpace,
                     Text(
                       "Employee",
