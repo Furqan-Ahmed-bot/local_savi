@@ -239,6 +239,7 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                     ),
                     12.h.verticalSpace,
                     shortlistUserCard(
+                        chatId: controller.jobDetailDatail['chat_id'],
                         id: controller.jobDetailDatail['performer_id'],
                         profilePicture: controller.jobDetailDatail['performer']['user_details']['profile_picture'],
                         context: context,

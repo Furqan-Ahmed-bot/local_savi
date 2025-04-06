@@ -13,6 +13,8 @@ import 'package:local_saviors/resources/map/show_map_screen.dart';
 import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 
+import '../../resources/components/image_viewer.dart';
+
 class UpcomingJobDetailScreen extends GetWidget<UpcomingJobDetailScreenController> {
   @override
   Widget build(BuildContext context) {
@@ -86,8 +88,16 @@ class UpcomingJobDetailScreen extends GetWidget<UpcomingJobDetailScreenControlle
                                       padding: EdgeInsets.only(right: 10.w),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10.r),
-                                        child: Image.network(
-                                            height: 80, width: 80, fit: BoxFit.fill, controller.jobDetailDatail['job_media'][index]['media_file']),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Get.to(() => ImageViewer(
+                                                  images: controller.jobDetailDatail['job_media'],
+                                                  initialIndex: index,
+                                                ));
+                                          },
+                                          child: Image.network(
+                                              height: 80, width: 80, fit: BoxFit.fill, controller.jobDetailDatail['job_media'][index]['media_file']),
+                                        ),
                                       ),
                                     )),
                           ),

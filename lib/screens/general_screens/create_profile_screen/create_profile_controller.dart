@@ -27,7 +27,6 @@ class CreateProfileController extends GetxController {
   final createProfileTwoController = Get.put(CreatePorfileTwoController());
   final createHandyManProfileController = Get.put(CreateHandymanPorfileController());
   final imagePickerController = Get.put(ImagePickerController());
-
   var latitide;
   var longitude;
   RxString state = "".obs;

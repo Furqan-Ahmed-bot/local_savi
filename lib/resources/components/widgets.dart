@@ -844,7 +844,13 @@ Widget bestPerformerCard({
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(RouteName.chatScreenPath);
+                //  Get.toNamed(RouteName.chatScreenPath, arguments: {
+                //                                       "providerId": id,
+                //                                       "jobId": jobId,
+                //                                       'username': name,
+                //                                       'chat_id': chatId,
+                //                                       'profile_picture': image
+                //                                     });
               },
               child: Container(
                 padding: EdgeInsets.all(10.sp),

@@ -67,8 +67,7 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                       50.verticalSpace,
                       Text(
                         'Verification?',
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       ),
                       20.verticalSpace,
                       Text(
@@ -78,10 +77,12 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                         ),
                       ),
                       Center(
-                        child: Text(
-                          '${OTP}',
-                          style: TextStyle(
-                            fontSize: 13,
+                        child: Obx(
+                          () => Text(
+                            '${OTP.value}',
+                            style: TextStyle(
+                              fontSize: 13,
+                            ),
                           ),
                         ),
                       ),
@@ -140,14 +141,9 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                           onPress: () {
                             if (controller.otpPin.value.length == 6) {
                               UserServices.instance.verifyOTPService(
-                                  context: context,
-                                  isProfileCompleetd: isProfileCreated,
-                                  otp: controller.otpPin.value,
-                                  isForgetPassword: args.data);
+                                  context: context, isProfileCompleetd: isProfileCreated, otp: controller.otpPin.value, isForgetPassword: args.data);
                             } else {
-                              Get.snackbar(
-                                  "Alert", "Please enter correct OTP pin",
-                                  backgroundColor: ColorUtils.white);
+                              Get.snackbar("Alert", "Please enter correct OTP pin", backgroundColor: ColorUtils.white);
                             }
                           }),
                       40.verticalSpace,
@@ -161,8 +157,7 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                             boxShadow: <BoxShadow>[
                               BoxShadow(
                                   offset: const Offset(0, 1),
-                                  color:
-                                      const Color(0xff000029).withOpacity(0.20),
+                                  color: const Color(0xff000029).withOpacity(0.20),
                                   blurRadius: 10) //blur radius of shadow
                             ],
                           ),
@@ -253,8 +248,7 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                       controller.complete == true
                           ? GestureDetector(
                               onTap: () {
-                                UserServices.instance.resendOTPService(
-                                    context: context, email: email.value);
+                                UserServices.instance.resendOTPService(context: context, email: email.value);
                                 controller.countDownController.start();
                                 controller.complete = false;
 
@@ -265,17 +259,13 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                                 children: [
                                   Text(
                                     'Didn’t receive code? ',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14.sp, color: Colors.black),
+                                    style: GoogleFonts.poppins(fontSize: 14.sp, color: Colors.black),
                                   ),
                                   SizedBox(width: 1.w),
                                   Text(
                                     'Resend',
                                     style: GoogleFonts.inter(
-                                        fontSize: 15.sp,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline),
+                                        fontSize: 15.sp, color: Colors.black, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
                                   ),
                                 ],
                               ),

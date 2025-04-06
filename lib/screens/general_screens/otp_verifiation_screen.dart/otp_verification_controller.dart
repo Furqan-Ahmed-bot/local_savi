@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 
 class OtpVerificationController extends GetxController {
-  final int duration = 60;
+  final int duration = 30;
   RxString otpPin = "".obs;
 
   final otpPinFieldController = GlobalKey<OtpPinFieldState>();

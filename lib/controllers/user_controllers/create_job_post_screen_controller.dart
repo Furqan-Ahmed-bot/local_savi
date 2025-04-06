@@ -36,14 +36,29 @@ class CreateJobPostScreenController extends GetxController {
   File? image;
   List listOfImages = [];
   final picker = ImagePicker();
-  Future getImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+  // Future getImage() async {
+  //   final pickedFile = await picker.pickMultiImage(
+  //     source: ImageSource.gallery,
+  //   );
 
-    if (pickedFile != null) {
-      image = File(pickedFile.path);
-      listOfImages.add(image);
-      update();
-    } else {}
+  //   if (pickedFile != null) {
+  //     image = File(pickedFile.path);
+  //     listOfImages.add(image);
+  //     update();
+  //   } else {}
+  // }
+
+  Future getImage() async {
+    final picker = ImagePicker();
+
+    final List<XFile>? pickedFiles = await picker.pickMultiImage();
+
+    if (pickedFiles != null && pickedFiles.isNotEmpty) {
+      for (var file in pickedFiles) {
+        listOfImages.add(File(file.path));
+        update();
+      }
+    }
   }
 
   Future<void> selectDate(BuildContext context) async {

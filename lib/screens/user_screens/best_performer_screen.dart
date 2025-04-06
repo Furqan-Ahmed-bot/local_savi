@@ -7,8 +7,6 @@ import 'package:local_saviors/controllers/user_controllers/best_performer_screen
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/constant.dart';
 
-import '../../controllers/user_controllers/home_screen_controller.dart';
-
 class BestPerformerScreen extends GetWidget<BestPerformerScreenController> {
   // final homeController = Get.put(HomeScreenController());
 

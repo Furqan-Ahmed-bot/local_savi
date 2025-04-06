@@ -57,7 +57,7 @@ class UserServices {
         'Content-Type': 'application/json',
       };
       var request = http.Request('POST', Uri.parse(UserUrls.loginUrl));
-      request.body = json.encode({"identifier": userEmail, "password": password, "fcm_token": "asdf"});
+      request.body = json.encode({"identifier": userEmail.toLowerCase(), "password": password, "fcm_token": "asdf"});
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
@@ -118,7 +118,7 @@ class UserServices {
       };
       var request = http.Request('POST', Uri.parse(UserUrls.signupUrl));
       request.body = json.encode({
-        "identifier": emailAddress,
+        "identifier": emailAddress.toLowerCase(),
         "user_type": type,
         "password": password,
       });
@@ -129,7 +129,7 @@ class UserServices {
 
       if (response.statusCode == 200) {
         email.value = emailAddress;
-        OTP = responseData['data']['otp'];
+        OTP.value = responseData['data']['otp'];
         // pass.value = password;
         Get.close(1);
         Get.snackbar("OTP CODE", responseData['data']['otp'].toString(), backgroundColor: ColorUtils.white);
@@ -193,7 +193,6 @@ class UserServices {
         }
       } else {
         Get.close(1);
-        debugPrint(await response.stream.bytesToString());
         Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       }
     } catch (e) {
@@ -230,7 +229,8 @@ class UserServices {
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        debugPrint(responseData);
+        print(responseData['data']);
+        OTP.value = responseData['data']['otp'];
         Get.close(1);
         Get.snackbar("Success", responseData['message'].toString(), backgroundColor: ColorUtils.white);
       } else {

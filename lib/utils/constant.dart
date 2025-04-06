@@ -18,7 +18,7 @@ late GetChatController chatController;
 
 var userId;
 
-var OTP;
+RxString OTP = "".obs;
 // RxString pass = "".obs;
 // RxString ppas = "".obs;
 // RxString pemail = "".obs;
