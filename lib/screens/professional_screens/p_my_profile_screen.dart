@@ -33,7 +33,8 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                 padding: EdgeInsets.all(8.sp),
                 height: 40.h,
                 width: 40.w,
-                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                 child: Image.asset(
                   ImageAssets.editIcon,
                   color: ColorUtils.red,
@@ -44,7 +45,8 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
           ]),
           Expanded(
               child: ListView(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 46.h, bottom: 30.h),
+            padding: EdgeInsets.only(
+                left: 20.w, right: 20.w, top: 46.h, bottom: 30.h),
             children: [
               GetBuilder<PMyProfileController>(builder: (controller) {
                 return controller.isLoading.value
@@ -55,7 +57,9 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                         children: [
                           Stack(
                             children: [
-                              controller.performerdata.userDetails!.profilePicture == null
+                              controller.performerdata.userDetails!
+                                          .profilePicture ==
+                                      null
                                   ? Image.asset(
                                       ImageAssets.userProfileImg,
                                       scale: 2,
@@ -63,11 +67,16 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                   : Container(
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        border: Border.all(color: ColorUtils.red, width: 4),
+                                        border: Border.all(
+                                            color: ColorUtils.red, width: 4),
                                       ),
                                       child: CircleAvatar(
                                         radius: 50,
-                                        backgroundImage: NetworkImage(controller.performerdata.userDetails!.profilePicture ?? ""),
+                                        backgroundImage: NetworkImage(controller
+                                                .performerdata
+                                                .userDetails!
+                                                .profilePicture ??
+                                            ""),
                                       ),
                                     ),
                               Positioned(
@@ -80,8 +89,10 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                           ),
                           16.h.verticalSpace,
                           Text(
-                            "${controller.performerdata.userDetails!.firstName} " + "${controller.performerdata.userDetails!.lastName}",
-                            style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                            "${controller.performerdata.userDetails!.firstName} " +
+                                "${controller.performerdata.userDetails!.lastName}",
+                            style: TextStyle(
+                                fontSize: 24.sp, fontWeight: FontWeight.bold),
                           ),
                           12.h.verticalSpace,
                           GestureDetector(
@@ -103,13 +114,16 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                 5.w.horizontalSpace,
                                 Text(
                                   "Rating",
-                                  style: TextStyle(fontSize: 18.sp, decoration: TextDecoration.underline),
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      decoration: TextDecoration.underline),
                                 ),
                                 10.w.horizontalSpace,
                                 Container(
                                   height: 20.h,
                                   width: 1.w,
-                                  color: ColorUtils.borderColor.withOpacity(0.5),
+                                  color:
+                                      ColorUtils.borderColor.withOpacity(0.5),
                                 ),
                                 10.w.horizontalSpace,
                                 Text(
@@ -119,7 +133,9 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                 5.w.horizontalSpace,
                                 Text(
                                   "Reviews",
-                                  style: TextStyle(fontSize: 18.sp, decoration: TextDecoration.underline),
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      decoration: TextDecoration.underline),
                                 ),
                               ],
                             ),
@@ -137,7 +153,8 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.w),
                                 color: ColorUtils.white,
-                                border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                border: Border.all(
+                                    width: 1.w, color: ColorUtils.borderColor)),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -148,14 +165,18 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                       // mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Container(
                                               // width: 0.3.sw,
-                                              margin: EdgeInsets.only(right: 20.w),
+                                              margin:
+                                                  EdgeInsets.only(right: 20.w),
                                               child: Text(
-                                                controller.dummyData[index]['title'],
+                                                controller.dummyData[index]
+                                                    ['title'],
                                                 style: TextStyle(
                                                   fontSize: 16.sp,
                                                   fontWeight: FontWeight.w600,
@@ -164,7 +185,8 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                             ),
                                             Flexible(
                                               child: Text(
-                                                controller.dummyData[index]["value"],
+                                                controller.dummyData[index]
+                                                    ["value"],
                                                 style: TextStyle(
                                                   fontSize: 16.sp,
                                                   fontWeight: FontWeight.w400,
@@ -175,7 +197,8 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                         ),
                                         16.h.verticalSpace,
                                         Divider(
-                                          color: ColorUtils.borderColor.withOpacity(0.5),
+                                          color: ColorUtils.borderColor
+                                              .withOpacity(0.5),
                                         ),
                                         16.h.verticalSpace,
                                       ],
@@ -197,7 +220,9 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                     Container(
                                       height: 200,
                                       clipBehavior: Clip.hardEdge,
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
                                       child: GestureDetector(
                                         onTap: () async {},
                                         child: GoogleMap(
@@ -206,15 +231,34 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                             // _controller.complete(controller);
                                           },
                                           initialCameraPosition: CameraPosition(
-                                            target: LatLng(double.parse(controller.performerdata.userDetails!.latitude.toString()),
-                                                double.parse(controller.performerdata.userDetails!.longitude.toString())),
+                                            target: LatLng(
+                                                double.parse(controller
+                                                    .performerdata
+                                                    .userDetails!
+                                                    .longitude
+                                                    .toString()),
+                                                double.parse(controller
+                                                    .performerdata
+                                                    .userDetails!
+                                                    .latitude
+                                                    .toString())),
                                             zoom: 5,
                                           ),
                                           onTap: (latLng) async {
-                                            LatLng? result = await Get.to(() => ShowMapScreen(
-                                                isProfile: true,
-                                                initialLocation: LatLng(double.parse(controller.performerdata.userDetails!.latitude.toString()),
-                                                    double.parse(controller.performerdata.userDetails!.longitude.toString()))));
+                                            LatLng? result = await Get.to(() =>
+                                                ShowMapScreen(
+                                                    isProfile: true,
+                                                    initialLocation: LatLng(
+                                                        double.parse(controller
+                                                            .performerdata
+                                                            .userDetails!
+                                                            .longitude
+                                                            .toString()),
+                                                        double.parse(controller
+                                                            .performerdata
+                                                            .userDetails!
+                                                            .latitude
+                                                            .toString()))));
                                             // LatLng? result = await
                                             // Get.to(
                                             //   () => ShowMapScreen(
@@ -255,18 +299,28 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                   padding: EdgeInsets.all(0),
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
-                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 15, mainAxisExtent: 117),
-                                  itemCount: controller.performerdata.documents!.length,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 3,
+                                          crossAxisSpacing: 15,
+                                          mainAxisSpacing: 15,
+                                          mainAxisExtent: 117),
+                                  itemCount: controller
+                                      .performerdata.documents!.length,
                                   itemBuilder: (_, i) {
                                     return Container(
                                       height: 117.h,
                                       width: 117.w,
                                       decoration: BoxDecoration(
                                         color: context.primary,
-                                        borderRadius: BorderRadius.circular(7.r),
+                                        borderRadius:
+                                            BorderRadius.circular(7.r),
                                         image: DecorationImage(
-                                          image: NetworkImage(controller.performerdata.documents![i].mediaFile.toString()),
+                                          image: NetworkImage(controller
+                                              .performerdata
+                                              .documents![i]
+                                              .mediaFile
+                                              .toString()),
                                           fit: BoxFit.cover,
                                         ),
                                       ),

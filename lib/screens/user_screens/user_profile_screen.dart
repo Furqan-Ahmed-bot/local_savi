@@ -35,7 +35,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         children: [
           Expanded(
             child: ListView(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 46.h, bottom: 110.h),
+              padding: EdgeInsets.only(
+                  left: 20.w, right: 20.w, top: 46.h, bottom: 110.h),
               children: [
                 Obx(
                   () => controller.isLoading.value
@@ -44,7 +45,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           builder: (controller) {
                             return Column(
                               children: [
-                                controller.userdata.userDetails!.profilePicture == null
+                                controller.userdata.userDetails!
+                                            .profilePicture ==
+                                        null
                                     ? Image.asset(
                                         ImageAssets.userProfileImg,
                                         scale: 2,
@@ -52,21 +55,28 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     : Container(
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          border: Border.all(color: ColorUtils.red, width: 4),
+                                          border: Border.all(
+                                              color: ColorUtils.red, width: 4),
                                         ),
                                         child: CircleAvatar(
                                           radius: 50,
-                                          backgroundImage: NetworkImage(controller.userdata.userDetails!.profilePicture ?? ""),
+                                          backgroundImage: NetworkImage(
+                                              controller.userdata.userDetails!
+                                                      .profilePicture ??
+                                                  ""),
                                         ),
                                       ),
                                 16.h.verticalSpace,
                                 Text(
                                   "${controller.userdata.userDetails!.firstName.toString().capitalizeFirst ?? ""} ${controller.userdata.userDetails!.lastName.toString().capitalizeFirst ?? ""}",
-                                  style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                      fontSize: 24.sp,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 16.h.verticalSpace,
                                 Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
                                   child: Divider(
                                     color: ColorUtils.black.withOpacity(0.3),
                                   ),
@@ -77,9 +87,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10.w),
                                       color: ColorUtils.white,
-                                      border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                      border: Border.all(
+                                          width: 1.w,
+                                          color: ColorUtils.borderColor)),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Column(
                                         children: List.generate(
@@ -87,25 +100,33 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                           (index) => Column(
                                             children: [
                                               Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
-                                                    margin: EdgeInsets.only(right: 20.w),
+                                                    margin: EdgeInsets.only(
+                                                        right: 20.w),
                                                     child: Text(
-                                                      controller.userData[index]['title'],
+                                                      controller.userData[index]
+                                                          ['title'],
                                                       style: TextStyle(
                                                         fontSize: 16.sp,
-                                                        fontWeight: FontWeight.w600,
+                                                        fontWeight:
+                                                            FontWeight.w600,
                                                       ),
                                                     ),
                                                   ),
                                                   Flexible(
                                                     child: Text(
-                                                      controller.userData[index]["value"],
+                                                      controller.userData[index]
+                                                          ["value"],
                                                       style: TextStyle(
                                                         fontSize: 16.sp,
-                                                        fontWeight: FontWeight.w400,
+                                                        fontWeight:
+                                                            FontWeight.w400,
                                                       ),
                                                     ),
                                                   ),
@@ -113,7 +134,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                               ),
                                               16.h.verticalSpace,
                                               Divider(
-                                                color: ColorUtils.borderColor.withOpacity(0.5),
+                                                color: ColorUtils.borderColor
+                                                    .withOpacity(0.5),
                                               ),
                                               16.h.verticalSpace,
                                             ],
@@ -129,33 +151,76 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                       ),
                                       10.h.verticalSpace,
                                       Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           10.verticalSpace,
                                           Container(
                                             height: 200,
                                             clipBehavior: Clip.hardEdge,
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
                                             child: GestureDetector(
                                               onTap: () async {},
                                               child: GoogleMap(
                                                 onMapCreated: (controller) {
-                                                  print("Map created: $controller");
+                                                  print(
+                                                      "Map created: $controller");
                                                 },
-                                                initialCameraPosition: CameraPosition(
+                                                initialCameraPosition:
+                                                    CameraPosition(
                                                   target: LatLng(
-                                                    double.parse(controller.userdata.userDetails!.latitude.toString()),
-                                                    double.parse(controller.userdata.userDetails!.longitude.toString()),
+                                                    double.parse(controller
+                                                        .userdata
+                                                        .userDetails!
+                                                        .longitude
+                                                        .toString()),
+                                                    double.parse(controller
+                                                        .userdata
+                                                        .userDetails!
+                                                        .latitude
+                                                        .toString()),
                                                   ),
                                                   zoom: 5,
                                                 ),
+                                                markers: Set<Marker>.from([
+                                                  Marker(
+                                                      markerId:
+                                                          MarkerId("Positon"),
+                                                      position: LatLng(
+                                                          double.parse(
+                                                              controller
+                                                                  .userdata
+                                                                  .userDetails!
+                                                                  .longitude
+                                                                  .toString()),
+                                                          double.parse(
+                                                              controller
+                                                                  .userdata
+                                                                  .userDetails!
+                                                                  .latitude
+                                                                  .toString())))
+                                                ]),
                                                 onTap: (latLng) async {
                                                   LatLng? result = await Get.to(
                                                     () => ShowMapScreen(
                                                       isProfile: true,
+                                                      address: controller
+                                                          .userdata
+                                                          .userDetails!
+                                                          .address,
                                                       initialLocation: LatLng(
-                                                        double.parse(controller.userdata.userDetails!.latitude.toString()),
-                                                        double.parse(controller.userdata.userDetails!.longitude.toString()),
+                                                        double.parse(controller
+                                                            .userdata
+                                                            .userDetails!
+                                                            .longitude
+                                                            .toString()),
+                                                        double.parse(controller
+                                                            .userdata
+                                                            .userDetails!
+                                                            .latitude
+                                                            .toString()),
                                                       ),
                                                     ),
                                                   );

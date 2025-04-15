@@ -18,7 +18,8 @@ import 'utils/routes/routes_name.dart';
 final navigationKey = GlobalKey<NavigatorState>();
 
 void main() {
-  Stripe.publishableKey = "pk_test_51Q5Qo3COooK1jUT3eDq4GfwDaWj1poPVKM3fC7aUr0GppsWaHwVM4PSQowX6GbEA7cTUloh9g7TjjCRCKJ7qhbBV00lG4mWbuY";
+  Stripe.publishableKey =
+      "pk_test_51Q5Qo3COooK1jUT3eDq4GfwDaWj1poPVKM3fC7aUr0GppsWaHwVM4PSQowX6GbEA7cTUloh9g7TjjCRCKJ7qhbBV00lG4mWbuY";
   hsController = Get.put(HomeScreenController());
   phController = Get.put(PHomeController());
   socketController = Get.put(SocketController());
@@ -47,7 +48,8 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            appBarTheme: AppBarTheme(elevation: 0, surfaceTintColor: Colors.transparent),
+            appBarTheme:
+                AppBarTheme(elevation: 0, surfaceTintColor: Colors.transparent),
             applyElevationOverlayColor: false,
             splashColor: Colors.transparent,
             splashFactory: NoSplash.splashFactory,

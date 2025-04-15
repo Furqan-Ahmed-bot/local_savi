@@ -25,8 +25,8 @@ class NotificationScreen extends GetWidget<NotificationScreenController> {
             26.h.verticalSpace,
             InkWell(
               onTap: () {
-                Get.toNamed(RouteName.ongoingJobDetailScreenPath,
-                    arguments: {"isReached": true});
+                // Get.toNamed(RouteName.ongoingJobDetailScreenPath,
+                //     arguments: {"isReached": true});
               },
               child: Container(
                 margin: EdgeInsets.only(bottom: 12.sp),

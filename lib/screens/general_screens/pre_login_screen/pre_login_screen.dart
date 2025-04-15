@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_typing_uninitialized_variables
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:local_saviors/screens/general_screens/login_screen/login_screen.dart';
+
 import 'package:local_saviors/screens/general_screens/pre_login_screen/prelogin_controller.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 import '../../../resources/components/back_appbar_button.dart';
@@ -121,22 +123,23 @@ class PreLoginScreen extends GetWidget<PreloginController> {
                 buttonColor: Colors.transparent,
               ),
               20.verticalSpace,
-              RoundButton(
-                borderwigth: 1.2,
-                bordercolor: Color(0xffB2C2DC),
-                textColor: Colors.black,
-                isBorderEnable: true,
-                prefixIcon: Image.asset(
-                  ImageAssets.appleicon,
-                  scale: 1.5,
+              if (Platform.isIOS)
+                RoundButton(
+                  borderwigth: 1.2,
+                  bordercolor: Color(0xffB2C2DC),
+                  textColor: Colors.black,
+                  isBorderEnable: true,
+                  prefixIcon: Image.asset(
+                    ImageAssets.appleicon,
+                    scale: 1.5,
+                  ),
+                  width: 0.9.sw,
+                  title: 'Sign-In With Apple',
+                  onPress: () {
+                    // Get.to(LoginScreen());
+                  },
+                  buttonColor: Colors.transparent,
                 ),
-                width: 0.9.sw,
-                title: 'Sign-In With Google',
-                onPress: () {
-                  // Get.to(LoginScreen());
-                },
-                buttonColor: Colors.transparent,
-              ),
               Spacer(),
               Center(
                 child: Column(

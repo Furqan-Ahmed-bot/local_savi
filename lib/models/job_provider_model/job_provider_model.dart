@@ -14,7 +14,9 @@ class JobProviderModel {
     email = json['email'];
     userType = json['user_type'];
     phone = json['phone'];
-    userDetails = json['user_details'] != null ? new UserDetails.fromJson(json['user_details']) : null;
+    userDetails = json['user_details'] != null
+        ? new UserDetails.fromJson(json['user_details'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -41,6 +43,7 @@ class UserDetails {
   String? contactEmail;
   String? contactPhone;
   String? address;
+  String? gender;
   String? location;
   int? age;
 
@@ -52,6 +55,7 @@ class UserDetails {
       this.lastName,
       this.longitude,
       this.latitude,
+      this.gender,
       this.contactEmail,
       this.contactPhone,
       this.address,
@@ -66,6 +70,7 @@ class UserDetails {
     lastName = json['last_name'];
     longitude = json['longitude'];
     latitude = json['latitude'];
+    gender = json['gender'];
     contactEmail = json['contact_email'];
     contactPhone = json['contact_phone'];
     address = json['address'];
@@ -80,6 +85,7 @@ class UserDetails {
     data['date_of_birth'] = this.dateOfBirth;
     data['first_name'] = this.firstName;
     data['last_name'] = this.lastName;
+    data['gender'] = this.gender;
     data['longitude'] = this.longitude;
     data['latitude'] = this.latitude;
     data['contact_email'] = this.contactEmail;

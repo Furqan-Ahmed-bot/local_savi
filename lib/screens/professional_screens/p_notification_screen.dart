@@ -25,12 +25,12 @@ class PNotificationScreen extends GetWidget<PNotificationCoontroller> {
             26.h.verticalSpace,
             InkWell(
               onTap: () {
-                Get.toNamed(RouteName.pJobsDetailScreenPath, arguments: {
-                  "showBottomButton": true,
-                  "status": "Job Open",
-                  "showActionButton": false,
-                  "bottomButtonText": "Cancel Job"
-                });
+                // Get.toNamed(RouteName.pJobsDetailScreenPath, arguments: {
+                //   "showBottomButton": true,
+                //   "status": "Job Open",
+                //   "showActionButton": false,
+                //   "bottomButtonText": "Cancel Job"
+                // });
               },
               child: Container(
                 margin: EdgeInsets.only(bottom: 12.sp),
@@ -120,12 +120,12 @@ class PNotificationScreen extends GetWidget<PNotificationCoontroller> {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(RouteName.pJobsDetailScreenPath, arguments: {
-                  "showBottomButton": true,
-                  "status": "Ongoing",
-                  "showActionButton": false,
-                  "bottomButtonText": "On The Way"
-                });
+                // Get.toNamed(RouteName.pJobsDetailScreenPath, arguments: {
+                //   "showBottomButton": true,
+                //   "status": "Ongoing",
+                //   "showActionButton": false,
+                //   "bottomButtonText": "On The Way"
+                // });
               },
               child: Container(
                 margin: EdgeInsets.only(bottom: 12.sp),

@@ -17,14 +17,13 @@ class ShowMapScreen extends StatefulWidget {
 
 class _ShowMapScreenState extends State<ShowMapScreen> {
   LatLng? selectedLocation;
-  Set<Circle> circles = {}; // Store circles for different radii
+  Set<Circle> circles = {};
   TextEditingController searchController = TextEditingController();
   Completer<GoogleMapController> _controller = Completer();
   @override
   void initState() {
     super.initState();
 
-    // Initialize selectedLocation with the initialLocation provided
     selectedLocation = widget.initialLocation;
   }
 
