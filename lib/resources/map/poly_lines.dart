@@ -24,8 +24,8 @@ class _BarDetailsScreenState extends State<BarDetailsScreen> {
 
   @override
   void initState() {
-    socketController.userlat = double.parse(widget.barlat);
-    socketController.userlng = double.parse(widget.barlng);
+    socketController.userlat = double.parse(widget.barlat.toString());
+    socketController.userlng = double.parse(widget.barlng.toString());
     // TODO: implement initState
     super.initState();
   }

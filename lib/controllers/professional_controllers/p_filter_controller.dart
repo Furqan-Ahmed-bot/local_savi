@@ -15,8 +15,8 @@ class PFilterController extends GetxController {
   TextEditingController locationEditingController = TextEditingController();
 
   var jobTimeHours;
-  var lat = 24.535;
-  var long = 66.5;
+  var lat;
+  var long;
   RxBool isLoading = false.obs;
 
   List filteredJobs = [];
@@ -28,10 +28,10 @@ class PFilterController extends GetxController {
   RxDouble maxRadius = 0.0.obs;
 
   RxDouble startPrice = 150.0.obs;
-  RxDouble minBudget = 150.0.obs;
+  RxDouble minBudget = 0.0.obs;
 
   RxDouble endPrice = 200.0.obs;
-  RxDouble maxBudget = 150.0.obs;
+  RxDouble maxBudget = 0.0.obs;
 
   String? selectedHours = '00';
   String? selectedMints = '00';
@@ -91,8 +91,8 @@ class PFilterController extends GetxController {
       if (long != null) 'longitude': long.toString(),
       if (minRadius.value != 0.0) 'min_radius': minRadius.value.toString(),
       if (maxRadius.value != 0.0) 'max_radius': maxRadius.value.toString(),
-      if (minBudget.value != 0.0) 'min_budget': minBudget.value.toString(),
-      if (maxBudget.value != 0.0) 'max_budget': maxBudget.value.toString(),
+      if (minBudget!.value != 0.0) 'min_budget': minBudget!.value.toString(),
+      if (maxBudget!.value != 0.0) 'max_budget': maxBudget!.value.toString(),
     };
 
     // var queryParameters = {

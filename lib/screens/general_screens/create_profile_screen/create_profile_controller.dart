@@ -22,19 +22,17 @@ class CreateProfileController extends GetxController {
   TextEditingController addresscontroller = TextEditingController();
   TextEditingController locationcontroller = TextEditingController();
   TextEditingController aboutcontroller = TextEditingController();
-  TextEditingController emailcontroller =
-      TextEditingController(text: email.value);
+  TextEditingController emailcontroller = TextEditingController(text: email.value);
   TextEditingController phonecontroller = TextEditingController();
   final createProfileTwoController = Get.put(CreatePorfileTwoController());
-  final createHandyManProfileController =
-      Get.put(CreateHandymanPorfileController());
+  final createHandyManProfileController = Get.put(CreateHandymanPorfileController());
   final imagePickerController = Get.put(ImagePickerController());
   var latitide;
   var longitude;
   RxString state = "".obs;
   RxString city = "".obs;
   String? selectedGender;
-  List<String> gender = ['Male', 'Female'];
+  List<String> gender = ['Gender' 'Male', 'Female'];
   File? image;
   final picker = ImagePicker();
   DateTime selectedDate = DateTime.now();
@@ -79,46 +77,36 @@ class CreateProfileController extends GetxController {
 
   validation(context) {
     if (image == null) {
-      return Get.snackbar("Alert", "Please select image",
-          backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please select image", backgroundColor: ColorUtils.white);
     }
     if (firstNamecontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please Enter First Name",
-          backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please Enter First Name", backgroundColor: ColorUtils.white);
     }
     if (lastNamecontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please Enter Last Name",
-          backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please Enter Last Name", backgroundColor: ColorUtils.white);
     }
     if (datecontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please select Date Of Birth",
-          backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please select Date Of Birth", backgroundColor: ColorUtils.white);
     }
     if (addresscontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please Enter Address",
-          backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please Enter Address", backgroundColor: ColorUtils.white);
     }
     if (latitide == null) {
-      return Get.snackbar("Alert", "Please Select Location ",
-          backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please Select Location ", backgroundColor: ColorUtils.white);
     }
 
     if (aboutcontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "About Should Not Be Empty",
-          backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "About Should Not Be Empty", backgroundColor: ColorUtils.white);
     }
     if (phonecontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please Enter Phone Number",
-          backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please Enter Phone Number", backgroundColor: ColorUtils.white);
     }
     if (selectedGender == null) {
-      return Get.snackbar("Alert", "Please Select Gender",
-          backgroundColor: ColorUtils.white);
+      return Get.snackbar("Alert", "Please Select Gender", backgroundColor: ColorUtils.white);
     }
-    if (state.value == "") {
-      return Get.snackbar("Alert", "Please Select State",
-          backgroundColor: ColorUtils.white);
-    }
+    // if (state.value == "") {
+    //   return Get.snackbar("Alert", "Please Select State", backgroundColor: ColorUtils.white);
+    // }
     try {
       if (role.value == 'USER') {
         UserServices.instance.createProfileService(
@@ -141,8 +129,7 @@ class CreateProfileController extends GetxController {
         if (role.value == 'PROFESSIONAL') {
           Get.toNamed(RouteName.cretaetProfileTwoPath);
           if (createProfileTwoController.professionIds.isEmpty) {
-            return Get.snackbar("Alert", "Please Select Profession",
-                backgroundColor: ColorUtils.white);
+            return Get.snackbar("Alert", "Please Select Profession", backgroundColor: ColorUtils.white);
           } else {
             UserServices.instance.createJobPerformerProfile(
                 context: context,
@@ -168,8 +155,7 @@ class CreateProfileController extends GetxController {
         } else {
           Get.toNamed(RouteName.createHandyManProfilePath);
           if (createHandyManProfileController.professionIds.isEmpty) {
-            return Get.snackbar("Alert", "Please Select Categories",
-                backgroundColor: ColorUtils.white);
+            return Get.snackbar("Alert", "Please Select Categories", backgroundColor: ColorUtils.white);
           } else {
             UserServices.instance.createJobPerformerProfile(
                 context: context,

@@ -18,8 +18,9 @@ import 'utils/routes/routes_name.dart';
 final navigationKey = GlobalKey<NavigatorState>();
 
 void main() {
-  Stripe.publishableKey =
-      "pk_test_51Q5Qo3COooK1jUT3eDq4GfwDaWj1poPVKM3fC7aUr0GppsWaHwVM4PSQowX6GbEA7cTUloh9g7TjjCRCKJ7qhbBV00lG4mWbuY";
+  WidgetsFlutterBinding.ensureInitialized();
+
+  Stripe.publishableKey = "pk_test_51Q5Qo3COooK1jUT3eDq4GfwDaWj1poPVKM3fC7aUr0GppsWaHwVM4PSQowX6GbEA7cTUloh9g7TjjCRCKJ7qhbBV00lG4mWbuY";
   hsController = Get.put(HomeScreenController());
   phController = Get.put(PHomeController());
   socketController = Get.put(SocketController());
@@ -45,22 +46,26 @@ class MyApp extends StatelessWidget {
       designSize: const Size(430, 932),
       useInheritedMediaQuery: true,
       builder: (context, child) {
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            appBarTheme:
-                AppBarTheme(elevation: 0, surfaceTintColor: Colors.transparent),
-            applyElevationOverlayColor: false,
-            splashColor: Colors.transparent,
-            splashFactory: NoSplash.splashFactory,
-            highlightColor: Colors.transparent,
-            useMaterial3: true,
-            fontFamily: GoogleFonts.roboto().fontFamily,
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: const TextScaler.linear(1.01),
           ),
-          // home: MainScreen(),
-          getPages: AppRoutes.appRoutes(),
-          initialBinding: ScreenBindings(),
-          initialRoute: RouteName.splashScreen,
+          child: GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              appBarTheme: AppBarTheme(elevation: 0, surfaceTintColor: Colors.transparent),
+              applyElevationOverlayColor: false,
+              splashColor: Colors.transparent,
+              splashFactory: NoSplash.splashFactory,
+              highlightColor: Colors.transparent,
+              useMaterial3: true,
+              fontFamily: GoogleFonts.roboto().fontFamily,
+            ),
+            // home: MainScreen(),
+            getPages: AppRoutes.appRoutes(),
+            initialBinding: ScreenBindings(),
+            initialRoute: RouteName.splashScreen,
+          ),
         );
       },
     );

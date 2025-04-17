@@ -77,17 +77,12 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                             Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border:
-                                    Border.all(color: ColorUtils.red, width: 8),
+                                border: Border.all(color: ColorUtils.red, width: 8),
                               ),
                               child: CircleAvatar(
                                 radius: 50,
-                                backgroundImage: controller.image != null
-                                    ? FileImage(controller.image!)
-                                    : null,
-                                child: controller.image == null
-                                    ? Image.asset(ImageAssets.oliverImg)
-                                    : null,
+                                backgroundImage: controller.image != null ? FileImage(controller.image!) : null,
+                                child: controller.image == null ? Image.asset(ImageAssets.oliverImg) : null,
                               ),
                             ),
                             Positioned(
@@ -99,8 +94,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                                   padding: EdgeInsets.all(8),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color:
-                                        const Color.fromARGB(255, 45, 85, 118),
+                                    color: const Color.fromARGB(255, 45, 85, 118),
                                   ),
                                   child: Icon(
                                     Icons.camera_alt,
@@ -142,10 +136,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                                   letterSpacing: 0,
                                 ),
                                 border: InputBorder.none,
-                                contentPadding: const EdgeInsets.only(
-                                    bottom: 12,
-                                    top:
-                                        0.0), // this can adjust the label and text position
+                                contentPadding: const EdgeInsets.only(bottom: 12, top: 0.0), // this can adjust the label and text position
                                 //or transparent
                               ),
                               textAlignVertical: TextAlignVertical.bottom,
@@ -177,10 +168,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                                   letterSpacing: 0,
                                 ),
                                 border: InputBorder.none,
-                                contentPadding: const EdgeInsets.only(
-                                    bottom: 12,
-                                    top:
-                                        0.0), // this can adjust the label and text position
+                                contentPadding: const EdgeInsets.only(bottom: 12, top: 0.0), // this can adjust the label and text position
                                 //or transparent
                               ),
                               textAlignVertical: TextAlignVertical.bottom,
@@ -223,8 +211,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                               color: Color(0xffA5A5A5),
                             ), // Use hintText instead of labelText
                             border: InputBorder.none,
-                            contentPadding:
-                                EdgeInsets.only(bottom: 0, top: 7.0),
+                            contentPadding: EdgeInsets.only(bottom: 0, top: 7.0),
                           ),
                           value: controller.selectedGender,
                           icon: SizedBox.shrink(),
@@ -233,8 +220,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                                     value: gender,
                                     child: Text(
                                       gender,
-                                      style:
-                                          TextStyle(color: Color(0xffA5A5A5)),
+                                      style: TextStyle(color: Color(0xffA5A5A5)),
                                     ),
                                   ))
                               .toList(),
@@ -255,51 +241,51 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                           controller.update();
                         },
                       ),
-                      20.verticalSpace,
-                      InkWell(
-                        onTap: () {
-                          FocusScope.of(context).unfocus();
-                        },
-                        child: CSCPicker(
-                          showStates: true,
-                          showCities: true,
-                          dropdownDecoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                              color: Colors.white,
-                              border: Border.all(
-                                  color: Colors.grey.shade300, width: 1)),
-                          countrySearchPlaceholder: "Country",
-                          stateSearchPlaceholder: "State",
-                          citySearchPlaceholder: "City",
-                          countryDropdownLabel: "Country",
-                          stateDropdownLabel: "State",
-                          cityDropdownLabel: "City",
-                          defaultCountry: CscCountry.United_States,
-                          disableCountry: true,
-                          selectedItemStyle: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                          ),
-                          dropdownHeadingStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold),
-                          dropdownItemStyle: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                          ),
-                          dropdownDialogRadius: 10.0,
-                          searchBarRadius: 10.0,
-                          onCountryChanged: (value) {},
-                          onStateChanged: (value) {
-                            controller.state.value = value.toString();
-                          },
-                          onCityChanged: (value) {
-                            controller.city.value = value.toString();
-                          },
-                        ),
-                      ),
+                      // 20.verticalSpace,
+                      // InkWell(
+                      //   onTap: () {
+                      //     FocusScope.of(context).unfocus();
+                      //   },
+                      //   child: CSCPicker(
+                      //     showStates: true,
+                      //     showCities: true,
+                      //     dropdownDecoration: BoxDecoration(
+                      //         borderRadius:
+                      //             BorderRadius.all(Radius.circular(10)),
+                      //         color: Colors.white,
+                      //         border: Border.all(
+                      //             color: Colors.grey.shade300, width: 1)),
+                      //     countrySearchPlaceholder: "Country",
+                      //     stateSearchPlaceholder: "State",
+                      //     citySearchPlaceholder: "City",
+                      //     countryDropdownLabel: "Country",
+                      //     stateDropdownLabel: "State",
+                      //     cityDropdownLabel: "City",
+                      //     defaultCountry: CscCountry.United_States,
+                      //     disableCountry: true,
+                      //     selectedItemStyle: TextStyle(
+                      //       color: Colors.black,
+                      //       fontSize: 14,
+                      //     ),
+                      //     dropdownHeadingStyle: TextStyle(
+                      //         color: Colors.black,
+                      //         fontSize: 17,
+                      //         fontWeight: FontWeight.bold),
+                      //     dropdownItemStyle: TextStyle(
+                      //       color: Colors.black,
+                      //       fontSize: 14,
+                      //     ),
+                      //     dropdownDialogRadius: 10.0,
+                      //     searchBarRadius: 10.0,
+                      //     onCountryChanged: (value) {},
+                      //     onStateChanged: (value) {
+                      //       controller.state.value = value.toString();
+                      //     },
+                      //     onCityChanged: (value) {
+                      //       controller.city.value = value.toString();
+                      //     },
+                      //   ),
+                      // ),
                       20.verticalSpace,
                       LabelTextFormFieldWidget(
                         height: 50,
@@ -316,16 +302,12 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                             controller.latitide = result.latitude;
                             controller.longitude = result.longitude;
 
-                            List<Placemark> placemarks =
-                                await placemarkFromCoordinates(
-                                    result.latitude, result.longitude);
+                            List<Placemark> placemarks = await placemarkFromCoordinates(result.latitude, result.longitude);
                             if (placemarks.isNotEmpty) {
                               Placemark placemark = placemarks.first;
-                              String address =
-                                  "${placemark.name}, ${placemark.locality}";
+                              String address = "${placemark.name}, ${placemark.locality}";
 
-                              controller.locationcontroller.text =
-                                  address.toString();
+                              controller.locationcontroller.text = address.toString();
 
                               print(address);
                             }
@@ -373,10 +355,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                               letterSpacing: 0,
                             ),
                             border: InputBorder.none,
-                            contentPadding: const EdgeInsets.only(
-                                bottom: 13,
-                                top:
-                                    0.0), // this can adjust the label and text position
+                            contentPadding: const EdgeInsets.only(bottom: 13, top: 0.0), // this can adjust the label and text position
                             filled: true,
                             fillColor: Colors.transparent, //or transparent
                           ),

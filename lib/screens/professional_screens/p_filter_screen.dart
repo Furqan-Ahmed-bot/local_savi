@@ -353,7 +353,7 @@ class PFilterScreen extends GetWidget<PFilterController> {
                           Column(
                             children: [
                               Text(
-                                "10",
+                                "0",
                                 style: TextStyle(fontSize: 13.sp, color: ColorUtils.textColor),
                               ),
                               Text(
@@ -384,7 +384,7 @@ class PFilterScreen extends GetWidget<PFilterController> {
                           Column(
                             children: [
                               Text(
-                                "80",
+                                "100",
                                 style: TextStyle(fontSize: 13.sp, color: ColorUtils.textColor),
                               ),
                               Text(
@@ -407,15 +407,15 @@ class PFilterScreen extends GetWidget<PFilterController> {
                       child: Row(
                         children: [
                           Text(
-                            "\$100",
+                            "\$10",
                             style: TextStyle(fontSize: 13.sp, color: ColorUtils.textColor),
                           ),
                           Obx(
                             () => Expanded(
                               child: RangeSlider(
                                   values: RangeValues(controller.startPrice.value, controller.endPrice.value),
-                                  min: 100,
-                                  max: 350,
+                                  min: 10,
+                                  max: 1000,
                                   activeColor: ColorUtils.black,
                                   inactiveColor: ColorUtils.txtLightGrey,
                                   divisions: 20,
@@ -430,7 +430,7 @@ class PFilterScreen extends GetWidget<PFilterController> {
                             ),
                           ),
                           Text(
-                            "\$350",
+                            "\$1000",
                             style: TextStyle(fontSize: 13.sp, color: ColorUtils.textColor),
                           ),
                         ],

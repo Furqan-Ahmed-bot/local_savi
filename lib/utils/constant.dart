@@ -19,7 +19,7 @@ late GetChatController chatController;
 var userId;
 
 RxString OTP = "".obs;
-// RxString pass = "".obs;
+// RxString pass = "".obs;b
 // RxString ppas = "".obs;
 // RxString pemail = "".obs;
 RxString token = "".obs;
@@ -30,5 +30,5 @@ final spinkit = SpinKitFadingCircle(
   color: ColorUtils.red,
   size: 50.0,
   // controller: AnimationController(
-  //     vsync: this, duration: const Duration(milliseconds: 1200)),
+  //     vsync: this, duration: cons                                                                                            t Duration(milliseconds: 1200)),
 );
