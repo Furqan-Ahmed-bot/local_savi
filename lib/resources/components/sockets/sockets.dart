@@ -2,30 +2,33 @@
 
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:local_saviors/utils/api_services/app_urls.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:socket_io_client/socket_io_client.dart' as io;
-
 import 'chats_controller.dart';
+
+var userlat;
+var userlng;
 
 class SocketController extends GetxController {
   io.Socket? socket;
   final chatController = Get.put(GetChatController());
   // final myUserData = Get.find<UserProfileScreenController>();
   // final ChatController chatController = Get.find();
+  // final jobDetails = Get.put(OngoingJobDetailScreenController());
   Rx<GoogleMapController?> mapController = Rx<GoogleMapController?>(null);
   Rx<LatLng?> otherUserLocation = Rx<LatLng?>(null);
   RxSet<Polyline> polylines = <Polyline>{}.obs;
   RxList<LatLng> trackingRoute = <LatLng>[].obs;
   TextEditingController messageController = TextEditingController();
   LatLng? userLLocation;
-  var userlat;
-  var userlng;
+  LatLng? _lastEmittedLocation;
 
   connectSocket() {
     socket = io.io("${UserUrls.socketUrl}", <String, dynamic>{
@@ -38,7 +41,7 @@ class SocketController extends GetxController {
     });
 
     socket!.on('connect', (_) async {
-      log('Connected to socket server');
+      print('Connected to socket server');
 
       //await onSocketEvents();
 
@@ -46,34 +49,34 @@ class SocketController extends GetxController {
     });
 
     socket!.on('connect_error', (error) {
-      log('Connection error: $error');
+      print('Connection error: $error');
     });
 
     socket!.on('error', (error) {
-      log('Socket error: $error');
+      print('Socket error: $error');
     });
 
     socket!.on('disconnect', (reason) {
-      log('Socket disconnected: $reason');
+      print('Socket disconnected: $reason');
     });
   }
 
   onSocketEvents() {
     socket?.on('authenticate_me', (message) {
       try {
-        log('MESSAGE: $message');
+        print('MESSAGE: $message');
       } catch (e, stackTrace) {
-        log('Error handling MESSAGE event: $e');
-        log('Stack trace: $stackTrace');
+        print('Error handling MESSAGE event: $e');
+        print('Stack trace: $stackTrace');
       }
     });
 
     socket?.on('error', (message) {
       try {
-        log('READ_MESSAGE: $message');
+        print('READ_MESSAGE: $message');
       } catch (e, stackTrace) {
-        log('Error handling READ_MESSAGE event: $e');
-        log('Stack trace: $stackTrace');
+        print('Error handling READ_MESSAGE event: $e');
+        print('Stack trace: $stackTrace');
       }
     });
 
@@ -81,40 +84,40 @@ class SocketController extends GetxController {
         (message) {
       chatController.loading.value = true;
       try {
-        log('privateMessage: $message');
+        print('privateMessage: $message');
         chatController.chatsdata(message);
         // chatController.allMessages.insert(0, message);
       } catch (e, stackTrace) {
-        log('Error handling privateMessage event: $e');
-        log('Stack trace: $stackTrace');
+        print('Error handling privateMessage event: $e');
+        print('Stack trace: $stackTrace');
       }
     });
 
     socket?.on('privateMessage', (message) {
       try {
-        log('privateMessage: $message');
+        print('privateMessage: $message');
         chatController.allMessages.insert(0, message);
       } catch (e, stackTrace) {
-        log('Error handling privateMessage event: $e');
-        log('Stack trace: $stackTrace');
+        print('Error handling privateMessage event: $e');
+        print('Stack trace: $stackTrace');
       }
     });
 
     socket?.on('private_message_success', (message) {
       try {
-        log('privateMessage: $message');
+        print('privateMessage: $message');
       } catch (e, stackTrace) {
-        log('Error handling privateMessage event: $e');
-        log('Stack trace: $stackTrace');
+        print('Error handling privateMessage event: $e');
+        print('Stack trace: $stackTrace');
       }
     });
 
     socket?.on('error', (message) {
       try {
-        log('READ_MESSAGE: $message');
+        print('READ_MESSAGE: $message');
       } catch (e, stackTrace) {
-        log('Error handling READ_MESSAGE event: $e');
-        log('Stack trace: $stackTrace');
+        print('Error handling READ_MESSAGE event: $e');
+        print('Stack trace: $stackTrace');
       }
     });
   }
@@ -133,34 +136,26 @@ class SocketController extends GetxController {
     socket!.emit("leave_chat", {"access_token": token.value, "chat_id": chatId});
   }
 
-  // getTrackingData(jobId) {
-  //   socket!.on('track_now_cfddec10-a1cd-4812-8792-52da328e9b24', (data) {
-  //     try {
-  //       print(data);
-  //     } catch (e) {
-  //       print(e);
-  //     }
-  //   });
-  // }
-
   void getTrackingData(String jobId) {
-    socket!.on('track_now_cfddec10-a1cd-4812-8792-52da328e9b24', (data) {
+    socket!.on('track_now_${jobId}', (data) async {
       try {
         double lat = double.parse(data['latitude'].toString());
         double lng = double.parse(data['longitude'].toString());
         otherUserLocation.value = LatLng(lat, lng);
 
-        // If my location is available, fetch route
-        if (userlat != null) {
-          _fetchRoute();
+        userlat = otherUserLocation.value!.latitude;
+        userlng = otherUserLocation.value!.longitude;
+
+        if (otherUserLocation.value != null) {
+          await fetchRoute();
         }
       } catch (e) {
-        log("Error in getTrackingData: $e");
+        print("Error in getTrackingData: $e");
       }
     });
   }
 
-  Future<void> _fetchRoute() async {
+  Future<void> fetchRoute() async {
     if (userlat == null || otherUserLocation.value == null) return;
 
     String url =
@@ -186,13 +181,13 @@ class SocketController extends GetxController {
 
           _moveCameraToRoute(routePoints);
         } else {
-          log('No routes found');
+          print('No routes found');
         }
       } else {
-        log('Failed to fetch directions');
+        print('Failed to fetch directions');
       }
     } catch (e) {
-      log('Error fetching route: $e');
+      print('Error fetching route: $e');
     }
   }
 
@@ -249,40 +244,71 @@ class SocketController extends GetxController {
     mapController.value = controller;
   }
 
-  // void getTrackingData(String jobId) {
-  //   socket!.on('track_now_${jobId}', (data) {
-  //     try {
-  //       double lat = double.parse(data['latitude'].toString());
-  //       double lng = double.parse(data['longitude'].toString());
-  //       LatLng newLocation = LatLng(lat, lng);
+  double _calculateDistanceInMeters(LatLng start, LatLng end) {
+    const earthRadius = 6371000; // meters
+    final dLat = (end.latitude - start.latitude) * (pi / 180);
+    final dLng = (end.longitude - start.longitude) * (pi / 180);
 
-  //       trackingRoute.add(newLocation);
-  //       updatePolyline();
-  //       moveCameraToLocation(newLocation);
-  //     } catch (e) {
-  //       log("Error in getTrackingData: $e");
-  //     }
-  //   });
-  // }
+    final a = sin(dLat / 2) * sin(dLat / 2) + cos(start.latitude * (pi / 180)) * cos(end.latitude * (pi / 180)) * sin(dLng / 2) * sin(dLng / 2);
 
-  // void updatePolyline() {
-  //   polylines.clear();
-  //   polylines.add(
-  //     Polyline(
-  //       polylineId: const PolylineId("tracking_route"),
-  //       points: trackingRoute,
-  //       color: Colors.blue,
-  //       width: 5,
-  //     ),
-  //   );
-  // }
-
-  // void moveCameraToLocation(LatLng location) {
-  //   mapController.value?.animateCamera(CameraUpdate.newLatLng(location));
-  // }
+    final c = 2 * atan2(sqrt(a), sqrt(1 - a));
+    return earthRadius * c;
+  }
 
   giveTrackingData(jobId, lat, lng) {
     socket?.emit("track_now", {'job_id': '${jobId}', 'latitude': lat, 'longitude': lng});
+  }
+
+  void giveTrackingDataa(String jobId, double lat, double lng) {
+    LatLng currentLocation = LatLng(lat, lng);
+
+    if (_lastEmittedLocation == null || _calculateDistanceInMeters(_lastEmittedLocation!, currentLocation) >= 0.1) {
+      socket?.emit("track_now", {
+        'job_id': jobId,
+        'latitude': lat,
+        'longitude': lng,
+      });
+
+      _lastEmittedLocation = currentLocation;
+      print("Socket emitted at $lat, $lng");
+    } else {
+      print("Movement < 10m — skipping emit");
+    }
+  }
+
+  Future<void> startLocationUpdates(String jobId) async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+        return Future.error('Location permissions are denied.');
+      }
+    }
+
+    Geolocator.getPositionStream(
+      locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 1, // 🔹 Trigger only when moved 10 meters
+      ),
+    ).listen((Position position) {
+      print('yesssss');
+      if (position.latitude != 0.0 && position.longitude != 0.0) {
+        giveTrackingDataa(
+          jobId,
+          position.latitude,
+          position.longitude,
+        );
+      }
+    });
+  }
+
+  getTrackingDataFirst(jobId) {
+    socket?.emit("get_tracking", {'job_id': '${jobId}'});
   }
 
   joinChatRoom({dynamic id, dynamic chatId, dynamic jobId, Function? onSuccess}) async {
@@ -300,7 +326,7 @@ class SocketController extends GetxController {
     }
 
     socket!.on('joined_private_chat_success', (data) {
-      log("Joined Room $id $data");
+      print("Joined Room $id $data");
       // If success callback is provided, call it
       if (onSuccess != null) {
         onSuccess(data);
@@ -338,6 +364,6 @@ class SocketController extends GetxController {
 
   disconnectSocket() {
     socket?.disconnect();
-    log('Socket disconnected cleanly');
+    print('Socket disconnected cleanly');
   }
 }

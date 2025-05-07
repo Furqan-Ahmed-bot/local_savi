@@ -1,13 +1,12 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
-
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, use_key_in_widget_constructors
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/controllers/user_controllers/ongoing_job_detail_screen_controller.dart';
+import 'package:local_saviors/resources/components/sockets/sockets.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/resources/map/show_map_screen.dart';
 import 'package:local_saviors/utils/color_utils.dart';
@@ -67,17 +66,22 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                                             ),
                                             GestureDetector(
                                               onTap: () {
+                                                print('iser ${userlat}');
+                                                socketController.getTrackingDataFirst(controller.jobDetailDatail["id"]);
                                                 Get.to(
                                                     () => BarDetailsScreen(
+                                                          jobId: controller.jobDetailDatail["id"],
                                                           barName: '',
-                                                          barLocation: LatLng(double.parse(controller.jobDetailDatail['latitude']),
-                                                              double.parse(controller.jobDetailDatail['longitude'])),
+                                                          barLocation: LatLng(
+                                                            double.parse(controller.jobDetailDatail['latitude']),
+                                                            double.parse(controller.jobDetailDatail['longitude']),
+                                                          ),
                                                           barAddress: controller.jobDetailDatail['location'] ?? 'N/A',
-                                                          barlat: double.parse(controller.jobDetailDatail['latitude']) ?? 0.0,
-                                                          barlng: double.parse(controller.jobDetailDatail['longitude']) ?? 0.0,
+                                                          barlat: double.parse(controller.jobDetailDatail['latitude']),
+                                                          barlng: double.parse(controller.jobDetailDatail['longitude']),
                                                         ),
                                                     transition: Transition.fadeIn);
-                                                // Get.back();
+                                                // // Get.back();
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,

@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:local_saviors/resources/components/sockets/sockets.dart';
 import 'package:local_saviors/utils/api_services/user_services.dart';
 import "package:http/http.dart" as http;
 
@@ -35,6 +36,8 @@ class OngoingJobDetailScreenController extends GetxController {
 
       log("==> jobDetails: ${jobDetailDatail}");
       log("==> isTrackable: ${isTrackable}");
+      userlat = jobDetailDatail['latitude'];
+      userlng = jobDetailDatail['longitude'];
       update();
     });
     isLoading.value = false;

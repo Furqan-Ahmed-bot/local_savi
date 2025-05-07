@@ -1,4 +1,3 @@
-import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
@@ -64,37 +63,24 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                               ? Container(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: ColorUtils.red, width: 8),
+                                    border: Border.all(color: ColorUtils.red, width: 8),
                                   ),
                                   child: CircleAvatar(
                                     radius: 50,
-                                    backgroundImage: NetworkImage(
-                                        role.value == "USER"
-                                            ? controller.userdata.userDetails!
-                                                    .profilePicture ??
-                                                ""
-                                            : controller
-                                                    .performerdata
-                                                    .userDetails!
-                                                    .profilePicture ??
-                                                ""),
+                                    backgroundImage: NetworkImage(role.value == "USER"
+                                        ? controller.userdata.userDetails!.profilePicture ?? ""
+                                        : controller.performerdata.userDetails!.profilePicture ?? ""),
                                   ),
                                 )
                               : Container(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: ColorUtils.red, width: 8),
+                                    border: Border.all(color: ColorUtils.red, width: 8),
                                   ),
                                   child: CircleAvatar(
                                     radius: 50,
-                                    backgroundImage: controller.image != null
-                                        ? FileImage(controller.image!)
-                                        : null,
-                                    child: controller.image == null
-                                        ? Image.asset(ImageAssets.oliverImg)
-                                        : null,
+                                    backgroundImage: controller.image != null ? FileImage(controller.image!) : null,
+                                    child: controller.image == null ? Image.asset(ImageAssets.oliverImg) : null,
                                   ),
                                 ),
                           Positioned(
@@ -150,10 +136,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                                 letterSpacing: 0,
                               ),
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(
-                                  bottom: 12,
-                                  top:
-                                      0.0), // this can adjust the label and text position
+                              contentPadding: const EdgeInsets.only(bottom: 12, top: 0.0), // this can adjust the label and text position
                               //or transparent
                             ),
                             textAlignVertical: TextAlignVertical.bottom,
@@ -184,10 +167,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                                 letterSpacing: 0,
                               ),
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.only(
-                                  bottom: 12,
-                                  top:
-                                      0.0), // this can adjust the label and text position
+                              contentPadding: const EdgeInsets.only(bottom: 12, top: 0.0), // this can adjust the label and text position
                               //or transparent
                             ),
                             textAlignVertical: TextAlignVertical.bottom,
@@ -218,8 +198,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                             color: Color(0xffA5A5A5),
                           ), // Use hintText instead of labelText
                           border: InputBorder.none,
-                          contentPadding:
-                              const EdgeInsets.only(bottom: 0, top: 7.0),
+                          contentPadding: const EdgeInsets.only(bottom: 0, top: 7.0),
                         ),
                         value: controller.selectedGender,
                         icon: const SizedBox.shrink(),
@@ -228,8 +207,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                                   value: gender,
                                   child: Text(
                                     gender,
-                                    style: const TextStyle(
-                                        color: Color(0xffA5A5A5)),
+                                    style: const TextStyle(color: Color(0xffA5A5A5)),
                                   ),
                                 ))
                             .toList(),
@@ -275,8 +253,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                     Container(
                       height: 200,
                       clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15)),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
                       child: GestureDetector(
                         onTap: () async {},
                         child: GoogleMap(
@@ -288,40 +265,21 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                             Marker(
                                 markerId: const MarkerId("Positon"),
                                 position: role.value == "USER"
-                                    ? LatLng(
-                                        double.parse(controller
-                                            .userdata.userDetails!.longitude
-                                            .toString()),
-                                        double.parse(controller
-                                            .userdata.userDetails!.latitude
-                                            .toString()))
-                                    : LatLng(
-                                        double.parse(controller.performerdata
-                                            .userDetails!.longitude
-                                            .toString()),
-                                        double.parse(controller
-                                            .performerdata.userDetails!.latitude
-                                            .toString())))
+                                    ? LatLng(double.parse(controller.userdata.userDetails!.longitude.toString()),
+                                        double.parse(controller.userdata.userDetails!.latitude.toString()))
+                                    : LatLng(double.parse(controller.performerdata.userDetails!.longitude.toString()),
+                                        double.parse(controller.performerdata.userDetails!.latitude.toString())))
                           },
                           initialCameraPosition: role.value == "USER"
                               ? CameraPosition(
-                                  target: LatLng(
-                                      double.parse(controller
-                                          .userdata.userDetails!.longitude
-                                          .toString()),
-                                      double.parse(controller
-                                          .userdata.userDetails!.latitude
-                                          .toString())),
+                                  target: LatLng(double.parse(controller.userdata.userDetails!.longitude.toString()),
+                                      double.parse(controller.userdata.userDetails!.latitude.toString())),
                                   zoom: 5,
                                 )
                               : CameraPosition(
                                   target: LatLng(
-                                    double.parse(controller
-                                        .performerdata.userDetails!.longitude
-                                        .toString()),
-                                    double.parse(controller
-                                        .performerdata.userDetails!.latitude
-                                        .toString()),
+                                    double.parse(controller.performerdata.userDetails!.longitude.toString()),
+                                    double.parse(controller.performerdata.userDetails!.latitude.toString()),
                                   ),
                                   zoom: 5,
                                 ),
@@ -329,30 +287,20 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                             LatLng? result = await Get.to(() => ShowMapScreen(
                                 address: role.value == "USER"
                                     ? (controller.userdata.userDetails!.address)
-                                    : (controller
-                                        .performerdata.userDetails!.address),
+                                    : (controller.performerdata.userDetails!.address),
                                 initialLocation: role.value == "USER"
-                                    ? LatLng(
-                                        double.parse(controller
-                                            .userdata.userDetails!.longitude
-                                            .toString()),
-                                        double.parse(controller
-                                            .userdata.userDetails!.latitude
-                                            .toString()))
-                                    : LatLng(
-                                        double.parse(controller.performerdata.userDetails!.longitude.toString()),
+                                    ? LatLng(double.parse(controller.userdata.userDetails!.longitude.toString()),
+                                        double.parse(controller.userdata.userDetails!.latitude.toString()))
+                                    : LatLng(double.parse(controller.performerdata.userDetails!.longitude.toString()),
                                         double.parse(controller.performerdata.userDetails!.latitude.toString()))));
 
                             if (result != null) {
                               cotnroller.lat = result.latitude;
                               cotnroller.long = result.longitude;
-                              List<Placemark> placemarks =
-                                  await placemarkFromCoordinates(
-                                      result.latitude, result.longitude);
+                              List<Placemark> placemarks = await placemarkFromCoordinates(result.latitude, result.longitude);
                               if (placemarks.isNotEmpty) {
                                 Placemark placemark = placemarks.first;
-                                String address =
-                                    "${placemark.name}, ${placemark.locality}";
+                                String address = "${placemark.name}, ${placemark.locality}";
                                 cotnroller.locationcontroller.text = address;
                               }
                             }
@@ -398,10 +346,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                             letterSpacing: 0,
                           ),
                           border: InputBorder.none,
-                          contentPadding: const EdgeInsets.only(
-                              bottom: 13,
-                              top:
-                                  0.0), // this can adjust the label and text position
+                          contentPadding: const EdgeInsets.only(bottom: 13, top: 0.0), // this can adjust the label and text position
                           filled: true,
                           fillColor: Colors.transparent, //or transparent
                         ),
@@ -419,7 +364,7 @@ class EditProfileScreen extends GetWidget<EditProfileScreenController> {
                         width: 0.9.sw,
                         title: 'Save',
                         onPress: () {
-                          controller.validateData();
+                          controller.validateData(context);
                         }),
                     30.verticalSpace
                   ],

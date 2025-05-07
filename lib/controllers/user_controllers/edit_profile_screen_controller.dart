@@ -78,59 +78,168 @@ class EditProfileScreenController extends GetxController {
     update();
   }
 
-  validateData() async {
-    if (firstNamecontroller.text.isNotEmpty) {
-      if (lastNamecontroller.text.isNotEmpty) {
-        if (addresscontroller.text.isNotEmpty) {
-          if (aboutcontroller.text.isNotEmpty) {
-            if (phonecontroller.text.isNotEmpty) {
-              if (image != null) {
-                await UserServices.instance.updateUserProfilePic(context: Get.context, image: image!.path.toString()).then((value) async {
-                  if (value) {
-                    await UserServices.instance.editUserService(
-                        about: aboutcontroller.text,
-                        firstName: firstNamecontroller.text,
-                        lastName: lastNamecontroller.text,
-                        gender: selectedGender,
-                        dob: selectedDate.toIso8601String(),
-                        address: addresscontroller.text,
-                        location: locationcontroller.text,
-                        lat: lat != null ? lat : userdata.userDetails!.latitude,
-                        long: long != null ? lat : userdata.userDetails!.longitude,
-                        email: emailcontroller.text,
-                        phone: phonecontroller.text,
-                        context: Get.context);
-                  }
-                });
-              } else {
-                await UserServices.instance.editUserService(
-                    about: aboutcontroller.text,
-                    firstName: firstNamecontroller.text,
-                    lastName: lastNamecontroller.text,
-                    gender: selectedGender,
-                    dob: selectedDate.toIso8601String(),
-                    address: addresscontroller.text,
-                    location: locationcontroller.text,
-                    lat: lat != null ? lat : phController.performerdata.userDetails!.latitude,
-                    long: long != null ? lat : phController.performerdata.userDetails!.longitude,
-                    email: emailcontroller.text,
-                    phone: phonecontroller.text,
-                    context: Get.context);
-              }
-            } else {
-              Get.snackbar("Alert", "Please add phone number", backgroundColor: ColorUtils.white);
-            }
-          } else {
-            Get.snackbar("Alert", "Please add description", backgroundColor: ColorUtils.white);
-          }
-        } else {
-          Get.snackbar("Alert", "Please add address", backgroundColor: ColorUtils.white);
-        }
-      } else {
-        Get.snackbar("Alert", "Please add your last name", backgroundColor: ColorUtils.white);
-      }
-    } else {
+  // validateData() async {
+  //   if (firstNamecontroller.text.isNotEmpty) {
+  //     if (lastNamecontroller.text.isNotEmpty) {
+  //       if (addresscontroller.text.isNotEmpty) {
+  //         if (aboutcontroller.text.isNotEmpty) {
+  //           if (phonecontroller.text.isNotEmpty) {
+  //             if (role.value == "USER") {
+  //               if (image != null) {
+  //                 await UserServices.instance.updateUserProfilePic(context: Get.context, image: image!.path.toString()).then((value) async {
+  //                   await UserServices.instance.editUserService(
+  //                       about: aboutcontroller.text,
+  //                       firstName: firstNamecontroller.text,
+  //                       lastName: lastNamecontroller.text,
+  //                       gender: selectedGender,
+  //                       dob: selectedDate.toIso8601String(),
+  //                       address: addresscontroller.text,
+  //                       location: locationcontroller.text,
+  //                       lat: lat != null ? lat : userdata.userDetails!.latitude,
+  //                       long: long != null ? long : userdata.userDetails!.longitude,
+  //                       email: emailcontroller.text,
+  //                       phone: phonecontroller.text,
+  //                       context: Get.context);
+  //                 });
+  //               } else {
+  //                 await UserServices.instance.editUserService(
+  //                     about: aboutcontroller.text,
+  //                     firstName: firstNamecontroller.text,
+  //                     lastName: lastNamecontroller.text,
+  //                     gender: selectedGender,
+  //                     dob: selectedDate.toIso8601String(),
+  //                     address: addresscontroller.text,
+  //                     location: locationcontroller.text,
+  //                     lat: lat != null ? lat : userdata.userDetails!.latitude,
+  //                     long: long != null ? long : userdata.userDetails!.longitude,
+  //                     email: emailcontroller.text,
+  //                     phone: phonecontroller.text,
+  //                     context: Get.context);
+  //               }
+  //             } else {
+  //               if (image != null) {
+  //                 await UserServices.instance.updateUserProfilePic(context: Get.context, image: image!.path.toString()).then((value) async {
+  //                   await UserServices.instance.editUserService(
+  //                       about: aboutcontroller.text,
+  //                       firstName: firstNamecontroller.text,
+  //                       lastName: lastNamecontroller.text,
+  //                       gender: selectedGender,
+  //                       dob: selectedDate.toIso8601String(),
+  //                       address: addresscontroller.text,
+  //                       location: locationcontroller.text,
+  //                       lat: lat != null ? lat : phController.performerdata.userDetails!.latitude,
+  //                       long: long != null ? lat : phController.performerdata.userDetails!.longitude,
+  //                       email: emailcontroller.text,
+  //                       phone: phonecontroller.text,
+  //                       context: Get.context);
+  //                 });
+  //               } else {
+  //                 await UserServices.instance.editUserService(
+  //                     about: aboutcontroller.text,
+  //                     firstName: firstNamecontroller.text,
+  //                     lastName: lastNamecontroller.text,
+  //                     gender: selectedGender,
+  //                     dob: selectedDate.toIso8601String(),
+  //                     address: addresscontroller.text,
+  //                     location: locationcontroller.text,
+  //                     lat: lat != null ? lat : phController.performerdata.userDetails!.latitude,
+  //                     long: long != null ? lat : phController.performerdata.userDetails!.longitude,
+  //                     email: emailcontroller.text,
+  //                     phone: phonecontroller.text,
+  //                     context: Get.context);
+  //               }
+  //             }
+  //           } else {
+  //             Get.snackbar("Alert", "Please add phone number", backgroundColor: ColorUtils.white);
+  //           }
+  //         } else {
+  //           Get.snackbar("Alert", "Please add description", backgroundColor: ColorUtils.white);
+  //         }
+  //       } else {
+  //         Get.snackbar("Alert", "Please add address", backgroundColor: ColorUtils.white);
+  //       }
+  //     } else {
+  //       Get.snackbar("Alert", "Please add your last name", backgroundColor: ColorUtils.white);
+  //     }
+  //   } else {
+  //     Get.snackbar("Alert", "Please add your first name", backgroundColor: ColorUtils.white);
+  //   }
+  // }
+
+  validateData(context) async {
+    // Validate all required fields first
+    if (firstNamecontroller.text.isEmpty) {
       Get.snackbar("Alert", "Please add your first name", backgroundColor: ColorUtils.white);
+      return;
+    }
+
+    if (lastNamecontroller.text.isEmpty) {
+      Get.snackbar("Alert", "Please add your last name", backgroundColor: ColorUtils.white);
+      return;
+    }
+
+    if (addresscontroller.text.isEmpty) {
+      Get.snackbar("Alert", "Please add address", backgroundColor: ColorUtils.white);
+      return;
+    }
+
+    if (aboutcontroller.text.isEmpty) {
+      Get.snackbar("Alert", "Please add description", backgroundColor: ColorUtils.white);
+      return;
+    }
+
+    if (phonecontroller.text.isEmpty) {
+      Get.snackbar("Alert", "Please add phone number", backgroundColor: ColorUtils.white);
+      return;
+    }
+
+    // Prepare common parameters
+    final params = {
+      'about': aboutcontroller.text,
+      'firstName': firstNamecontroller.text,
+      'lastName': lastNamecontroller.text,
+      'gender': selectedGender,
+      'dob': selectedDate.toIso8601String(),
+      'address': addresscontroller.text,
+      'location': locationcontroller.text,
+      'email': emailcontroller.text,
+      'phone': phonecontroller.text,
+      'context': Get.context,
+    };
+
+    // Add latitude/longitude based on user role
+    if (role.value == "USER") {
+      params['lat'] = lat ?? userdata.userDetails!.latitude;
+      params['long'] = long ?? userdata.userDetails!.longitude;
+    } else {
+      params['lat'] = lat ?? phController.performerdata.userDetails!.latitude;
+      params['long'] = long ?? phController.performerdata.userDetails!.longitude;
+    }
+
+    try {
+      // Handle image upload if present
+      if (image != null) {
+        await UserServices.instance.updateUserProfilePic(context: Get.context, image: image!.path.toString());
+      }
+
+      // Update user data
+      await UserServices.instance.editUserService(
+        about: params['about'],
+        firstName: params['firstName'],
+        lastName: params['lastName'],
+        gender: params['gender'],
+        dob: params['dob'],
+        address: params['address'],
+        location: params['location'],
+        lat: params['lat'],
+        long: params['long'],
+        email: params['email'],
+        phone: params['phone'],
+        context: context,
+      );
+    } catch (e) {
+      // Handle any errors that might occur during the process
+      Get.snackbar("Error", "Failed to update profile: ${e.toString()}", backgroundColor: ColorUtils.white);
     }
   }
 

@@ -756,7 +756,7 @@ class PBottomAppBarController extends GetxController {
     count.value = index;
     if (index == 3) {
       var pJobs = Get.find<PJobsController>();
-      pJobs.getJobs();
+      pJobs.getJobs("APPLIED");
     } else if (index == 0) {
       // var phome = Get.put(PHomeController());
       phController.getPerfJobs();

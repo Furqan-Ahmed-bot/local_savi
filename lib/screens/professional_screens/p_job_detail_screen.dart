@@ -35,9 +35,14 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                         controller.buttonText.value == "Cancel Job"
                             ? showCancelDialog(context, controller.jobId.value)
                             : (controller.buttonText.value == "On The Way")
-                                ? (controller.journeyChange("ONTHEWAY"))
+                                ? (controller.journeyChange("ONTHEWAY",
+                                    lat: controller.jobDetailDatail['latitude'], lng: controller.jobDetailDatail['longitude']))
                                 : controller.buttonText.value == "Arrived"
-                                    ? (controller.journeyChange("ARRIVED"))
+                                    ? (
+                                        controller.journeyChange(
+                                          "ARRIVED",
+                                        ),
+                                      )
                                     : controller.buttonText.value == "Mark As Completed"
                                         ? (controller.journeyChange("COMPLETED"))
                                         : controller.buttonText.value == "Apply Now"
@@ -434,6 +439,12 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                   ],
                                 ),
                               ),
+
+                              ElevatedButton(
+                                  onPressed: () {
+                                    socketController.startLocationUpdates(controller.jobDetailDatail['id']);
+                                  },
+                                  child: Text('TrackNow')),
                               30.h.verticalSpace
                             ],
                           ),
@@ -596,7 +607,7 @@ void showThankyouDialog(context) {
                   GestureDetector(
                     onTap: () {
                       PJobsController pJobsController = Get.find<PJobsController>();
-                      pJobsController.getJobs();
+                      pJobsController.getJobs("APPLIED");
                       Get.close(2);
                     },
                     child: Container(

@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/screens/professional_screens/p_job_detail_screen.dart';
@@ -87,7 +86,7 @@ class PJobDetailController extends GetxController {
       if (status == "ONTHEWAY") {
         trackingController.checkLocationPermission(jobId.value);
         buttonText.value = "Arrived";
-        socketController.giveTrackingData(jobId, lat, lng);
+        socketController.startLocationUpdates(jobId.value);
       } else if (status == "ARRIVED") {
         // trackingController.checkLocationPermission(jobId.value);
         buttonText.value = "Mark As Completed";

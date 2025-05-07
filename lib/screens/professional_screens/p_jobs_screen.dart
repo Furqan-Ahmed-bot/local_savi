@@ -29,6 +29,22 @@ class PJobsScreen extends GetWidget<PJobsController> {
                               onTap: () {
                                 controller.selectedIndex.value = index;
                                 controller.update();
+
+                                controller.selectedIndex.value = index;
+
+                                if (index == 0) {
+                                  controller.getJobs('APPLIED');
+                                } else if (index == 1) {
+                                  controller.getJobs("UPCOMING");
+                                  return;
+                                } else if (index == 2) {
+                                  controller.getJobs("ONGOING");
+                                } else if (index == 3) {
+                                  controller.getJobs("COMPLETED");
+                                } else {
+                                  controller.getJobs("CANCELLED");
+                                }
+                                controller.update();
                               },
                               child: Container(
                                 width: 120.w,

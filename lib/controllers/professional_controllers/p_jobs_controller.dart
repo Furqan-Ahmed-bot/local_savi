@@ -13,36 +13,31 @@ class PJobsController extends GetxController {
 
   @override
   void onInit() {
-    getJobs();
+    getJobs("APPLIED");
 
     super.onInit();
   }
 
 //[OPEN, UPCOMING, ONGOING, COMPLETED, CANCELLED]
-  getJobs() async {
+  getJobs(status) async {
     isLoading.value = true;
+    if (status == "APPLIED") {
+      appliedJobsList = await UserServices.instance.getPerformerAllFilteredJobs(filter: "APPLIED");
+    } else if (status == "UPCOMING") {
+      upcomingJobsList = await UserServices.instance.getPerformerAllFilteredJobs(filter: "UPCOMING");
+    } else if (status == "ONGOING") {
+      ongoingJobsList = await UserServices.instance.getPerformerAllFilteredJobs(filter: "ONGOING");
+    } else if (status == "COMPLETED") {
+      completedJobsList = await UserServices.instance.getPerformerAllFilteredJobs(filter: "COMPLETED");
+    } else {
+      cancelledJobsList = await UserServices.instance.getPerformerAllFilteredJobs(filter: "CANCELLED");
+    }
 
-    appliedJobsList = await UserServices.instance
-        .getPerformerAllFilteredJobs(filter: "APPLIED");
-    upcomingJobsList = await UserServices.instance
-        .getPerformerAllFilteredJobs(filter: "UPCOMING");
-    ongoingJobsList = await UserServices.instance
-        .getPerformerAllFilteredJobs(filter: "ONGOING");
-    completedJobsList = await UserServices.instance
-        .getPerformerAllFilteredJobs(filter: "COMPLETED");
-    cancelledJobsList = await UserServices.instance
-        .getPerformerAllFilteredJobs(filter: "CANCELLED");
     isLoading.value = false;
     update();
   }
 
-  List<String> names = [
-    "Applied",
-    "Upcoming",
-    "Ongoing",
-    "Completed",
-    "Cancelled"
-  ];
+  List<String> names = ["Applied", "Upcoming", "Ongoing", "Completed", "Cancelled"];
 
   // List listOfCancelledCard = [
   //   {

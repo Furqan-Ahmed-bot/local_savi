@@ -815,16 +815,7 @@ class BottomAppBarController extends GetxController {
       jobcontroller.getJobs('OPEN');
     } else if (index == 0) {
       // var homeController = Get.find<HomeScreenController>();
-      hsController.isLoading.value = true;
-      hsController.listOfActiveJobs = await UserServices.instance.getUserActiveJobs();
-      await hsController.getBestPerformers();
-      hsController.isLoading.value = false;
-    } else if (index == 3) {
-      var profileController = Get.find<UserProfileScreenController>();
-      profileController.isLoading.value = true;
-      await profileController.getData();
-      profileController.isLoading.value = false;
-    }
+    } else if (index == 3) {}
     update();
   }
 }
