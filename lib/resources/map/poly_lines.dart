@@ -1,10 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:local_saviors/utils/constant.dart';
-
 import '../components/sockets/sockets.dart';
 import 'live_tacking_controller.dart';
 
@@ -37,7 +36,7 @@ class _BarDetailsScreenState extends State<BarDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Store Location")),
+      appBar: AppBar(title: Text("Tracking")),
       body: Obx(() => GoogleMap(
             zoomGesturesEnabled: true,
             zoomControlsEnabled: true,

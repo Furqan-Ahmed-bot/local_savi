@@ -143,8 +143,8 @@ class SocketController extends GetxController {
         double lng = double.parse(data['longitude'].toString());
         otherUserLocation.value = LatLng(lat, lng);
 
-        userlat = otherUserLocation.value!.latitude;
-        userlng = otherUserLocation.value!.longitude;
+        otherUserLocation.value!.latitude;
+        otherUserLocation.value!.longitude;
 
         if (otherUserLocation.value != null) {
           await fetchRoute();

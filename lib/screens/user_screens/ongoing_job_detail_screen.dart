@@ -66,6 +66,8 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                                             ),
                                             GestureDetector(
                                               onTap: () {
+                                                userlat = double.parse(controller.jobDetailDatail['latitude']);
+                                                userlng = double.parse(controller.jobDetailDatail['longitude']);
                                                 print('iser ${userlat}');
                                                 socketController.getTrackingDataFirst(controller.jobDetailDatail["id"]);
                                                 Get.to(
