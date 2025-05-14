@@ -69,10 +69,13 @@ class WalletController extends GetxController {
         // url = resData['data'];
         // launchUrl(Uri.parse(resData['data'])).asStream();
         if (resData['data']['is_fresh'] == true) {
+          Get.close(1);
           Get.toNamed(RouteName.walletScreen);
         } else if (resData['data']['is_missing'] == true) {
           message = resData['data']['message'];
           sUrl = resData['data']['url'];
+          Get.close(1);
+
           Get.to(() => AccountCorrectionScreen());
         } else {
           UserServices.instance.getProfileService(isAutoLogin: false).then((value) => Get.toNamed(RouteName.walletScreen));

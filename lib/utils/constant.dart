@@ -16,6 +16,8 @@ RxString email = "".obs;
 late SocketController socketController;
 late GetChatController chatController;
 
+var userType;
+
 var userId;
 
 RxString OTP = "".obs;

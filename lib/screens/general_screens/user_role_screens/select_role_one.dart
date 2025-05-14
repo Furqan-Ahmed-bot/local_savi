@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:local_saviors/screens/general_screens/pre_login_screen/pre_login_screen.dart';
 import 'package:local_saviors/screens/general_screens/user_role_screens/role_one_controller.dart';
-import 'package:local_saviors/screens/general_screens/user_role_screens/select_role_two.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 import '../../../resources/components/select_role_widet.dart';
@@ -64,6 +62,7 @@ class SelectUserRoleOne extends GetWidget<RoleOneController> {
               SelectRoleWidget(
                 onTap: () {
                   role.value = "USER";
+                  userType = 'USER';
 
                   Get.toNamed(RouteName.prelogin);
                 },
@@ -73,6 +72,7 @@ class SelectUserRoleOne extends GetWidget<RoleOneController> {
               20.verticalSpace,
               SelectRoleWidget(
                 onTap: () {
+                  userType = 'PERFORMER';
                   Get.toNamed(RouteName.selectRoleTwo);
                 },
                 title: 'Continue as a Job Performer',

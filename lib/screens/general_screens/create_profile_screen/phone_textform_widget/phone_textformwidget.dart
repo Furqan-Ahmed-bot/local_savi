@@ -16,7 +16,7 @@ class phoneTextFormFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 0.9.sw,
-      height: 0.07.sh,
+      height: 0.09.sh,
       child: IntlPhoneField(
         showCountryFlag: true,
         controller: phonecontroller,
