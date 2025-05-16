@@ -9,7 +9,9 @@ class MapController extends GetxController {
   final Rx<LatLng?> selectedLocation = Rx<LatLng?>(null);
   final RxSet<Circle> circles = <Circle>{}.obs;
   final TextEditingController searchController = TextEditingController();
-  final Completer<GoogleMapController> mapController = Completer();
+  //final Completer<GoogleMapController> mapController = Completer();
+
+  GoogleMapController? mapController;
 
   void updateSelectedLocation(LatLng location) {
     selectedLocation.value = location;
@@ -24,14 +26,30 @@ class MapController extends GetxController {
       if (locations.isNotEmpty) {
         Location firstLocation = locations.first;
         LatLng newLatLng = LatLng(firstLocation.latitude, firstLocation.longitude);
-        final GoogleMapController? controller = await mapController.future;
-        if (controller != null) {
-          controller.animateCamera(CameraUpdate.newLatLngZoom(newLatLng, 12));
+        // final GoogleMapController? controller = await mapController.future;
+        if (mapController != null) {
+          mapController!.animateCamera(CameraUpdate.newLatLngZoom(newLatLng, 12));
         }
         updateSelectedLocation(newLatLng);
       }
     } catch (e) {
       print('Error searching for location: $e');
+    }
+  }
+
+  void onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
+
+  void setSelectedLocation(LatLng location, BuildContext context) {
+    selectedLocation.value = location;
+
+    updateCircles(location);
+  }
+
+  Future<void> animateCameraToLocation(LatLng location) async {
+    if (mapController != null) {
+      mapController!.animateCamera(CameraUpdate.newLatLngZoom(location, 12));
     }
   }
 

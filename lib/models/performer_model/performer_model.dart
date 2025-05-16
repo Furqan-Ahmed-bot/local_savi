@@ -66,7 +66,7 @@ class UserDetails {
   String? longitude;
   String? latitude;
   String? contactEmail;
-  Null? contactPhone;
+  String? contactPhone;
   String? address;
   String? location;
   String? gender;

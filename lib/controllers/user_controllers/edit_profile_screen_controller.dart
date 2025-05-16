@@ -38,7 +38,7 @@ class EditProfileScreenController extends GetxController {
 
       selectedDate = DateTime.parse(userdata.userDetails!.dateOfBirth.toString());
       dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
-      phonecontroller.text = "5215577668";
+      phonecontroller.text = userdata.userDetails!.contactPhone.toString();
     } else {
       performerdata = Get.arguments['data'];
       firstNamecontroller.text = performerdata.userDetails!.firstName.toString();
@@ -50,7 +50,7 @@ class EditProfileScreenController extends GetxController {
 
       selectedDate = DateTime.parse(performerdata.userDetails!.dateOfBirth.toString());
       dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
-      phonecontroller.text = "5215577668";
+      phonecontroller.text = performerdata.userDetails!.contactPhone.toString();
     }
 
     update();

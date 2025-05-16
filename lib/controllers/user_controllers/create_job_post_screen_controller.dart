@@ -25,6 +25,7 @@ class CreateJobPostScreenController extends GetxController {
   RxInt cardvalue = 0.obs;
   RxInt workingHour = 0.obs;
   RxInt fixedAmoount = 0.obs;
+  var selectedJobDate;
 
   var latitide;
   var longitude;
@@ -84,8 +85,8 @@ class CreateJobPostScreenController extends GetxController {
     );
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
-
-      dateController.text = selectedDate.toString(); // Format the date
+      selectedJobDate = selectedDate.toString();
+      dateController.text = DateFormat('dd/MM/yyyy').format(selectedDate);
 
       update();
     }
