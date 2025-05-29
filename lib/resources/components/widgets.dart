@@ -774,7 +774,7 @@ Widget bestPerformerCard({
                 Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
                   "id": id,
                   "title": "Best Performer",
-                  "showChat": true,
+                  "showChat": false,
                 });
               },
               child: Row(

@@ -20,8 +20,16 @@ class ChangePassScreen extends GetWidget<ChangePassController> {
             buttonColor: ColorUtils.red,
             title: "Change Now",
             onPress: () {
+              if (controller.oldPassWordController.text.isEmpty) {
+                Get.snackbar('Alert', "Current Password should not me empty");
+              } else if (controller.newPasswordController.text.isEmpty) {
+                Get.snackbar('Alert', "New Password should not me empty");
+              } else if (controller.confirmPasswordController.text.isEmpty) {
+                Get.snackbar('Alert', "Confirm Password should not be empty");
+              } else {
+                controller.changePassword(context);
+              }
               // Get.back();
-              controller.changePassword(context);
             }),
       ),
       body: myBackGround(

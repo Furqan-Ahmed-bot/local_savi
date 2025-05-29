@@ -137,6 +137,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             GestureDetector(
                               onTap: () {
                                 Get.back();
+                                bottomController.itemSelect(0);
                               },
                               child: Row(
                                 children: [

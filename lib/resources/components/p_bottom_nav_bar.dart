@@ -30,6 +30,7 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   final pBottomController = Get.put(PBottomAppBarController());
   final walletController = Get.put(WalletController());
+
   // var performerData = Get.put(PHomeController());
 
   @override
@@ -130,6 +131,7 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                             GestureDetector(
                               onTap: () {
                                 Get.back();
+                                pBottomController.itemSelect(0);
                               },
                               child: Row(
                                 children: [

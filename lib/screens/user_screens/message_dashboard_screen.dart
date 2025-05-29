@@ -1,4 +1,4 @@
-// ignore_for_file: must_call_super, use_key_in_widget_constructors, library_private_types_in_public_api
+// ignore_for_file: must_call_super, use_key_in_widget_constructors, library_private_types_in_public_api, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,55 +56,59 @@ class _MessageDashboardScreenState extends State<MessageDashboardScreen> {
                       ? Center(
                           child: spinkit,
                         )
-                      : Column(
-                          children: List.generate(
-                            chatController.AllChats.length,
-                            (index) => InkWell(
-                              onTap: () {
-                                if (chatController.AllChats[index]["user_one_id"] == hsController.userdata.userID) {}
-                                Get.toNamed(RouteName.chatScreenPath, arguments: {
-                                  "providerId": '${chatController.AllChats[index]['user_two_id']}',
-                                  "jobId": '${chatController.AllChats[index]['job_id']}',
-                                  "username":
-                                      '${chatController.AllChats[index]["user_two"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_two"]["user_details"]["last_name"]}',
-                                  'profile_picture': chatController.AllChats[index]["user_two"]["user_details"]["profile_picture"],
-                                  'chat_id': "${chatController.AllChats[index]['id']}",
-                                });
+                      : chatController.AllChats.isEmpty
+                          ? Center(
+                              child: Text('No Chats Found'),
+                            )
+                          : Column(
+                              children: List.generate(
+                                chatController.AllChats.length,
+                                (index) => InkWell(
+                                  onTap: () {
+                                    if (chatController.AllChats[index]["user_one_id"] == hsController.userdata.userID) {}
+                                    Get.toNamed(RouteName.chatScreenPath, arguments: {
+                                      "providerId": '${chatController.AllChats[index]['user_two_id']}',
+                                      "jobId": '${chatController.AllChats[index]['job_id']}',
+                                      "username":
+                                          '${chatController.AllChats[index]["user_two"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_two"]["user_details"]["last_name"]}',
+                                      'profile_picture': chatController.AllChats[index]["user_two"]["user_details"]["profile_picture"],
+                                      'chat_id': "${chatController.AllChats[index]['id']}",
+                                    });
 
-                                // Get.to(() => ChatScreen(
-                                //       jobId: chatController.AllChats[index]['job_id'],
-                                //       recipientId: chatController.AllChats[index]['user_two_id'],
-                                //       chatId: chatController.AllChats[index]['id'],
-                                //     ));
+                                    // Get.to(() => ChatScreen(
+                                    //       jobId: chatController.AllChats[index]['job_id'],
+                                    //       recipientId: chatController.AllChats[index]['user_two_id'],
+                                    //       chatId: chatController.AllChats[index]['id'],
+                                    //     ));
 
-                                //Get.toNamed(RouteName.chatScreenPath);
-                              },
-                              child: chatController.AllChats[index]["user_one_id"] == hsController.userdata.userID
-                                  ? messageUserCard(
-                                      isVerified: true,
-                                      date: chatController.AllChats[index]['chat_messages'].isNotEmpty
-                                          ? chatController.AllChats[index]['chat_messages'][0]['createdAt']
-                                          : "",
-                                      image: chatController.AllChats[index]["user_two"]["user_details"]["profile_picture"],
-                                      name:
-                                          "${chatController.AllChats[index]["user_two"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_two"]["user_details"]["last_name"]}",
-                                      desc:
-                                          "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] == null ? 'Photo' : chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
-                                    )
-                                  : messageUserCard(
-                                      isVerified: true,
-                                      date: chatController.AllChats[index]['chat_messages'].isNotEmpty
-                                          ? chatController.AllChats[index]['chat_messages'][0]['createdAt']
-                                          : "",
-                                      image: chatController.AllChats[index]["user_one"]["user_details"]["profile_picture"],
-                                      name:
-                                          "${chatController.AllChats[index]["user_one"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_one"]["user_details"]["last_name"]}",
-                                      desc:
-                                          "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] == null ? 'Photo' : chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
-                                    ),
+                                    //Get.toNamed(RouteName.chatScreenPath);
+                                  },
+                                  child: chatController.AllChats[index]["user_one_id"] == hsController.userdata.userID
+                                      ? messageUserCard(
+                                          isVerified: true,
+                                          date: chatController.AllChats[index]['chat_messages'].isNotEmpty
+                                              ? chatController.AllChats[index]['chat_messages'][0]['createdAt']
+                                              : "",
+                                          image: chatController.AllChats[index]["user_two"]["user_details"]["profile_picture"],
+                                          name:
+                                              "${chatController.AllChats[index]["user_two"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_two"]["user_details"]["last_name"]}",
+                                          desc:
+                                              "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] == null ? 'Photo' : chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
+                                        )
+                                      : messageUserCard(
+                                          isVerified: true,
+                                          date: chatController.AllChats[index]['chat_messages'].isNotEmpty
+                                              ? chatController.AllChats[index]['chat_messages'][0]['createdAt']
+                                              : "",
+                                          image: chatController.AllChats[index]["user_one"]["user_details"]["profile_picture"],
+                                          name:
+                                              "${chatController.AllChats[index]["user_one"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_one"]["user_details"]["last_name"]}",
+                                          desc:
+                                              "${chatController.AllChats[index]['chat_messages'].isNotEmpty ? chatController.AllChats[index]['chat_messages'][0]['message'] == null ? 'Photo' : chatController.AllChats[index]['chat_messages'][0]['message'] : ''}",
+                                        ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
                 ),
               ],
             ),

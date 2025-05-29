@@ -81,6 +81,12 @@ class UserUrls {
 
   static const getSingleChat = "${baseUrl}chat";
   static const sendMedia = "${baseUrl}attachment";
+
+  //terms and conditions
+
+  static const termsAnsConditions = "${baseUrl}terms_and_conditions";
+  static const privacyPolicy = "${baseUrl}privacy_policy";
+  static const aboutApp = "${baseUrl}about-app";
 }
 
 // class ProfessionalUrls {
