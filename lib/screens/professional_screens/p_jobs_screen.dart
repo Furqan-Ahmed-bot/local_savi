@@ -15,7 +15,8 @@ class PJobsScreen extends GetWidget<PJobsController> {
         child: Column(children: [
       Expanded(
         child: ListView(
-          padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 110.h, top: 30.h),
+          padding: EdgeInsets.only(
+              left: 20.w, right: 20.w, bottom: 110.h, top: 30.h),
           children: [
             Obx(
               () => Container(
@@ -47,20 +48,31 @@ class PJobsScreen extends GetWidget<PJobsController> {
                                 controller.update();
                               },
                               child: Container(
-                                width: 120.w,
+                                width: 110.w,
                                 alignment: Alignment.center,
                                 margin: EdgeInsets.only(right: 10.w),
                                 padding: EdgeInsets.symmetric(vertical: 15.h),
                                 decoration: BoxDecoration(
-                                    color: controller.selectedIndex.value == index ? ColorUtils.red : ColorUtils.white,
+                                    color:
+                                        controller.selectedIndex.value == index
+                                            ? ColorUtils.red
+                                            : ColorUtils.white,
                                     borderRadius: BorderRadius.circular(10.sp),
                                     border: Border.all(
                                         width: 1.w,
-                                        color: controller.selectedIndex.value == index ? ColorUtils.red : ColorUtils.borderColor.withOpacity(0.5))),
+                                        color: controller.selectedIndex.value ==
+                                                index
+                                            ? ColorUtils.red
+                                            : ColorUtils.borderColor
+                                                .withOpacity(0.5))),
                                 child: Text(
                                   controller.names[index],
                                   style: TextStyle(
-                                      fontSize: 16.sp, color: controller.selectedIndex.value == index ? ColorUtils.white : ColorUtils.black),
+                                      fontSize: 16.sp,
+                                      color: controller.selectedIndex.value ==
+                                              index
+                                          ? ColorUtils.white
+                                          : ColorUtils.black),
                                 ),
                               ),
                             )),
@@ -77,152 +89,322 @@ class PJobsScreen extends GetWidget<PJobsController> {
                       ),
                     )
                   : GetBuilder<PJobsController>(
-                      builder: (controller) => controller.names[controller.selectedIndex.value] == "Applied"
+                      builder: (controller) => controller
+                                  .names[controller.selectedIndex.value] ==
+                              "Applied"
                           ? controller.appliedJobsList.isEmpty
-                              ? const Center(child: Text(" No Applied Jobs Available"))
+                              ? const Center(
+                                  child: Text(" No Applied Jobs Available"))
                               : Column(
                                   children: List.generate(
                                       controller.appliedJobsList.length,
                                       (index) => GestureDetector(
                                           onTap: () {
-                                            Get.toNamed(RouteName.pJobsDetailScreenPath, arguments: {
-                                              "jobId": controller.appliedJobsList[index].id,
-                                              "showBottomButton": false,
-                                              "status": "Job Open",
-                                              "showActionButton": false,
-                                              "bottomButtonText": ""
-                                            });
+                                            Get.toNamed(
+                                                RouteName.pJobsDetailScreenPath,
+                                                arguments: {
+                                                  "jobId": controller
+                                                      .appliedJobsList[index]
+                                                      .id,
+                                                  "showBottomButton": false,
+                                                  "status": "Job Open",
+                                                  "showActionButton": false,
+                                                  "bottomButtonText": ""
+                                                });
                                           },
                                           child: activeJobCard(
-                                              title: controller.appliedJobsList[index].title,
-                                              desc: controller.appliedJobsList[index].description,
-                                              budget: controller.appliedJobsList[index].decidedCost != null
-                                                  ? controller.appliedJobsList[index].decidedCost.toString()
-                                                  : controller.appliedJobsList[index].budget,
-                                              date: controller.appliedJobsList[index].jobDate,
-                                              time: controller.appliedJobsList[index].startTime,
-                                              status: controller.names[controller.selectedIndex.value]))),
+                                              title: controller
+                                                  .appliedJobsList[index].title,
+                                              desc: controller
+                                                  .appliedJobsList[index]
+                                                  .description,
+                                              budget: controller
+                                                          .appliedJobsList[
+                                                              index]
+                                                          .decidedCost !=
+                                                      null
+                                                  ? controller
+                                                      .appliedJobsList[index]
+                                                      .decidedCost
+                                                      .toString()
+                                                  : controller
+                                                      .appliedJobsList[index]
+                                                      .budget,
+                                              date: controller
+                                                  .appliedJobsList[index]
+                                                  .jobDate,
+                                              time: controller
+                                                  .appliedJobsList[index]
+                                                  .startTime,
+                                              status: controller.names[
+                                                  controller
+                                                      .selectedIndex.value]))),
                                 )
-                          : controller.names[controller.selectedIndex.value] == "Upcoming"
+                          : controller.names[controller.selectedIndex.value] ==
+                                  "Upcoming"
                               ? controller.upcomingJobsList.isEmpty
-                                  ? const Center(child: Text("No Upcoming Jobs Available"))
+                                  ? const Center(
+                                      child: Text("No Upcoming Jobs Available"))
                                   : Column(
                                       children: List.generate(
                                           controller.upcomingJobsList.length,
                                           (index) => GestureDetector(
                                               onTap: () {
-                                                Get.toNamed(RouteName.pJobsDetailScreenPath, arguments: {
-                                                  "jobId": controller.upcomingJobsList[index].id,
-                                                  "showBottomButton": true,
-                                                  "status": "Job Open",
-                                                  "showActionButton": false,
-                                                  "bottomButtonText": "Cancel Job"
-                                                });
+                                                Get.toNamed(
+                                                    RouteName
+                                                        .pJobsDetailScreenPath,
+                                                    arguments: {
+                                                      "jobId": controller
+                                                          .upcomingJobsList[
+                                                              index]
+                                                          .id,
+                                                      "showBottomButton": true,
+                                                      "status": "Job Open",
+                                                      "showActionButton": false,
+                                                      "bottomButtonText":
+                                                          "Cancel Job"
+                                                    });
                                               },
                                               child: activeJobCard(
-                                                  title: controller.upcomingJobsList[index].title,
-                                                  desc: controller.upcomingJobsList[index].description,
-                                                  budget: controller.upcomingJobsList[index].decidedCost != null
-                                                      ? controller.upcomingJobsList[index].decidedCost.toString()
-                                                      : controller.upcomingJobsList[index].budget,
-                                                  date: controller.upcomingJobsList[index].jobDate,
-                                                  time: controller.upcomingJobsList[index].startTime,
-                                                  status: controller.names[controller.selectedIndex.value]))),
+                                                  title: controller
+                                                      .upcomingJobsList[index]
+                                                      .title,
+                                                  desc: controller
+                                                      .upcomingJobsList[index]
+                                                      .description,
+                                                  budget: controller
+                                                              .upcomingJobsList[
+                                                                  index]
+                                                              .decidedCost !=
+                                                          null
+                                                      ? controller
+                                                          .upcomingJobsList[
+                                                              index]
+                                                          .decidedCost
+                                                          .toString()
+                                                      : controller
+                                                          .upcomingJobsList[
+                                                              index]
+                                                          .budget,
+                                                  date: controller
+                                                      .upcomingJobsList[index]
+                                                      .jobDate,
+                                                  time: controller
+                                                      .upcomingJobsList[index]
+                                                      .startTime,
+                                                  status: controller.names[
+                                                      controller.selectedIndex
+                                                          .value]))),
                                     )
-                              : controller.names[controller.selectedIndex.value] == "Ongoing"
+                              : controller.names[
+                                          controller.selectedIndex.value] ==
+                                      "Ongoing"
                                   ? controller.ongoingJobsList.isEmpty
-                                      ? const Center(child: Text(" No Ongoing Jobs Available"))
+                                      ? const Center(
+                                          child: Text(
+                                              " No Ongoing Jobs Available"))
                                       : Column(
                                           children: List.generate(
                                               controller.ongoingJobsList.length,
                                               (index) => GestureDetector(
                                                   onTap: () {
-                                                    Get.toNamed(RouteName.pJobsDetailScreenPath, arguments: {
-                                                      "jobId": controller.ongoingJobsList[index].id,
-                                                      "showBottomButton": true,
-                                                      "status": "Ongoing",
-                                                      "showActionButton": false,
-                                                      "bottomButtonText": "On The Way"
-                                                    });
+                                                    Get.toNamed(
+                                                        RouteName
+                                                            .pJobsDetailScreenPath,
+                                                        arguments: {
+                                                          "jobId": controller
+                                                              .ongoingJobsList[
+                                                                  index]
+                                                              .id,
+                                                          "showBottomButton":
+                                                              true,
+                                                          "status": "Ongoing",
+                                                          "showActionButton":
+                                                              false,
+                                                          "bottomButtonText":
+                                                              "On The Way"
+                                                        });
                                                   },
                                                   child: activeJobCard(
-                                                      title: controller.ongoingJobsList[index].title,
-                                                      desc: controller.ongoingJobsList[index].description,
-                                                      budget: controller.ongoingJobsList[index].decidedCost != null
-                                                          ? controller.ongoingJobsList[index].decidedCost.toString()
-                                                          : controller.ongoingJobsList[index].budget,
-                                                      date: controller.ongoingJobsList[index].jobDate,
-                                                      time: controller.ongoingJobsList[index].startTime,
-                                                      status: controller.names[controller.selectedIndex.value]))),
+                                                      title: controller
+                                                          .ongoingJobsList[
+                                                              index]
+                                                          .title,
+                                                      desc: controller
+                                                          .ongoingJobsList[
+                                                              index]
+                                                          .description,
+                                                      budget: controller
+                                                                  .ongoingJobsList[
+                                                                      index]
+                                                                  .decidedCost !=
+                                                              null
+                                                          ? controller
+                                                              .ongoingJobsList[
+                                                                  index]
+                                                              .decidedCost
+                                                              .toString()
+                                                          : controller
+                                                              .ongoingJobsList[
+                                                                  index]
+                                                              .budget,
+                                                      date: controller
+                                                          .ongoingJobsList[
+                                                              index]
+                                                          .jobDate,
+                                                      time: controller
+                                                          .ongoingJobsList[
+                                                              index]
+                                                          .startTime,
+                                                      status: controller.names[
+                                                          controller
+                                                              .selectedIndex
+                                                              .value]))),
                                         )
-                                  : controller.names[controller.selectedIndex.value] == "Completed"
+                                  : controller.names[
+                                              controller.selectedIndex.value] ==
+                                          "Completed"
                                       ? controller.completedJobsList.isEmpty
-                                          ? const Center(child: Text(" No Completed Jobs Available"))
+                                          ? const Center(
+                                              child: Text(
+                                                  " No Completed Jobs Available"))
                                           : Column(
                                               children: List.generate(
-                                                  controller.completedJobsList.length,
+                                                  controller
+                                                      .completedJobsList.length,
                                                   (index) => GestureDetector(
                                                       onTap: () {
-                                                        Get.toNamed(RouteName.pJobsDetailScreenPath, arguments: {
-                                                          "jobId": controller.completedJobsList[index].id,
-                                                          "showBottomButton": false,
-                                                          "status": "Completed",
-                                                          "showActionButton": false,
-                                                          "bottomButtonText": ""
-                                                        });
+                                                        Get.toNamed(
+                                                            RouteName
+                                                                .pJobsDetailScreenPath,
+                                                            arguments: {
+                                                              "jobId": controller
+                                                                  .completedJobsList[
+                                                                      index]
+                                                                  .id,
+                                                              "showBottomButton":
+                                                                  false,
+                                                              "status":
+                                                                  "Completed",
+                                                              "showActionButton":
+                                                                  false,
+                                                              "bottomButtonText":
+                                                                  ""
+                                                            });
                                                       },
                                                       child: activeJobCard(
-                                                          title: controller.completedJobsList[index].title,
-                                                          desc: controller.completedJobsList[index].description,
-                                                          budget: controller.completedJobsList[index].decidedCost != null
-                                                              ? controller.completedJobsList[index].decidedCost.toString()
-                                                              : controller.completedJobsList[index].budget,
-                                                          date: controller.completedJobsList[index].jobDate,
-                                                          time: controller.completedJobsList[index].startTime,
-                                                          status: controller.names[controller.selectedIndex.value]))),
+                                                          title: controller
+                                                              .completedJobsList[
+                                                                  index]
+                                                              .title,
+                                                          desc: controller
+                                                              .completedJobsList[
+                                                                  index]
+                                                              .description,
+                                                          budget: controller
+                                                                      .completedJobsList[
+                                                                          index]
+                                                                      .decidedCost !=
+                                                                  null
+                                                              ? controller
+                                                                  .completedJobsList[
+                                                                      index]
+                                                                  .decidedCost
+                                                                  .toString()
+                                                              : controller
+                                                                  .completedJobsList[
+                                                                      index]
+                                                                  .budget,
+                                                          date: controller
+                                                              .completedJobsList[
+                                                                  index]
+                                                              .jobDate,
+                                                          time: controller
+                                                              .completedJobsList[
+                                                                  index]
+                                                              .startTime,
+                                                          status: controller
+                                                                  .names[
+                                                              controller
+                                                                  .selectedIndex
+                                                                  .value]))),
                                             )
                                       : Column(
                                           children: List.generate(
-                                              controller.cancelledJobsList.length,
+                                              controller
+                                                  .cancelledJobsList.length,
                                               (index) => GestureDetector(
                                                     onTap: () {
-                                                      Get.toNamed(RouteName.cancelledJobScreenPath, arguments: {
-                                                        "isPending": controller.cancelledJobsList[index].jobStatus != "CANCELLED",
-                                                        "jobId": controller.cancelledJobsList[index].id,
-                                                        "showCharge": false,
-                                                      });
+                                                      Get.toNamed(
+                                                          RouteName
+                                                              .cancelledJobScreenPath,
+                                                          arguments: {
+                                                            "isPending": controller
+                                                                    .cancelledJobsList[
+                                                                        index]
+                                                                    .jobStatus !=
+                                                                "CANCELLED",
+                                                            "jobId": controller
+                                                                .cancelledJobsList[
+                                                                    index]
+                                                                .id,
+                                                            "showCharge": false,
+                                                          });
                                                     },
                                                     child: Container(
                                                       width: 1.0.sw,
-                                                      margin: EdgeInsets.only(bottom: 16.h),
-                                                      padding: EdgeInsets.all(10.sp),
+                                                      margin: EdgeInsets.only(
+                                                          bottom: 16.h),
+                                                      padding:
+                                                          EdgeInsets.all(10.sp),
                                                       decoration: BoxDecoration(
                                                         color: ColorUtils.white,
-                                                        border: Border.all(width: 1.w, color: ColorUtils.borderColor),
-                                                        borderRadius: BorderRadius.circular(10.r),
+                                                        border: Border.all(
+                                                            width: 1.w,
+                                                            color: ColorUtils
+                                                                .borderColor),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.r),
                                                       ),
                                                       child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
                                                             children: [
                                                               Container(
                                                                 width: 0.43.sw,
                                                                 child: Text(
                                                                   "Job Details",
                                                                   style: TextStyle(
-                                                                      fontWeight: FontWeight.bold, fontSize: 16.sp, overflow: TextOverflow.ellipsis),
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          16.sp,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis),
                                                                 ),
                                                               ),
                                                               Text(
                                                                 "${controller.cancelledJobsList[index].jobStatus} |   ${DateFormat('d MMMM').format(DateTime.parse(controller.cancelledJobsList[index].jobDate.toString()))}",
-                                                                style: TextStyle(fontSize: 12.sp, color: ColorUtils.borderColor),
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12.sp,
+                                                                    color: ColorUtils
+                                                                        .borderColor),
                                                               )
                                                             ],
                                                           ),
                                                           6.h.verticalSpace,
-                                                          Text("${controller.cancelledJobsList[index].description}"),
+                                                          Text(
+                                                              "${controller.cancelledJobsList[index].description}"),
                                                           12.h.verticalSpace,
                                                         ],
                                                       ),

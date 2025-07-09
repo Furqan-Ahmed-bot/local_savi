@@ -48,31 +48,44 @@ class PFilterScreen extends GetWidget<PFilterController> {
                   children: [
                     Text(
                       "Search Keyword",
-                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: ColorUtils.black),
                     ),
                     10.verticalSpace,
-                    EditText(controller: controller.keywordController, hintText: "Search here", context: context, bordercolor: Colors.transparent),
+                    EditText(
+                        controller: controller.keywordController,
+                        hintText: "Search here",
+                        context: context,
+                        bordercolor: Colors.transparent),
                     10.verticalSpace,
                     Text(
                       "Job Title",
-                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: ColorUtils.black),
                     ),
                     10.verticalSpace,
                     EditText(
                         controller: controller.jobTitleController,
-                        hintText: "Lorem ipsum dolor sit amet consectetur",
+                        hintText: "Job Title",
                         context: context,
                         bordercolor: Colors.transparent),
                     10.verticalSpace,
                     Text(
                       "Job Date",
-                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: ColorUtils.black),
                     ),
                     10.verticalSpace,
                     EditText(
                         readonly: true,
                         controller: controller.dateController,
-                        hintText: "06/29/2024",
+                        hintText: "DD/MM/YYYY",
                         context: context,
                         ONTAP: () {
                           controller.selectDate(context);
@@ -82,7 +95,10 @@ class PFilterScreen extends GetWidget<PFilterController> {
                     10.verticalSpace,
                     Text(
                       "Job Time",
-                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: ColorUtils.black),
                     ),
                     10.verticalSpace,
                     Obx(
@@ -96,10 +112,12 @@ class PFilterScreen extends GetWidget<PFilterController> {
                                 width: 0.28.sw,
                                 height: 0.07.sh,
                                 alignment: Alignment.center,
-                                padding: const EdgeInsets.symmetric(horizontal: 18),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 18),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: const Color(0xffDBE2EC)),
+                                  border: Border.all(
+                                      color: const Color(0xffDBE2EC)),
                                   color: Colors.white,
                                 ),
                                 child: DropdownButtonFormField<String>(
@@ -115,9 +133,10 @@ class PFilterScreen extends GetWidget<PFilterController> {
                                       color: Color(0xffA5A5A5),
                                     ), // Use hintText instead of labelText
                                     border: InputBorder.none,
-                                    contentPadding: const EdgeInsets.only(bottom: 0, top: 7.0),
+                                    contentPadding: const EdgeInsets.only(
+                                        bottom: 0, top: 7.0),
                                   ),
-                                  // value: controller.selectedHours,
+                                  value: controller.selectedHours,
                                   icon: const SizedBox.shrink(),
                                   items: [
                                     '00',
@@ -133,28 +152,46 @@ class PFilterScreen extends GetWidget<PFilterController> {
                                     '10',
                                     '11',
                                     '12',
-                                    '13',
-                                    '14',
-                                    '15',
-                                    '16',
-                                    '17',
-                                    '18',
-                                    '19',
-                                    '20',
-                                    '21',
-                                    '22',
-                                    '23',
                                   ]
                                       .map((gender) => DropdownMenuItem(
                                             value: gender,
                                             child: Text(
                                               gender,
-                                              style: TextStyle(fontSize: 14.sp, color: const Color(0xffA5A5A5)),
+                                              style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  color: Colors.black),
                                             ),
                                           ))
                                       .toList(),
                                   onChanged: (value) {
-                                    controller.selectedHours = value;
+                                    if (value != null) {
+                                      controller.selectedHours = value;
+
+                                      // Check if the selected time is valid
+                                      // if (!controller.isTimeValid(
+                                      //     controller.selectedDate,
+                                      //     controller.selectedHours ?? "00",
+                                      //     controller.selectedMints ?? "00",
+                                      //     controller.isAm.value)) {
+                                      //   // Show an error message or reset the selection
+                                      //   Get.snackbar("Invalid Time",
+                                      //       "You cannot select a time earlier than the current time for today.");
+                                      //   return;
+                                      // }
+
+                                      DateTime localTime =
+                                          controller.selectedDate.add(Duration(
+                                        hours: int.parse(
+                                            controller.selectedHours ?? "00"),
+                                        minutes: int.parse(
+                                            controller.selectedMints ?? "00"),
+                                      ));
+
+                                      DateTime utcTime = localTime.toUtc();
+
+                                      controller.selectedTimeWithDate.value =
+                                          utcTime.toIso8601String();
+                                    }
                                   },
                                 ),
                               ),
@@ -162,10 +199,12 @@ class PFilterScreen extends GetWidget<PFilterController> {
                                 height: 0.07.sh,
                                 width: 0.28.sw,
                                 alignment: Alignment.center,
-                                padding: const EdgeInsets.symmetric(horizontal: 18),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 18),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: const Color(0xffDBE2EC)),
+                                  border: Border.all(
+                                      color: const Color(0xffDBE2EC)),
                                   color: Colors.white,
                                 ),
                                 child: DropdownButtonFormField<String>(
@@ -181,9 +220,10 @@ class PFilterScreen extends GetWidget<PFilterController> {
                                       color: Color(0xffA5A5A5),
                                     ), // Use hintText instead of labelText
                                     border: InputBorder.none,
-                                    contentPadding: const EdgeInsets.only(bottom: 0, top: 7.0),
+                                    contentPadding: const EdgeInsets.only(
+                                        bottom: 0, top: 7.0),
                                   ),
-                                  // value: controller.selectedMints,
+                                  value: controller.selectedMints,
                                   icon: const SizedBox.shrink(),
                                   items: [
                                     '00',
@@ -251,21 +291,41 @@ class PFilterScreen extends GetWidget<PFilterController> {
                                             value: gender,
                                             child: Text(
                                               gender,
-                                              style: TextStyle(fontSize: 14.sp, color: const Color(0xffA5A5A5)),
+                                              style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  color: Colors.black),
                                             ),
                                           ))
                                       .toList(),
                                   onChanged: (value) {
-                                    controller.selectedMints = value;
+                                    if (value != null) {
+                                      controller.selectedMints = value;
 
-                                    DateTime localTime = controller.selectedDate.add(Duration(
-                                      hours: int.parse(controller.selectedHours ?? "00"),
-                                      minutes: int.parse(controller.selectedMints ?? "00"),
-                                    ));
+                                      // Check if the selected time is valid
+                                      // if (!controller.isTimeValid(
+                                      //     controller.selectedDate,
+                                      //     controller.selectedHours ?? "00",
+                                      //     controller.selectedMints ?? "00",
+                                      //     controller.isAm.value)) {
+                                      //   // Show an error message or reset the selection
+                                      //   Get.snackbar("Invalid Time",
+                                      //       "You cannot select a time earlier than the current time for today.");
+                                      //   return;
+                                      // }
 
-                                    DateTime utcTime = localTime.toUtc();
+                                      DateTime localTime =
+                                          controller.selectedDate.add(Duration(
+                                        hours: int.parse(
+                                            controller.selectedHours ?? "00"),
+                                        minutes: int.parse(
+                                            controller.selectedMints ?? "00"),
+                                      ));
 
-                                    controller.selectedTimeWithDate.value = utcTime.toIso8601String();
+                                      DateTime utcTime = localTime.toUtc();
+
+                                      controller.selectedTimeWithDate.value =
+                                          utcTime.toIso8601String();
+                                    }
                                   },
                                 ),
                               ),
@@ -277,14 +337,25 @@ class PFilterScreen extends GetWidget<PFilterController> {
                               controller.isAm.value = true;
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 18.w, vertical: 16.h),
                               decoration: BoxDecoration(
-                                  color: controller.isAm.value ? ColorUtils.blue : ColorUtils.white,
+                                  color: controller.isAm.value
+                                      ? ColorUtils.blue
+                                      : ColorUtils.white,
                                   borderRadius: BorderRadius.circular(10.r),
-                                  border: Border.all(width: 1.w, color: controller.isAm.value ? ColorUtils.blue : ColorUtils.borderColor)),
+                                  border: Border.all(
+                                      width: 1.w,
+                                      color: controller.isAm.value
+                                          ? ColorUtils.blue
+                                          : ColorUtils.borderColor)),
                               child: Text(
                                 "AM",
-                                style: TextStyle(fontSize: 16, color: controller.isAm.value ? ColorUtils.white : ColorUtils.black),
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: controller.isAm.value
+                                        ? ColorUtils.white
+                                        : ColorUtils.black),
                               ),
                             ),
                           ),
@@ -294,14 +365,25 @@ class PFilterScreen extends GetWidget<PFilterController> {
                               controller.isAm.value = false;
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 18.w, vertical: 16.h),
                               decoration: BoxDecoration(
-                                  color: controller.isAm.value ? ColorUtils.white : ColorUtils.blue,
+                                  color: controller.isAm.value
+                                      ? ColorUtils.white
+                                      : ColorUtils.blue,
                                   borderRadius: BorderRadius.circular(10.r),
-                                  border: Border.all(width: 1.w, color: controller.isAm.value ? ColorUtils.borderColor : ColorUtils.blue)),
+                                  border: Border.all(
+                                      width: 1.w,
+                                      color: controller.isAm.value
+                                          ? ColorUtils.borderColor
+                                          : ColorUtils.blue)),
                               child: Text(
                                 "PM",
-                                style: TextStyle(fontSize: 16, color: controller.isAm.value ? ColorUtils.black : ColorUtils.white),
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: controller.isAm.value
+                                        ? ColorUtils.black
+                                        : ColorUtils.white),
                               ),
                             ),
                           )
@@ -311,7 +393,10 @@ class PFilterScreen extends GetWidget<PFilterController> {
                     10.verticalSpace,
                     Text(
                       "Add location",
-                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: ColorUtils.black),
                     ),
                     10.verticalSpace,
                     EditText(
@@ -324,18 +409,23 @@ class PFilterScreen extends GetWidget<PFilterController> {
                             controller.lat = result.latitude;
                             controller.long = result.longitude;
 
-                            List<Placemark> placemarks = await placemarkFromCoordinates(result.latitude, result.longitude);
+                            List<Placemark> placemarks =
+                                await placemarkFromCoordinates(
+                                    result.latitude, result.longitude);
                             if (placemarks.isNotEmpty) {
                               Placemark placemark = placemarks.first;
-                              String address = "${placemark.name}, ${placemark.locality}";
+                              String address =
+                                  "${placemark.name}, ${placemark.locality}";
 
-                              controller.locationEditingController.text = address.toString();
+                              controller.locationEditingController.text =
+                                  address.toString();
 
                               print(address);
                             }
                           }
                         },
-                        hintText: "Lorem ipsum dolor sit amet consectetur",
+                        readonly: true,
+                        hintText: "Location",
                         context: context,
                         suffixIcon: ImageAssets.location,
                         controller: controller.locationEditingController,
@@ -343,7 +433,10 @@ class PFilterScreen extends GetWidget<PFilterController> {
                     10.verticalSpace,
                     Text(
                       "Set Distance",
-                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: ColorUtils.black),
                     ),
                     10.verticalSpace,
                     Container(
@@ -354,27 +447,39 @@ class PFilterScreen extends GetWidget<PFilterController> {
                             children: [
                               Text(
                                 "0",
-                                style: TextStyle(fontSize: 13.sp, color: ColorUtils.textColor),
+                                style: TextStyle(
+                                    fontSize: 13.sp,
+                                    color: ColorUtils.textColor),
                               ),
                               Text(
                                 "Miles",
-                                style: TextStyle(fontSize: 13.sp, color: ColorUtils.textColor),
+                                style: TextStyle(
+                                    fontSize: 13.sp,
+                                    color: ColorUtils.textColor),
                               ),
                             ],
                           ),
                           Obx(
                             () => Expanded(
                               child: RangeSlider(
-                                  values: RangeValues(controller.startDistance.value, controller.endDistance.value),
+                                  values: RangeValues(
+                                      controller.startDistance.value,
+                                      controller.endDistance.value),
                                   min: 10,
                                   max: 80,
                                   activeColor: ColorUtils.black,
                                   inactiveColor: ColorUtils.txtLightGrey,
                                   divisions: 10,
-                                  labels:
-                                      RangeLabels(controller.startDistance.value.round().toString(), controller.endDistance.value.round().toString()),
+                                  labels: RangeLabels(
+                                      controller.startDistance.value
+                                          .round()
+                                          .toString(),
+                                      controller.endDistance.value
+                                          .round()
+                                          .toString()),
                                   onChanged: (value) {
-                                    controller.startDistance.value = value.start;
+                                    controller.startDistance.value =
+                                        value.start;
                                     controller.endDistance.value = value.end;
                                     controller.minRadius.value = value.start;
                                     controller.maxRadius.value = value.start;
@@ -385,11 +490,15 @@ class PFilterScreen extends GetWidget<PFilterController> {
                             children: [
                               Text(
                                 "100",
-                                style: TextStyle(fontSize: 13.sp, color: ColorUtils.textColor),
+                                style: TextStyle(
+                                    fontSize: 13.sp,
+                                    color: ColorUtils.textColor),
                               ),
                               Text(
                                 "Miles",
-                                style: TextStyle(fontSize: 13.sp, color: ColorUtils.textColor),
+                                style: TextStyle(
+                                    fontSize: 13.sp,
+                                    color: ColorUtils.textColor),
                               ),
                             ],
                           ),
@@ -399,7 +508,10 @@ class PFilterScreen extends GetWidget<PFilterController> {
                     10.verticalSpace,
                     Text(
                       "Set Budget",
-                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: ColorUtils.black),
                     ),
                     10.verticalSpace,
                     Container(
@@ -408,18 +520,27 @@ class PFilterScreen extends GetWidget<PFilterController> {
                         children: [
                           Text(
                             "\$10",
-                            style: TextStyle(fontSize: 13.sp, color: ColorUtils.textColor),
+                            style: TextStyle(
+                                fontSize: 13.sp, color: ColorUtils.textColor),
                           ),
                           Obx(
                             () => Expanded(
                               child: RangeSlider(
-                                  values: RangeValues(controller.startPrice.value, controller.endPrice.value),
+                                  values: RangeValues(
+                                      controller.startPrice.value,
+                                      controller.endPrice.value),
                                   min: 10,
                                   max: 1000,
                                   activeColor: ColorUtils.black,
                                   inactiveColor: ColorUtils.txtLightGrey,
                                   divisions: 20,
-                                  labels: RangeLabels(controller.startPrice.value.round().toString(), controller.endPrice.value.round().toString()),
+                                  labels: RangeLabels(
+                                      controller.startPrice.value
+                                          .round()
+                                          .toString(),
+                                      controller.endPrice.value
+                                          .round()
+                                          .toString()),
                                   onChanged: (value) {
                                     controller.startPrice.value = value.start;
 
@@ -431,7 +552,8 @@ class PFilterScreen extends GetWidget<PFilterController> {
                           ),
                           Text(
                             "\$1000",
-                            style: TextStyle(fontSize: 13.sp, color: ColorUtils.textColor),
+                            style: TextStyle(
+                                fontSize: 13.sp, color: ColorUtils.textColor),
                           ),
                         ],
                       ),

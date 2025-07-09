@@ -109,12 +109,15 @@ class SelectUserRoleTwo extends GetWidget<RoleTwoController> {
                           },
                           child: Text(
                             'Terms & Conditions',
-                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                         Text(
                           '  |  ',
-                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         InkWell(
                           onTap: () {
@@ -122,7 +125,9 @@ class SelectUserRoleTwo extends GetWidget<RoleTwoController> {
                           },
                           child: Text(
                             'Privacy Policy',
-                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
@@ -130,7 +135,7 @@ class SelectUserRoleTwo extends GetWidget<RoleTwoController> {
                   ],
                 ),
               ),
-              15.verticalSpace
+              30.verticalSpace
             ],
           ),
         ),

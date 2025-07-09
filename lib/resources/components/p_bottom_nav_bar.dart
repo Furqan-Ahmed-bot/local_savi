@@ -40,7 +40,9 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
         return false;
       },
       child: AnnotatedRegion(
-        value: SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.white, systemNavigationBarColor: const Color(0xff4E7095)),
+        value: SystemUiOverlayStyle.dark.copyWith(
+            statusBarColor: Colors.white,
+            systemNavigationBarColor: const Color(0xff4E7095)),
         child: GetBuilder<PBottomAppBarController>(
             // init: bottomController,
             builder: (controller) {
@@ -80,15 +82,20 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                         width: 90,
                                         child: ClipOval(
                                           child: Image.network(
-                                            loadingBuilder: (context, child, loadingProgress) {
-                                              if (loadingProgress == null) return child;
+                                            loadingBuilder: (context, child,
+                                                loadingProgress) {
+                                              if (loadingProgress == null)
+                                                return child;
                                               return const Center(
-                                                child: CircularProgressIndicator(),
+                                                child:
+                                                    CircularProgressIndicator(),
                                               );
                                             },
-                                            errorBuilder: (context, error, stackTrace) {
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
                                               return const Center(
-                                                child: CircularProgressIndicator(),
+                                                child:
+                                                    CircularProgressIndicator(),
                                               );
                                             },
                                             fit: BoxFit.cover,
@@ -118,12 +125,16 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                 Center(
                                   child: Text(
                                     '${phController.performerdata.userDetails?.firstName}',
-                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
                                   ),
                                 ),
                                 Text(
                                   '${phController.performerdata.userDetails?.contactEmail}',
-                                  style: TextStyle(fontSize: 15, color: Colors.black),
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.black),
                                 )
                               ],
                             ),
@@ -187,7 +198,9 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                     ),
                                     20.horizontalSpace,
                                     Text(
-                                      walletController.isLoading.value ? 'Please Wait' : "My Wallet",
+                                      walletController.isLoading.value
+                                          ? 'Please Wait'
+                                          : "My Wallet",
                                       style: TextStyle(color: Colors.black),
                                     )
                                   ],
@@ -267,9 +280,12 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                                        backgroundColor: ColorUtils.dialogeBGColor,
+                                        insetPadding: EdgeInsets.symmetric(
+                                            horizontal: 20.w),
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        backgroundColor:
+                                            ColorUtils.dialogeBGColor,
                                         content: SizedBox(
                                           width: 1.0.sw,
                                           child: Column(
@@ -278,7 +294,10 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                               20.h.verticalSpace,
                                               Container(
                                                 padding: EdgeInsets.all(23.sp),
-                                                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color:
+                                                        ColorUtils.jobIconBG),
                                                 child: Image.asset(
                                                   ImageAssets.logoutBigIcon,
                                                   scale: 2,
@@ -309,23 +328,38 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                           Container(
                                             width: 1.0.sw,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Expanded(
                                                   child: GestureDetector(
                                                     onTap: () async {
-                                                      await AuthPreferences.clearAuthData();
+                                                      await AuthPreferences
+                                                          .clearAuthData();
 
-                                                      Get.offAllNamed(RouteName.selectRoleOne);
+                                                      Get.offAllNamed(RouteName
+                                                          .selectRoleOne);
                                                     },
                                                     child: Container(
-                                                      alignment: Alignment.center,
-                                                      padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 15.h),
                                                       decoration: BoxDecoration(
-                                                          color: ColorUtils.white,
-                                                          borderRadius: BorderRadius.circular(10.r),
-                                                          border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
-                                                      child: const Text("Yes, Select"),
+                                                          color:
+                                                              ColorUtils.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.r),
+                                                          border: Border.all(
+                                                              width: 1.w,
+                                                              color: ColorUtils
+                                                                  .borderColor)),
+                                                      child: const Text(
+                                                          "Yes, Select"),
                                                     ),
                                                   ),
                                                 ),
@@ -333,18 +367,25 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                                 Expanded(
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      Get.back();
+                                                      Get.close(2);
                                                     },
                                                     child: Container(
-                                                      alignment: Alignment.center,
-                                                      padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 15.h),
                                                       decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(10.r),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.r),
                                                         color: ColorUtils.red,
                                                       ),
                                                       child: Text(
                                                         "No",
-                                                        style: TextStyle(color: ColorUtils.white),
+                                                        style: TextStyle(
+                                                            color: ColorUtils
+                                                                .white),
                                                       ),
                                                     ),
                                                   ),
@@ -361,7 +402,9 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                 padding: EdgeInsets.symmetric(vertical: 20.h),
                                 decoration: BoxDecoration(
                                     color: ColorUtils.red,
-                                    borderRadius: BorderRadius.only(topRight: Radius.circular(20.r), bottomRight: Radius.circular(20.r))),
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(20.r),
+                                        bottomRight: Radius.circular(20.r))),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -407,7 +450,9 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                           // padding: EdgeInsets.all(8.sp),
                           height: 40.h,
                           width: 40.w,
-                          decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: ColorUtils.appbarButtonBG),
                           child: Image.asset(
                             ImageAssets.menunicon,
                             scale: 2,
@@ -424,7 +469,9 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                             padding: EdgeInsets.all(8.sp),
                             height: 40.h,
                             width: 40.w,
-                            decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: ColorUtils.appbarButtonBG),
                             child: Image.asset(
                               ImageAssets.notificationicon,
                               scale: 2,
@@ -451,34 +498,39 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                               // padding: EdgeInsets.all(8.sp),
                               height: 40.h,
                               width: 40.w,
-                              decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: ColorUtils.appbarButtonBG),
                               child: Image.asset(
                                 ImageAssets.menunicon,
                                 scale: 2,
                               ),
                             ),
                           ),
-                          actions: [
-                            GestureDetector(
-                              onTap: () {
-                                Get.toNamed(RouteName.pNotificaitonScreenPath);
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(right: 20.w),
-                                padding: EdgeInsets.all(8.sp),
-                                height: 40.h,
-                                width: 40.w,
-                                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
-                                child: Image.asset(
-                                  ImageAssets.notificationicon,
-                                  scale: 2,
-                                ),
-                              ),
-                            ),
-                          ],
+                          // actions: [
+                          //   GestureDetector(
+                          //     onTap: () {
+                          //       Get.toNamed(RouteName.pNotificaitonScreenPath);
+                          //     },
+                          //     child: Container(
+                          //       margin: EdgeInsets.only(right: 20.w),
+                          //       padding: EdgeInsets.all(8.sp),
+                          //       height: 40.h,
+                          //       width: 40.w,
+                          //       decoration: BoxDecoration(
+                          //           shape: BoxShape.circle,
+                          //           color: ColorUtils.appbarButtonBG),
+                          //       child: Image.asset(
+                          //         ImageAssets.notificationicon,
+                          //         scale: 2,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ],
                           title: Text(
                             "Messages",
-                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                                fontSize: 16.sp, fontWeight: FontWeight.w600),
                           ),
                           centerTitle: true,
                           elevation: 0,
@@ -491,38 +543,46 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                   _key.currentState!.openDrawer();
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.only(left: 20.w, right: 10.w),
+                                  margin:
+                                      EdgeInsets.only(left: 20.w, right: 10.w),
                                   // padding: EdgeInsets.all(8.sp),
                                   height: 40.h,
                                   width: 40.w,
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ColorUtils.appbarButtonBG),
                                   child: Image.asset(
                                     ImageAssets.menunicon,
                                     scale: 2,
                                   ),
                                 ),
                               ),
-                              actions: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(RouteName.pNotificaitonScreenPath);
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.only(right: 20.w),
-                                    padding: EdgeInsets.all(8.sp),
-                                    height: 40.h,
-                                    width: 40.w,
-                                    decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
-                                    child: Image.asset(
-                                      ImageAssets.notificationicon,
-                                      scale: 2,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              // actions: [
+                              //   GestureDetector(
+                              //     onTap: () {
+                              //       Get.toNamed(
+                              //           RouteName.pNotificaitonScreenPath);
+                              //     },
+                              //     child: Container(
+                              //       margin: EdgeInsets.only(right: 20.w),
+                              //       padding: EdgeInsets.all(8.sp),
+                              //       height: 40.h,
+                              //       width: 40.w,
+                              //       decoration: BoxDecoration(
+                              //           shape: BoxShape.circle,
+                              //           color: ColorUtils.appbarButtonBG),
+                              //       child: Image.asset(
+                              //         ImageAssets.notificationicon,
+                              //         scale: 2,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ],
                               title: Text(
                                 "Jobs",
-                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                               centerTitle: true,
                               elevation: 0,
@@ -534,38 +594,46 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                   _key.currentState!.openDrawer();
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.only(left: 20.w, right: 10.w),
+                                  margin:
+                                      EdgeInsets.only(left: 20.w, right: 10.w),
                                   // padding: EdgeInsets.all(8.sp),
                                   height: 40.h,
                                   width: 40.w,
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ColorUtils.appbarButtonBG),
                                   child: Image.asset(
                                     ImageAssets.menunicon,
                                     scale: 2,
                                   ),
                                 ),
                               ),
-                              actions: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(RouteName.pNotificaitonScreenPath);
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.only(right: 20.w),
-                                    padding: EdgeInsets.all(8.sp),
-                                    height: 40.h,
-                                    width: 40.w,
-                                    decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
-                                    child: Image.asset(
-                                      ImageAssets.notificationicon,
-                                      scale: 2,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              // actions: [
+                              //   GestureDetector(
+                              //     onTap: () {
+                              //       Get.toNamed(
+                              //           RouteName.pNotificaitonScreenPath);
+                              //     },
+                              //     child: Container(
+                              //       margin: EdgeInsets.only(right: 20.w),
+                              //       padding: EdgeInsets.all(8.sp),
+                              //       height: 40.h,
+                              //       width: 40.w,
+                              //       decoration: BoxDecoration(
+                              //           shape: BoxShape.circle,
+                              //           color: ColorUtils.appbarButtonBG),
+                              //       child: Image.asset(
+                              //         ImageAssets.notificationicon,
+                              //         scale: 2,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ],
                               title: Text(
                                 "Saved Jobs",
-                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                               centerTitle: true,
                               elevation: 0,
@@ -577,7 +645,8 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
               bottomNavigationBar: buildMyNavBar2(context),
 
               // drawer: DrawerWidget(),
-              body: controller.bottomList[controller.count.value]['page'] as Widget,
+              body: controller.bottomList[controller.count.value]['page']
+                  as Widget,
             ),
           );
         }),
@@ -609,7 +678,8 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -666,12 +736,15 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                 children: [
                   SizedBox(height: 10),
                   Image.asset(
-                    pBottomController.bottomList[index]["unfocused_image"].toString(),
-                    height: 20,
+                    pBottomController.bottomList[index]["unfocused_image"]
+                        .toString(),
+                    height: 25,
                   ),
                 ],
               ),
-              pBottomController.count.value == index ? 6.verticalSpace : 8.verticalSpace,
+              pBottomController.count.value == index
+                  ? 6.verticalSpace
+                  : 8.verticalSpace,
               Text(
                 pBottomController.bottomList[index]['title'].toString(),
                 style: TextStyle(color: Colors.black, fontSize: 11.sp),
@@ -686,13 +759,14 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
               child: Align(
                 alignment: Alignment.center,
                 child: Container(
-                  height: 3.h,
+                  height: 3.5.h,
                   width: 30.w,
                   decoration: BoxDecoration(
                     color: ColorUtils.red,
+                    borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
+                        color: ColorUtils.red.withOpacity(0.3),
                         spreadRadius: 3,
                         blurRadius: 7,
                         offset: Offset(0, 2), // changes position of shadow

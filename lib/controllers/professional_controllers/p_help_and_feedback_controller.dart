@@ -17,7 +17,7 @@ import '../../utils/images/image_assets.dart';
 class PHelpAndFeedbackController extends GetxController {
   final subjectController = TextEditingController();
   final messageController = TextEditingController();
-  final imagePickerController = Get.put(ImagePickerController());
+  final imagePickerController = Get.find<ImagePickerController>();
 
   postFeedback(context) async {
     try {
@@ -35,16 +35,22 @@ class PHelpAndFeedbackController extends GetxController {
         'Content-Type': 'application/json',
         'Authorization': token.toString(),
       };
-      var request = http.MultipartRequest('POST', Uri.parse(UserUrls.helpAndFeedback));
-      request.fields.addAll({'subject': subjectController.text, 'message': messageController.text});
+      var request =
+          http.MultipartRequest('POST', Uri.parse(UserUrls.helpAndFeedback));
+      request.fields.addAll({
+        'subject': subjectController.text,
+        'message': messageController.text
+      });
 
       if (imagePickerController.selectedImages.length > 0) {
         for (var i = 0; i < imagePickerController.selectedImages.length; i++) {
           var multipartFile = await http.MultipartFile.fromPath(
             'help_and_feedback_images',
             imagePickerController.selectedImages[i].path,
-            filename: imagePickerController.selectedImages[i].path.split('/').last,
-            contentType: parser.MediaType("image", "${imagePickerController.selectedImages[i].path.split('.').last}"),
+            filename:
+                imagePickerController.selectedImages[i].path.split('/').last,
+            contentType: parser.MediaType("image",
+                "${imagePickerController.selectedImages[i].path.split('.').last}"),
           );
           request.files.add(multipartFile);
         }
@@ -70,7 +76,9 @@ class PHelpAndFeedbackController extends GetxController {
                       20.h.verticalSpace,
                       Container(
                         padding: EdgeInsets.all(23.sp),
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.jobIconBG),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColorUtils.jobIconBG),
                         child: Image.asset(
                           ImageAssets.jobDoneIcon,
                           scale: 2,
@@ -110,7 +118,8 @@ class PHelpAndFeedbackController extends GetxController {
                           },
                           child: Container(
                             alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 30.w),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15.h, horizontal: 30.w),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.r),
                               color: ColorUtils.red,
@@ -130,11 +139,19 @@ class PHelpAndFeedbackController extends GetxController {
       } else {
         Get.back();
         debugPrint(await response.stream.bytesToString());
-        Get.snackbar("Alert", responseData['message'].toString(), backgroundColor: ColorUtils.white);
+        Get.snackbar("Alert", responseData['message'].toString(),
+            backgroundColor: ColorUtils.white);
       }
     } catch (e) {
       Get.back();
       debugPrint("==> error: ${e.toString()}");
     }
+  }
+
+  @override
+  void onClose() {
+    imagePickerController.selectedImages.clear();
+    imagePickerController.selectedImage.value = null;
+    super.onClose();
   }
 }

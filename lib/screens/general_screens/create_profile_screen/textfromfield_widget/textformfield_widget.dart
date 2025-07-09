@@ -14,6 +14,8 @@ class LabelTextFormFieldWidget extends StatelessWidget {
     this.maxlines = 1,
     this.ontap,
     this.onChange,
+    this.validation,
+    this.onFulltap,
     this.onSubmitted,
     super.key,
   });
@@ -25,7 +27,9 @@ class LabelTextFormFieldWidget extends StatelessWidget {
   bool issufficsenable;
   final suffixicon;
   int maxlines;
+  final String? Function(String?)? validation;
   final Function()? ontap;
+  final Function()? onFulltap;
   final Function(String)? onChange;
   final Function(String)? onSubmitted;
 
@@ -41,7 +45,10 @@ class LabelTextFormFieldWidget extends StatelessWidget {
         color: Colors.white,
       ),
       child: TextFormField(
+        onTap: readOnly! ? onFulltap : null,
         readOnly: readOnly!,
+        validator: validation,
+        cursorColor: Colors.black,
         onFieldSubmitted: onSubmitted,
         onChanged: onChange,
         controller: controller,

@@ -12,12 +12,15 @@ class PJobProvidercontroller extends GetxController {
   List allActiveJobs = [];
   List userInfo = [];
   List dummyData = [];
+  RxString getUserId = "".obs;
 
   @override
   void onInit() {
     super.onInit();
+    getUserId.value =
+        Get.arguments != null ? Get.arguments['userId'] ?? "" : "";
 
-    getProfileInfo('78245af3-830e-4198-9e7b-3522d7948157'); // Initial profession
+    getProfileInfo(getUserId.value); // Initial profession
   }
 
   getProfileInfo(userId) async {

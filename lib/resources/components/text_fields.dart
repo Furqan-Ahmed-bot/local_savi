@@ -31,6 +31,7 @@ class AuthTextField extends StatelessWidget {
   final Color? hintColor;
   final Color borderColor;
   final TextStyle? textStyle;
+  TextCapitalization? textCapitalization;
   final EdgeInsetsGeometry? padding;
 
   AuthTextField({
@@ -48,6 +49,7 @@ class AuthTextField extends StatelessWidget {
     this.iconW,
     this.borderWidth = 0,
     this.readOnly = false,
+    this.textCapitalization,
     this.controller,
     this.onTap,
     this.initialValue,
@@ -96,7 +98,10 @@ class AuthTextField extends StatelessWidget {
                   style: textStyle ?? context.titleMedium,
                   keyboardType: type,
                   controller: controller,
+                  textCapitalization:
+                      textCapitalization ?? TextCapitalization.none,
                   readOnly: readOnly,
+                  validator: validation,
 
                   onTap: onTap,
                   autofocus: false,

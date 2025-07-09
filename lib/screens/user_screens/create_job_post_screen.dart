@@ -34,10 +34,12 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                   if (controller.titleEditingController.text.isNotEmpty) {
                     if (controller.dateController.text.isNotEmpty) {
                       if (controller.descEditingController.text.isNotEmpty) {
-                        if (controller.addressEditingController.text.isNotEmpty) {
+                        if (controller
+                            .addressEditingController.text.isNotEmpty) {
                           if (controller.latitide != null) {
                             if (controller.listOfImages.isNotEmpty) {
-                              controller.stepIndex.value = controller.stepIndex.value + 1;
+                              controller.stepIndex.value =
+                                  controller.stepIndex.value + 1;
                               controller.update();
                             } else {
                               Get.snackbar(
@@ -85,25 +87,38 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                   if (controller.priceBudgetEditingController.text.isNotEmpty) {
                     // controller.stepIndex.value = controller.stepIndex.value + 1;
                     // controller.update();
-                    controller.selectedTimeWithDate.value = controller.selectedDate
-                        .add(Duration(hours: int.parse(controller.selectedHours ?? "00"), minutes: int.parse(controller.selectedMints ?? "00")))
+                    controller.selectedTimeWithDate.value = controller
+                        .selectedDate
+                        .add(Duration(
+                            hours: int.parse(controller.selectedHours ?? "00"),
+                            minutes:
+                                int.parse(controller.selectedMints ?? "00")))
                         .toIso8601String();
 
                     UserServices.instance.createJob(
                         context: context,
-                        WorkerType: controller.groupValue.value == 0 ? "PROFESSIONAL" : "HANDYMAN",
+                        WorkerType: controller.groupValue.value == 0
+                            ? "PROFESSIONAL"
+                            : "HANDYMAN",
                         title: controller.titleEditingController.text,
                         desc: controller.descEditingController.text,
                         location: controller.locationEditingController.text,
                         lat: controller.latitide.toString(),
                         long: controller.longitude.toString(),
-                        jobDate: DateTime.parse(controller.selectedJobDate).toIso8601String(),
+                        jobDate: DateTime.parse(controller.selectedJobDate)
+                            .toIso8601String(),
                         startTime: controller.selectedTimeWithDate.value,
-                        jobType: controller.workingHour.value == 0 ? "WORKINGHOUR" : "AFTERHOUR",
-                        budgetType: controller.fixedAmoount.value == 0 ? "FIXED" : "HOURLY",
+                        jobType: controller.workingHour.value == 0
+                            ? "WORKINGHOUR"
+                            : "AFTERHOUR",
+                        budgetType: controller.fixedAmoount.value == 0
+                            ? "FIXED"
+                            : "HOURLY",
                         budget: controller.priceBudgetEditingController.text,
                         address: controller.addressEditingController.text,
-                        city: controller.city.value != "" ? controller.city.value : controller.state.value,
+                        city: controller.city.value != ""
+                            ? controller.city.value
+                            : controller.state.value,
                         state: controller.state.value,
                         images: controller.listOfImages);
                   } else {
@@ -152,7 +167,8 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
               }),
         ),
       ),
-      body: myBackGround(child: GetBuilder<CreateJobPostScreenController>(builder: (controller) {
+      body: myBackGround(child:
+          GetBuilder<CreateJobPostScreenController>(builder: (controller) {
         return InkWell(
           onTap: () {
             FocusScope.of(context).unfocus();
@@ -170,7 +186,9 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          controller.stepIndex.value < 1 ? Get.back() : controller.stepIndex.value = 0;
+                          controller.stepIndex.value < 1
+                              ? Get.back()
+                              : controller.stepIndex.value = 0;
                           controller.update();
                         },
                         child: Container(
@@ -178,7 +196,9 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                           padding: EdgeInsets.all(8.sp),
                           height: 40.h,
                           width: 40.w,
-                          decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: ColorUtils.appbarButtonBG),
                           child: Image.asset(
                             ImageAssets.backArrow,
                             scale: 2,
@@ -187,7 +207,8 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                       ),
                       Text(
                         "Create Job",
-                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 16.sp, fontWeight: FontWeight.w600),
                       ),
                       Container(
                         width: 80.w,
@@ -233,7 +254,9 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                   // 5.verticalSpace,
                                   Text(
                                     "Job Details",
-                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w600),
                                   )
                                 ],
                               ),
@@ -258,7 +281,9 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                         padding: EdgeInsets.all(10.sp),
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: controller.stepIndex.value < 1 ? ColorUtils.txtLightGrey : ColorUtils.black,
+                                          color: controller.stepIndex.value < 1
+                                              ? ColorUtils.txtLightGrey
+                                              : ColorUtils.black,
                                         ),
                                         child: Text(
                                           "2",
@@ -270,7 +295,9 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                   // 5.verticalSpace,
                                   Text(
                                     "Budget",
-                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w600),
                                   )
                                 ],
                               ),
@@ -334,7 +361,8 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                         children: [
                           Text(
                             "Select Worker Type",
-                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                                fontSize: 16.sp, fontWeight: FontWeight.w600),
                           ),
                           10.verticalSpace,
                           Container(
@@ -348,25 +376,37 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                         controller.groupValue.value = 0;
                                       },
                                       child: Container(
-                                        padding: EdgeInsets.symmetric(vertical: 10.h),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 10.h),
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10.r),
-                                          color: controller.groupValue.value == 0 ? ColorUtils.red : ColorUtils.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10.r),
+                                          color:
+                                              controller.groupValue.value == 0
+                                                  ? ColorUtils.red
+                                                  : ColorUtils.white,
                                         ),
                                         child: Row(
                                           children: [
                                             Radio<int>(
                                               value: 0,
                                               activeColor: ColorUtils.white,
-                                              groupValue: controller.groupValue.value,
+                                              groupValue:
+                                                  controller.groupValue.value,
                                               onChanged: (int? value) {
-                                                controller.groupValue.value = value!;
+                                                controller.groupValue.value =
+                                                    value!;
                                               },
                                             ),
                                             Text(
                                               "Professional",
                                               style: TextStyle(
-                                                  fontSize: 16.sp, color: controller.groupValue.value == 0 ? ColorUtils.white : ColorUtils.black),
+                                                  fontSize: 16.sp,
+                                                  color: controller.groupValue
+                                                              .value ==
+                                                          0
+                                                      ? ColorUtils.white
+                                                      : ColorUtils.black),
                                             ),
                                           ],
                                         ),
@@ -380,25 +420,37 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                         controller.groupValue.value = 1;
                                       },
                                       child: Container(
-                                        padding: EdgeInsets.symmetric(vertical: 10.h),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 10.h),
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10.r),
-                                          color: controller.groupValue.value == 1 ? ColorUtils.red : ColorUtils.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10.r),
+                                          color:
+                                              controller.groupValue.value == 1
+                                                  ? ColorUtils.red
+                                                  : ColorUtils.white,
                                         ),
                                         child: Row(
                                           children: [
                                             Radio<int>(
                                               value: 1,
                                               activeColor: ColorUtils.white,
-                                              groupValue: controller.groupValue.value,
+                                              groupValue:
+                                                  controller.groupValue.value,
                                               onChanged: (int? value) {
-                                                controller.groupValue.value = value!;
+                                                controller.groupValue.value =
+                                                    value!;
                                               },
                                             ),
                                             Text(
                                               "Handyman",
                                               style: TextStyle(
-                                                  fontSize: 16.sp, color: controller.groupValue.value == 1 ? ColorUtils.white : ColorUtils.black),
+                                                  fontSize: 16.sp,
+                                                  color: controller.groupValue
+                                                              .value ==
+                                                          1
+                                                      ? ColorUtils.white
+                                                      : ColorUtils.black),
                                             ),
                                           ],
                                         ),
@@ -412,19 +464,28 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                           10.verticalSpace,
                           Text(
                             "Job Title",
-                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                                color: ColorUtils.black),
                           ),
                           10.verticalSpace,
                           EditText(
-                              hintText: "Title", context: context, controller: controller.titleEditingController, bordercolor: Colors.transparent),
+                              hintText: "Title",
+                              context: context,
+                              controller: controller.titleEditingController,
+                              bordercolor: Colors.transparent),
                           10.verticalSpace,
                           Text(
                             "Job Date",
-                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                                color: ColorUtils.black),
                           ),
                           10.verticalSpace,
                           EditText(
-                              hintText: "06/29/2025",
+                              hintText: "DD/MM/YYYY",
                               context: context,
                               readonly: true,
                               ONTAP: () {
@@ -436,7 +497,10 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                           10.verticalSpace,
                           Text(
                             "Job Time",
-                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                                color: ColorUtils.black),
                           ),
                           10.verticalSpace,
                           Obx(
@@ -444,16 +508,19 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                       width: 0.28.sw,
                                       height: 0.07.sh,
                                       alignment: Alignment.center,
-                                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 18),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(color: const Color(0xffDBE2EC)),
+                                        border: Border.all(
+                                            color: const Color(0xffDBE2EC)),
                                         color: Colors.white,
                                       ),
                                       child: DropdownButtonFormField<String>(
@@ -469,7 +536,8 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                             color: Color(0xffA5A5A5),
                                           ), // Use hintText instead of labelText
                                           border: InputBorder.none,
-                                          contentPadding: const EdgeInsets.only(bottom: 0, top: 7.0),
+                                          contentPadding: const EdgeInsets.only(
+                                              bottom: 0, top: 7.0),
                                         ),
                                         value: controller.selectedHours,
                                         icon: const SizedBox.shrink(),
@@ -492,7 +560,9 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                                   value: gender,
                                                   child: Text(
                                                     gender,
-                                                    style: TextStyle(fontSize: 14.sp, color: const Color(0xffA5A5A5)),
+                                                    style: TextStyle(
+                                                        fontSize: 14.sp,
+                                                        color: Colors.black),
                                                   ),
                                                 ))
                                             .toList(),
@@ -501,21 +571,36 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                             controller.selectedHours = value;
 
                                             // Check if the selected time is valid
-                                            if (!controller.isTimeValid(controller.selectedDate, controller.selectedHours ?? "00",
-                                                controller.selectedMints ?? "00", controller.isAm.value)) {
+                                            if (!controller.isTimeValid(
+                                                controller.selectedDate,
+                                                controller.selectedHours ??
+                                                    "00",
+                                                controller.selectedMints ??
+                                                    "00",
+                                                controller.isAm.value)) {
                                               // Show an error message or reset the selection
-                                              Get.snackbar("Invalid Time", "You cannot select a time earlier than the current time for today.");
+                                              Get.snackbar("Invalid Time",
+                                                  "You cannot select a time earlier than the current time for today.");
                                               return;
                                             }
 
-                                            DateTime localTime = controller.selectedDate.add(Duration(
-                                              hours: int.parse(controller.selectedHours ?? "00"),
-                                              minutes: int.parse(controller.selectedMints ?? "00"),
+                                            DateTime localTime = controller
+                                                .selectedDate
+                                                .add(Duration(
+                                              hours: int.parse(
+                                                  controller.selectedHours ??
+                                                      "00"),
+                                              minutes: int.parse(
+                                                  controller.selectedMints ??
+                                                      "00"),
                                             ));
 
-                                            DateTime utcTime = localTime.toUtc();
+                                            DateTime utcTime =
+                                                localTime.toUtc();
 
-                                            controller.selectedTimeWithDate.value = utcTime.toIso8601String();
+                                            controller.selectedTimeWithDate
+                                                    .value =
+                                                utcTime.toIso8601String();
                                           }
                                         },
                                       ),
@@ -524,10 +609,12 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                       height: 0.07.sh,
                                       width: 0.28.sw,
                                       alignment: Alignment.center,
-                                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 18),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(color: const Color(0xffDBE2EC)),
+                                        border: Border.all(
+                                            color: const Color(0xffDBE2EC)),
                                         color: Colors.white,
                                       ),
                                       child: DropdownButtonFormField<String>(
@@ -543,7 +630,8 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                             color: Color(0xffA5A5A5),
                                           ), // Use hintText instead of labelText
                                           border: InputBorder.none,
-                                          contentPadding: const EdgeInsets.only(bottom: 0, top: 7.0),
+                                          contentPadding: const EdgeInsets.only(
+                                              bottom: 0, top: 7.0),
                                         ),
                                         value: controller.selectedMints,
                                         icon: const SizedBox.shrink(),
@@ -613,7 +701,9 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                                   value: gender,
                                                   child: Text(
                                                     gender,
-                                                    style: TextStyle(fontSize: 14.sp, color: const Color(0xffA5A5A5)),
+                                                    style: TextStyle(
+                                                        fontSize: 14.sp,
+                                                        color: Colors.black),
                                                   ),
                                                 ))
                                             .toList(),
@@ -622,21 +712,36 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                             controller.selectedMints = value;
 
                                             // Check if the selected time is valid
-                                            if (!controller.isTimeValid(controller.selectedDate, controller.selectedHours ?? "00",
-                                                controller.selectedMints ?? "00", controller.isAm.value)) {
+                                            if (!controller.isTimeValid(
+                                                controller.selectedDate,
+                                                controller.selectedHours ??
+                                                    "00",
+                                                controller.selectedMints ??
+                                                    "00",
+                                                controller.isAm.value)) {
                                               // Show an error message or reset the selection
-                                              Get.snackbar("Invalid Time", "You cannot select a time earlier than the current time for today.");
+                                              Get.snackbar("Invalid Time",
+                                                  "You cannot select a time earlier than the current time for today.");
                                               return;
                                             }
 
-                                            DateTime localTime = controller.selectedDate.add(Duration(
-                                              hours: int.parse(controller.selectedHours ?? "00"),
-                                              minutes: int.parse(controller.selectedMints ?? "00"),
+                                            DateTime localTime = controller
+                                                .selectedDate
+                                                .add(Duration(
+                                              hours: int.parse(
+                                                  controller.selectedHours ??
+                                                      "00"),
+                                              minutes: int.parse(
+                                                  controller.selectedMints ??
+                                                      "00"),
                                             ));
 
-                                            DateTime utcTime = localTime.toUtc();
+                                            DateTime utcTime =
+                                                localTime.toUtc();
 
-                                            controller.selectedTimeWithDate.value = utcTime.toIso8601String();
+                                            controller.selectedTimeWithDate
+                                                    .value =
+                                                utcTime.toIso8601String();
                                           }
                                         },
                                       ),
@@ -648,21 +753,36 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                     controller.isAm.value = true;
 
                                     // Check if the selected time is valid after changing AM/PM
-                                    if (!controller.isTimeValid(controller.selectedDate, controller.selectedHours ?? "00",
-                                        controller.selectedMints ?? "00", controller.isAm.value)) {
-                                      Get.snackbar("Invalid Time", "You cannot select a time earlier than the current time for today.");
+                                    if (!controller.isTimeValid(
+                                        controller.selectedDate,
+                                        controller.selectedHours ?? "00",
+                                        controller.selectedMints ?? "00",
+                                        controller.isAm.value)) {
+                                      Get.snackbar("Invalid Time",
+                                          "You cannot select a time earlier than the current time for today.");
                                     }
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 18.w, vertical: 16.h),
                                     decoration: BoxDecoration(
-                                      color: controller.isAm.value ? ColorUtils.blue : ColorUtils.white,
+                                      color: controller.isAm.value
+                                          ? ColorUtils.blue
+                                          : ColorUtils.white,
                                       borderRadius: BorderRadius.circular(10.r),
-                                      border: Border.all(width: 1.w, color: controller.isAm.value ? ColorUtils.blue : ColorUtils.borderColor),
+                                      border: Border.all(
+                                          width: 1.w,
+                                          color: controller.isAm.value
+                                              ? ColorUtils.blue
+                                              : ColorUtils.borderColor),
                                     ),
                                     child: Text(
                                       "AM",
-                                      style: TextStyle(fontSize: 16, color: controller.isAm.value ? ColorUtils.white : ColorUtils.black),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: controller.isAm.value
+                                              ? ColorUtils.white
+                                              : ColorUtils.black),
                                     ),
                                   ),
                                 ),
@@ -671,21 +791,36 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                     controller.isAm.value = false;
 
                                     // Check if the selected time is valid after changing AM/PM
-                                    if (!controller.isTimeValid(controller.selectedDate, controller.selectedHours ?? "00",
-                                        controller.selectedMints ?? "00", controller.isAm.value)) {
-                                      Get.snackbar("Invalid Time", "You cannot select a time earlier than the current time for today.");
+                                    if (!controller.isTimeValid(
+                                        controller.selectedDate,
+                                        controller.selectedHours ?? "00",
+                                        controller.selectedMints ?? "00",
+                                        controller.isAm.value)) {
+                                      Get.snackbar("Invalid Time",
+                                          "You cannot select a time earlier than the current time for today.");
                                     }
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 18.w, vertical: 16.h),
                                     decoration: BoxDecoration(
-                                      color: controller.isAm.value ? ColorUtils.white : ColorUtils.blue,
+                                      color: controller.isAm.value
+                                          ? ColorUtils.white
+                                          : ColorUtils.blue,
                                       borderRadius: BorderRadius.circular(10.r),
-                                      border: Border.all(width: 1.w, color: controller.isAm.value ? ColorUtils.borderColor : ColorUtils.blue),
+                                      border: Border.all(
+                                          width: 1.w,
+                                          color: controller.isAm.value
+                                              ? ColorUtils.borderColor
+                                              : ColorUtils.blue),
                                     ),
                                     child: Text(
                                       "PM",
-                                      style: TextStyle(fontSize: 16, color: controller.isAm.value ? ColorUtils.black : ColorUtils.white),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: controller.isAm.value
+                                              ? ColorUtils.black
+                                              : ColorUtils.white),
                                     ),
                                   ),
                                 ),
@@ -695,7 +830,10 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                           10.verticalSpace,
                           Text(
                             "Write a job description",
-                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                                color: ColorUtils.black),
                           ),
                           10.verticalSpace,
                           EditText(
@@ -712,7 +850,8 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
                                     onTap: () {
@@ -723,13 +862,18 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                       height: 0.27.sw,
                                       width: 0.27.sw,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.r),
-                                        border: Border.all(width: 0.5, color: ColorUtils.borderColor),
+                                        borderRadius:
+                                            BorderRadius.circular(10.r),
+                                        border: Border.all(
+                                            width: 0.5,
+                                            color: ColorUtils.borderColor),
                                         color: ColorUtils.white,
                                       ),
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Image.asset(
                                             ImageAssets.helpFeedbackAdd,
@@ -737,29 +881,39 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                           ),
                                           Text(
                                             "Add More",
-                                            style: TextStyle(fontSize: 14.sp, color: ColorUtils.txtLightGrey),
+                                            style: TextStyle(
+                                                fontSize: 14.sp,
+                                                color: ColorUtils.txtLightGrey),
                                           )
                                         ],
                                       ),
                                     ),
                                   ),
                                   // for (var img in controller.listOfImages)
-                                  for (int i = 0; i < controller.listOfImages.length; i++)
+                                  for (int i = 0;
+                                      i < controller.listOfImages.length;
+                                      i++)
                                     Stack(
                                       children: [
                                         Container(
-                                            margin: EdgeInsets.only(right: 10.w),
+                                            margin:
+                                                EdgeInsets.only(right: 10.w),
                                             height: 0.27.sw,
                                             width: 0.27.sw,
-                                            child: controller.listOfImages[i] != null
+                                            child: controller.listOfImages[i] !=
+                                                    null
                                                 ? ClipRRect(
-                                                    borderRadius: BorderRadius.circular(10.r),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.r),
                                                     child: Image.file(
-                                                      controller.listOfImages[i],
+                                                      controller
+                                                          .listOfImages[i],
                                                       fit: BoxFit.fill,
                                                     ),
                                                   )
-                                                : Image.asset(ImageAssets.oliverImg)
+                                                : Image.asset(
+                                                    ImageAssets.oliverImg)
                                             // Image.asset(
                                             //   backgroundImage: controller.image != null
                                             //       ? FileImage(controller.image!)
@@ -777,7 +931,8 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                           right: 10.w,
                                           child: InkWell(
                                             onTap: () {
-                                              controller.listOfImages.removeAt(i);
+                                              controller.listOfImages
+                                                  .removeAt(i);
                                               controller.update();
                                             },
                                             child: Image.asset(
@@ -795,17 +950,24 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                           20.verticalSpace,
                           Text(
                             "Job Location",
-                            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                            style: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600,
+                                color: ColorUtils.black),
                           ),
                           20.verticalSpace,
                           Text(
                             "Address",
-                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                                color: ColorUtils.black),
                           ),
                           10.verticalSpace,
                           EditText(
                               hintText: "Job Address...",
                               context: context,
+                              textCapitalization: TextCapitalization.sentences,
                               controller: controller.addressEditingController,
                               bordercolor: Colors.transparent),
                           // 10.verticalSpace,
@@ -851,7 +1013,10 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                           10.verticalSpace,
                           Text(
                             "Add Location",
-                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600, color: ColorUtils.black),
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                                color: ColorUtils.black),
                           ),
                           10.verticalSpace,
                           EditText(
@@ -864,12 +1029,16 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                   controller.latitide = result.latitude;
                                   controller.longitude = result.longitude;
 
-                                  List<Placemark> placemarks = await placemarkFromCoordinates(result.latitude, result.longitude);
+                                  List<Placemark> placemarks =
+                                      await placemarkFromCoordinates(
+                                          result.latitude, result.longitude);
                                   if (placemarks.isNotEmpty) {
                                     Placemark placemark = placemarks.first;
-                                    String address = "${placemark.name}, ${placemark.locality}";
+                                    String address =
+                                        "${placemark.name}, ${placemark.locality}";
 
-                                    controller.locationEditingController.text = address.toString();
+                                    controller.locationEditingController.text =
+                                        address.toString();
 
                                     print(address);
                                   }
@@ -879,8 +1048,9 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
 
                                 print('hello tapped');
                               },
-                              hintText: "Lorem ipsum dolor sit amet consectetur",
+                              hintText: "Location",
                               context: context,
+                              readonly: true,
                               controller: controller.locationEditingController,
                               suffixIcon: ImageAssets.location,
                               bordercolor: Colors.transparent),
@@ -894,7 +1064,9 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                             children: [
                               Text(
                                 "Job Type",
-                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                               10.verticalSpace,
                               Container(
@@ -908,26 +1080,39 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                             controller.workingHour.value = 0;
                                           },
                                           child: Container(
-                                            padding: EdgeInsets.symmetric(vertical: 10.h),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10.h),
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10.r),
-                                              color: controller.workingHour.value == 0 ? ColorUtils.red : ColorUtils.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r),
+                                              color: controller
+                                                          .workingHour.value ==
+                                                      0
+                                                  ? ColorUtils.red
+                                                  : ColorUtils.white,
                                             ),
                                             child: Row(
                                               children: [
                                                 Radio<int>(
                                                   value: 0,
                                                   activeColor: ColorUtils.white,
-                                                  groupValue: controller.workingHour.value,
+                                                  groupValue: controller
+                                                      .workingHour.value,
                                                   onChanged: (int? value) {
-                                                    controller.workingHour.value = value!;
+                                                    controller.workingHour
+                                                        .value = value!;
                                                   },
                                                 ),
                                                 Text(
                                                   "Working Hour",
                                                   style: TextStyle(
                                                       fontSize: 16.sp,
-                                                      color: controller.workingHour.value == 0 ? ColorUtils.white : ColorUtils.black),
+                                                      color: controller
+                                                                  .workingHour
+                                                                  .value ==
+                                                              0
+                                                          ? ColorUtils.white
+                                                          : ColorUtils.black),
                                                 ),
                                               ],
                                             ),
@@ -941,26 +1126,39 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                             controller.workingHour.value = 1;
                                           },
                                           child: Container(
-                                            padding: EdgeInsets.symmetric(vertical: 10.h),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10.h),
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10.r),
-                                              color: controller.workingHour.value == 1 ? ColorUtils.red : ColorUtils.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r),
+                                              color: controller
+                                                          .workingHour.value ==
+                                                      1
+                                                  ? ColorUtils.red
+                                                  : ColorUtils.white,
                                             ),
                                             child: Row(
                                               children: [
                                                 Radio<int>(
                                                   value: 1,
                                                   activeColor: ColorUtils.white,
-                                                  groupValue: controller.workingHour.value,
+                                                  groupValue: controller
+                                                      .workingHour.value,
                                                   onChanged: (int? value) {
-                                                    controller.workingHour.value = value!;
+                                                    controller.workingHour
+                                                        .value = value!;
                                                   },
                                                 ),
                                                 Text(
                                                   "After Hour",
                                                   style: TextStyle(
                                                       fontSize: 16.sp,
-                                                      color: controller.workingHour.value == 1 ? ColorUtils.white : ColorUtils.black),
+                                                      color: controller
+                                                                  .workingHour
+                                                                  .value ==
+                                                              1
+                                                          ? ColorUtils.white
+                                                          : ColorUtils.black),
                                                 ),
                                               ],
                                             ),
@@ -981,25 +1179,35 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                     width: 1.0.sw,
                                     decoration: BoxDecoration(
                                         color: ColorUtils.white,
-                                        borderRadius: BorderRadius.circular(10.sp),
-                                        border: Border.all(width: 1.0, color: ColorUtils.borderColor)),
+                                        borderRadius:
+                                            BorderRadius.circular(10.sp),
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: ColorUtils.borderColor)),
                                     child: Row(
                                       children: [
                                         Radio<int>(
                                           value: 0,
                                           activeColor: ColorUtils.blue,
-                                          groupValue: controller.fixedAmoount.value,
+                                          groupValue:
+                                              controller.fixedAmoount.value,
                                           onChanged: (int? value) {
-                                            controller.fixedAmoount.value = value!;
+                                            controller.fixedAmoount.value =
+                                                value!;
                                           },
                                         ),
                                         Text(
                                           "Fixed Amount",
-                                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.sp, color: ColorUtils.black),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15.sp,
+                                              color: ColorUtils.black),
                                         ),
                                         Text(
                                           " (Pay a fixed amount for the job)",
-                                          style: TextStyle(fontSize: 12.sp, color: ColorUtils.black),
+                                          style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: ColorUtils.black),
                                         ),
                                       ],
                                     ),
@@ -1016,21 +1224,29 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                     width: 1.0.sw,
                                     decoration: BoxDecoration(
                                         color: ColorUtils.white,
-                                        borderRadius: BorderRadius.circular(10.sp),
-                                        border: Border.all(width: 1.0, color: ColorUtils.borderColor)),
+                                        borderRadius:
+                                            BorderRadius.circular(10.sp),
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: ColorUtils.borderColor)),
                                     child: Row(
                                       children: [
                                         Radio<int>(
                                           value: 1,
                                           activeColor: ColorUtils.blue,
-                                          groupValue: controller.fixedAmoount.value,
+                                          groupValue:
+                                              controller.fixedAmoount.value,
                                           onChanged: (int? value) {
-                                            controller.fixedAmoount.value = value!;
+                                            controller.fixedAmoount.value =
+                                                value!;
                                           },
                                         ),
                                         Text(
                                           "Per Hourly",
-                                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.sp, color: ColorUtils.black),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15.sp,
+                                              color: ColorUtils.black),
                                         ),
                                       ],
                                     ),
@@ -1040,7 +1256,10 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                               10.verticalSpace,
                               Text(
                                 "Enter Budget",
-                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp, color: ColorUtils.black),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16.sp,
+                                    color: ColorUtils.black),
                               ),
                               10.verticalSpace,
                               Container(
@@ -1052,16 +1271,22 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
                                           color: ColorUtils.jobIconBG,
-                                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r), bottomLeft: Radius.circular(10.r))),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10.r),
+                                              bottomLeft:
+                                                  Radius.circular(10.r))),
                                       child: const Text(
                                         "USD",
-                                        style: TextStyle(fontWeight: FontWeight.w600),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ),
                                     EditText(
                                         width: 0.7.sw,
-                                        textInputType: const TextInputType.numberWithOptions(),
-                                        controller: controller.priceBudgetEditingController,
+                                        textInputType: const TextInputType
+                                            .numberWithOptions(),
+                                        controller: controller
+                                            .priceBudgetEditingController,
                                         hintText: "Enter Your Budget 0.00",
                                         context: context,
                                         bordercolor: Colors.transparent),
@@ -1081,13 +1306,18 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                     Container(
                                       height: 60.h,
                                       width: 0.72.sw,
-                                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w),
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
                                           color: ColorUtils.white,
-                                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r), bottomLeft: Radius.circular(10.r))),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10.r),
+                                              bottomLeft:
+                                                  Radius.circular(10.r))),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             "Job Budget",
@@ -1098,13 +1328,24 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                           Row(
                                             children: [
                                               Text(
-                                                controller.priceBudgetEditingController.text,
-                                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                                controller
+                                                    .priceBudgetEditingController
+                                                    .text,
+                                                style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                               ),
                                               5.horizontalSpace,
                                               Text(
-                                                controller.fixedAmoount.value == 0 ? "(Fixed)" : "(/hour)",
-                                                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.normal),
+                                                controller.fixedAmoount.value ==
+                                                        0
+                                                    ? "(Fixed)"
+                                                    : "(/hour)",
+                                                style: TextStyle(
+                                                    fontSize: 12.sp,
+                                                    fontWeight:
+                                                        FontWeight.normal),
                                               ),
                                             ],
                                           ),
@@ -1122,7 +1363,11 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
                                               color: ColorUtils.jobIconBG,
-                                              borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), bottomRight: Radius.circular(10.r))),
+                                              borderRadius: BorderRadius.only(
+                                                  topRight:
+                                                      Radius.circular(10.r),
+                                                  bottomRight:
+                                                      Radius.circular(10.r))),
                                           child: Image.asset(
                                             ImageAssets.editIcon,
                                             scale: 2,
@@ -1135,7 +1380,9 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                               10.verticalSpace,
                               Text(
                                 "Select Payment Method",
-                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
                               10.verticalSpace,
                               Obx(
@@ -1147,20 +1394,26 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                     width: 1.0.sw,
                                     margin: EdgeInsets.only(bottom: 10.h),
                                     decoration: BoxDecoration(
-                                        border: Border.all(width: 1.w, color: ColorUtils.borderColor),
-                                        borderRadius: BorderRadius.circular(10.r),
+                                        border: Border.all(
+                                            width: 1.w,
+                                            color: ColorUtils.borderColor),
+                                        borderRadius:
+                                            BorderRadius.circular(10.r),
                                         color: ColorUtils.white),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
                                           children: [
                                             Radio<int>(
                                               value: 0,
                                               activeColor: ColorUtils.blue,
-                                              groupValue: controller.cardvalue.value,
+                                              groupValue:
+                                                  controller.cardvalue.value,
                                               onChanged: (int? value) {
-                                                controller.cardvalue.value = value!;
+                                                controller.cardvalue.value =
+                                                    value!;
                                               },
                                             ),
                                             20.horizontalSpace,
@@ -1186,7 +1439,8 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                               Obx(
                                 () => Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: List.generate(controller.ListOfText.length, (index) {
+                                  children: List.generate(
+                                      controller.ListOfText.length, (index) {
                                     return InkWell(
                                       onTap: () {
                                         controller.cardvalue.value = index + 1;
@@ -1195,33 +1449,43 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                         width: 1.0.sw,
                                         margin: EdgeInsets.only(bottom: 10.h),
                                         decoration: BoxDecoration(
-                                            border: Border.all(width: 1.w, color: ColorUtils.borderColor),
-                                            borderRadius: BorderRadius.circular(10.r),
+                                            border: Border.all(
+                                                width: 1.w,
+                                                color: ColorUtils.borderColor),
+                                            borderRadius:
+                                                BorderRadius.circular(10.r),
                                             color: ColorUtils.white),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Row(
                                               children: [
                                                 Radio<int>(
                                                   value: index + 1,
                                                   activeColor: ColorUtils.blue,
-                                                  groupValue: controller.cardvalue.value,
+                                                  groupValue: controller
+                                                      .cardvalue.value,
                                                   onChanged: (int? value) {
-                                                    controller.cardvalue.value = value!;
+                                                    controller.cardvalue.value =
+                                                        value!;
                                                   },
                                                 ),
                                                 20.horizontalSpace,
                                                 Text(
-                                                  controller.ListOfText[index]['title'],
-                                                  style: TextStyle(fontSize: 16.sp),
+                                                  controller.ListOfText[index]
+                                                      ['title'],
+                                                  style: TextStyle(
+                                                      fontSize: 16.sp),
                                                 ),
                                               ],
                                             ),
                                             Container(
-                                              margin: EdgeInsets.only(right: 10.w),
+                                              margin:
+                                                  EdgeInsets.only(right: 10.w),
                                               child: Image.asset(
-                                                controller.ListOfText[index]['image'],
+                                                controller.ListOfText[index]
+                                                    ['image'],
                                                 scale: 3,
                                               ),
                                             ),
@@ -1243,7 +1507,8 @@ class CreateJobPostScreen extends GetWidget<CreateJobPostScreenController> {
                                   5.horizontalSpace,
                                   Text(
                                     "Add Card",
-                                    style: TextStyle(fontSize: 14.sp, color: ColorUtils.red),
+                                    style: TextStyle(
+                                        fontSize: 14.sp, color: ColorUtils.red),
                                   )
                                 ],
                               )

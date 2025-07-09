@@ -114,4 +114,5 @@ class ImageAssets {
   static String firstname = 'assets/icons/firstname.png';
   static String emailname = 'assets/icons/mail.png';
   static String closeDrawer = 'assets/images/closedrawer.png';
+  static String placeholderImg = 'assets/images/placeholderImg.png';
 }

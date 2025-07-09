@@ -6,7 +6,7 @@ import 'package:local_saviors/utils/color_utils.dart';
 class RescheduleScreenController extends GetxController {
   RxBool isAm = false.obs;
   DateTime selectedDate = DateTime.now();
-  var myFormat = DateFormat('MM/dd/yyyy');
+  var myFormat = DateFormat('DD/MM/YYYY');
   TextEditingController dateController = TextEditingController();
 
   Future<void> selectDate(BuildContext context) async {

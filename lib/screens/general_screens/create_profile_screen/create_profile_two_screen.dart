@@ -63,7 +63,8 @@ class CreateProfileTwoScreen extends GetWidget<CreatePorfileTwoController> {
                       children: [
                         const Text(
                           'Job Details',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         20.verticalSpace,
                         ListView.builder(
@@ -72,13 +73,15 @@ class CreateProfileTwoScreen extends GetWidget<CreatePorfileTwoController> {
                           itemCount: controller.professionsList.length,
                           itemBuilder: (context, index) {
                             return Slidable(
-                              key: Key(controller.professionsList[index].id.toString()), // Unique key
+                              key: Key(controller.professionsList[index].id
+                                  .toString()), // Unique key
                               endActionPane: ActionPane(
                                 motion: const ScrollMotion(),
                                 children: [
                                   SlidableAction(
                                     onPressed: (context) {
-                                      controller.unselectProfessions(controller.professionsList[index].dismissed);
+                                      controller.unselectProfessions(controller
+                                          .professionsList[index].dismissed);
                                       controller.removeProfession(index);
                                     },
                                     backgroundColor: Colors.red,
@@ -93,10 +96,12 @@ class CreateProfileTwoScreen extends GetWidget<CreatePorfileTwoController> {
                                 child: Container(
                                   height: 0.07.sh,
                                   alignment: Alignment.center,
-                                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 18),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: const Color(0xffDBE2EC)),
+                                    border: Border.all(
+                                        color: const Color(0xffDBE2EC)),
                                     color: Colors.white,
                                   ),
                                   child: DropdownButtonFormField<String>(
@@ -110,31 +115,38 @@ class CreateProfileTwoScreen extends GetWidget<CreatePorfileTwoController> {
                                         color: Color(0xffA5A5A5),
                                       ),
                                       border: InputBorder.none,
-                                      contentPadding: const EdgeInsets.only(bottom: 0, top: 7.0),
+                                      contentPadding: const EdgeInsets.only(
+                                          bottom: 0, top: 7.0),
                                     ),
-                                    value: controller.professionsList[index].dismissed,
+                                    value: controller
+                                        .professionsList[index].dismissed,
                                     icon: const SizedBox.shrink(),
                                     items: [
                                       DropdownMenuItem(
                                         value: 'Select Profession',
                                         child: Text(
                                           'Select Profession',
-                                          style: const TextStyle(color: Color(0xffA5A5A5)),
+                                          style: const TextStyle(
+                                              color: Color(0xffA5A5A5)),
                                         ),
                                       ),
                                       ...controller.proffesionsName
-                                          .where((profession) => profession != 'Select Profession') // Exclude duplicates
+                                          .where((profession) =>
+                                              profession !=
+                                              'Select Profession') // Exclude duplicates
                                           .map((profession) => DropdownMenuItem(
                                                 value: profession,
                                                 child: Text(
                                                   profession,
-                                                  style: const TextStyle(color: Color(0xffA5A5A5)),
+                                                  style: const TextStyle(
+                                                      color: Colors.black),
                                                 ),
                                               )),
                                     ],
                                     onChanged: (value) {
                                       if (value != null) {
-                                        controller.selectProfessions(value, index); // Pass the index
+                                        controller.selectProfessions(
+                                            value, index); // Pass the index
                                         controller.update();
                                       }
                                     },
@@ -159,7 +171,8 @@ class CreateProfileTwoScreen extends GetWidget<CreatePorfileTwoController> {
                               10.horizontalSpace,
                               Text(
                                 "Add More",
-                                style: TextStyle(fontSize: 16.sp, color: ColorUtils.red),
+                                style: TextStyle(
+                                    fontSize: 16.sp, color: ColorUtils.red),
                               ),
                             ],
                           ),
@@ -173,25 +186,34 @@ class CreateProfileTwoScreen extends GetWidget<CreatePorfileTwoController> {
                                   20.verticalSpace,
                                   const Text(
                                     'Professional Documents',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   20.verticalSpace,
                                   imagePickerController.selectedImages.isEmpty
                                       ? InkWell(
                                           onTap: () {
-                                            imagePickerController.pickImages(isMultiImage: true);
+                                            imagePickerController.pickImages(
+                                                isMultiImage: true);
                                           },
                                           child: Container(
                                             height: 0.4.sw,
                                             width: 1.0.sw,
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10.r),
-                                              border: Border.all(width: 0.5, color: ColorUtils.borderColor),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r),
+                                              border: Border.all(
+                                                  width: 0.5,
+                                                  color:
+                                                      ColorUtils.borderColor),
                                               color: ColorUtils.white,
                                             ),
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Image.asset(
                                                   ImageAssets.helpFeedbackAdd,
@@ -199,7 +221,10 @@ class CreateProfileTwoScreen extends GetWidget<CreatePorfileTwoController> {
                                                 ),
                                                 Text(
                                                   "Upload Documents",
-                                                  style: TextStyle(fontSize: 14.sp, color: ColorUtils.txtLightGrey),
+                                                  style: TextStyle(
+                                                      fontSize: 14.sp,
+                                                      color: ColorUtils
+                                                          .txtLightGrey),
                                                 )
                                               ],
                                             ),
@@ -207,25 +232,36 @@ class CreateProfileTwoScreen extends GetWidget<CreatePorfileTwoController> {
                                         )
                                       : Obx(
                                           () => GridView.builder(
-                                            physics: NeverScrollableScrollPhysics(),
-                                            itemCount: imagePickerController.selectedImages.length + 1,
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            itemCount: imagePickerController
+                                                    .selectedImages.length +
+                                                1,
                                             shrinkWrap: true,
-                                            padding: EdgeInsets.symmetric(horizontal: 0.w),
-                                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 0.w),
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
                                               crossAxisSpacing: 10,
                                               mainAxisSpacing: 10,
                                               crossAxisCount: 4,
                                             ),
                                             itemBuilder: (context, index) {
-                                              if (index == imagePickerController.selectedImages.length) {
+                                              if (index ==
+                                                  imagePickerController
+                                                      .selectedImages.length) {
                                                 // Add new image button
                                                 return GestureDetector(
                                                   onTap: () {
-                                                    imagePickerController.pickImages(isMultiImage: true);
+                                                    imagePickerController
+                                                        .pickImages(
+                                                            isMultiImage: true);
                                                   },
                                                   child: DottedBorder(
-                                                    radius: Radius.circular(15.r),
-                                                    borderType: BorderType.RRect,
+                                                    radius:
+                                                        Radius.circular(15.r),
+                                                    borderType:
+                                                        BorderType.RRect,
                                                     strokeCap: StrokeCap.round,
                                                     dashPattern: const [5, 5],
                                                     strokeWidth: 1.5,
@@ -233,22 +269,32 @@ class CreateProfileTwoScreen extends GetWidget<CreatePorfileTwoController> {
                                                     child: Container(
                                                       decoration: BoxDecoration(
                                                         color: ColorUtils.red,
-                                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    10)),
                                                       ),
                                                       child: Center(
                                                         child: Column(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
                                                           children: [
                                                             5.verticalSpace,
                                                             Image.asset(
-                                                              ImageAssets.addCircleRed,
+                                                              ImageAssets
+                                                                  .addCircleRed,
                                                               scale: 2.5,
-                                                              color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                             ),
                                                             5.verticalSpace,
                                                             Text(
                                                               'Add',
-                                                              style: TextStyle(color: Colors.white, fontSize: 12),
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 12),
                                                             )
                                                           ],
                                                         ),
@@ -258,18 +304,30 @@ class CreateProfileTwoScreen extends GetWidget<CreatePorfileTwoController> {
                                                 );
                                               } else {
                                                 // Display selected image
-                                                final imagePath = imagePickerController.selectedImages[index];
+                                                final imagePath =
+                                                    imagePickerController
+                                                        .selectedImages[index];
                                                 return Stack(
                                                   children: [
                                                     Container(
                                                       decoration: BoxDecoration(
                                                         image: DecorationImage(
-                                                          image: imagePath.path.startsWith('http')
-                                                              ? NetworkImage(imagePath.path) as ImageProvider
-                                                              : FileImage(File(imagePath.path)),
+                                                          image: imagePath.path
+                                                                  .startsWith(
+                                                                      'http')
+                                                              ? NetworkImage(
+                                                                      imagePath
+                                                                          .path)
+                                                                  as ImageProvider
+                                                              : FileImage(File(
+                                                                  imagePath
+                                                                      .path)),
                                                           fit: BoxFit.cover,
                                                         ),
-                                                        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    10.r)),
                                                       ),
                                                     ),
                                                     Positioned(
@@ -277,13 +335,16 @@ class CreateProfileTwoScreen extends GetWidget<CreatePorfileTwoController> {
                                                       top: 5,
                                                       child: GestureDetector(
                                                         onTap: () {
-                                                          imagePickerController.removeImage(index);
+                                                          imagePickerController
+                                                              .removeImage(
+                                                                  index);
                                                         },
                                                         child: SizedBox(
                                                           height: 25.h,
                                                           width: 25.w,
                                                           child: Image.asset(
-                                                            ImageAssets.bigCross,
+                                                            ImageAssets
+                                                                .bigCross,
                                                             scale: 2.5,
                                                           ),
                                                         ),

@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/utils/constant.dart';
+import 'package:local_saviors/utils/validations.dart';
 
 import '../../../resources/components/imagepicker_component.dart';
 import '../../../utils/api_services/user_services.dart';
@@ -40,7 +41,9 @@ class CreateProfileController extends GetxController {
   File? image;
   final picker = ImagePicker();
   DateTime selectedDate = DateTime.now();
-  var myFormat = DateFormat('MM/dd/yyyy');
+  var myFormat = DateFormat('DD/MM/YYYY');
+  final formKey = GlobalKey<FormState>();
+  RxBool isValidate = false.obs;
 
   Future getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -80,133 +83,108 @@ class CreateProfileController extends GetxController {
   }
 
   validation(context) async {
-    // if (image == null) {
-    //   return Get.snackbar("Alert", "Please select image", backgroundColor: ColorUtils.white);
-    // }
-    if (firstNamecontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please Enter First Name",
-          backgroundColor: ColorUtils.white);
-    }
-    if (lastNamecontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please Enter Last Name",
-          backgroundColor: ColorUtils.white);
-    }
-    if (datecontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please select Date Of Birth",
-          backgroundColor: ColorUtils.white);
-    }
-    if (addresscontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please Enter Address",
-          backgroundColor: ColorUtils.white);
-    }
-    if (latitide == null) {
-      return Get.snackbar("Alert", "Please Select Location ",
-          backgroundColor: ColorUtils.white);
-    }
+    isValidate.value = true;
+    if (validateInputs(formKey: formKey)) {
+      FocusScope.of(Get.context!).unfocus();
 
-    if (aboutcontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "About Should Not Be Empty",
-          backgroundColor: ColorUtils.white);
-    }
-    if (phonecontroller.text.isEmpty) {
-      return Get.snackbar("Alert", "Please Enter Phone Number",
-          backgroundColor: ColorUtils.white);
-    }
-    if (selectedGender == null) {
-      return Get.snackbar("Alert", "Please Select Gender",
-          backgroundColor: ColorUtils.white);
-    }
-    // if (state.value == "") {
-    //   return Get.snackbar("Alert", "Please Select State", backgroundColor: ColorUtils.white);
-    // }
-    File imageFile;
-    if (image != null) {
-      imageFile = image!;
-    } else {
-      // Load placeholder from assets and write to temporary file
-      final byteData =
-          await rootBundle.load('assets/images/placeholderImg.png');
-      final tempDir = await getTemporaryDirectory();
-      final tempFile = File('${tempDir.path}/placeholderImg.png');
-      await tempFile.writeAsBytes(byteData.buffer.asUint8List());
-      imageFile = tempFile;
-    }
-    try {
-      if (role.value == 'USER') {
-        UserServices.instance.createProfileService(
-            context: context,
-            address: addresscontroller.text,
-            gender: selectedGender!,
-            dob: selectedDate.toIso8601String(),
-            phone: phonecontroller.text,
-            email: emailcontroller.text,
-            firstName: firstNamecontroller.text,
-            lastName: lastNamecontroller.text,
-            country: "US",
-            state: state.value,
-            city: city.value,
-            latitude: latitide,
-            longitude: longitude,
-            about: aboutcontroller.text,
-            image: imageFile.path.toString());
+      if (phonecontroller.text.isEmpty) {
+        return Get.snackbar("Alert", "Please Enter Phone Number",
+            backgroundColor: ColorUtils.white);
+      }
+      if (selectedGender == null) {
+        return Get.snackbar("Alert", "Please Select Gender",
+            backgroundColor: ColorUtils.white);
+      }
+
+      File imageFile;
+      if (image != null) {
+        imageFile = image!;
       } else {
-        if (role.value == 'PROFESSIONAL') {
-          Get.toNamed(RouteName.cretaetProfileTwoPath);
-          if (createProfileTwoController.professionIds.isEmpty) {
-            return Get.snackbar("Alert", "Please Select Profession",
-                backgroundColor: ColorUtils.white);
-          } else {
-            UserServices.instance.createJobPerformerProfile(
-                context: context,
-                address: addresscontroller.text,
-                gender: selectedGender!,
-                dob: selectedDate.toString(),
-                phone: phonecontroller.text,
-                email: emailcontroller.text,
-                firstName: firstNamecontroller.text,
-                lastName: lastNamecontroller.text,
-                country: "US",
-                state: state.value,
-                city: city.value,
-                about: aboutcontroller.text,
-                image: imageFile.path.toString(),
-                workertype: role.value,
-                lat: latitide,
-                long: longitude,
-                professionIds: createProfileTwoController.professionIds,
-                categoryIds: createHandyManProfileController.professionIds,
-                documents: imagePickerController.selectedImages.value);
-          }
+        // Load placeholder from assets and write to temporary file
+        final byteData =
+            await rootBundle.load('assets/images/placeholderImg.png');
+        final tempDir = await getTemporaryDirectory();
+        final tempFile = File('${tempDir.path}/placeholderImg.png');
+        await tempFile.writeAsBytes(byteData.buffer.asUint8List());
+        imageFile = tempFile;
+      }
+      try {
+        if (role.value == 'USER') {
+          UserServices.instance.createProfileService(
+              context: context,
+              address: addresscontroller.text,
+              gender: selectedGender!,
+              dob: selectedDate.toIso8601String(),
+              phone: phonecontroller.text,
+              email: emailcontroller.text,
+              firstName: firstNamecontroller.text,
+              lastName: lastNamecontroller.text,
+              country: "US",
+              state: state.value,
+              city: city.value,
+              latitude: latitide,
+              longitude: longitude,
+              about: aboutcontroller.text,
+              image: imageFile.path.toString());
         } else {
-          Get.toNamed(RouteName.createHandyManProfilePath);
-          if (createHandyManProfileController.professionIds.isEmpty) {
-            return Get.snackbar("Alert", "Please Select Categories",
-                backgroundColor: ColorUtils.white);
+          if (role.value == 'PROFESSIONAL') {
+            Get.toNamed(RouteName.cretaetProfileTwoPath);
+            if (createProfileTwoController.professionIds.isEmpty) {
+              return Get.snackbar("Alert", "Please Select Profession",
+                  backgroundColor: ColorUtils.white);
+            } else {
+              UserServices.instance.createJobPerformerProfile(
+                  context: context,
+                  address: addresscontroller.text,
+                  gender: selectedGender!,
+                  dob: selectedDate.toString(),
+                  phone: phonecontroller.text,
+                  email: emailcontroller.text,
+                  firstName: firstNamecontroller.text,
+                  lastName: lastNamecontroller.text,
+                  country: "US",
+                  state: state.value,
+                  city: city.value,
+                  about: aboutcontroller.text,
+                  image: imageFile.path.toString(),
+                  workertype: role.value,
+                  lat: latitide,
+                  long: longitude,
+                  professionIds: createProfileTwoController.professionIds,
+                  categoryIds: createHandyManProfileController.professionIds,
+                  documents: imagePickerController.selectedImages.value);
+            }
           } else {
-            UserServices.instance.createJobPerformerProfile(
-                context: context,
-                address: addresscontroller.text,
-                gender: selectedGender!,
-                dob: selectedDate.toString(),
-                phone: phonecontroller.text,
-                email: emailcontroller.text,
-                firstName: firstNamecontroller.text,
-                lastName: lastNamecontroller.text,
-                country: "US",
-                state: state.value,
-                city: city.value,
-                about: aboutcontroller.text,
-                image: imageFile.path.toString(),
-                workertype: role.value,
-                lat: latitide,
-                long: longitude,
-                professionIds: createProfileTwoController.professionIds,
-                categoryIds: createHandyManProfileController.professionIds);
+            Get.toNamed(RouteName.createHandyManProfilePath);
+            if (createHandyManProfileController.professionIds.isEmpty) {
+              return Get.snackbar("Alert", "Please Select Categories",
+                  backgroundColor: ColorUtils.white);
+            } else {
+              UserServices.instance.createJobPerformerProfile(
+                  context: context,
+                  address: addresscontroller.text,
+                  gender: selectedGender!,
+                  dob: selectedDate.toString(),
+                  phone: phonecontroller.text,
+                  email: emailcontroller.text,
+                  firstName: firstNamecontroller.text,
+                  lastName: lastNamecontroller.text,
+                  country: "US",
+                  state: state.value,
+                  city: city.value,
+                  about: aboutcontroller.text,
+                  image: imageFile.path.toString(),
+                  workertype: role.value,
+                  lat: latitide,
+                  long: longitude,
+                  professionIds: createProfileTwoController.professionIds,
+                  categoryIds: createHandyManProfileController.professionIds);
+            }
           }
         }
+      } catch (e) {
+        Get.snackbar("Error", "${e}", backgroundColor: ColorUtils.white);
       }
-    } catch (e) {
-      Get.snackbar("Error", "${e}", backgroundColor: ColorUtils.white);
     }
   }
 }

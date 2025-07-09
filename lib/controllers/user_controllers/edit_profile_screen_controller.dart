@@ -36,19 +36,22 @@ class EditProfileScreenController extends GetxController {
       aboutcontroller.text = userdata.userDetails!.description.toString();
       emailcontroller.text = userdata.userDetails!.contactEmail.toString();
 
-      selectedDate = DateTime.parse(userdata.userDetails!.dateOfBirth.toString());
+      selectedDate =
+          DateTime.parse(userdata.userDetails!.dateOfBirth.toString());
       dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
       phonecontroller.text = userdata.userDetails!.contactPhone.toString();
     } else {
       performerdata = Get.arguments['data'];
-      firstNamecontroller.text = performerdata.userDetails!.firstName.toString();
+      firstNamecontroller.text =
+          performerdata.userDetails!.firstName.toString();
       lastNamecontroller.text = performerdata.userDetails!.lastName.toString();
       addresscontroller.text = performerdata.userDetails!.address.toString();
       locationcontroller.text = performerdata.userDetails!.location.toString();
       aboutcontroller.text = performerdata.userDetails!.description.toString();
       emailcontroller.text = performerdata.userDetails!.contactEmail.toString();
 
-      selectedDate = DateTime.parse(performerdata.userDetails!.dateOfBirth.toString());
+      selectedDate =
+          DateTime.parse(performerdata.userDetails!.dateOfBirth.toString());
       dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
       phonecontroller.text = performerdata.userDetails!.contactPhone.toString();
     }
@@ -64,7 +67,7 @@ class EditProfileScreenController extends GetxController {
   File? image;
   final picker = ImagePicker();
   DateTime selectedDate = DateTime.now();
-  var myFormat = DateFormat('MM/dd/yyyy');
+  var myFormat = DateFormat('DD/MM/YYYY');
   TextEditingController dateController = TextEditingController();
   var lat;
   var long;
@@ -169,27 +172,32 @@ class EditProfileScreenController extends GetxController {
   validateData(context) async {
     // Validate all required fields first
     if (firstNamecontroller.text.isEmpty) {
-      Get.snackbar("Alert", "Please add your first name", backgroundColor: ColorUtils.white);
+      Get.snackbar("Alert", "Please add your first name",
+          backgroundColor: ColorUtils.white);
       return;
     }
 
     if (lastNamecontroller.text.isEmpty) {
-      Get.snackbar("Alert", "Please add your last name", backgroundColor: ColorUtils.white);
+      Get.snackbar("Alert", "Please add your last name",
+          backgroundColor: ColorUtils.white);
       return;
     }
 
     if (addresscontroller.text.isEmpty) {
-      Get.snackbar("Alert", "Please add address", backgroundColor: ColorUtils.white);
+      Get.snackbar("Alert", "Please add address",
+          backgroundColor: ColorUtils.white);
       return;
     }
 
     if (aboutcontroller.text.isEmpty) {
-      Get.snackbar("Alert", "Please add description", backgroundColor: ColorUtils.white);
+      Get.snackbar("Alert", "Please add description",
+          backgroundColor: ColorUtils.white);
       return;
     }
 
     if (phonecontroller.text.isEmpty) {
-      Get.snackbar("Alert", "Please add phone number", backgroundColor: ColorUtils.white);
+      Get.snackbar("Alert", "Please add phone number",
+          backgroundColor: ColorUtils.white);
       return;
     }
 
@@ -213,13 +221,15 @@ class EditProfileScreenController extends GetxController {
       params['long'] = long ?? userdata.userDetails!.longitude;
     } else {
       params['lat'] = lat ?? phController.performerdata.userDetails!.latitude;
-      params['long'] = long ?? phController.performerdata.userDetails!.longitude;
+      params['long'] =
+          long ?? phController.performerdata.userDetails!.longitude;
     }
 
     try {
       // Handle image upload if present
       if (image != null) {
-        await UserServices.instance.updateUserProfilePic(context: Get.context, image: image!.path.toString());
+        await UserServices.instance.updateUserProfilePic(
+            context: Get.context, image: image!.path.toString());
       }
 
       // Update user data
@@ -239,7 +249,8 @@ class EditProfileScreenController extends GetxController {
       );
     } catch (e) {
       // Handle any errors that might occur during the process
-      Get.snackbar("Error", "Failed to update profile: ${e.toString()}", backgroundColor: ColorUtils.white);
+      Get.snackbar("Error", "Failed to update profile: ${e.toString()}",
+          backgroundColor: ColorUtils.white);
     }
   }
 

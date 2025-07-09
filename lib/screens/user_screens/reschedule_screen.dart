@@ -118,7 +118,7 @@ class RescheduleScreen extends GetWidget<RescheduleScreenController> {
                 ),
                 10.verticalSpace,
                 EditText(
-                    hintText: "06/29/2024",
+                    hintText: "DD/MM/YYYY",
                     context: context,
                     readonly: true,
                     ONTAP: () {

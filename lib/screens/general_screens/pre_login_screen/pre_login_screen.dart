@@ -160,12 +160,15 @@ class PreLoginScreen extends GetWidget<PreloginController> {
                           },
                           child: Text(
                             'Terms & Conditions',
-                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                         Text(
                           '  |  ',
-                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         InkWell(
                           onTap: () {
@@ -173,7 +176,9 @@ class PreLoginScreen extends GetWidget<PreloginController> {
                           },
                           child: Text(
                             'Privacy Policy',
-                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
@@ -181,7 +186,7 @@ class PreLoginScreen extends GetWidget<PreloginController> {
                   ],
                 ),
               ),
-              15.verticalSpace
+              30.verticalSpace
             ],
           ),
         ),

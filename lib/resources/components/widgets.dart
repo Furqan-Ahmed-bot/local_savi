@@ -16,7 +16,12 @@ import 'package:local_saviors/utils/routes/routes.dart';
 
 import 'image_viewer.dart';
 
-Widget getSenderView({CustomClipper? clipper, BuildContext? context, var text, dynamic attachment}) => Column(
+Widget getSenderView(
+        {CustomClipper? clipper,
+        BuildContext? context,
+        var text,
+        dynamic attachment}) =>
+    Column(
       children: [
         ChatBubble(
           clipper: clipper,
@@ -144,7 +149,15 @@ Widget getSenderView({CustomClipper? clipper, BuildContext? context, var text, d
         20.verticalSpace,
       ],
     );
-Widget getReceiverView({CustomClipper? clipper, BuildContext? context, var text, var image, var username, var datetime, dynamic attachment}) => Row(
+Widget getReceiverView(
+        {CustomClipper? clipper,
+        BuildContext? context,
+        var text,
+        var image,
+        var username,
+        var datetime,
+        dynamic attachment}) =>
+    Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -168,7 +181,8 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, var text,
             Text(
               "${username}",
               softWrap: true,
-              style: TextStyle(height: 0.5, fontSize: 16, fontWeight: FontWeight.w400),
+              style: TextStyle(
+                  height: 0.5, fontSize: 16, fontWeight: FontWeight.w400),
             ),
             ChatBubble(
               clipper: clipper,
@@ -177,7 +191,8 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, var text,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 width: 0.6.sw,
-                child: attachment[0]['attachment'] != null && attachment.length >= 1
+                child: attachment[0]['attachment'] != null &&
+                        attachment.length >= 1
                     ?
                     // GridView.builder(
                     //     shrinkWrap: true,
@@ -206,7 +221,8 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, var text,
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: imageCount > 4 ? 4 : imageCount,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: crossAxisCount,
                               mainAxisSpacing: 10.h,
                               crossAxisSpacing: 10.w,
@@ -232,13 +248,15 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, var text,
                                             //     ?
                                             DecorationImage(
                                           fit: BoxFit.cover,
-                                          image: NetworkImage(image["attachment"]),
+                                          image:
+                                              NetworkImage(image["attachment"]),
                                         ),
                                         // : DecorationImage(
                                         //     fit: BoxFit.cover,
                                         //     image: FileImage(File(image["media"]["path"])),
                                         //   ),
-                                        borderRadius: BorderRadius.circular(8.r),
+                                        borderRadius:
+                                            BorderRadius.circular(8.r),
                                       ),
                                     ),
                                     // Display overlay for more than 4 images
@@ -246,7 +264,8 @@ Widget getReceiverView({CustomClipper? clipper, BuildContext? context, var text,
                                       Container(
                                         decoration: BoxDecoration(
                                           color: Colors.black.withOpacity(0.6),
-                                          borderRadius: BorderRadius.circular(8.r),
+                                          borderRadius:
+                                              BorderRadius.circular(8.r),
                                         ),
                                         alignment: Alignment.center,
                                         child: Text(
@@ -307,7 +326,8 @@ Widget ratingReviewCard({
     margin: EdgeInsets.only(bottom: 12.h),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10.r),
-      border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5)),
+      border: Border.all(
+          width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5)),
       color: ColorUtils.white,
     ),
     child: Column(
@@ -339,8 +359,12 @@ Widget ratingReviewCard({
                 ),
                 // 6.h.verticalSpace,
                 Text(
-                  dateFormat.formatCreatedAt(dateTime),
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18.sp, color: ColorUtils.txtGrey),
+                  // dateFormat.formatCreatedAt(dateTime),
+                  dateTime,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.sp,
+                      color: ColorUtils.txtGrey),
                 ),
               ],
             ),
@@ -385,7 +409,10 @@ Widget ratingReviewCard({
                                 // 6.h.verticalSpace,
                                 Text(
                                   "Today | 02:35 pm",
-                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18.sp, color: ColorUtils.txtGrey),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.sp,
+                                      color: ColorUtils.txtGrey),
                                 ),
                               ],
                             ),
@@ -394,7 +421,8 @@ Widget ratingReviewCard({
                         11.h.verticalSpace,
                         Text(
                           "Lorem ipsum dolor sit amet consectetur adipiscing elit odio, mattis quam tortor taciti.",
-                          style: TextStyle(fontSize: 14.sp, color: ColorUtils.txtGreyDark),
+                          style: TextStyle(
+                              fontSize: 14.sp, color: ColorUtils.txtGreyDark),
                         )
                       ],
                     ),
@@ -431,11 +459,12 @@ Widget userRequestCard({
           children: [
             GestureDetector(
               onTap: () {
-                Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
-                  "id": performer_id,
-                  "title": "User Request",
-                  "showChat": true,
-                });
+                Get.toNamed(RouteName.bestPerformerDetailScreenPath,
+                    arguments: {
+                      "id": performer_id,
+                      "title": "User Request",
+                      "showChat": true,
+                    });
               },
               child: Row(
                 children: [
@@ -446,7 +475,10 @@ Widget userRequestCard({
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(1000.r),
-                              border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
+                              border: Border.all(
+                                  width: 1.w,
+                                  color:
+                                      ColorUtils.borderColor.withOpacity(0.5))),
                           child: Image.network(
                             fit: BoxFit.cover,
                             image,
@@ -476,7 +508,8 @@ Widget userRequestCard({
                     children: [
                       Text(
                         name,
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 16.sp),
                       ),
                       5.h.verticalSpace,
                       Row(
@@ -486,7 +519,7 @@ Widget userRequestCard({
                             ImageAssets.starIcon,
                             scale: 2,
                           ),
-                          7.w.horizontalSpace,
+                          7.horizontalSpace,
                           Text(
                             rating,
                             style: const TextStyle(),
@@ -503,56 +536,71 @@ Widget userRequestCard({
                     // width: 120.w,
                     alignment: Alignment.center,
                     // margin: EdgeInsets.only(right: 10.w),
-                    padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
 
                     decoration: BoxDecoration(
                         color: ColorUtils.red,
                         borderRadius: BorderRadius.circular(10.sp),
-                        border: Border.all(width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
+                        border: Border.all(
+                            width: 1.w,
+                            color: ColorUtils.red.withOpacity(0.5))),
                     child: Text(
                       status,
-                      style: TextStyle(fontSize: 16.sp, color: ColorUtils.white),
+                      style:
+                          TextStyle(fontSize: 16.sp, color: ColorUtils.white),
                     ),
                   )
                 : Row(
                     children: [
                       InkWell(
                         onTap: () async {
-                          await UserServices.instance.acceptRejectJobRequest(id: id, status: "REJECTED", context: Get.context);
+                          await UserServices.instance.acceptRejectJobRequest(
+                              id: id, status: "REJECTED", context: Get.context);
                         },
                         child: Container(
                           // width: 120.w,
                           alignment: Alignment.center,
-                          margin: EdgeInsets.only(right: 10.w),
-                          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+                          margin: EdgeInsets.only(right: 15.w),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h, horizontal: 15.w),
                           decoration: BoxDecoration(
                               color: ColorUtils.white,
                               borderRadius: BorderRadius.circular(10.sp),
-                              border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
+                              border: Border.all(
+                                  width: 1.w,
+                                  color:
+                                      ColorUtils.borderColor.withOpacity(0.5))),
                           child: Text(
                             "Reject",
-                            style: TextStyle(fontSize: 16.sp, color: ColorUtils.black),
+                            style: TextStyle(
+                                fontSize: 16.sp, color: ColorUtils.black),
                           ),
                         ),
                       ),
-                      10.w.horizontalSpace,
+                      10.horizontalSpace,
                       InkWell(
                         onTap: () async {
-                          await UserServices.instance.acceptRejectJobRequest(id: id, status: "ACCEPTED", context: Get.context);
+                          await UserServices.instance.acceptRejectJobRequest(
+                              id: id, status: "ACCEPTED", context: Get.context);
                         },
                         child: Container(
                           // width: 120.w,
                           alignment: Alignment.center,
                           // margin: EdgeInsets.only(right: 10.w),
-                          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h, horizontal: 15.w),
 
                           decoration: BoxDecoration(
                               color: ColorUtils.red,
                               borderRadius: BorderRadius.circular(10.sp),
-                              border: Border.all(width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
+                              border: Border.all(
+                                  width: 1.w,
+                                  color: ColorUtils.red.withOpacity(0.5))),
                           child: Text(
                             "Accept",
-                            style: TextStyle(fontSize: 16.sp, color: ColorUtils.white),
+                            style: TextStyle(
+                                fontSize: 16.sp, color: ColorUtils.white),
                           ),
                         ),
                       ),
@@ -592,7 +640,10 @@ Widget inviteUserCard({
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(1000.r),
-                            border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
+                            border: Border.all(
+                                width: 1.w,
+                                color:
+                                    ColorUtils.borderColor.withOpacity(0.5))),
                         child: Image.network(
                           image,
                           height: 50,
@@ -617,7 +668,8 @@ Widget inviteUserCard({
                   children: [
                     Text(
                       name,
-                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 16.sp),
                     ),
                     5.h.verticalSpace,
                     Row(
@@ -647,7 +699,8 @@ Widget inviteUserCard({
               decoration: BoxDecoration(
                   color: ColorUtils.red,
                   borderRadius: BorderRadius.circular(10.sp),
-                  border: Border.all(width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
+                  border: Border.all(
+                      width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
               child: Row(
                 children: [
                   isInvited
@@ -702,7 +755,10 @@ Widget messageUserCard({
               borderRadius: BorderRadius.circular(100.r),
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100.r), border: Border.all(width: 1.w, color: ColorUtils.borderColor.withOpacity(0.5))),
+                    borderRadius: BorderRadius.circular(100.r),
+                    border: Border.all(
+                        width: 1.w,
+                        color: ColorUtils.borderColor.withOpacity(0.5))),
                 child: ClipRect(
                   clipBehavior: Clip.hardEdge,
                   child: Image.network(
@@ -744,7 +800,10 @@ Widget messageUserCard({
         Spacer(),
         Text(
           date.isNotEmpty ? dateFormat().formatTime(DateTime.parse(date)) : "",
-          style: TextStyle(color: ColorUtils.borderColor, fontWeight: FontWeight.w400, fontSize: 12.sp),
+          style: TextStyle(
+              color: ColorUtils.borderColor,
+              fontWeight: FontWeight.w400,
+              fontSize: 12.sp),
         ),
       ],
     ),
@@ -771,11 +830,12 @@ Widget bestPerformerCard({
           children: [
             GestureDetector(
               onTap: () {
-                Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
-                  "id": id,
-                  "title": "Best Performer",
-                  "showChat": false,
-                });
+                Get.toNamed(RouteName.bestPerformerDetailScreenPath,
+                    arguments: {
+                      "id": id,
+                      "title": "Best Performer",
+                      "showChat": false,
+                    });
               },
               child: Row(
                 children: [
@@ -820,7 +880,8 @@ Widget bestPerformerCard({
                     children: [
                       Text(
                         name,
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 16.sp),
                       ),
                       5.h.verticalSpace,
                       Row(
@@ -854,7 +915,8 @@ Widget bestPerformerCard({
               },
               child: Container(
                 padding: EdgeInsets.all(10.sp),
-                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
                 child: Image.asset(
                   ImageAssets.msgIcon,
                   scale: 2,
@@ -957,7 +1019,8 @@ Widget shortlistUserCard({
                     children: [
                       Text(
                         name,
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 16.sp),
                       ),
                       5.h.verticalSpace,
                       Row(
@@ -988,7 +1051,8 @@ Widget shortlistUserCard({
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                                  insetPadding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
                                   backgroundColor: ColorUtils.dialogeBGColor,
                                   content: SizedBox(
@@ -1014,6 +1078,8 @@ Widget shortlistUserCard({
                                         Text(
                                           "Are you sure you want select ${name} for your job?",
                                           textAlign: TextAlign.center,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             color: ColorUtils.black,
                                             fontSize: 14.sp,
@@ -1026,28 +1092,39 @@ Widget shortlistUserCard({
                                     Container(
                                       width: 1.0.sw,
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
                                             child: InkWell(
                                               onTap: () async {
                                                 // await UserServices.instance.acceptRejectJobRequest(context: context, id: id!, status: "ACCEPTED");
-                                                Get.toNamed(RouteName.chatScreenPath, arguments: {
-                                                  "providerId": id,
-                                                  "jobId": jobId,
-                                                  'username': name,
-                                                  'chat_id': chatId,
-                                                  'profile_picture': image
-                                                });
+                                                Get.back();
+                                                Get.toNamed(
+                                                    RouteName.chatScreenPath,
+                                                    arguments: {
+                                                      "providerId": id,
+                                                      "jobId": jobId,
+                                                      'username': name,
+                                                      'chat_id': chatId,
+                                                      'profile_picture': image
+                                                    });
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,
-                                                padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 15.h),
                                                 decoration: BoxDecoration(
                                                     color: ColorUtils.white,
-                                                    borderRadius: BorderRadius.circular(10.r),
-                                                    border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
-                                                child: const Text("Yes, Select"),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.r),
+                                                    border: Border.all(
+                                                        width: 1.w,
+                                                        color: ColorUtils
+                                                            .borderColor)),
+                                                child:
+                                                    const Text("Yes, Select"),
                                               ),
                                             ),
                                           ),
@@ -1059,14 +1136,18 @@ Widget shortlistUserCard({
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,
-                                                padding: EdgeInsets.symmetric(vertical: 15.h),
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 15.h),
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10.r),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.r),
                                                   color: ColorUtils.red,
                                                 ),
                                                 child: Text(
                                                   "No",
-                                                  style: TextStyle(color: ColorUtils.white),
+                                                  style: TextStyle(
+                                                      color: ColorUtils.white),
                                                 ),
                                               ),
                                             ),
@@ -1082,29 +1163,42 @@ Widget shortlistUserCard({
                           // width: 120.w,
                           alignment: Alignment.center,
                           // margin: EdgeInsets.only(right: 10.w),
-                          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h, horizontal: 15.w),
 
                           decoration: BoxDecoration(
                               color: ColorUtils.red,
                               borderRadius: BorderRadius.circular(10.sp),
-                              border: Border.all(width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
+                              border: Border.all(
+                                  width: 1.w,
+                                  color: ColorUtils.red.withOpacity(0.5))),
                           child: Text(
                             "Select for job",
-                            style: TextStyle(fontSize: 14.sp, color: ColorUtils.white),
+                            style: TextStyle(
+                                fontSize: 14.sp, color: ColorUtils.white),
                           ),
                         ),
                       )
                     : const SizedBox.shrink(),
-                showSelectJobButton ? 12.w.horizontalSpace : 0.w.horizontalSpace,
+                showSelectJobButton
+                    ? 12.w.horizontalSpace
+                    : 0.w.horizontalSpace,
                 showMessageButton
                     ? InkWell(
                         onTap: () {
-                          Get.toNamed(RouteName.chatScreenPath,
-                              arguments: {"providerId": id, "jobId": jobId, "username": name, 'profile_picture': profilePicture, 'chat_id': chatId});
+                          Get.toNamed(RouteName.chatScreenPath, arguments: {
+                            "providerId": id,
+                            "jobId": jobId,
+                            "username": name,
+                            'profile_picture': profilePicture,
+                            'chat_id': chatId
+                          });
                         },
                         child: Container(
                           padding: EdgeInsets.all(10.sp),
-                          decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: ColorUtils.yellowLightBG),
                           child: Image.asset(
                             ImageAssets.msgIcon,
                             scale: 2,
@@ -1138,6 +1232,7 @@ Widget shortlistUserCard({
 Widget pJobDetailUserCard({
   required bool isVerified,
   required String image,
+  // required String userId,
   required String name,
   required String city,
   required String postedDate,
@@ -1145,24 +1240,24 @@ Widget pJobDetailUserCard({
 }) {
   return Column(
     children: [
-      Container(
-        padding: EdgeInsets.all(15.sp),
-        margin: EdgeInsets.only(bottom: 16.h),
-        width: 1.0.sw,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(
-              width: 1.w,
-              color: ColorUtils.borderColor.withOpacity(0.5),
-            ),
-            color: ColorUtils.white),
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Get.toNamed(RouteName.pJobProviderScreenPath);
-              },
-              child: Row(
+      GestureDetector(
+        onTap: () {
+          Get.toNamed(RouteName.pJobProviderScreenPath);
+        },
+        child: Container(
+          padding: EdgeInsets.all(15.sp),
+          margin: EdgeInsets.only(bottom: 16.h),
+          width: 1.0.sw,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.r),
+              border: Border.all(
+                width: 1.w,
+                color: ColorUtils.borderColor.withOpacity(0.5),
+              ),
+              color: ColorUtils.white),
+          child: Row(
+            children: [
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Stack(
@@ -1211,7 +1306,8 @@ Widget pJobDetailUserCard({
                           children: [
                             Text(
                               name,
-                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 16.sp),
                             ),
                             5.h.verticalSpace,
                             Text(
@@ -1226,7 +1322,8 @@ Widget pJobDetailUserCard({
                           children: [
                             Text(
                               "Job Posted",
-                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 16.sp),
                             ),
                             5.h.verticalSpace,
                             Text(
@@ -1240,8 +1337,8 @@ Widget pJobDetailUserCard({
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       )
     ],
@@ -1276,7 +1373,10 @@ Widget activeJobCard({
               width: 0.43.sw,
               child: Text(
                 title ?? "Lorem ipsum dolor sit...",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, overflow: TextOverflow.ellipsis),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.sp,
+                    overflow: TextOverflow.ellipsis),
               ),
             ),
             Text(
@@ -1289,7 +1389,8 @@ Widget activeJobCard({
         ),
         6.h.verticalSpace,
         Text(
-          desc ?? 'Lorem ipsum dolor sit amet consectetur adipiscing elit odio.',
+          desc ??
+              'Lorem ipsum dolor sit amet consectetur adipiscing elit odio.',
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.left,
           maxLines: 3,
@@ -1344,7 +1445,9 @@ Widget activeJobCard({
                 ),
                 6.h.verticalSpace,
                 Text(
-                  time != null ? DateFormat("HH:mm").format(DateTime.parse(time)) : "",
+                  time != null
+                      ? DateFormat("HH:mm").format(DateTime.parse(time))
+                      : "",
                   style: TextStyle(
                     color: ColorUtils.black,
                     fontSize: 16.sp,
@@ -1394,11 +1497,16 @@ Widget activeJobCard({
                 children: [
                   Text(
                     "Status: ",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                   ),
                   Text(
                     status,
-                    style: TextStyle(fontSize: 14.sp, color: status == "Completed" ? ColorUtils.green : ColorUtils.blue),
+                    style: TextStyle(
+                        fontSize: 14.sp,
+                        color: status == "Completed"
+                            ? ColorUtils.green
+                            : ColorUtils.blue),
                   ),
                 ],
               )
@@ -1417,7 +1525,8 @@ Widget myBackGround({
   return Scaffold(
     extendBody: true,
     bottomNavigationBar: Container(
-      padding: EdgeInsets.only(top: 10.h, bottom: 25.h, left: 16.w, right: 16.w),
+      padding:
+          EdgeInsets.only(top: 10.h, bottom: 25.h, left: 16.w, right: 16.w),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [bottomNavBar ?? const SizedBox()],
@@ -1458,7 +1567,8 @@ Widget appbar({
                 padding: EdgeInsets.all(8.sp),
                 height: 40.h,
                 width: 40.w,
-                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                 child: Image.asset(
                   ImageAssets.menunicon,
                   scale: 2,
@@ -1473,7 +1583,8 @@ Widget appbar({
                   padding: EdgeInsets.all(8.sp),
                   height: 40.h,
                   width: 40.w,
-                  decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
                   child: Image.asset(
                     ImageAssets.backArrow,
                     scale: 2,
@@ -1531,11 +1642,16 @@ Widget applyJobCard({
               width: 0.43.sw,
               child: Text(
                 title ?? "",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, overflow: TextOverflow.ellipsis),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.sp,
+                    overflow: TextOverflow.ellipsis),
               ),
             ),
             Text(
-              date != null ? DateFormat("d MMMM").format(DateTime.parse(date)) : "",
+              date != null
+                  ? DateFormat("d MMMM").format(DateTime.parse(date))
+                  : "",
               style: TextStyle(fontSize: 12.sp, color: ColorUtils.borderColor),
             )
           ],
@@ -1597,7 +1713,9 @@ Widget applyJobCard({
                 ),
                 6.h.verticalSpace,
                 Text(
-                  time != null ? DateFormat("HH:mm").format(DateTime.parse(time)) : "",
+                  time != null
+                      ? DateFormat("HH:mm").format(DateTime.parse(time))
+                      : "",
                   style: TextStyle(
                     color: ColorUtils.black,
                     fontSize: 16.sp,
@@ -1644,7 +1762,8 @@ Widget applyJobCard({
           children: [
             InkWell(
               onTap: () {
-                UserServices.instance.saveUnsaveBookmarkService(jobId: id!, context: context);
+                UserServices.instance
+                    .saveUnsaveBookmarkService(jobId: id!, context: context);
               },
               child: Image.asset(
                 ImageAssets.saveIcon,
@@ -1654,7 +1773,8 @@ Widget applyJobCard({
             RoundButton(
               title: "Apply Job",
               onPress: () {
-                UserServices.instance.applyPerformerJob(context: context, jobId: id);
+                UserServices.instance
+                    .applyPerformerJob(context: context, jobId: id);
               },
               // horizonalPad: 20.w,
               width: 150.w,
@@ -1668,7 +1788,8 @@ Widget applyJobCard({
 }
 
 class MySeparator extends StatelessWidget {
-  const MySeparator({Key? key, this.height = 1, this.color = Colors.black}) : super(key: key);
+  const MySeparator({Key? key, this.height = 1, this.color = Colors.black})
+      : super(key: key);
   final double height;
   final Color color;
 

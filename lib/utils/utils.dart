@@ -1,47 +1,10 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:intl/intl.dart';
-
-validatetitle(
-  String value,
-) {
-  if (value == null) {
-    return null;
-  } else if (value.length < 3) {
-    return 'Title must be more than 2 characters';
-  } else if (value.contains('  ')) {
-    return 'Double space is not allowed between title';
-  }
-}
-
-String? validateAddress(
-  String? value,
-) {
-  if (value != null && value.length == 0) {
-    return 'Address is Required';
-  }
-}
-
-String? validateDesc(
-  String? value,
-) {
-  if (value == null) {
-    return null;
-  } else if (value.length < 3) {
-    return 'Description must be more than 2 characters';
-  } else if (value.contains('  ')) {
-    return 'Double space is not allowed between Description';
-  }
-}
-
-String? validateAbout(
-  String? value,
-) {
-  if (value != null && value.length == 0) {
-    return 'About is Required';
-  }
-}
 
 String? validateName(String? value) {
   if (value == null) {
@@ -54,14 +17,22 @@ String? validateName(String? value) {
 }
 
 String? validateFirstName(String? value) {
-  if (value != null && value.length == 0) {
-    return 'First Name is Required';
+  if (value == null) {
+    return null;
+  } else if (value.length < 3) {
+    return 'First Name must be more than 2 characters';
+  } else if (value.contains('  ')) {
+    return 'Double space is not allowed between name';
   }
 }
 
 String? validateLastName(String? value) {
-  if (value != null && value.length == 0) {
-    return 'Last Name is Required';
+  if (value == null) {
+    return null;
+  } else if (value.length < 3) {
+    return 'Last Name must be more than 2 characters';
+  } else if (value.contains('  ')) {
+    return 'Double space is not allowed between name';
   }
 }
 
@@ -120,12 +91,6 @@ String? validateEmail(String? value) {
 String? validateField(String? value) {
   if (value != null && value.length == 0) {
     return 'Required';
-  }
-}
-
-String? validateLocation(String? value) {
-  if (value != null && value.length == 0) {
-    return 'Location is Required';
   }
 }
 
@@ -301,6 +266,35 @@ String durationToString(Duration d) {
   return tokens.join(':');
 }
 
+///
+
+TextStyle customTextStyle(
+    {double? fontSize = 16,
+    Color? textColor,
+    String? fontFamily,
+    double? lineHeight = 1.2}) {
+  return TextStyle(
+      fontSize: fontSize!,
+      color: textColor,
+      fontFamily: fontFamily,
+      height: lineHeight);
+}
+
+// Widget myAnimatedWidget({required Widget child,Duration? duration,bool needFadeAnimation = true, needSlideAnimation = false}){
+//   return AnimateIfVisible(
+//     key: Key('item.1'),
+//     duration:duration ?? Duration(milliseconds: 500),
+//     builder: (context, animation) =>needSlideAnimation ==true ? SlideTransition(
+//       position: Tween<Offset>(
+//         begin: const Offset(-1, 0),
+//         end: Offset(0, 0),
+//       ).animate(animation)) : FadeTransition(opacity: Tween<double>(
+//   begin: 0,
+//     end: 1,
+//   ).animate(animation),
+//   child: child,));
+//  }
+
 String timeAgoSinceDate(String datetime) {
   DateTime date = new DateFormat("yyyy-MM-dd hh:mm:ss")
       .parse(datetime.replaceAll("T", " ").replaceAll("Z", ""), true)
@@ -353,6 +347,92 @@ DateTime convertUTCtoLocal(
   print(dateTimeLocal);
   return dateTimeLocal;
 }
+
+void logoutUser({bool isUnAuthorized = false}) {
+  // if (isUnAuthorized == true) {
+  //   logOutUserIfUnAuthorized(
+  //     onSuccess: (baseModel) {
+  //       Prefs.removeUser();
+  //       Prefs.removeFCMToken();
+  //       Navigator.pushAndRemoveUntil(
+  //           navigationKey.currentContext!,
+  //           MaterialPageRoute(
+  //             builder: (context) => LoginScreen(),
+  //           ),
+  //           (route) => false);
+  //     },
+  //     onError: (error) {},
+  //   );
+  // } else {
+  // }
+  // Prefs.removeUser();
+  // Prefs.removeFCMToken();
+  // Navigator.pushAndRemoveUntil(
+  //     navigationKey.currentContext!,
+  //     MaterialPageRoute(
+  //       builder: (context) => FirstOnBoard(),
+  //     ),
+  //         (route) => false);
+  // if(isUnAuthorized == true){
+  //   Prefs.removeUser();
+  //   Prefs.removeFCMToken();
+  //   Navigator.pushAndRemoveUntil(
+  //       navigationKey.currentContext!,
+  //       MaterialPageRoute(
+  //         builder: (context) => FirstOnBoard(),
+  //       ),
+  //           (route) => false);
+  // }
+  // else{
+  //
+  // // logOutUser(onSuccess: (baseModel) {
+  //
+  // Prefs.removeUser();
+  // Prefs.removeFCMToken();
+  // Navigator.pushAndRemoveUntil(
+  //     navigationKey.currentContext!,
+  //     MaterialPageRoute(
+  //       builder: (context) => FirstOnBoard(),
+  //     ),
+  //         (route) => false);
+  // // },
+  // //     onError: (error) {
+  // //
+  // //     },);
+  // }
+}
+
+// compressImage(File file) async {
+//   // Get file path
+//   // eg:- "Volume/VM/abcd.jpeg"
+//   final filePath = file.absolute.path;
+//
+//   // Create output file path
+//   // eg:- "Volume/VM/abcd_out.jpeg"
+//   final lastIndex = filePath.lastIndexOf(new RegExp(r'.jp'));
+//   final splitted = filePath.substring(0, (lastIndex));
+//   final outPath = "${splitted}_out${filePath.substring(lastIndex)}";
+//
+//   final compressedImage = await FlutterImageCompress.compressAndGetFile(
+//       filePath, outPath,
+//       minWidth: 800, minHeight: 800, quality: 50);
+//   print(compressedImage!.path);
+//   return compressedImage!.path;
+// }
+
+// Future<File> testCompressAndGetFile(File file, String targetPath) async {
+//   var result = await FlutterImageCompress.compressAndGetFile(
+//     file.absolute.path,
+//     targetPath,
+//     quality: 88,
+//     rotate: 180,
+//   );
+//
+//   print(file.lengthSync());
+//   print(result.lengthSync());
+//
+//   return result;
+// }
 
 bool validateInputs({required GlobalKey<FormState> formKey}) {
   if (formKey.currentState!.validate()) {

@@ -74,7 +74,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   controller.showUserDetail.value
                       ? Container(
                           padding: EdgeInsets.all(15.sp),
-                          margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
+                          margin: EdgeInsets.only(
+                              left: 20.w, right: 20.w, top: 10.h),
                           width: 1.0.sw,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.r),
@@ -91,15 +92,19 @@ class _ChatScreenState extends State<ChatScreen> {
                                     ),
                                   )
                                 : Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
-                                            'id': controller.performerId,
-                                            "title": "Employee Profile",
-                                            "showChat": false,
-                                          });
+                                          Get.toNamed(
+                                              RouteName
+                                                  .bestPerformerDetailScreenPath,
+                                              arguments: {
+                                                'id': controller.performerId,
+                                                "title": "Employee Profile",
+                                                "showChat": false,
+                                              });
                                         },
                                         child: Row(
                                           children: [
@@ -110,19 +115,26 @@ class _ChatScreenState extends State<ChatScreen> {
                                                   width: 50,
                                                   child: ClipOval(
                                                     child: Image.network(
-                                                      loadingBuilder: (context, child, loadingProgress) {
-                                                        if (loadingProgress == null) return child;
+                                                      loadingBuilder: (context,
+                                                          child,
+                                                          loadingProgress) {
+                                                        if (loadingProgress ==
+                                                            null) return child;
                                                         return const Center(
-                                                          child: CircularProgressIndicator(),
+                                                          child:
+                                                              CircularProgressIndicator(),
                                                         );
                                                       },
-                                                      errorBuilder: (context, error, stackTrace) {
+                                                      errorBuilder: (context,
+                                                          error, stackTrace) {
                                                         return const Center(
-                                                          child: CircularProgressIndicator(),
+                                                          child:
+                                                              CircularProgressIndicator(),
                                                         );
                                                       },
                                                       fit: BoxFit.cover,
-                                                      controller.profile_picture,
+                                                      controller
+                                                          .profile_picture,
                                                       scale: 2,
                                                     ),
                                                   ),
@@ -155,32 +167,45 @@ class _ChatScreenState extends State<ChatScreen> {
                                             ),
                                             20.w.horizontalSpace,
                                             Obx(
-                                              () => chatController.isMessagesLoading.value
+                                              () => chatController
+                                                      .isMessagesLoading.value
                                                   ? Center(
                                                       child: Container(
-                                                        color: Colors.transparent,
+                                                        color:
+                                                            Colors.transparent,
                                                       ),
                                                     )
                                                   : Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      mainAxisSize: MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
                                                       children: [
                                                         Text(
                                                           "${controller.username}",
-                                                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: 16.sp),
                                                         ),
                                                         5.h.verticalSpace,
                                                         Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
                                                           children: [
                                                             Image.asset(
-                                                              ImageAssets.starIcon,
+                                                              ImageAssets
+                                                                  .starIcon,
                                                               scale: 2,
                                                             ),
                                                             7.w.horizontalSpace,
                                                             Text(
                                                               "(${chatController.avgRatings})",
-                                                              style: TextStyle(),
+                                                              style:
+                                                                  TextStyle(),
                                                             )
                                                           ],
                                                         )
@@ -211,40 +236,67 @@ class _ChatScreenState extends State<ChatScreen> {
                                                   )
                                                 : GestureDetector(
                                                     onTap: () {
-                                                      if (!chatController.isJobAssigned) {
+                                                      if (!chatController
+                                                          .isJobAssigned) {
                                                         showDialog(
                                                             context: context,
-                                                            builder: (BuildContext context) {
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
                                                               return AlertDialog(
-                                                                insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                                                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                                backgroundColor: ColorUtils.dialogeBGColor,
-                                                                content: SizedBox(
+                                                                insetPadding: EdgeInsets
+                                                                    .symmetric(
+                                                                        horizontal:
+                                                                            20.w),
+                                                                clipBehavior: Clip
+                                                                    .antiAliasWithSaveLayer,
+                                                                backgroundColor:
+                                                                    ColorUtils
+                                                                        .dialogeBGColor,
+                                                                content:
+                                                                    SizedBox(
                                                                   width: 1.0.sw,
                                                                   child: Column(
-                                                                    mainAxisSize: MainAxisSize.min,
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
                                                                     children: [
                                                                       20.h.verticalSpace,
-                                                                      Image.asset(
-                                                                        ImageAssets.jobBigIcon,
-                                                                        scale: 2,
+                                                                      Image
+                                                                          .asset(
+                                                                        ImageAssets
+                                                                            .jobBigIcon,
+                                                                        scale:
+                                                                            2,
                                                                       ),
                                                                       20.h.verticalSpace,
                                                                       Text(
                                                                         "Select For Job!",
-                                                                        textAlign: TextAlign.center,
-                                                                        style: TextStyle(
-                                                                          color: ColorUtils.black,
-                                                                          fontSize: 22.sp,
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              ColorUtils.black,
+                                                                          fontSize:
+                                                                              22.sp,
                                                                         ),
                                                                       ),
                                                                       24.h.verticalSpace,
                                                                       Text(
-                                                                        "Are you sure you want select William Roy for your job?",
-                                                                        textAlign: TextAlign.center,
-                                                                        style: TextStyle(
-                                                                          color: ColorUtils.black,
-                                                                          fontSize: 14.sp,
+                                                                        "Are you sure you want select ${controller.username} for your job?",
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        maxLines:
+                                                                            2,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              ColorUtils.black,
+                                                                          fontSize:
+                                                                              14.sp,
                                                                         ),
                                                                       ),
                                                                     ],
@@ -252,13 +304,18 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                 ),
                                                                 actions: [
                                                                   Container(
-                                                                    width: 1.0.sw,
+                                                                    width:
+                                                                        1.0.sw,
                                                                     child: Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
                                                                       children: [
                                                                         Expanded(
-                                                                          child: GestureDetector(
-                                                                            onTap: () {
+                                                                          child:
+                                                                              GestureDetector(
+                                                                            onTap:
+                                                                                () {
                                                                               Get.back();
                                                                               // controller.isPendingJob.value = true;
 
@@ -315,8 +372,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                                                 child: GestureDetector(
                                                                                                   onTap: () {
                                                                                                     // Get.back();
-                                                                                                    controller.assignJob(context, controller.jobId,
-                                                                                                        controller.performerId);
+                                                                                                    controller.assignJob(context, controller.jobId, controller.performerId);
                                                                                                   },
                                                                                                   child: Container(
                                                                                                     alignment: Alignment.center,
@@ -339,24 +395,25 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                                     );
                                                                                   });
                                                                             },
-                                                                            child: Container(
+                                                                            child:
+                                                                                Container(
                                                                               alignment: Alignment.center,
                                                                               padding: EdgeInsets.symmetric(vertical: 15.h),
-                                                                              decoration: BoxDecoration(
-                                                                                  color: ColorUtils.white,
-                                                                                  borderRadius: BorderRadius.circular(10.r),
-                                                                                  border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
+                                                                              decoration: BoxDecoration(color: ColorUtils.white, borderRadius: BorderRadius.circular(10.r), border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
                                                                               child: const Text("Yes, Select"),
                                                                             ),
                                                                           ),
                                                                         ),
                                                                         20.w.horizontalSpace,
                                                                         Expanded(
-                                                                          child: GestureDetector(
-                                                                            onTap: () {
+                                                                          child:
+                                                                              GestureDetector(
+                                                                            onTap:
+                                                                                () {
                                                                               Get.back();
                                                                             },
-                                                                            child: Container(
+                                                                            child:
+                                                                                Container(
                                                                               alignment: Alignment.center,
                                                                               padding: EdgeInsets.symmetric(vertical: 15.h),
                                                                               decoration: BoxDecoration(
@@ -380,17 +437,35 @@ class _ChatScreenState extends State<ChatScreen> {
                                                     },
                                                     child: Container(
                                                       // width: 120.w,
-                                                      alignment: Alignment.center,
+                                                      alignment:
+                                                          Alignment.center,
                                                       // margin: EdgeInsets.only(right: 10.w),
-                                                      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 10.h,
+                                                              horizontal: 15.w),
 
                                                       decoration: BoxDecoration(
                                                           color: ColorUtils.red,
-                                                          borderRadius: BorderRadius.circular(10.sp),
-                                                          border: Border.all(width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.sp),
+                                                          border: Border.all(
+                                                              width: 1.w,
+                                                              color: ColorUtils
+                                                                  .red
+                                                                  .withOpacity(
+                                                                      0.5))),
                                                       child: Text(
-                                                        chatController.isJobAssigned ? 'Selected For Job' : "Select for job",
-                                                        style: TextStyle(fontSize: 14.sp, color: ColorUtils.white),
+                                                        chatController
+                                                                .isJobAssigned
+                                                            ? 'Selected For Job'
+                                                            : "Select for job",
+                                                        style: TextStyle(
+                                                            fontSize: 14.sp,
+                                                            color: ColorUtils
+                                                                .white),
                                                       ),
                                                     ),
                                                   )
@@ -402,7 +477,9 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         )
                       : SizedBox.shrink(),
-                  controller.showUserDetail.value ? 20.verticalSpace : 0.verticalSpace,
+                  controller.showUserDetail.value
+                      ? 20.verticalSpace
+                      : 0.verticalSpace,
                   controller.showUserDetail.value
                       ? Obx(
                           () => chatController.isMessagesLoading.value
@@ -413,42 +490,56 @@ class _ChatScreenState extends State<ChatScreen> {
                                   ? Container()
                                   : Container(
                                       padding: EdgeInsets.all(15.sp),
-                                      margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
+                                      margin: EdgeInsets.only(
+                                          left: 20.w, right: 20.w, top: 10.h),
                                       width: 1.0.sw,
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10.r),
+                                          borderRadius:
+                                              BorderRadius.circular(10.r),
                                           border: Border.all(
                                             width: 1.w,
-                                            color: ColorUtils.borderColor.withOpacity(0.5),
+                                            color: ColorUtils.borderColor
+                                                .withOpacity(0.5),
                                           ),
                                           color: ColorUtils.white),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             children: [
                                               Text(
                                                 "Job Details",
-                                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                                style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ],
                                           ),
                                           5.verticalSpace,
                                           Text(
                                             "${chatController.jobDetails['title']}",
-                                            style: TextStyle(fontSize: 16.sp, color: ColorUtils.textColor),
+                                            style: TextStyle(
+                                                fontSize: 16.sp,
+                                                color: ColorUtils.textColor),
                                           ),
                                           5.verticalSpace,
                                           Text(
                                             "${chatController.jobDetails['description']}",
-                                            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400, color: ColorUtils.textColor),
+                                            style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorUtils.textColor),
                                           ),
                                         ],
                                       ),
                                     ),
                         )
                       : SizedBox.shrink(),
-                  controller.showUserDetail.value ? 20.verticalSpace : 20.verticalSpace,
+                  controller.showUserDetail.value
+                      ? 20.verticalSpace
+                      : 20.verticalSpace,
                 ],
               ),
             )
@@ -526,20 +617,26 @@ class _ChatScreenState extends State<ChatScreen> {
                           shrinkWrap: true,
                           itemCount: chatController.allMessages.length,
                           itemBuilder: (context, index) {
-                            return chatController.allMessages[index][0]['recipient_id'] != controller.performerId
+                            return chatController.allMessages[index][0]
+                                        ['recipient_id'] !=
+                                    controller.performerId
                                 ? getReceiverView(
                                     datetime: chatController.allMessages[index],
                                     image: controller.profile_picture,
                                     username: controller.username,
-                                    clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+                                    clipper: ChatBubbleClipper5(
+                                        type: BubbleType.receiverBubble),
                                     context: context,
                                     text: chatController.allMessages[index],
-                                    attachment: chatController.allMessages[index])
+                                    attachment:
+                                        chatController.allMessages[index])
                                 : getSenderView(
-                                    clipper: ChatBubbleClipper5(type: BubbleType.receiverBubble),
+                                    clipper: ChatBubbleClipper5(
+                                        type: BubbleType.receiverBubble),
                                     context: context,
                                     text: chatController.allMessages[index],
-                                    attachment: chatController.allMessages[index]);
+                                    attachment:
+                                        chatController.allMessages[index]);
                           }),
                     ),
             ),
@@ -558,6 +655,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     context: context,
                     controller: socketController.messageController,
                     needSuffix: true,
+                    textCapitalization: TextCapitalization.sentences,
                     suffixWidget: Container(
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -567,12 +665,16 @@ class _ChatScreenState extends State<ChatScreen> {
                             onTap: () {
                               showModalBottomSheet(
                                 context: context,
-                                isScrollControlled: true, // Allows the bottom sheet to resize based on content
-                                backgroundColor: Colors.transparent, // Makes the sheet background transparent for rounded corners
+                                isScrollControlled:
+                                    true, // Allows the bottom sheet to resize based on content
+                                backgroundColor: Colors
+                                    .transparent, // Makes the sheet background transparent for rounded corners
                                 builder: (_) {
                                   return Padding(
                                     padding: EdgeInsets.only(
-                                      bottom: MediaQuery.of(context).viewInsets.bottom,
+                                      bottom: MediaQuery.of(context)
+                                          .viewInsets
+                                          .bottom,
                                     ),
                                     child: Container(
                                       padding: EdgeInsets.all(20.r),
@@ -596,48 +698,86 @@ class _ChatScreenState extends State<ChatScreen> {
                                               return Column(
                                                 children: [
                                                   GridView.builder(
-                                                    physics: NeverScrollableScrollPhysics(),
-                                                    itemCount: imagePickerController.selectedImages.length + 1,
+                                                    physics:
+                                                        NeverScrollableScrollPhysics(),
+                                                    itemCount:
+                                                        imagePickerController
+                                                                .selectedImages
+                                                                .length +
+                                                            1,
                                                     shrinkWrap: true,
-                                                    padding: EdgeInsets.symmetric(horizontal: 0.w),
-                                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 0.w),
+                                                    gridDelegate:
+                                                        const SliverGridDelegateWithFixedCrossAxisCount(
                                                       crossAxisSpacing: 10,
                                                       mainAxisSpacing: 10,
                                                       crossAxisCount: 4,
                                                     ),
-                                                    itemBuilder: (context, index) {
-                                                      if (index == imagePickerController.selectedImages.length) {
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      if (index ==
+                                                          imagePickerController
+                                                              .selectedImages
+                                                              .length) {
                                                         // Add new image button
                                                         return GestureDetector(
                                                           onTap: () {
-                                                            imagePickerController.pickImages(isMultiImage: true);
+                                                            imagePickerController
+                                                                .pickImages(
+                                                                    isMultiImage:
+                                                                        true);
                                                           },
                                                           child: DottedBorder(
-                                                            radius: Radius.circular(15.r),
-                                                            borderType: BorderType.RRect,
-                                                            strokeCap: StrokeCap.round,
-                                                            dashPattern: const [5, 5],
+                                                            radius:
+                                                                Radius.circular(
+                                                                    15.r),
+                                                            borderType:
+                                                                BorderType
+                                                                    .RRect,
+                                                            strokeCap:
+                                                                StrokeCap.round,
+                                                            dashPattern: const [
+                                                              5,
+                                                              5
+                                                            ],
                                                             strokeWidth: 1.5,
                                                             color: Colors.white,
                                                             child: Container(
-                                                              decoration: BoxDecoration(
-                                                                color: ColorUtils.red,
-                                                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color:
+                                                                    ColorUtils
+                                                                        .red,
+                                                                borderRadius: BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            10)),
                                                               ),
                                                               child: Center(
                                                                 child: Column(
-                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
                                                                   children: [
                                                                     5.verticalSpace,
                                                                     Image.asset(
-                                                                      ImageAssets.addCircleRed,
-                                                                      scale: 2.5,
-                                                                      color: Colors.white,
+                                                                      ImageAssets
+                                                                          .addCircleRed,
+                                                                      scale:
+                                                                          2.5,
+                                                                      color: Colors
+                                                                          .white,
                                                                     ),
                                                                     5.verticalSpace,
                                                                     Text(
                                                                       'Add',
-                                                                      style: TextStyle(color: Colors.white, fontSize: 12),
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSize:
+                                                                              12),
                                                                     )
                                                                   ],
                                                                 ),
@@ -647,32 +787,52 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         );
                                                       } else {
                                                         // Display selected image
-                                                        final imagePath = imagePickerController.selectedImages[index];
+                                                        final imagePath =
+                                                            imagePickerController
+                                                                    .selectedImages[
+                                                                index];
                                                         return Stack(
                                                           children: [
                                                             Container(
-                                                              decoration: BoxDecoration(
-                                                                image: DecorationImage(
-                                                                  image: imagePath.path.startsWith('http')
-                                                                      ? NetworkImage(imagePath.path) as ImageProvider
-                                                                      : FileImage(File(imagePath.path)),
-                                                                  fit: BoxFit.cover,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                image:
+                                                                    DecorationImage(
+                                                                  image: imagePath.path
+                                                                          .startsWith(
+                                                                              'http')
+                                                                      ? NetworkImage(
+                                                                              imagePath.path)
+                                                                          as ImageProvider
+                                                                      : FileImage(File(
+                                                                          imagePath
+                                                                              .path)),
+                                                                  fit: BoxFit
+                                                                      .cover,
                                                                 ),
-                                                                borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                                                borderRadius: BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            10.r)),
                                                               ),
                                                             ),
                                                             Positioned(
                                                               right: 5,
                                                               top: 5,
-                                                              child: GestureDetector(
+                                                              child:
+                                                                  GestureDetector(
                                                                 onTap: () {
-                                                                  imagePickerController.removeImage(index);
+                                                                  imagePickerController
+                                                                      .removeImage(
+                                                                          index);
                                                                 },
                                                                 child: SizedBox(
                                                                   height: 25.h,
                                                                   width: 25.w,
-                                                                  child: Image.asset(
-                                                                    ImageAssets.bigCross,
+                                                                  child: Image
+                                                                      .asset(
+                                                                    ImageAssets
+                                                                        .bigCross,
                                                                     scale: 2.5,
                                                                   ),
                                                                 ),
@@ -692,9 +852,14 @@ class _ChatScreenState extends State<ChatScreen> {
                                                       onPress: () {
                                                         chatController.sendMedia(
                                                             context: context,
-                                                            attachments: imagePickerController.selectedImages,
-                                                            chatId: controller.chatId,
-                                                            recipient_id: controller.performerId);
+                                                            attachments:
+                                                                imagePickerController
+                                                                    .selectedImages,
+                                                            chatId: controller
+                                                                .chatId,
+                                                            recipient_id:
+                                                                controller
+                                                                    .performerId);
                                                       }),
                                                   // CustomButton(
                                                   //   title: "Send",
@@ -739,14 +904,19 @@ class _ChatScreenState extends State<ChatScreen> {
                           10.horizontalSpace,
                           InkWell(
                             onTap: () {
-                              if (socketController.messageController.text.isNotEmpty) {
+                              if (socketController
+                                  .messageController.text.isNotEmpty) {
                                 socketController.message(
-                                    jobId: controller.jobId, message: socketController.messageController.text, recipientId: controller.performerId);
+                                    jobId: controller.jobId,
+                                    message:
+                                        socketController.messageController.text,
+                                    recipientId: controller.performerId);
                                 print('Hello');
                               }
                             },
                             child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.w),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 4.w, vertical: 1.w),
                               padding: EdgeInsets.all(5.sp),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5.r),

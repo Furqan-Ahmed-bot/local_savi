@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+
 import 'package:local_saviors/controllers/user_controllers/jobs_screen_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/utils/color_utils.dart';
@@ -34,7 +34,8 @@ class _JobsScreenState extends State<JobsScreen> {
           children: [
             Expanded(
               child: ListView(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 110.h, top: 30.h),
+                padding: EdgeInsets.only(
+                    left: 20.w, right: 20.w, bottom: 110.h, top: 30.h),
                 children: [
                   Obx(
                     () => Container(
@@ -63,23 +64,32 @@ class _JobsScreenState extends State<JobsScreen> {
                                 controller.update();
                               },
                               child: Container(
-                                width: 120.w,
+                                width: 110.w,
                                 alignment: Alignment.center,
                                 margin: EdgeInsets.only(right: 10.w),
                                 padding: EdgeInsets.symmetric(vertical: 15.h),
                                 decoration: BoxDecoration(
-                                  color: controller.selectedIndex.value == index ? ColorUtils.red : ColorUtils.white,
+                                  color: controller.selectedIndex.value == index
+                                      ? ColorUtils.red
+                                      : ColorUtils.white,
                                   borderRadius: BorderRadius.circular(10.sp),
                                   border: Border.all(
                                     width: 1.w,
-                                    color: controller.selectedIndex.value == index ? ColorUtils.red : ColorUtils.borderColor.withOpacity(0.5),
+                                    color:
+                                        controller.selectedIndex.value == index
+                                            ? ColorUtils.red
+                                            : ColorUtils.borderColor
+                                                .withOpacity(0.5),
                                   ),
                                 ),
                                 child: Text(
                                   controller.names[index],
                                   style: TextStyle(
                                     fontSize: 16.sp,
-                                    color: controller.selectedIndex.value == index ? ColorUtils.white : ColorUtils.black,
+                                    color:
+                                        controller.selectedIndex.value == index
+                                            ? ColorUtils.white
+                                            : ColorUtils.black,
                                   ),
                                 ),
                               ),
@@ -91,7 +101,9 @@ class _JobsScreenState extends State<JobsScreen> {
                   ),
                   20.h.verticalSpace,
                   Obx(
-                    () => controller.isLoading.value ? Center(child: spinkit) : buildJobList(),
+                    () => controller.isLoading.value
+                        ? Center(child: spinkit)
+                        : buildJobList(),
                   ),
                 ],
               ),
@@ -148,7 +160,8 @@ class _JobsScreenState extends State<JobsScreen> {
           },
           child: activeJobCard(
             time: jobList[index].startTime,
-            budget: jobList[index].decidedCost?.toString() ?? jobList[index].budget,
+            budget:
+                jobList[index].decidedCost?.toString() ?? jobList[index].budget,
             date: jobList[index].startTime,
             workerType: jobList[index].workerType,
             desc: jobList[index].description,
