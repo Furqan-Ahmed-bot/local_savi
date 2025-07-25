@@ -22,8 +22,7 @@ void main() {
   Get.put(ImagePickerController());
   WidgetsFlutterBinding.ensureInitialized();
 
-  Stripe.publishableKey =
-      "pk_test_51Q5Qo3COooK1jUT3eDq4GfwDaWj1poPVKM3fC7aUr0GppsWaHwVM4PSQowX6GbEA7cTUloh9g7TjjCRCKJ7qhbBV00lG4mWbuY";
+  Stripe.publishableKey = "pk_test_51Oj6PmBwWHu7PT211T7fJvO6G3bykzsbbOibzsIJBvScYYC9o323Z2dGwk26eIgK6WWJS557aRmfrElhHbRx8zKn00BNIcbk4Q";
   hsController = Get.put(HomeScreenController());
   phController = Get.put(PHomeController());
   socketController = Get.put(SocketController());
@@ -56,8 +55,7 @@ class MyApp extends StatelessWidget {
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              appBarTheme: AppBarTheme(
-                  elevation: 0, surfaceTintColor: Colors.transparent),
+              appBarTheme: AppBarTheme(elevation: 0, surfaceTintColor: Colors.transparent),
               applyElevationOverlayColor: false,
               splashColor: Colors.transparent,
               splashFactory: NoSplash.splashFactory,
