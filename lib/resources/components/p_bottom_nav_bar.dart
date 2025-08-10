@@ -359,7 +359,7 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                                                               color: ColorUtils
                                                                   .borderColor)),
                                                       child: const Text(
-                                                          "Yes, Select"),
+                                                          "Yes, Logout"),
                                                     ),
                                                   ),
                                                 ),

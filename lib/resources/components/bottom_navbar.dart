@@ -387,7 +387,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                                               color: ColorUtils
                                                                   .borderColor)),
                                                       child: const Text(
-                                                          "Yes, Select"),
+                                                          "Yes, Logout"),
                                                     ),
                                                   ),
                                                 ),

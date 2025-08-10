@@ -1,7 +1,6 @@
 // ignore_for_file: unnecessary_string_interpolations, prefer_if_null_operators, unnecessary_brace_in_string_interps, avoid_print
 
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';

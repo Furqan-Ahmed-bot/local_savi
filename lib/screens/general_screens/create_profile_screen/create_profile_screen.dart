@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
@@ -341,13 +343,20 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                                         result.latitude, result.longitude);
                                 if (placemarks.isNotEmpty) {
                                   Placemark placemark = placemarks.first;
+                                  print(placemark.administrativeArea);
+                                  print(placemark.locality);
+                                  print(placemark.subLocality);
+                                  print(placemark.subAdministrativeArea);
+                                  print(placemark.name);
+                                  print(placemark.thoroughfare);
+                                  print(placemark.postalCode);
                                   String address =
-                                      "${placemark.name}, ${placemark.locality}";
+                                      "${placemark.name}, ${placemark.thoroughfare} , ${placemark.locality}";
 
                                   controller.locationcontroller.text =
                                       address.toString();
 
-                                  print(address);
+                                   print(address);
                                 }
                               }
                               // controller.selectDate(context);
@@ -440,3 +449,5 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
     });
   }
 }
+
+

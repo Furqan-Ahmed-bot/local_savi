@@ -26,6 +26,7 @@ import '../../controllers/user_controllers/posted_job_screen_controller.dart';
 import '../../models/job_provider_model/job_provider_model.dart';
 import '../../resources/ prefrences/auth_prefrences.dart';
 
+import '../../resources/components/imagepicker_component.dart';
 import '../../screens/general_screens/create_profile_screen/create_profile__two_controller.dart';
 import '../routes/route_arguments.dart';
 
@@ -40,6 +41,7 @@ class UserServices {
   // final userProfile = Get.put(UserProfileScreenController());
   // final performerController = Get.put(PHomeController());
   final createProfileController = Get.put(CreatePorfileTwoController());
+  final imagePickerController = Get.put(ImagePickerController());
 
   loginService(
       {required String userEmail,
@@ -515,12 +517,13 @@ class UserServices {
 
       if (response.statusCode == 200) {
         Get.back();
-
+          
         await getProfileService(context: context, isAutoLogin: false)
             .then((value) {
           socketController.onSocketEvents();
 
           Get.to(() => PBottomNavBar());
+           imagePickerController.selectedImages.clear();
         });
       } else {
         responseData['message'];

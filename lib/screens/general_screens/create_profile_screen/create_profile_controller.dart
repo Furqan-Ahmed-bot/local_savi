@@ -41,7 +41,7 @@ class CreateProfileController extends GetxController {
   File? image;
   final picker = ImagePicker();
   DateTime selectedDate = DateTime.now();
-  var myFormat = DateFormat('DD/MM/YYYY');
+var myFormat = DateFormat('d/MM/yyyy');
   final formKey = GlobalKey<FormState>();
   RxBool isValidate = false.obs;
 
@@ -78,6 +78,7 @@ class CreateProfileController extends GetxController {
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
       datecontroller.text = myFormat.format(selectedDate);
+      print( datecontroller.text);
       update();
     }
   }
