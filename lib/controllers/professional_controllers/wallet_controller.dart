@@ -56,7 +56,6 @@ class WalletController extends GetxController {
   }
 
   Future accountRestriction() async {
-    isLoading.value = true;
     try {
       var headers = {'Authorization': token.value};
 
@@ -78,7 +77,9 @@ class WalletController extends GetxController {
 
           Get.to(() => AccountCorrectionScreen());
         } else {
-          UserServices.instance.getProfileService(isAutoLogin: false).then((value) => Get.toNamed(RouteName.walletScreen));
+          UserServices.instance
+              .getProfileService(isAutoLogin: false)
+              .then((value) => Get.toNamed(RouteName.walletScreen));
         }
       } else {
         isLoading.value = false;

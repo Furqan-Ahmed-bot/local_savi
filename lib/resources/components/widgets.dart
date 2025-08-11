@@ -451,7 +451,7 @@ Widget userRequestCard({
       Divider(
         color: ColorUtils.borderColor.withOpacity(0.5),
       ),
-      20.h.verticalSpace,
+      20.verticalSpace,
       Container(
         width: 1.0.sw,
         child: Row(
@@ -501,17 +501,23 @@ Widget userRequestCard({
                           : const SizedBox(),
                     ],
                   ),
-                  20.w.horizontalSpace,
+                  20.horizontalSpace,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        name,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 16.sp),
+                      Container(
+                        width: 0.7.sw,
+                        child: Text(
+                          name,
+                          maxLines: 1,
+                          style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.sp),
+                        ),
                       ),
-                      5.h.verticalSpace,
+                      5.verticalSpace,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

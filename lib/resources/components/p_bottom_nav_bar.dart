@@ -185,6 +185,7 @@ class _PBottomNavBarState extends State<PBottomNavBar> {
                             Obx(
                               () => GestureDetector(
                                 onTap: () {
+                                  walletController.isLoading.value = true;
                                   walletController.accountRestriction();
                                   // Get.toNamed(RouteName.walletScreen);
                                   // Get.to(() => goalsHistoryScreen());

@@ -77,16 +77,16 @@ class OtpVerificationScreen extends GetWidget<OtpVerificationController> {
                           fontSize: 13,
                         ),
                       ),
-                      Center(
-                        child: Obx(
-                          () => Text(
-                            OTP.value,
-                            style: TextStyle(
-                              fontSize: 13,
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Center(
+                      //   child: Obx(
+                      //     () => Text(
+                      //       OTP.value,
+                      //       style: TextStyle(
+                      //         fontSize: 13,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       20.verticalSpace,
                       Container(
                         color: ColorUtils.red,
