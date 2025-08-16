@@ -458,7 +458,7 @@ class JobCompletedScreen extends GetWidget<JobCompletedScreenController> {
                                             if (placemarks.isNotEmpty) {
                                               Placemark place = placemarks[0];
                                               address =
-                                                  '${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.country}';
+                                                  '${place.name}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.country}';
                                               print("Address: $address");
 
                                               // You can display the address in a dialog, snackbar, or any widget

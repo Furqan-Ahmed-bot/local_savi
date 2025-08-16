@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:local_saviors/controllers/user_controllers/best_performer_detail_screen_controller.dart';
@@ -217,7 +218,32 @@ class BestPerformerDetailScreen extends GetWidget<BestPerformerDetailScreenContr
                                       zoom: 5,
                                     ),
                                     onTap: (latLng) async {
+                                         String address = '';
+                                            List<Placemark> placemarks = await placemarkFromCoordinates(
+                                                double.parse(controller.bestPerformers['user_details']['latitude']),
+                                                double.parse(
+                                                  controller.bestPerformers['user_details']['longitude']
+                                                ));
+
+                                            if (placemarks.isNotEmpty) {
+                                              Placemark place = placemarks[0];
+                                              address =
+                                                  '${place.name}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.country}';
+                                              print("Address: $address");
+
+                                              // You can display the address in a dialog, snackbar, or any widget
+                                            
+
+
+                                            }
+                                            
+
+                                      
+
+                                        
                                       LatLng? result = await Get.to(() => ShowMapScreen(
+                                        address: address,
+                                        
                                           isProfile: true,
                                           initialLocation: LatLng(double.parse(controller.bestPerformers['user_details']['latitude']),
                                               double.parse(controller.bestPerformers['user_details']['longitude']))));

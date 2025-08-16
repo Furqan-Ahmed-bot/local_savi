@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures, prefer_is_empty
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -161,14 +163,32 @@ String? validateNewPassword(String? value, {bool? isSignupField = false}) {
   }
 }
 
+// String? validateCurrentPassword(String? value, {bool? isSignupField = false}) {
+//   if (value!.length == 0)
+//     return 'Password is required';
+//   // else if (value.length < 6)
+//   //   return 'must be greater than 6 characters';
+//   else
+//     return null;
+// }
+
+
 String? validateCurrentPassword(String? value, {bool? isSignupField = false}) {
+  RegExp regex = RegExp(
+      r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
   if (value!.length == 0)
-    return 'Password is required';
-  // else if (value.length < 6)
-  //   return 'must be greater than 6 characters';
-  else
+    return 'New Password is required';
+  else if (value.length < 8)
+    return 'New Password should contain atleast 8 characters';
+  else if (!regex.hasMatch(value))
+    return "New Password should contain at least one uppercase letter, one lowercase letter, one number and one special character";
+  else {
     return null;
+  }
 }
+
+
+
 
 String? validateForSignupPassword(
   String? value,

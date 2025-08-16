@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, unused_local_variable
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, unused_local_variable, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,7 +32,7 @@ class _ProviderPaymentHistoryScreenState extends State<ProviderPaymentHistoryScr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: myBackGround(
+      body: myBackGround( 
         child: Column(
           children: [
             appbar(

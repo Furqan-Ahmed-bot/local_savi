@@ -359,8 +359,8 @@ Widget ratingReviewCard({
                 ),
                 // 6.h.verticalSpace,
                 Text(
-                  // dateFormat.formatCreatedAt(dateTime),
-                  dateTime,
+                   dateFormat.formatCreatedAt(dateTime),
+                 // dateTime,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 18.sp,
@@ -452,92 +452,71 @@ Widget userRequestCard({
         color: ColorUtils.borderColor.withOpacity(0.5),
       ),
       20.verticalSpace,
-      Container(
-        width: 1.0.sw,
+      Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    Expanded(
+      child: GestureDetector(
+        onTap: () {
+          Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
+            "id": performer_id,
+            "title": "User Request",
+            "showChat": true,
+          });
+        },
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
-              onTap: () {
-                Get.toNamed(RouteName.bestPerformerDetailScreenPath,
-                    arguments: {
-                      "id": performer_id,
-                      "title": "User Request",
-                      "showChat": true,
-                    });
-              },
-              child: Row(
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(1000.r),
+                  child: Image.network(
+                    image,
+                    height: 50,
+                    width: 50,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                if (isVerified)
+                  Positioned(
+                    right: 0,
+                    child: Image.asset(
+                      ImageAssets.verifiedIcon,
+                      scale: 2,
+                    ),
+                  ),
+              ],
+            ),
+            12.horizontalSpace,
+            Expanded( 
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Stack(
+                  Text(
+                    '${name}',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  5.verticalSpace,
+                  Row(
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(1000.r),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(1000.r),
-                              border: Border.all(
-                                  width: 1.w,
-                                  color:
-                                      ColorUtils.borderColor.withOpacity(0.5))),
-                          child: Image.network(
-                            fit: BoxFit.cover,
-                            image,
-                            height: 50,
-                            width: 50,
-                          ),
-                          // child: Image.asset(
-                          //   image,
-                          //   scale: 2,
-                          // ),
-                        ),
-                      ),
-                      isVerified
-                          ? Positioned(
-                              right: 0,
-                              child: Image.asset(
-                                ImageAssets.verifiedIcon,
-                                scale: 2,
-                              ))
-                          : const SizedBox(),
+                      Image.asset(ImageAssets.starIcon, scale: 2),
+                      5.horizontalSpace,
+                      Text(rating),
                     ],
                   ),
-                  20.horizontalSpace,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 0.7.sw,
-                        child: Text(
-                          name,
-                          maxLines: 1,
-                          style: TextStyle(
-                              overflow: TextOverflow.ellipsis,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.sp),
-                        ),
-                      ),
-                      5.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            ImageAssets.starIcon,
-                            scale: 2,
-                          ),
-                          7.horizontalSpace,
-                          Text(
-                            rating,
-                            style: const TextStyle(),
-                          )
-                        ],
-                      )
-                    ],
-                  )
                 ],
               ),
             ),
-            isAccepted
+          ],
+        ),
+      ),
+    ),
+              isAccepted
                 ? Container(
                     // width: 120.w,
                     alignment: Alignment.center,
@@ -557,64 +536,216 @@ Widget userRequestCard({
                           TextStyle(fontSize: 16.sp, color: ColorUtils.white),
                     ),
                   )
-                : Row(
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          await UserServices.instance.acceptRejectJobRequest(
-                              id: id, status: "REJECTED", context: Get.context);
-                        },
-                        child: Container(
-                          // width: 120.w,
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.only(right: 15.w),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.h, horizontal: 15.w),
-                          decoration: BoxDecoration(
-                              color: ColorUtils.white,
-                              borderRadius: BorderRadius.circular(10.sp),
-                              border: Border.all(
-                                  width: 1.w,
-                                  color:
-                                      ColorUtils.borderColor.withOpacity(0.5))),
-                          child: Text(
-                            "Reject",
-                            style: TextStyle(
-                                fontSize: 16.sp, color: ColorUtils.black),
-                          ),
-                        ),
-                      ),
-                      10.horizontalSpace,
-                      InkWell(
-                        onTap: () async {
-                          await UserServices.instance.acceptRejectJobRequest(
-                              id: id, status: "ACCEPTED", context: Get.context);
-                        },
-                        child: Container(
-                          // width: 120.w,
-                          alignment: Alignment.center,
-                          // margin: EdgeInsets.only(right: 10.w),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.h, horizontal: 15.w),
-
-                          decoration: BoxDecoration(
-                              color: ColorUtils.red,
-                              borderRadius: BorderRadius.circular(10.sp),
-                              border: Border.all(
-                                  width: 1.w,
-                                  color: ColorUtils.red.withOpacity(0.5))),
-                          child: Text(
-                            "Accept",
-                            style: TextStyle(
-                                fontSize: 16.sp, color: ColorUtils.white),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-          ],
+                :
+    Row(
+      children: [
+        InkWell(
+          onTap: () async {
+            await UserServices.instance.acceptRejectJobRequest(
+              id: id,
+              status: "REJECTED",
+              context: Get.context,
+            );
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
+            decoration: BoxDecoration(
+              color: ColorUtils.white,
+              borderRadius: BorderRadius.circular(8.sp),
+              border: Border.all(color: ColorUtils.borderColor.withOpacity(0.5)),
+            ),
+            child: Text("Reject",
+                style: TextStyle(fontSize: 14.sp, color: ColorUtils.black)),
+          ),
         ),
-      )
+        8.horizontalSpace,
+        InkWell(
+          onTap: () async {
+            await UserServices.instance.acceptRejectJobRequest(
+              id: id,
+              status: "ACCEPTED",
+              context: Get.context,
+            );
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
+            decoration: BoxDecoration(
+              color: ColorUtils.red,
+              borderRadius: BorderRadius.circular(8.sp),
+              border: Border.all(color: ColorUtils.red.withOpacity(0.5)),
+            ),
+            child: Text("Accept",
+                style: TextStyle(fontSize: 14.sp, color: ColorUtils.white)),
+          ),
+        ),
+      ],
+    ),
+  ],
+)
+      // Container(
+      //   width: 1.0.sw,
+      //   child: Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //     children: [
+      //       GestureDetector(
+      //         onTap: () {
+      //           Get.toNamed(RouteName.bestPerformerDetailScreenPath,
+      //               arguments: {
+      //                 "id": performer_id,
+      //                 "title": "User Request",
+      //                 "showChat": true,
+      //               });
+      //         },
+      //         child: Row(
+      //           children: [
+      //             Stack(
+      //               children: [
+      //                 ClipRRect(
+      //                   borderRadius: BorderRadius.circular(1000.r),
+      //                   child: Container(
+      //                     decoration: BoxDecoration(
+      //                         borderRadius: BorderRadius.circular(1000.r),
+      //                         border: Border.all(
+      //                             width: 1.w,
+      //                             color:
+      //                                 ColorUtils.borderColor.withOpacity(0.5))),
+      //                     child: Image.network(
+      //                       fit: BoxFit.cover,
+      //                       image,
+      //                       height: 50,
+      //                       width: 50,
+      //                     ),
+      //                     // child: Image.asset(
+      //                     //   image,
+      //                     //   scale: 2,
+      //                     // ),
+      //                   ),
+      //                 ),
+      //                 isVerified
+      //                     ? Positioned(
+      //                         right: 0,
+      //                         child: Image.asset(
+      //                           ImageAssets.verifiedIcon,
+      //                           scale: 2,
+      //                         ))
+      //                     : const SizedBox(),
+      //               ],
+      //             ),
+      //             20.horizontalSpace,
+      //             Column(
+      //               crossAxisAlignment: CrossAxisAlignment.start,
+      //               mainAxisSize: MainAxisSize.min,
+      //               children: [
+      //                 Container(
+      //                   width: 0.7.sw,
+      //                   child: Text(
+      //                     name,
+      //                     maxLines: 1,
+      //                     style: TextStyle(
+      //                         overflow: TextOverflow.ellipsis,
+      //                         fontWeight: FontWeight.w600,
+      //                         fontSize: 16.sp),
+      //                   ),
+      //                 ),
+      //                 5.verticalSpace,
+      //                 Row(
+      //                   mainAxisAlignment: MainAxisAlignment.center,
+      //                   children: [
+      //                     Image.asset(
+      //                       ImageAssets.starIcon,
+      //                       scale: 2,
+      //                     ),
+      //                     7.horizontalSpace,
+      //                     Text(
+      //                       rating,
+      //                       style: const TextStyle(),
+      //                     )
+      //                   ],
+      //                 )
+      //               ],
+      //             )
+      //           ],
+      //         ),
+      //       ),
+      //       // isAccepted
+      //       //     ? Container(
+      //       //         // width: 120.w,
+      //       //         alignment: Alignment.center,
+      //       //         // margin: EdgeInsets.only(right: 10.w),
+      //       //         padding:
+      //       //             EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+
+      //       //         decoration: BoxDecoration(
+      //       //             color: ColorUtils.red,
+      //       //             borderRadius: BorderRadius.circular(10.sp),
+      //       //             border: Border.all(
+      //       //                 width: 1.w,
+      //       //                 color: ColorUtils.red.withOpacity(0.5))),
+      //       //         child: Text(
+      //       //           status,
+      //       //           style:
+      //       //               TextStyle(fontSize: 16.sp, color: ColorUtils.white),
+      //       //         ),
+      //       //       )
+      //       //     :
+      //            Row(
+      //               children: [
+      //                 InkWell(
+      //                   onTap: () async {
+      //                     await UserServices.instance.acceptRejectJobRequest(
+      //                         id: id, status: "REJECTED", context: Get.context);
+      //                   },
+      //                   child: Container(
+      //                     // width: 120.w,
+      //                     alignment: Alignment.center,
+      //                     margin: EdgeInsets.only(right: 15.w),
+      //                     padding: EdgeInsets.symmetric(
+      //                         vertical: 10.h, horizontal: 15.w),
+      //                     decoration: BoxDecoration(
+      //                         color: ColorUtils.white,
+      //                         borderRadius: BorderRadius.circular(10.sp),
+      //                         border: Border.all(
+      //                             width: 1.w,
+      //                             color:
+      //                                 ColorUtils.borderColor.withOpacity(0.5))),
+      //                     child: Text(
+      //                       "Reject",
+      //                       style: TextStyle(
+      //                           fontSize: 16.sp, color: ColorUtils.black),
+      //                     ),
+      //                   ),
+      //                 ),
+      //                 10.horizontalSpace,
+      //                 InkWell(
+      //                   onTap: () async {
+      //                     await UserServices.instance.acceptRejectJobRequest(
+      //                         id: id, status: "ACCEPTED", context: Get.context);
+      //                   },
+      //                   child: Container(
+      //                     // width: 120.w,
+      //                     alignment: Alignment.center,
+      //                     // margin: EdgeInsets.only(right: 10.w),
+      //                     padding: EdgeInsets.symmetric(
+      //                         vertical: 10.h, horizontal: 15.w),
+
+      //                     decoration: BoxDecoration(
+      //                         color: ColorUtils.red,
+      //                         borderRadius: BorderRadius.circular(10.sp),
+      //                         border: Border.all(
+      //                             width: 1.w,
+      //                             color: ColorUtils.red.withOpacity(0.5))),
+      //                     child: Text(
+      //                       "Accept",
+      //                       style: TextStyle(
+      //                           fontSize: 16.sp, color: ColorUtils.white),
+      //                     ),
+      //                   ),
+      //                 ),
+      //               ],
+      //             )
+      //     ],
+      //   ),
+      // )
     ],
   );
 }
@@ -909,26 +1040,26 @@ Widget bestPerformerCard({
                 ],
               ),
             ),
-            InkWell(
-              onTap: () {
-                //  Get.toNamed(RouteName.chatScreenPath, arguments: {
-                //                                       "providerId": id,
-                //                                       "jobId": jobId,
-                //                                       'username': name,
-                //                                       'chat_id': chatId,
-                //                                       'profile_picture': image
-                //                                     });
-              },
-              child: Container(
-                padding: EdgeInsets.all(10.sp),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
-                child: Image.asset(
-                  ImageAssets.msgIcon,
-                  scale: 2,
-                ),
-              ),
-            )
+            // InkWell(
+            //   onTap: () {
+            //     //  Get.toNamed(RouteName.chatScreenPath, arguments: {
+            //     //                                       "providerId": id,
+            //     //                                       "jobId": jobId,
+            //     //                                       'username': name,
+            //     //                                       'chat_id': chatId,
+            //     //                                       'profile_picture': image
+            //     //                                     });
+            //   },
+            //   child: Container(
+            //     padding: EdgeInsets.all(10.sp),
+            //     decoration: BoxDecoration(
+            //         shape: BoxShape.circle, color: ColorUtils.yellowLightBG),
+            //     child: Image.asset(
+            //       ImageAssets.msgIcon,
+            //       scale: 2,
+            //     ),
+            //   ),
+            // )
           ],
         ),
       )
@@ -1023,10 +1154,12 @@ Widget shortlistUserCard({
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        name,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 16.sp),
+                      SizedBox(width: 110,
+                        child: Text(
+                          "${name}djfijdisjdi",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 16.sp , overflow: TextOverflow.ellipsis),
+                        ),
                       ),
                       5.h.verticalSpace,
                       Row(
@@ -1238,7 +1371,7 @@ Widget shortlistUserCard({
 Widget pJobDetailUserCard({
   required bool isVerified,
   required String image,
-  // required String userId,
+   required String userId,
   required String name,
   required String city,
   required String postedDate,
@@ -1248,7 +1381,13 @@ Widget pJobDetailUserCard({
     children: [
       GestureDetector(
         onTap: () {
-          Get.toNamed(RouteName.pJobProviderScreenPath);
+          Get.toNamed(RouteName.pJobProviderScreenPath ,  
+          
+           arguments: {
+                            "userId": userId,
+                         
+                          }
+          );
         },
         child: Container(
           padding: EdgeInsets.all(15.sp),
@@ -1388,7 +1527,7 @@ Widget activeJobCard({
             Text(
               workerType != null
                   ? "For ${workerType} | ${date != null ? DateFormat("d MMMM").format(DateTime.parse(date)) : ""}"
-                  : "For ${workerType} | ${date != null ? DateFormat("d MMMM").format(DateTime.parse(date)) : ""}",
+                  : "${date != null ? DateFormat("d MMMM").format(DateTime.parse(date)) : ""}",
               style: TextStyle(fontSize: 11.sp, color: ColorUtils.borderColor),
             )
           ],

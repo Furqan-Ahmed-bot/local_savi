@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,10 +8,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_job_detail_controller.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_jobs_controller.dart';
-
 import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
-
 import 'package:local_saviors/resources/map/show_map_screen.dart';
 import 'package:local_saviors/utils/api_services/user_services.dart';
 import 'package:local_saviors/utils/color_utils.dart';
@@ -136,8 +134,8 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                           13.h.verticalSpace,
                           pJobDetailUserCard(
                               //need user id in user details
-                              // userId: controller.jobDetailDatail['user']
-                              //     ['user_details']['_id'],
+                              userId: controller.jobDetailDatail['user']
+                                  ['user_details']['user_id'],
                               context: context,
                               name: controller.jobDetailDatail['user']
                                       ['user_details']['first_name'] +
@@ -518,13 +516,13 @@ class PJobDetailScreen extends GetWidget<PJobDetailController> {
                                 ),
                               ),
 
-                              ElevatedButton(
-                                  onPressed: () {
-                                    socketController.startLocationUpdates(
-                                        controller.jobDetailDatail['id']);
-                                  },
-                                  child: Text('TrackNow')),
-                              30.h.verticalSpace
+                              // ElevatedButton(
+                              //     onPressed: () {
+                              //       socketController.startLocationUpdates(
+                              //           controller.jobDetailDatail['id']);
+                              //     },
+                              //     child: Text('TrackNow')),
+                              // 30.h.verticalSpace
                             ],
                           ),
                         ],

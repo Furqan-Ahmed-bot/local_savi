@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/user_controllers/rating_and_review_screen_controller.dart';
@@ -72,32 +75,50 @@ class RatingAndReviewScreen extends GetWidget<RatingAndReviewScreenController> {
                                     ),
                                   ],
                                 ),
-                                18.h.verticalSpace,
-                                Row(
-                                  children: [
-                                    8.w.horizontalSpace,
-                                    Image.asset(
-                                      ImageAssets.starRatingIcon,
-                                      scale: 2,
-                                    ),
-                                    8.w.horizontalSpace,
-                                    Image.asset(
-                                      ImageAssets.starRatingIcon,
-                                      scale: 2,
-                                    ),
-                                    8.w.horizontalSpace,
-                                    Image.asset(
-                                      ImageAssets.starRatingIcon,
-                                      scale: 2,
-                                    ),
-                                    8.w.horizontalSpace,
-                                    Image.asset(
-                                      ImageAssets.starOutlineIcon,
-                                      scale: 2,
-                                    ),
-                                    8.w.horizontalSpace,
-                                  ],
-                                )
+                                5.h.verticalSpace,
+                  RatingBar.builder(
+                    ignoreGestures: true,
+                    initialRating: double.parse(controller.userRatings['average_ratings'].toString()),
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemSize: 30.sp,
+                    glow: false,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => Image.asset(
+                      ImageAssets.starIcon,
+                      scale: 2,
+                    ),
+                    onRatingUpdate: (rating) {
+                      // controller.ratingValue.value = rating;
+                    },
+                  ),
+                                // Row(
+                                //   children: [
+                                //     8.w.horizontalSpace,
+                                //     Image.asset(
+                                //       ImageAssets.starRatingIcon,
+                                //       scale: 2,
+                                //     ),
+                                //     8.w.horizontalSpace,
+                                //     Image.asset(
+                                //       ImageAssets.starRatingIcon,
+                                //       scale: 2,
+                                //     ),
+                                //     8.w.horizontalSpace,
+                                //     Image.asset(
+                                //       ImageAssets.starRatingIcon,
+                                //       scale: 2,
+                                //     ),
+                                //     8.w.horizontalSpace,
+                                //     Image.asset(
+                                //       ImageAssets.starOutlineIcon,
+                                //       scale: 2,
+                                //     ),
+                                //     8.w.horizontalSpace,
+                                //   ],
+                                // )
                               ],
                             )
                           ],

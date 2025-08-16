@@ -27,7 +27,7 @@ class UserUrls {
   static const getPerformerAllJobs = "${baseUrl}job/all?limit=20&page=1";
   static const applyPerformerJob = "${baseUrl}job/apply/"; // job id
   static const getPerformerJobs = "${baseUrl}job/all/provider?filter="; // filter
-  static const getSingleJobDetail = "${baseUrl}job/"; // job id
+  static const getSingleJobDetail = "${baseUrl}job/"; // job id  
   static const saveUnsavePBookmark = "${baseUrl}bookmark_job/"; // job id
   static const sentInviteToPerformer = "${baseUrl}job/invite?job_id="; // job id&performerId
   static const getPBookmark = "${baseUrl}bookmark_job";

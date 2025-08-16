@@ -1,0 +1,2 @@
+D:/updated ls/local_savi/android/app/.cxx/RelWithDebInfo/3app6e11/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/updated ls/local_savi/android/app/.cxx/RelWithDebInfo/3app6e11/arm64-v8a/CMakeFiles/rebuild_cache.dir

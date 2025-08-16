@@ -436,12 +436,16 @@ class CancelledJobScreen extends GetWidget<CancelledJobScreenController> {
                                     ),
                                     Row(
                                       children: [
-                                        Text(
-                                          controller
-                                              .jobDetailDatail['location'],
-                                          style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w500,
+                                        SizedBox(
+                                            width: 0.45.sw,
+                                          child: Text(
+                                            controller
+                                                .jobDetailDatail['location'],
+                                            style: TextStyle(
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.w500,
+                                              overflow: TextOverflow.ellipsis
+                                            ),
                                           ),
                                         ),
                                         5.w.horizontalSpace,

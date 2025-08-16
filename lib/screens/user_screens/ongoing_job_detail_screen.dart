@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, use_key_in_widget_constructors, prefer_interpolation_to_compose_strings
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
@@ -43,7 +43,7 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
                                   border: Border.all(width: 1.w, color: ColorUtils.borderColor),
-                                  color: ColorUtils.trakNowbgColor),
+                                  color:  ColorUtils.trakNowbgColor),
                               child: Column(
                                 children: [
                                   controller.isTrackable.value == false

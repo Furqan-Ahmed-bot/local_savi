@@ -293,8 +293,7 @@ class UserServices {
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        debugPrint(responseData);
-        OTP = responseData['data']['otp'];
+        OTP.value = responseData['data']['otp'];
         Get.close(1);
         Get.toNamed(
             arguments: MyArguments(
@@ -339,7 +338,7 @@ class UserServices {
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-        debugPrint(responseData);
+       
         Get.close(1);
         Get.snackbar("Alert", responseData['message'].toString(),
             backgroundColor: ColorUtils.white);
@@ -1214,7 +1213,7 @@ class UserServices {
       };
 
       var request =
-          http.Request('POST', Uri.parse('${UserUrls.getPBookmark}/$id'));
+          http.Request('POST', Uri.parse('${UserUrls.cancelperformerJob}/$id'));
       request.body = json.encode({"is_custom": false, "reason_id": reasonId});
       request.headers.addAll(headers);
 

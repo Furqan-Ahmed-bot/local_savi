@@ -287,7 +287,9 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                   ],
                                 ),
                                 10.h.verticalSpace,
-                                Text(
+                                if(controller
+                                      .performerdata.documents != null) ...[
+                                         Text(
                                   "Professional Documents",
                                   style: TextStyle(
                                     fontSize: 16.sp,
@@ -327,6 +329,8 @@ class PMyProfileScreen extends GetWidget<PMyProfileController> {
                                     );
                                   },
                                 ),
+                                      ]
+                               
                               ],
                             ),
                           )
