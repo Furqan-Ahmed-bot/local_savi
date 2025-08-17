@@ -459,12 +459,14 @@ Widget userRequestCard({
       child: GestureDetector(
         onTap: () {
           Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
+            
             "id": performer_id,
             "title": "User Request",
-            "showChat": true,
+            "showChat": false,
           });
         },
         child: Row(
+
           children: [
             Stack(
               children: [

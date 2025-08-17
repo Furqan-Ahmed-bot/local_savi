@@ -42,8 +42,8 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                               padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
-                                  border: Border.all(width: 1.w, color: ColorUtils.borderColor),
-                                  color:  ColorUtils.trakNowbgColor),
+                                  border:  controller.isTrackable.value == false ? null: Border.all(width: 1.w, color: ColorUtils.borderColor),
+                                  color:   controller.isTrackable.value == false ? Colors.transparent : ColorUtils.trakNowbgColor),
                               child: Column(
                                 children: [
                                   controller.isTrackable.value == false
@@ -200,8 +200,10 @@ class OngoingJobDetailScreen extends GetWidget<OngoingJobDetailScreenController>
                                                     });
                                               },
                                               child: Container(
+                                                height: 50,
+                                                width: 300,
                                                 alignment: Alignment.center,
-                                                padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 25.w),
+                                                // padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 25.w),
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.circular(10.r),
                                                   color: ColorUtils.red,

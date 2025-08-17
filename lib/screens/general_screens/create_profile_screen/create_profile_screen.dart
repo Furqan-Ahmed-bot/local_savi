@@ -126,7 +126,7 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                             children: [
                               Container(
                                 height: 0.07.sh,
-                                width: 0.43.sw, // can customize height
+                                width: 0.43.sw, 
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 2),
                                 decoration: BoxDecoration(
@@ -158,15 +158,14 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                                     contentPadding: const EdgeInsets.only(
                                         bottom: 12,
                                         top:
-                                            0.0), // this can adjust the label and text position
-                                    //or transparent
+                                            0.0), 
                                   ),
                                   textAlignVertical: TextAlignVertical.bottom,
                                 ),
                               ),
                               Container(
                                 height: 0.07.sh,
-                                width: 0.43.sw, // can customize height
+                                width: 0.43.sw, 
 
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 2),

@@ -13,7 +13,8 @@ import 'package:local_saviors/utils/images/image_assets.dart';
 import '../../resources/components/dateformate/dateformatController.dart';
 import 'p_payment_method_screen.dart';
 
-class WalletScreen extends GetWidget<WalletController> with WidgetsBindingObserver {
+class WalletScreen extends GetWidget<WalletController>
+    with WidgetsBindingObserver {
   final paymentController = Get.put(PaymentMethodController());
   final ValueNotifier<int> ci = ValueNotifier(0);
   int currentIndex = 0;
@@ -56,11 +57,14 @@ class WalletScreen extends GetWidget<WalletController> with WidgetsBindingObserv
                       children: [
                         buildWalletBalanceCard(
                           context,
-                          balance: paymentController.totalAmount.value.toString(),
+                          balance:
+                              paymentController.totalAmount.value.toString(),
                           onTransfer: () async {
                             //phController.performerdata.userDetails?.i
                             // Get.toNamed(RouteName.addBankScreen);
-                            if (phController.performerdata.userDetails?.isStripeVerified == true) {
+                            if (phController.performerdata.userDetails
+                                    ?.isStripeVerified ==
+                                true) {
                               Get.to(() => PaymentMethodScreen());
                             } else {
                               await controller.getStripeUrl().then((value) {
@@ -86,7 +90,13 @@ class WalletScreen extends GetWidget<WalletController> with WidgetsBindingObserv
                                   currentIndex = i;
                                   controller.updateIndex(currentIndex);
                                   Future.microtask(() {
-                                    paymentController.getAllTranscations('DEBIT');
+                                    if (currentIndex == 0) {
+                                      paymentController
+                                          .getAllTranscations('CREDIT');
+                                    } else {
+                                      paymentController
+                                          .getAllTranscations('DEBIT');
+                                    }
                                   });
 
                                   ci.value = i;
@@ -110,14 +120,19 @@ class WalletScreen extends GetWidget<WalletController> with WidgetsBindingObserv
                                       height: 0.52.sh,
                                       child: ListView.separated(
                                         shrinkWrap: true,
-                                        padding: EdgeInsets.symmetric(vertical: 30.h),
-                                        itemBuilder: (_, i) => transactionTile(context, paymentController.allTranscations[i]),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 30.h),
+                                        itemBuilder: (_, i) => transactionTile(
+                                            context,
+                                            paymentController
+                                                .allTranscations[i]),
                                         separatorBuilder: (_, i) => Divider(
                                           height: 26.h,
                                           thickness: 1.h,
                                           color: const Color(0XFFBAC7DC),
                                         ),
-                                        itemCount: paymentController.allTranscations.length,
+                                        itemCount: paymentController
+                                            .allTranscations.length,
                                       ),
                                     ),
                         )
@@ -132,7 +147,8 @@ class WalletScreen extends GetWidget<WalletController> with WidgetsBindingObserv
   }
 }
 
-Widget buildWalletBalanceCard(BuildContext context, {required String balance, VoidCallback? onTransfer, controller}) {
+Widget buildWalletBalanceCard(BuildContext context,
+    {required String balance, VoidCallback? onTransfer, controller}) {
   return Container(
     padding: EdgeInsets.symmetric(
       vertical: 25.h,
@@ -213,7 +229,10 @@ Widget buildWalletBalanceCard(BuildContext context, {required String balance, Vo
                 side: BorderSide(
                   color: Colors.white.withOpacity(0.1),
                 )),
-            child: Text(phController.performerdata.userDetails?.isStripeVerified == true ? 'Connected' : 'Connect',
+            child: Text(
+                phController.performerdata.userDetails?.isStripeVerified == true
+                    ? 'Connected'
+                    : 'Connect',
                 style: TextStyle(color: Colors.white, fontSize: 11)),
           ),
         ),
@@ -285,7 +304,9 @@ Widget transactionTile(BuildContext context, var data) {
       Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(' \$${data['amount']}', style: TextStyle(fontWeight: FontWeight.bold, color: ColorUtils.blue)),
+          Text(' \$${data['amount']}',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: ColorUtils.blue)),
           11.h.verticalSpace,
           Text(
             '${data['transaction_type']}',
@@ -309,7 +330,10 @@ class CustomTabBar {
     return Row(
       children: List.generate(
         options.length,
-        (i) => tab(context, label: options[i], onTap: () => onChanged(i), isSelected: currentIndex == i),
+        (i) => tab(context,
+            label: options[i],
+            onTap: () => onChanged(i),
+            isSelected: currentIndex == i),
       ),
     );
   }
