@@ -82,6 +82,7 @@ class PaymentMethodController extends GetxController {
       //  createExternalBankAccounts(context);
     }
   }
+  
 
   addBank(context) async {
     try {
