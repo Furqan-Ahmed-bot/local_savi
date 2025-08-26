@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_key_in_widget_constructors, avoid_unnecessary_containers, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,8 +9,6 @@ import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/create_profile_controller.dart';
 import 'package:local_saviors/screens/general_screens/create_profile_screen/phone_textform_widget/phone_textformwidget.dart';
 import 'package:local_saviors/utils/color_utils.dart';
-import 'package:local_saviors/utils/validations.dart';
-
 import '../../../resources/components/back_appbar_button.dart';
 import '../../../resources/map/map_screen.dart';
 import '../../../utils/constant.dart';
@@ -31,8 +29,8 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFFD6EFFF), // Light blue shade for the top
-              Color(0xFFFFFFFF), // White shade for the bottom
+              Color(0xFFD6EFFF),
+              Color(0xFFFFFFFF),
             ],
           ),
         ),
@@ -124,106 +122,170 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                height: 0.07.sh,
-                                width: 0.43.sw, 
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 2),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: const Color(0xffDBE2EC)),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                ),
-                                child: TextFormField(
-                                  textCapitalization:
-                                      TextCapitalization.sentences,
-                                  controller: controller.firstNamecontroller,
-                                  validator: validateFirstName,
-                                  decoration: InputDecoration(
-                                    hintText: 'First Name',
-                                    prefixIcon: Container(
-                                      child: Image.asset(
-                                        ImageAssets.firstname,
-                                        scale: 1.1,
-                                      ),
-                                    ),
-                                    hintStyle: const TextStyle(
-                                      color: Color(0xffA5A5A5),
-                                      fontSize: 15.0,
-                                      letterSpacing: 0,
-                                    ),
-
-                                    border: InputBorder.none,
-                                    contentPadding: const EdgeInsets.only(
-                                        bottom: 12,
-                                        top:
-                                            0.0), 
+                              CustomTextFormField(
+                                borderColor: Color(0xffDBE2EC),
+                                controller: controller.firstNamecontroller,
+                                prefixIcon: Container(
+                                  child: Image.asset(
+                                    ImageAssets.firstname,
+                                    scale: 1.1,
                                   ),
-                                  textAlignVertical: TextAlignVertical.bottom,
                                 ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "First Name is required";
+                                  }
+                                  return null;
+                                },
+                                hintText: 'First Name',
+                                label: 'sd',
+                                width: 0.43.sw,
                               ),
-                              Container(
-                                height: 0.07.sh,
-                                width: 0.43.sw, 
 
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 2),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: const Color(0xffDBE2EC)),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                ),
-                                child: TextFormField(
-                                  controller: controller.lastNamecontroller,
-                                  textCapitalization:
-                                      TextCapitalization.sentences,
-                                  validator: validateLastName,
-                                  decoration: InputDecoration(
-                                    hintText: 'Last Name',
-                                    prefixIcon: Container(
-                                      child: Image.asset(
-                                        ImageAssets.firstname,
-                                        scale: 1.1,
-                                      ),
-                                    ),
-                                    hintStyle: const TextStyle(
-                                      color: Color(0xffA5A5A5),
-                                      fontSize: 15.0,
-                                      letterSpacing: 0,
-                                    ),
-                                    border: InputBorder.none,
-                                    contentPadding: const EdgeInsets.only(
-                                        bottom: 12,
-                                        top:
-                                            0.0), // this can adjust the label and text position
-                                    //or transparent
+                              CustomTextFormField(
+                                borderColor: Color(0xffDBE2EC),
+                                controller: controller.lastNamecontroller,
+                                prefixIcon: Container(
+                                  child: Image.asset(
+                                    ImageAssets.firstname,
+                                    scale: 1.1,
                                   ),
-                                  textAlignVertical: TextAlignVertical.bottom,
                                 ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Last Name is required";
+                                  }
+                                  return null;
+                                },
+                                hintText: 'Last Name',
+                                label: 'sd',
+                                width: 0.43.sw,
                               ),
+                              // Container(
+                              //   height: 0.07.sh,
+                              //   width: 0.43.sw,
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 2),
+                              //   decoration: BoxDecoration(
+                              //     border: Border.all(
+                              //         color: const Color(0xffDBE2EC)),
+                              //     borderRadius: BorderRadius.circular(10),
+                              //     color: Colors.white,
+                              //   ),
+                              //   child: TextFormField(
+                              //     textCapitalization:
+                              //         TextCapitalization.sentences,
+                              //     controller: controller.firstNamecontroller,
+                              //     validator: validateFirstName,
+                              //     decoration: InputDecoration(
+                              //       hintText: 'First Name',
+                              //       prefixIcon: Container(
+                              //         child: Image.asset(
+                              //           ImageAssets.firstname,
+                              //           scale: 1.1,
+                              //         ),
+                              //       ),
+                              //       hintStyle: const TextStyle(
+                              //         color: Color(0xffA5A5A5),
+                              //         fontSize: 15.0,
+                              //         letterSpacing: 0,
+                              //       ),
+
+                              //       border: InputBorder.none,
+                              //       contentPadding: const EdgeInsets.only(
+                              //           bottom: 12,
+                              //           top:
+                              //               0.0),
+                              //     ),
+                              //     textAlignVertical: TextAlignVertical.bottom,
+                              //   ),
+                              // ),
+                              // Container(
+                              //   height: 0.07.sh,
+                              //   width: 0.43.sw,
+
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 2),
+                              //   decoration: BoxDecoration(
+                              //     border: Border.all(
+                              //         color: const Color(0xffDBE2EC)),
+                              //     borderRadius: BorderRadius.circular(10),
+                              //     color: Colors.white,
+                              //   ),
+                              //   child: TextFormField(
+                              //     controller: controller.lastNamecontroller,
+                              //     textCapitalization:
+                              //         TextCapitalization.sentences,
+                              //     validator: validateLastName,
+                              //     decoration: InputDecoration(
+                              //       hintText: 'Last Name',
+                              //       prefixIcon: Container(
+                              //         child: Image.asset(
+                              //           ImageAssets.firstname,
+                              //           scale: 1.1,
+                              //         ),
+                              //       ),
+                              //       hintStyle: const TextStyle(
+                              //         color: Color(0xffA5A5A5),
+                              //         fontSize: 15.0,
+                              //         letterSpacing: 0,
+                              //       ),
+                              //       border: InputBorder.none,
+                              //       contentPadding: const EdgeInsets.only(
+                              //           bottom: 12,
+                              //           top:
+                              //               0.0), // this can adjust the label and text position
+                              //       //or transparent
+                              //     ),
+                              //     textAlignVertical: TextAlignVertical.bottom,
+                              //   ),
+                              // ),
                             ],
                           ),
                           20.verticalSpace,
-                          LabelTextFormFieldWidget(
+                          // LabelTextFormFieldWidget(
+                          //   controller: controller.datecontroller,
+                          //   height: 50,
+                          //   readOnly: true,
+                          //   validation: validateDOB,
+                          //   labeltext: 'Date of Birth',
+                          //   issufficsenable: true,
+                          //   suffixicon: ImageAssets.smallcalendar,
+                          //   onFulltap: () {
+                          //     controller.selectDate(context);
+                          //   },
+                          //   ontap: () {
+                          //     // controller.selectDate(context);
+                          //   },
+                          // ),
+
+                          CustomTextFormField(
+                            borderColor: Color(0xffDBE2EC),
                             controller: controller.datecontroller,
-                            height: 50,
-                            readOnly: true,
-                            validation: validateDOB,
-                            labeltext: 'Date of Birth',
-                            issufficsenable: true,
-                            suffixicon: ImageAssets.smallcalendar,
-                            onFulltap: () {
-                              controller.selectDate(context);
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                controller.selectDate(context);
+                              },
+                              child: Container(
+                                child: Image.asset(
+                                  ImageAssets.smallcalendar,
+                                  scale: 1.1,
+                                ),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Date of Birth is required";
+                              }
+                              return null;
                             },
-                            ontap: () {
-                              // controller.selectDate(context);
-                            },
+                            hintText: 'Date of Birth',
+                            label: 'sd',
+                            width: 0.90.sw,
                           ),
                           20.verticalSpace,
                           Container(
-                            height: 0.07.sh,
+                            height: 0.06.sh,
                             alignment: Alignment.center,
                             padding: const EdgeInsets.symmetric(horizontal: 18),
                             decoration: BoxDecoration(
@@ -267,112 +329,143 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
                             ),
                           ),
                           20.verticalSpace,
-                          LabelTextFormFieldWidget(
-                            height: 50,
-                            labeltext: 'Address',
-                            validation: validateAddress,
+                          CustomTextFormField(
+                            borderColor: Color(0xffDBE2EC),
                             controller: controller.addresscontroller,
-                            issufficsenable: false,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Address is required";
+                              }
+                              return null;
+                            },
+                            hintText: 'Address',
+                            label: 'sd',
+                            width: Get.width,
                           ),
+
+                          20.verticalSpace,
+
+                          CustomTextFormField(
+                            borderColor: Color(0xffDBE2EC),
+                            suffixIcon: InkWell(
+                              onTap: () async {
+                                LatLng? result = await Get.to(() => MapScreen(
+                                      initialLocation: selectedLocation.value,
+                                    ));
+                                if (result != null) {
+                                  selectedLocation.value = result;
+                                  controller.latitide = result.latitude;
+                                  controller.longitude = result.longitude;
+
+                                  List<Placemark> placemarks =
+                                      await placemarkFromCoordinates(
+                                          result.latitude, result.longitude);
+                                  if (placemarks.isNotEmpty) {
+                                    Placemark placemark = placemarks.first;
+                                    print(placemark.administrativeArea);
+                                    print(placemark.locality);
+                                    print(placemark.subLocality);
+                                    print(placemark.subAdministrativeArea);
+                                    print(placemark.name);
+                                    print(placemark.thoroughfare);
+                                    print(placemark.postalCode);
+                                    String address =
+                                        "${placemark.name}, ${placemark.thoroughfare} , ${placemark.locality}";
+
+                                    controller.locationcontroller.text =
+                                        address.toString();
+
+                                    print(address);
+                                  }
+                                }
+                              },
+                              child: Container(
+                                child: Image.asset(
+                                  ImageAssets.userlocation,
+                                  scale: 1.1,
+                                ),
+                              ),
+                            ),
+                            controller: controller.locationcontroller,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Location is required";
+                              }
+                              return null;
+                            },
+                            hintText: 'Location',
+                            label: 'sd',
+                            width: Get.width,
+                          ),
+
                           // 20.verticalSpace,
-                          // InkWell(
-                          //   onTap: () {
-                          //     FocusScope.of(context).unfocus();
+                          // LabelTextFormFieldWidget(
+                          //   height: 50,
+                          //   labeltext: 'Location',
+                          //   issufficsenable: true,
+                          //   validation: validateLocation,
+                          //   readOnly: true,
+                          //   suffixicon: ImageAssets.userlocation,
+                          //   controller: controller.locationcontroller,
+                          //   onFulltap: () async {
+                          //     LatLng? result = await Get.to(() => MapScreen(
+                          //           initialLocation: selectedLocation.value,
+                          //         ));
+                          //     if (result != null) {
+                          //       selectedLocation.value = result;
+                          //       controller.latitide = result.latitude;
+                          //       controller.longitude = result.longitude;
+
+                          //       List<Placemark> placemarks =
+                          //           await placemarkFromCoordinates(
+                          //               result.latitude, result.longitude);
+                          //       if (placemarks.isNotEmpty) {
+                          //         Placemark placemark = placemarks.first;
+                          //         print(placemark.administrativeArea);
+                          //         print(placemark.locality);
+                          //         print(placemark.subLocality);
+                          //         print(placemark.subAdministrativeArea);
+                          //         print(placemark.name);
+                          //         print(placemark.thoroughfare);
+                          //         print(placemark.postalCode);
+                          //         String address =
+                          //             "${placemark.name}, ${placemark.thoroughfare} , ${placemark.locality}";
+
+                          //         controller.locationcontroller.text =
+                          //             address.toString();
+
+                          //         print(address);
+                          //       }
+                          //     }
+                          //     // controller.selectDate(context);
+                          //     // controller.update();
                           //   },
-                          //   child: CSCPicker(
-                          //     showStates: true,
-                          //     showCities: true,
-                          //     dropdownDecoration: BoxDecoration(
-                          //         borderRadius:
-                          //             BorderRadius.all(Radius.circular(10)),
-                          //         color: Colors.white,
-                          //         border: Border.all(
-                          //             color: Colors.grey.shade300, width: 1)),
-                          //     countrySearchPlaceholder: "Country",
-                          //     stateSearchPlaceholder: "State",
-                          //     citySearchPlaceholder: "City",
-                          //     countryDropdownLabel: "Country",
-                          //     stateDropdownLabel: "State",
-                          //     cityDropdownLabel: "City",
-                          //     defaultCountry: CscCountry.United_States,
-                          //     disableCountry: true,
-                          //     selectedItemStyle: TextStyle(
-                          //       color: Colors.black,
-                          //       fontSize: 14,
-                          //     ),
-                          //     dropdownHeadingStyle: TextStyle(
-                          //         color: Colors.black,
-                          //         fontSize: 17,
-                          //         fontWeight: FontWeight.bold),
-                          //     dropdownItemStyle: TextStyle(
-                          //       color: Colors.black,
-                          //       fontSize: 14,
-                          //     ),
-                          //     dropdownDialogRadius: 10.0,
-                          //     searchBarRadius: 10.0,
-                          //     onCountryChanged: (value) {},
-                          //     onStateChanged: (value) {
-                          //       controller.state.value = value.toString();
-                          //     },
-                          //     onCityChanged: (value) {
-                          //       controller.city.value = value.toString();
-                          //     },
-                          //   ),
                           // ),
                           20.verticalSpace,
-                          LabelTextFormFieldWidget(
-                            height: 50,
-                            labeltext: 'Location',
-                            issufficsenable: true,
-                            validation: validateLocation,
-                            readOnly: true,
-                            suffixicon: ImageAssets.userlocation,
-                            controller: controller.locationcontroller,
-                            onFulltap: () async {
-                              LatLng? result = await Get.to(() => MapScreen(
-                                    initialLocation: selectedLocation.value,
-                                  ));
-                              if (result != null) {
-                                selectedLocation.value = result;
-                                controller.latitide = result.latitude;
-                                controller.longitude = result.longitude;
-
-                                List<Placemark> placemarks =
-                                    await placemarkFromCoordinates(
-                                        result.latitude, result.longitude);
-                                if (placemarks.isNotEmpty) {
-                                  Placemark placemark = placemarks.first;
-                                  print(placemark.administrativeArea);
-                                  print(placemark.locality);
-                                  print(placemark.subLocality);
-                                  print(placemark.subAdministrativeArea);
-                                  print(placemark.name);
-                                  print(placemark.thoroughfare);
-                                  print(placemark.postalCode);
-                                  String address =
-                                      "${placemark.name}, ${placemark.thoroughfare} , ${placemark.locality}";
-
-                                  controller.locationcontroller.text =
-                                      address.toString();
-
-                                   print(address);
-                                }
-                              }
-                              // controller.selectDate(context);
-                              // controller.update();
-                            },
-                          ),
-                          20.verticalSpace,
-                          LabelTextFormFieldWidget(
-                            maxlines: 5,
-                            labeltext: 'About',
-                            issufficsenable: false,
-                            validation: validateAbout,
+                          // LabelTextFormFieldWidget(
+                          //   maxlines: 5,
+                          //   labeltext: 'About',
+                          //   issufficsenable: false,
+                          //   validation: validateAbout,
+                          //   controller: controller.aboutcontroller,
+                          //   ontap: () {
+                          //     // controller.selectDate(context);
+                          //     controller.update();
+                          //   },
+                          // ),
+                          CustomTextFormField(
+                            borderColor: Color(0xffDBE2EC),
+                            maxLines: 3,
                             controller: controller.aboutcontroller,
-                            ontap: () {
-                              // controller.selectDate(context);
-                              controller.update();
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "About is required";
+                              }
+                              return null;
                             },
+                            hintText: 'About',
+                            label: 'sd',
+                            width: Get.width,
                           ),
                           20.verticalSpace,
                           Container(
@@ -448,5 +541,3 @@ class CreateProfileScreen extends GetWidget<CreateProfileController> {
     });
   }
 }
-
-

@@ -72,7 +72,7 @@ class CreateProfileController extends GetxController {
             buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           child: child!,
-        );
+         );
       },
     );
     if (picked != null && picked != selectedDate) {

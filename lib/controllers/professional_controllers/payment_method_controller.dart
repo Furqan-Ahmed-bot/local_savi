@@ -66,7 +66,7 @@ class PaymentMethodController extends GetxController {
     selectedBankIndex.value = index;
     bankName.value = bankDetails['bank_name'];
     routingNumber.value = bankDetails['routing_number'];
-    bankId = bankDetails['id'];
+    bankId = bankDetails['id']; 
   }
 
   void validate(BuildContext context) {
@@ -82,7 +82,7 @@ class PaymentMethodController extends GetxController {
       //  createExternalBankAccounts(context);
     }
   }
-  
+
 
   addBank(context) async {
     try {

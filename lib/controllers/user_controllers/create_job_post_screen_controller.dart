@@ -49,18 +49,45 @@ class CreateJobPostScreenController extends GetxController {
   //   } else {}
   // }
 
+  // Future getImage() async {
+  //   final picker = ImagePicker();
+
+  //   final List<XFile>? pickedFiles = await picker.pickMultiImage();
+
+  //   if (pickedFiles != null && pickedFiles.isNotEmpty) {
+  //     if(listOfImages.length <= 4){
+  //         for (var file in pickedFiles) {
+  //       listOfImages.add(File(file.path));
+  //       update();
+  //     }
+    
+  //     }
+  //       else {
+  //         Get.snackbar('Alert',  "You can upload a maximum of 5 images only");
+        
+  //     }
+
+    
+  //   }
+  // }
+
   Future getImage() async {
-    final picker = ImagePicker();
+  final picker = ImagePicker();
 
-    final List<XFile>? pickedFiles = await picker.pickMultiImage();
+  final List<XFile>? pickedFiles = await picker.pickMultiImage();
 
-    if (pickedFiles != null && pickedFiles.isNotEmpty) {
+  if (pickedFiles != null && pickedFiles.isNotEmpty) {
+    // Check if the list of images already has 5 or more images
+    if (listOfImages.length + pickedFiles.length <= 5) {
       for (var file in pickedFiles) {
         listOfImages.add(File(file.path));
-        update();
       }
+      update();
+    } else {
+      Get.snackbar('Alert', "You can upload a maximum of 5 images only");
     }
   }
+}
 
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(

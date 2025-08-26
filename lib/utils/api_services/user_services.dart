@@ -781,6 +781,7 @@ class UserServices {
 
         // debugPrint(await response.stream.bytesToString());
       } else {
+        resposeDAta['message'];
         Get.close(1);
         debugPrint(response.reasonPhrase);
       }
