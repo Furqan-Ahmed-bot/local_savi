@@ -61,7 +61,7 @@ class InviteUserScreen extends GetWidget<InviteUserScreenController> {
                                     controller.listOfUserRequests[index]
                                             ['performer']['user_details']
                                         ['last_name'],
-                                rating: "(4.5)"),
+                                rating: "${ controller.listOfUserRequests[index]['performer']['user_ratings'][0]['average_ratings']}"),
                           )),
                 ),
               ]))

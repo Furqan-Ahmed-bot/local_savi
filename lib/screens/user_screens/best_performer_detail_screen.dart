@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, unused_local_variable
+// ignore_for_file: use_key_in_widget_constructors, unused_local_variable, prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +6,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:local_saviors/controllers/user_controllers/best_performer_detail_screen_controller.dart';
+import 'package:local_saviors/resources/components/round_button.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/resources/extensions/context_extension.dart';
 import 'package:local_saviors/utils/color_utils.dart';
@@ -14,8 +15,10 @@ import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
 import '../../resources/map/show_map_screen.dart';
+import 'rate_employee_screen.dart';
 
-class BestPerformerDetailScreen extends GetWidget<BestPerformerDetailScreenController> {
+class BestPerformerDetailScreen
+    extends GetWidget<BestPerformerDetailScreenController> {
   @override
   Widget build(BuildContext context) {
     return myBackGround(
@@ -26,14 +29,17 @@ class BestPerformerDetailScreen extends GetWidget<BestPerformerDetailScreenContr
             controller.showChat.value
                 ? GestureDetector(
                     onTap: () {
-                      Get.toNamed(RouteName.chatScreenPath, arguments: {"showUserDetail": false});
+                      Get.toNamed(RouteName.chatScreenPath,
+                          arguments: {"showUserDetail": false});
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: 20.w),
                       padding: EdgeInsets.all(8.sp),
                       height: 40.h,
                       width: 40.w,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: ColorUtils.appbarButtonBG),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: ColorUtils.appbarButtonBG),
                       child: Image.asset(
                         ImageAssets.msgIcon,
                         color: ColorUtils.red,
@@ -47,269 +53,350 @@ class BestPerformerDetailScreen extends GetWidget<BestPerformerDetailScreenContr
           ]),
         ),
         Expanded(
-            child: ListView(
-          padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 46.h, bottom: 30.h),
+            child: Stack(
           children: [
-            GetBuilder<BestPerformerDetailScreenController>(builder: (controller) {
-              return controller.isLoading.value
-                  ? Center(
-                      child: spinkit,
-                    )
-                  : Column(
-                      children: [
-                        Stack(
+            ListView(
+              padding: EdgeInsets.only(
+                  left: 20.w, right: 20.w, top: 46.h, bottom: 30.h),
+              children: [
+                GetBuilder<BestPerformerDetailScreenController>(
+                    builder: (controller) {
+                  return controller.isLoading.value
+                      ? Center(
+                          child: spinkit,
+                        )
+                      : Column(
                           children: [
-                            SizedBox(
-                              height: 100,
-                              width: 100,
-                              child: ClipOval(
-                                child: Image.network(
-                                  loadingBuilder: (context, child, loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  },
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  },
-                                  fit: BoxFit.cover,
-                                  controller.bestPerformers['user_details']['profile_picture'],
-                                  scale: 2,
+                            Stack(
+                              children: [
+                                SizedBox(
+                                  height: 100,
+                                  width: 100,
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null)
+                                          return child;
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                      fit: BoxFit.cover,
+                                      controller.bestPerformers['user_details']
+                                          ['profile_picture'],
+                                      scale: 2,
+                                    ),
+                                  ),
                                 ),
+                                Positioned(
+                                    right: 0,
+                                    child: Image.asset(
+                                      ImageAssets.verifiedBigIcon,
+                                      scale: 2,
+                                    ))
+                              ],
+                            ),
+                            16.h.verticalSpace,
+                            Text(
+                              controller.bestPerformers['user_details']
+                                      ['first_name'] +
+                                  " " +
+                                  controller.bestPerformers['user_details']
+                                      ['last_name'],
+                              style: TextStyle(
+                                  fontSize: 24.sp, fontWeight: FontWeight.bold),
+                            ),
+                            12.h.verticalSpace,
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(
+                                    RouteName.ratingAndReviewsScreenPath,
+                                    arguments: {
+                                      'user_id':
+                                          controller.bestPerformers['user_id']
+                                    });
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    ImageAssets.starIcon,
+                                    scale: 2,
+                                  ),
+                                  10.w.horizontalSpace,
+                                  Text(
+                                    "(${controller.bestPerformers['review']['average_ratings'] ?? 0})",
+                                    style: TextStyle(fontSize: 18.sp),
+                                  ),
+                                  5.w.horizontalSpace,
+                                  Text(
+                                    "Rating",
+                                    style: TextStyle(
+                                        fontSize: 18.sp,
+                                        decoration: TextDecoration.underline),
+                                  ),
+                                  10.w.horizontalSpace,
+                                  Container(
+                                    height: 20.h,
+                                    width: 1.w,
+                                    color:
+                                        ColorUtils.borderColor.withOpacity(0.5),
+                                  ),
+                                  10.w.horizontalSpace,
+                                  Text(
+                                    "${controller.bestPerformers['review']['rating_count'] ?? 0}",
+                                    style: TextStyle(fontSize: 18.sp),
+                                  ),
+                                  5.w.horizontalSpace,
+                                  Text(
+                                    "Reviews",
+                                    style: TextStyle(
+                                        fontSize: 18.sp,
+                                        decoration: TextDecoration.underline),
+                                  ),
+                                ],
                               ),
                             ),
-                            Positioned(
-                                right: 0,
-                                child: Image.asset(
-                                  ImageAssets.verifiedBigIcon,
-                                  scale: 2,
-                                ))
-                          ],
-                        ),
-                        16.h.verticalSpace,
-                        Text(
-                          controller.bestPerformers['user_details']['first_name'] + " " + controller.bestPerformers['user_details']['last_name'],
-                          style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
-                        ),
-                        12.h.verticalSpace,
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(RouteName.ratingAndReviewsScreenPath, arguments: {'user_id': controller.bestPerformers['user_id']});
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                ImageAssets.starIcon,
-                                scale: 2,
+                            15.h.verticalSpace,
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20.w),
+                              child: Divider(
+                                color: ColorUtils.black.withOpacity(0.3),
                               ),
-                              10.w.horizontalSpace,
-                              Text(
-                                "(${controller.bestPerformers['review']['average_ratings'] ?? 0})",
-                                style: TextStyle(fontSize: 18.sp),
-                              ),
-                              5.w.horizontalSpace,
-                              Text(
-                                "Rating",
-                                style: TextStyle(fontSize: 18.sp, decoration: TextDecoration.underline),
-                              ),
-                              10.w.horizontalSpace,
-                              Container(
-                                height: 20.h,
-                                width: 1.w,
-                                color: ColorUtils.borderColor.withOpacity(0.5),
-                              ),
-                              10.w.horizontalSpace,
-                              Text(
-                                "${controller.bestPerformers['review']['rating_count'] ?? 0}",
-                                style: TextStyle(fontSize: 18.sp),
-                              ),
-                              5.w.horizontalSpace,
-                              Text(
-                                "Reviews",
-                                style: TextStyle(fontSize: 18.sp, decoration: TextDecoration.underline),
-                              ),
-                            ],
-                          ),
-                        ),
-                        15.h.verticalSpace,
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          child: Divider(
-                            color: ColorUtils.black.withOpacity(0.3),
-                          ),
-                        ),
-                        16.h.verticalSpace,
-                        Container(
-                          padding: EdgeInsets.all(20.sp),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.w),
-                              color: ColorUtils.white,
-                              border: Border.all(width: 1.w, color: ColorUtils.borderColor)),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: List.generate(
-                                  controller.dummyData.length,
-                                  (index) => Column(
-                                    // mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                            ),
+                            16.h.verticalSpace,
+                            Container(
+                              padding: EdgeInsets.all(20.sp),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.w),
+                                  color: ColorUtils.white,
+                                  border: Border.all(
+                                      width: 1.w,
+                                      color: ColorUtils.borderColor)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    children: List.generate(
+                                      controller.dummyData.length,
+                                      (index) => Column(
+                                        // mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Container(
-                                            // width: 0.3.sw,
-                                            margin: EdgeInsets.only(right: 20.w),
-                                            child: Text(
-                                              controller.dummyData[index]['title'],
-                                              style: TextStyle(
-                                                fontSize: 16.sp,
-                                                fontWeight: FontWeight.w600,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                // width: 0.3.sw,
+                                                margin: EdgeInsets.only(
+                                                    right: 20.w),
+                                                child: Text(
+                                                  controller.dummyData[index]
+                                                      ['title'],
+                                                  style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: Text(
-                                              controller.dummyData[index]["value"],
-                                              style: TextStyle(
-                                                fontSize: 16.sp,
-                                                fontWeight: FontWeight.w400,
+                                              Flexible(
+                                                child: Text(
+                                                  controller.dummyData[index]
+                                                      ["value"],
+                                                  style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                            ],
                                           ),
+                                          16.h.verticalSpace,
+                                          Divider(
+                                            color: ColorUtils.borderColor
+                                                .withOpacity(0.5),
+                                          ),
+                                          16.h.verticalSpace,
                                         ],
                                       ),
-                                      16.h.verticalSpace,
-                                      Divider(
-                                        color: ColorUtils.borderColor.withOpacity(0.5),
-                                      ),
-                                      16.h.verticalSpace,
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                "Location",
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              10.h.verticalSpace,
-                              Container(
-                                height: 200,
-                                clipBehavior: Clip.hardEdge,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
-                                child: GestureDetector(
-                                  onTap: () async {},
-                                  child: GoogleMap(
-                                    onMapCreated: (controller) {
-                                      print("Map created: $controller");
-                                      // _controller.complete(controller);
-                                    },
-                                    initialCameraPosition: CameraPosition(
-                                      target: LatLng(double.parse(controller.bestPerformers['user_details']['latitude']),
-                                          double.parse(controller.bestPerformers['user_details']['longitude'])),
-                                      zoom: 5,
                                     ),
-                                    onTap: (latLng) async {
-                                         String address = '';
-                                            List<Placemark> placemarks = await placemarkFromCoordinates(
-                                                double.parse(controller.bestPerformers['user_details']['latitude']),
-                                                double.parse(
-                                                  controller.bestPerformers['user_details']['longitude']
-                                                ));
-
-                                            if (placemarks.isNotEmpty) {
-                                              Placemark place = placemarks[0];
-                                              address =
-                                                  '${place.name}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.country}';
-                                              print("Address: $address");
-
-                                              // You can display the address in a dialog, snackbar, or any widget
-                                            
-
-
-                                            }
-                                            
-
-                                      
-
-                                        
-                                      LatLng? result = await Get.to(() => ShowMapScreen(
-                                        address: address,
-                                        
-                                          isProfile: true,
-                                          initialLocation: LatLng(double.parse(controller.bestPerformers['user_details']['latitude']),
-                                              double.parse(controller.bestPerformers['user_details']['longitude']))));
-                                      // LatLng? result = await
-                                      // Get.to(
-                                      //   () => ShowMapScreen(
-                                      //     isProfile: true,
-                                      //     initialLocation: LatLng(3076178580522537, 718024496988206),
-                                      //   ),
-                                      // );
-                                      // if (result != null) {
-                                      //   // Get the address from the coordinates using reverse geocoding
-                                      //   List<Placemark> placemarks =
-                                      //       await placemarkFromCoordinates(
-                                      //           result.latitude,
-                                      //           result.longitude);
-                                      //   if (placemarks.isNotEmpty) {
-                                      //     Placemark placemark =
-                                      //         placemarks.first;
-                                      //     String address =
-                                      //         "${placemark.name}, ${placemark.locality}";
-                                      //   }
-                                      // }
-                                    },
                                   ),
-                                ),
-                              ),
-                              10.h.verticalSpace,
-                              if (controller.bestPerformers['documents'] != null) ...[
-                                Text(
-                                  "Professional Documents",
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
+                                  Text(
+                                    "Location",
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
-                                ),
-                                10.h.verticalSpace,
-                                GridView.builder(
-                                  padding: EdgeInsets.all(0),
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 15, mainAxisExtent: 117),
-                                  itemCount: controller.bestPerformers['documents'].length,
-                                  itemBuilder: (_, i) {
-                                    return Container(
-                                      height: 117.h,
-                                      width: 117.w,
-                                      decoration: BoxDecoration(
-                                        color: context.primary,
-                                        borderRadius: BorderRadius.circular(7.r),
-                                        image: DecorationImage(
-                                          image: NetworkImage(controller.bestPerformers['documents'][i]['media_file']),
-                                          fit: BoxFit.cover,
+                                  10.h.verticalSpace,
+                                  Container(
+                                    height: 200,
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    child: GestureDetector(
+                                      onTap: () async {},
+                                      child: GoogleMap(
+                                        onMapCreated: (controller) {
+                                          print("Map created: $controller");
+                                          // _controller.complete(controller);
+                                        },
+                                        initialCameraPosition: CameraPosition(
+                                          target: LatLng(
+                                              double.parse(controller
+                                                      .bestPerformers[
+                                                  'user_details']['latitude']),
+                                              double.parse(
+                                                  controller.bestPerformers[
+                                                          'user_details']
+                                                      ['longitude'])),
+                                          zoom: 5,
                                         ),
+                                        onTap: (latLng) async {
+                                          String address = '';
+                                          List<Placemark> placemarks =
+                                              await placemarkFromCoordinates(
+                                                  double.parse(
+                                                      controller.bestPerformers[
+                                                              'user_details']
+                                                          ['latitude']),
+                                                  double.parse(
+                                                      controller.bestPerformers[
+                                                              'user_details']
+                                                          ['longitude']));
+
+                                          if (placemarks.isNotEmpty) {
+                                            Placemark place = placemarks[0];
+                                            address =
+                                                '${place.name}, ${place.locality}, ${place.administrativeArea}, ${place.postalCode}, ${place.country}';
+                                            print("Address: $address");
+
+                                            // You can display the address in a dialog, snackbar, or any widget
+                                          }
+
+                                          LatLng? result = await Get.to(() =>
+                                              ShowMapScreen(
+                                                  address: address,
+                                                  isProfile: true,
+                                                  initialLocation: LatLng(
+                                                      double.parse(controller
+                                                                  .bestPerformers[
+                                                              'user_details']
+                                                          ['latitude']),
+                                                      double.parse(controller
+                                                                  .bestPerformers[
+                                                              'user_details']
+                                                          ['longitude']))));
+                                          // LatLng? result = await
+                                          // Get.to(
+                                          //   () => ShowMapScreen(
+                                          //     isProfile: true,
+                                          //     initialLocation: LatLng(3076178580522537, 718024496988206),
+                                          //   ),
+                                          // );
+                                          // if (result != null) {
+                                          //   // Get the address from the coordinates using reverse geocoding
+                                          //   List<Placemark> placemarks =
+                                          //       await placemarkFromCoordinates(
+                                          //           result.latitude,
+                                          //           result.longitude);
+                                          //   if (placemarks.isNotEmpty) {
+                                          //     Placemark placemark =
+                                          //         placemarks.first;
+                                          //     String address =
+                                          //         "${placemark.name}, ${placemark.locality}";
+                                          //   }
+                                          // }
+                                        },
                                       ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ],
-                          ),
-                        )
-                      ],
-                    );
-            }),
+                                    ),
+                                  ),
+                                  10.h.verticalSpace,
+                                  if (controller.bestPerformers['documents'] !=
+                                      null) ...[
+                                    Text(
+                                      "Professional Documents",
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    10.h.verticalSpace,
+                                    GridView.builder(
+                                      padding: EdgeInsets.all(0),
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 3,
+                                              crossAxisSpacing: 15,
+                                              mainAxisSpacing: 15,
+                                              mainAxisExtent: 117),
+                                      itemCount: controller
+                                          .bestPerformers['documents'].length,
+                                      itemBuilder: (_, i) {
+                                        return Container(
+                                          height: 117.h,
+                                          width: 117.w,
+                                          decoration: BoxDecoration(
+                                            color: context.primary,
+                                            borderRadius:
+                                                BorderRadius.circular(7.r),
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  controller.bestPerformers[
+                                                          'documents'][i]
+                                                      ['media_file']),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ],
+                              ),
+                            )
+                          ],
+                        );
+                }),
+              ],
+            ),
+
+            if(controller.status == "COMPLETED") ...[
+                Positioned(
+                bottom: 0,
+                child: Container(
+                  width: Get.width,
+                  height: 80,
+                  color: Color.fromARGB(255, 247, 251, 255),
+                  child: Center(
+
+                    child: RoundButton(
+                        buttonColor: ColorUtils.red,
+                      height: 50,
+                      width: 0.8.sw,
+                      title: 'Rate Employee',
+                      onPress: () {
+                        Get.offAndToNamed(RouteName.rateEmployeeScreenPath, arguments: {'performer_details': controller.bestPerformers});
+              
+                      },
+                    ),
+                  ),
+                ))
+            ]
+          
           ],
         ))
       ],

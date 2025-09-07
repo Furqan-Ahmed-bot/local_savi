@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/professional_controllers/p_saved_jobs_controller.dart';
 import 'package:local_saviors/resources/components/widgets.dart';
 import 'package:local_saviors/screens/professional_screens/p_home_screen.dart';
-import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
 class PSavedJobsScreen extends GetWidget<PSavedJobsController> {
@@ -51,6 +49,7 @@ class PSavedJobsScreen extends GetWidget<PSavedJobsController> {
                                               });
                                             },
                                             child: applyJobCard(
+                                              screen: 'JOB SCREEN',
                                                 id: controller.listOfBookMark[index].jobs!.id,
                                                 time: controller.listOfBookMark[index].jobs!.startTime,
                                                 title: controller.listOfBookMark[index].jobs!.title,

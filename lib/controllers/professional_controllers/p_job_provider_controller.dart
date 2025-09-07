@@ -50,7 +50,7 @@ class PJobProvidercontroller extends GetxController {
         },
         {
           "title": "Email",
-          "value": "johnsmitch@domain.com",
+          "value": "${resData['data']['email']}",
         },
         {
           "title": "About",

@@ -69,6 +69,7 @@ class _PMessageDashboardScreenState extends State<PMessageDashboardScreen> {
                                         '${chatController.AllChats[index]["user_one"]["user_details"]["first_name"]} ${chatController.AllChats[index]["user_two"]["user_details"]["last_name"]}',
                                     'profile_picture': chatController.AllChats[index]["user_one"]["user_details"]["profile_picture"],
                                     'chat_id': "${chatController.AllChats[index]['id']}",
+                                     "showUserDetail" : true
                                   });
 
                                   // Get.to(() => ChatScreen(

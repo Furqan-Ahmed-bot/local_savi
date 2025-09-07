@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -42,13 +41,13 @@ class RateEmployeeScreen extends GetWidget<RateEmployeeScreenController> {
             20.h.verticalSpace,
             shortlistUserCard(
                 context: context,
-                name: controller.performerdetails['performer']['user_details']['first_name'],
+                name: controller.userName,
                 rating: "(4.5)",
                 isVerified: true,
                 isJobCompleted: true,
                 showMessageButton: false,
                 showSelectJobButton: false,
-                image: controller.performerdetails['performer']['user_details']['profile_picture']),
+                image: controller.profilePicture),
             // 20.h.verticalSpace,
             Container(
               padding: EdgeInsets.only(top: 24.h, bottom: 34.h),

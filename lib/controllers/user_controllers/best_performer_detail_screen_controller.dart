@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'dart:convert';
 
 import 'package:get/get.dart';
@@ -11,6 +13,7 @@ class BestPerformerDetailScreenController extends GetxController {
   RxString id = "".obs;
   RxBool showChat = true.obs;
   RxBool isLoading = false.obs;
+  var status;
   Map bestPerformers = {};
 
   List dummyData = [];
@@ -20,7 +23,10 @@ class BestPerformerDetailScreenController extends GetxController {
     title.value = Get.arguments['title'] ?? "User Detail";
     showChat.value = Get.arguments['showChat'] ?? true;
     id.value = Get.arguments['id'] ?? "";
+    status = Get.arguments['status'] ?? '';
+    
     getBestPerformersProfile(id.value);
+    print( Get.arguments['status']);
     super.onInit();
   }
 

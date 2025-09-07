@@ -338,7 +338,6 @@ class UserServices {
       var responseData = jsonDecode(await response.stream.bytesToString());
 
       if (response.statusCode == 200) {
-       
         Get.close(1);
         Get.snackbar("Alert", responseData['message'].toString(),
             backgroundColor: ColorUtils.white);
@@ -516,13 +515,13 @@ class UserServices {
 
       if (response.statusCode == 200) {
         Get.back();
-          
+
         await getProfileService(context: context, isAutoLogin: false)
             .then((value) {
           socketController.onSocketEvents();
 
           Get.to(() => PBottomNavBar());
-           imagePickerController.selectedImages.clear();
+          imagePickerController.selectedImages.clear();
         });
       } else {
         responseData['message'];
@@ -1101,7 +1100,7 @@ class UserServices {
     }
   }
 
-  saveUnsaveBookmarkService({required String jobId, context}) async {
+  saveUnsaveBookmarkService({required String jobId, context , var screen}) async {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -1125,8 +1124,17 @@ class UserServices {
 
       if (bookmarkResponse.statusCode == 200) {
         Get.close(1);
-        Get.snackbar("Success", jobMap['message'],
+        if(screen == 'JOB SCREEN'){
+                   Get.snackbar('Success', 'Job Unsaved Successfully',
             backgroundColor: ColorUtils.white);
+           
+
+        }
+        else{
+           Get.snackbar('Success', 'Job Saved Successfully',
+            backgroundColor: ColorUtils.white);
+        }
+        
       } else {
         Get.close(1);
         Get.snackbar("Alert", jobMap['message'],

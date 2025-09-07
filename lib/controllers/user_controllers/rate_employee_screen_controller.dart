@@ -17,10 +17,18 @@ class RateEmployeeScreenController extends GetxController {
   final reviewController = TextEditingController();
 
   var performerdetails;
+  var userId;
+  var userName;
+  var profilePicture;
+
 
   @override
   void onInit() {
     performerdetails = Get.arguments['performer_details'];
+
+    userId = performerdetails['performer_id'] ?? performerdetails['user_id'];
+    profilePicture = performerdetails['user_details']['profile_picture'] ?? performerdetails['performer']['user_details']['profile_picture'];
+    userName = performerdetails['user_details']['first_name'] ?? performerdetails['performer']['user_details']['first_name'];
     super.onInit();
   }
 
@@ -37,7 +45,7 @@ class RateEmployeeScreenController extends GetxController {
             );
           });
       var headers = {'Content-Type': 'application/json', 'Authorization': token.value};
-      var request = http.Request('POST', Uri.parse("${UserUrls.giveReview}/${performerdetails['performer_id']}"));
+      var request = http.Request('POST', Uri.parse("${UserUrls.giveReview}/${userId}"));
       request.body = json.encode({"stars": ratingValue.value, "review": reviewController.text});
       request.headers.addAll(headers);
 

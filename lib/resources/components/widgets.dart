@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, unnecessary_string_interpolations, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'dart:io';
 
@@ -925,14 +925,20 @@ Widget messageUserCard({
           crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              name,
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+            SizedBox(
+              width: 160,
+              child: Text(
+                "${name}",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp , overflow: TextOverflow.ellipsis),
+              ),
             ),
             5.h.verticalSpace,
-            Text(
-              desc,
-              style: TextStyle(fontSize: 16.sp),
+            SizedBox(
+                   width: 0.5.sw,
+              child: Text(
+                desc,
+                style: TextStyle(fontSize: 16.sp ,  overflow: TextOverflow.ellipsis),
+              ),
             )
           ],
         ),
@@ -1083,6 +1089,7 @@ Widget shortlistUserCard({
   String? chatId,
   required context,
   bool showSelectJobButton = true,
+  String? screen
 }) {
   return Column(
     children: [
@@ -1113,6 +1120,7 @@ Widget shortlistUserCard({
                             'id': id,
                             "title": "Employee Profile",
                             "showChat": false,
+                            'status' : screen == 'COMPLETED' ? 'COMPLETED' : ''
                           });
               },
               child: Row(
@@ -1156,9 +1164,9 @@ Widget shortlistUserCard({
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(width: 110,
+                      SizedBox(width: 145,
                         child: Text(
-                          "${name}djfijdisjdi",
+                          "${name}",
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 16.sp , overflow: TextOverflow.ellipsis),
                         ),
@@ -1769,6 +1777,7 @@ Widget applyJobCard({
   String? date,
   String? budget,
   String? time,
+  String? screen
 }) {
   return Container(
     width: 1.0.sw,
@@ -1910,7 +1919,7 @@ Widget applyJobCard({
             InkWell(
               onTap: () {
                 UserServices.instance
-                    .saveUnsaveBookmarkService(jobId: id!, context: context);
+                    .saveUnsaveBookmarkService(jobId: id!, context: context , screen: screen);
               },
               child: Image.asset(
                 ImageAssets.saveIcon,
