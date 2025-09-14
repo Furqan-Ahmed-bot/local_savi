@@ -6,7 +6,7 @@ class InviteUserScreenController extends GetxController {
   @override
   void onInit() {
     listOfUserRequests = Get.arguments['users'];
-    for (int i = 0; i < listOfUserRequests.length; i++) {
+    for (int i  = 0; i < listOfUserRequests.length; i++) {
       listOfUserRequests[i]['isInvited'] = false;
     }
     update();

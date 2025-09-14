@@ -11,6 +11,7 @@ import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 import 'package:shimmer/shimmer.dart';
 
+
 class PHomeScreen extends GetWidget<PHomeController> {
   @override
   Widget build(BuildContext context) {
@@ -78,6 +79,7 @@ class PHomeScreen extends GetWidget<PHomeController> {
                                                           });
                                                     },
                                                     child: applyJobCard(
+                                              
                                                       id: controller
                                                           .listOfJobs[index].id,
                                                       title: controller

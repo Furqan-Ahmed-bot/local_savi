@@ -14,6 +14,7 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
 
+import '../../controllers/professional_controllers/p_home_controller.dart';
 import 'image_viewer.dart';
 
 Widget getSenderView(
@@ -359,8 +360,8 @@ Widget ratingReviewCard({
                 ),
                 // 6.h.verticalSpace,
                 Text(
-                   dateFormat.formatCreatedAt(dateTime),
-                 // dateTime,
+                  dateFormat.formatCreatedAt(dateTime),
+                  // dateTime,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 18.sp,
@@ -453,137 +454,139 @@ Widget userRequestCard({
       ),
       20.verticalSpace,
       Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  children: [
-    Expanded(
-      child: GestureDetector(
-        onTap: () {
-          Get.toNamed(RouteName.bestPerformerDetailScreenPath, arguments: {
-            
-            "id": performer_id,
-            "title": "User Request",
-            "showChat": false,
-          });
-        },
-        child: Row(
-
-          children: [
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(1000.r),
-                  child: Image.network(
-                    image,
-                    height: 50,
-                    width: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                if (isVerified)
-                  Positioned(
-                    right: 0,
-                    child: Image.asset(
-                      ImageAssets.verifiedIcon,
-                      scale: 2,
-                    ),
-                  ),
-              ],
-            ),
-            12.horizontalSpace,
-            Expanded( 
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                Get.toNamed(RouteName.bestPerformerDetailScreenPath,
+                    arguments: {
+                      "id": performer_id,
+                      "title": "User Request",
+                      "showChat": false,
+                    });
+              },
+              child: Row(
                 children: [
-                  Text(
-                    '${name}',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                  5.verticalSpace,
-                  Row(
+                  Stack(
                     children: [
-                      Image.asset(ImageAssets.starIcon, scale: 2),
-                      5.horizontalSpace,
-                      Text(rating),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(1000.r),
+                        child: Image.network(
+                          image,
+                          height: 50,
+                          width: 50,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      if (isVerified)
+                        Positioned(
+                          right: 0,
+                          child: Image.asset(
+                            ImageAssets.verifiedIcon,
+                            scale: 2,
+                          ),
+                        ),
                     ],
+                  ),
+                  12.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${name}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.sp,
+                          ),
+                        ),
+                        5.verticalSpace,
+                        Row(
+                          children: [
+                            Image.asset(ImageAssets.starIcon, scale: 2),
+                            5.horizontalSpace,
+                            Text(rating),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    ),
-              isAccepted
-                ? Container(
-                    // width: 120.w,
-                    alignment: Alignment.center,
-                    // margin: EdgeInsets.only(right: 10.w),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+          ),
+          isAccepted
+              ? Container(
+                  // width: 120.w,
+                  alignment: Alignment.center,
+                  // margin: EdgeInsets.only(right: 10.w),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
 
-                    decoration: BoxDecoration(
-                        color: ColorUtils.red,
-                        borderRadius: BorderRadius.circular(10.sp),
-                        border: Border.all(
-                            width: 1.w,
-                            color: ColorUtils.red.withOpacity(0.5))),
-                    child: Text(
-                      status,
-                      style:
-                          TextStyle(fontSize: 16.sp, color: ColorUtils.white),
+                  decoration: BoxDecoration(
+                      color: ColorUtils.red,
+                      borderRadius: BorderRadius.circular(10.sp),
+                      border: Border.all(
+                          width: 1.w, color: ColorUtils.red.withOpacity(0.5))),
+                  child: Text(
+                    status,
+                    style: TextStyle(fontSize: 16.sp, color: ColorUtils.white),
+                  ),
+                )
+              : Row(
+                  children: [
+                    InkWell(
+                      onTap: () async {
+                        await UserServices.instance.acceptRejectJobRequest(
+                          id: id,
+                          status: "REJECTED",
+                          context: Get.context,
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 8.h, horizontal: 12.w),
+                        decoration: BoxDecoration(
+                          color: ColorUtils.white,
+                          borderRadius: BorderRadius.circular(8.sp),
+                          border: Border.all(
+                              color: ColorUtils.borderColor.withOpacity(0.5)),
+                        ),
+                        child: Text("Reject",
+                            style: TextStyle(
+                                fontSize: 14.sp, color: ColorUtils.black)),
+                      ),
                     ),
-                  )
-                :
-    Row(
-      children: [
-        InkWell(
-          onTap: () async {
-            await UserServices.instance.acceptRejectJobRequest(
-              id: id,
-              status: "REJECTED",
-              context: Get.context,
-            );
-          },
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
-            decoration: BoxDecoration(
-              color: ColorUtils.white,
-              borderRadius: BorderRadius.circular(8.sp),
-              border: Border.all(color: ColorUtils.borderColor.withOpacity(0.5)),
-            ),
-            child: Text("Reject",
-                style: TextStyle(fontSize: 14.sp, color: ColorUtils.black)),
-          ),
-        ),
-        8.horizontalSpace,
-        InkWell(
-          onTap: () async {
-            await UserServices.instance.acceptRejectJobRequest(
-              id: id,
-              status: "ACCEPTED",
-              context: Get.context,
-            );
-          },
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
-            decoration: BoxDecoration(
-              color: ColorUtils.red,
-              borderRadius: BorderRadius.circular(8.sp),
-              border: Border.all(color: ColorUtils.red.withOpacity(0.5)),
-            ),
-            child: Text("Accept",
-                style: TextStyle(fontSize: 14.sp, color: ColorUtils.white)),
-          ),
-        ),
-      ],
-    ),
-  ],
-)
+                    8.horizontalSpace,
+                    InkWell(
+                      onTap: () async {
+                        await UserServices.instance.acceptRejectJobRequest(
+                          id: id,
+                          status: "ACCEPTED",
+                          context: Get.context,
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 8.h, horizontal: 12.w),
+                        decoration: BoxDecoration(
+                          color: ColorUtils.red,
+                          borderRadius: BorderRadius.circular(8.sp),
+                          border: Border.all(
+                              color: ColorUtils.red.withOpacity(0.5)),
+                        ),
+                        child: Text("Accept",
+                            style: TextStyle(
+                                fontSize: 14.sp, color: ColorUtils.white)),
+                      ),
+                    ),
+                  ],
+                ),
+        ],
+      )
       // Container(
       //   width: 1.0.sw,
       //   child: Row(
@@ -929,15 +932,19 @@ Widget messageUserCard({
               width: 160,
               child: Text(
                 "${name}",
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp , overflow: TextOverflow.ellipsis),
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.sp,
+                    overflow: TextOverflow.ellipsis),
               ),
             ),
             5.h.verticalSpace,
             SizedBox(
-                   width: 0.5.sw,
+              width: 0.5.sw,
               child: Text(
                 desc,
-                style: TextStyle(fontSize: 16.sp ,  overflow: TextOverflow.ellipsis),
+                style:
+                    TextStyle(fontSize: 16.sp, overflow: TextOverflow.ellipsis),
               ),
             )
           ],
@@ -1075,22 +1082,21 @@ Widget bestPerformerCard({
   );
 }
 
-Widget shortlistUserCard({
-  required bool isVerified,
-  String? id,
-  bool showMessageButton = true,
-  bool isJobCompleted = false,
-  required String image,
-  required String name,
-  required String rating,
-  String? performerId,
-  var profilePicture,
-  String? jobId,
-  String? chatId,
-  required context,
-  bool showSelectJobButton = true,
-  String? screen
-}) {
+Widget shortlistUserCard(
+    {required bool isVerified,
+    String? id,
+    bool showMessageButton = true,
+    bool isJobCompleted = false,
+    required String image,
+    required String name,
+    required String rating,
+    String? performerId,
+    var profilePicture,
+    String? jobId,
+    String? chatId,
+    required context,
+    bool showSelectJobButton = true,
+    String? screen}) {
   return Column(
     children: [
       Container(
@@ -1120,7 +1126,7 @@ Widget shortlistUserCard({
                             'id': id,
                             "title": "Employee Profile",
                             "showChat": false,
-                            'status' : screen == 'COMPLETED' ? 'COMPLETED' : ''
+                            'status': screen == 'COMPLETED' ? 'COMPLETED' : ''
                           });
               },
               child: Row(
@@ -1164,11 +1170,14 @@ Widget shortlistUserCard({
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(width: 145,
+                      SizedBox(
+                        width: 145,
                         child: Text(
                           "${name}",
                           style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 16.sp , overflow: TextOverflow.ellipsis),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.sp,
+                              overflow: TextOverflow.ellipsis),
                         ),
                       ),
                       5.h.verticalSpace,
@@ -1381,7 +1390,7 @@ Widget shortlistUserCard({
 Widget pJobDetailUserCard({
   required bool isVerified,
   required String image,
-   required String userId,
+  required String userId,
   required String name,
   required String city,
   required String postedDate,
@@ -1391,13 +1400,9 @@ Widget pJobDetailUserCard({
     children: [
       GestureDetector(
         onTap: () {
-          Get.toNamed(RouteName.pJobProviderScreenPath ,  
-          
-           arguments: {
-                            "userId": userId,
-                         
-                          }
-          );
+          Get.toNamed(RouteName.pJobProviderScreenPath, arguments: {
+            "userId": userId,
+          });
         },
         child: Container(
           padding: EdgeInsets.all(15.sp),
@@ -1768,177 +1773,190 @@ Widget appbar({
   );
 }
 
-Widget applyJobCard({
-  required context,
-  String? id = "",
-  String? status = "",
-  String? title,
-  String? desc,
-  String? date,
-  String? budget,
-  String? time,
-  String? screen
-}) {
-  return Container(
-    width: 1.0.sw,
-    margin: EdgeInsets.only(bottom: 16.h),
-    padding: EdgeInsets.all(10.sp),
-    decoration: BoxDecoration(
-      color: ColorUtils.white,
-      border: Border.all(width: 1.w, color: ColorUtils.borderColor),
-      borderRadius: BorderRadius.circular(10.r),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              width: 0.43.sw,
-              child: Text(
-                title ?? "",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.sp,
-                    overflow: TextOverflow.ellipsis),
+Widget applyJobCard(
+    {required context,
+    String? id = "",
+    String? status = "",
+    String? title,
+    String? desc,
+    String? date,
+    String? budget,
+    String? time,
+    String? screen,
+    void Function()? onTapBookMared}) {
+  final pHomeController = Get.put(PHomeController());
+  return Obx(
+    () => Container(
+      width: 1.0.sw,
+      margin: EdgeInsets.only(bottom: 16.h),
+      padding: EdgeInsets.all(10.sp),
+      decoration: BoxDecoration(
+        color: ColorUtils.white,
+        border: Border.all(width: 1.w, color: ColorUtils.borderColor),
+        borderRadius: BorderRadius.circular(10.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 0.43.sw,
+                child: Text(
+                  title ?? "",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.sp,
+                      overflow: TextOverflow.ellipsis),
+                ),
               ),
-            ),
-            Text(
-              date != null
-                  ? DateFormat("d MMMM").format(DateTime.parse(date))
-                  : "",
-              style: TextStyle(fontSize: 12.sp, color: ColorUtils.borderColor),
-            )
-          ],
-        ),
-        6.h.verticalSpace,
-        Text(
-          desc ?? '',
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.left,
-          maxLines: 3,
-        ),
-        12.h.verticalSpace,
-        Divider(
-          color: ColorUtils.borderColor.withOpacity(0.5),
-        ),
-        // 12.h.verticalSpace,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Job Budget",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: ColorUtils.blue,
-                    fontSize: 12.sp,
+              Text(
+                date != null
+                    ? DateFormat("d MMMM").format(DateTime.parse(date))
+                    : "",
+                style:
+                    TextStyle(fontSize: 12.sp, color: ColorUtils.borderColor),
+              )
+            ],
+          ),
+          6.h.verticalSpace,
+          Text(
+            desc ?? '',
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.left,
+            maxLines: 3,
+          ),
+          12.h.verticalSpace,
+          Divider(
+            color: ColorUtils.borderColor.withOpacity(0.5),
+          ),
+          // 12.h.verticalSpace,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Job Budget",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: ColorUtils.blue,
+                      fontSize: 12.sp,
+                    ),
                   ),
-                ),
-                6.h.verticalSpace,
-                Text(
-                  "\$$budget",
-                  style: TextStyle(
-                    color: ColorUtils.black,
-                    fontSize: 16.sp,
+                  6.h.verticalSpace,
+                  Text(
+                    "\$$budget",
+                    style: TextStyle(
+                      color: ColorUtils.black,
+                      fontSize: 16.sp,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Container(
-              height: 40.h,
-              width: 1.w,
-              decoration: BoxDecoration(
-                color: ColorUtils.borderColor.withOpacity(0.5),
+                ],
               ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Job Time",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: ColorUtils.blue,
-                    fontSize: 12.sp,
-                  ),
+              Container(
+                height: 40.h,
+                width: 1.w,
+                decoration: BoxDecoration(
+                  color: ColorUtils.borderColor.withOpacity(0.5),
                 ),
-                6.h.verticalSpace,
-                Text(
-                  time != null
-                      ? DateFormat("HH:mm").format(DateTime.parse(time))
-                      : "",
-                  style: TextStyle(
-                    color: ColorUtils.black,
-                    fontSize: 16.sp,
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              height: 40.h,
-              width: 1.w,
-              decoration: BoxDecoration(
-                color: ColorUtils.borderColor.withOpacity(0.5),
               ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Job Date",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: ColorUtils.blue,
-                    fontSize: 12.sp,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Job Time",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: ColorUtils.blue,
+                      fontSize: 12.sp,
+                    ),
                   ),
-                ),
-                6.h.verticalSpace,
-                Text(
-                  " ${date != null ? DateFormat("MMM d, yyyy").format(DateTime.parse(date)) : ""}",
-                  style: TextStyle(
-                    color: ColorUtils.black,
-                    fontSize: 16.sp,
+                  6.h.verticalSpace,
+                  Text(
+                    time != null
+                        ? DateFormat("HH:mm").format(DateTime.parse(time))
+                        : "",
+                    style: TextStyle(
+                      color: ColorUtils.black,
+                      fontSize: 16.sp,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        Divider(
-          color: ColorUtils.borderColor.withOpacity(0.5),
-        ),
-        // 10.verticalSpace,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: () {
-                UserServices.instance
-                    .saveUnsaveBookmarkService(jobId: id!, context: context , screen: screen);
-              },
-              child: Image.asset(
-                ImageAssets.saveIcon,
-                scale: 2,
+                ],
               ),
-            ),
-            RoundButton(
-              title: "Apply Job",
-              onPress: () {
-                UserServices.instance
-                    .applyPerformerJob(context: context, jobId: id);
-              },
-              // horizonalPad: 20.w,
-              width: 150.w,
-              buttonColor: ColorUtils.red,
-            )
-          ],
-        )
-      ],
+              Container(
+                height: 40.h,
+                width: 1.w,
+                decoration: BoxDecoration(
+                  color: ColorUtils.borderColor.withOpacity(0.5),
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Job Date",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: ColorUtils.blue,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                  6.h.verticalSpace,
+                  Text(
+                    " ${date != null ? DateFormat("MMM d, yyyy").format(DateTime.parse(date)) : ""}",
+                    style: TextStyle(
+                      color: ColorUtils.black,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Divider(
+            color: ColorUtils.borderColor.withOpacity(0.5),
+          ),
+          // 10.verticalSpace,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () {
+                  pHomeController.addBookMarkedJobs(id);
+
+                  UserServices.instance.saveUnsaveBookmarkService(
+                    jobId: id.toString(),
+                    context: context,
+                  );
+                },
+                child: pHomeController.allBookMarked.contains(id)
+                    ? Image.asset(
+                        ImageAssets.shareIcon,
+                        scale: 2,
+                      )
+                    : Image.asset(
+                        ImageAssets.saveIcon,
+                        scale: 2,
+                      ),
+              ),
+              RoundButton(
+                title: "Apply Job",
+                onPress: () {
+                  UserServices.instance
+                      .applyPerformerJob(context: context, jobId: id);
+                },
+                // horizonalPad: 20.w,
+                width: 150.w,
+                buttonColor: ColorUtils.red,
+              )
+            ],
+          )
+        ],
+      ),
     ),
   );
 }

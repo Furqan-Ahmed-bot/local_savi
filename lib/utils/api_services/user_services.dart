@@ -570,10 +570,11 @@ class UserServices {
           await phController
               .setPerformerData(PerformerModel.fromJson(jsonResponse['data']));
           phController.isLaoding.value = true;
-          phController.listOfJobs = await getPerformerJobs();
-          phController.isLaoding.value = false;
-
+          // phController.listOfJobs = await getPerformerJobs();
+          // phController.isLaoding.value = false;
+         phController.getPerfJobs();
           if (isAutoLogin) {
+            
             await socketController.onSocketEvents();
             Get.to(() => PBottomNavBar());
 
