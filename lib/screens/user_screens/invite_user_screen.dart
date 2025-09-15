@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_interpolation_to_compose_strings, use_key_in_widget_constructors, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:local_saviors/controllers/user_controllers/invite_user_screen_controller.dart';
@@ -19,52 +18,51 @@ class InviteUserScreen extends GetWidget<InviteUserScreenController> {
             isMenu: false,
             title: "Invite User",
           ),
-          Expanded(
-              child: ListView(
-                  padding: EdgeInsets.only(
-                      left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
-                  children: [
-                Column(
-                  children: List.generate(
-                      controller.listOfUserRequests.length,
-                      (index) => InkWell(
-                            onTap: () {
-                              if (!controller.listOfUserRequests[index]
-                                  ['isInvited']) {
-                                UserServices.instance
-                                    .sentInviteToPerformer(
-                                        context: context,
-                                        jobId:
-                                            controller.listOfUserRequests[index]
-                                                ['job_id'],
-                                        performerId:
-                                            controller.listOfUserRequests[index]
-                                                ['performer_id'])
-                                    .then((value) {
-                                  controller.listOfUserRequests[index]
-                                      ['isInvited'] = true;
-                                  controller.update();
-                                });
-                              }
-                            },
-                            child: inviteUserCard(
-                                isInvited: controller.listOfUserRequests[index]
-                                    ['isInvited'],
-                                isVerified: true,
-                                image: controller.listOfUserRequests[index]
-                                        ['performer']['user_details']
-                                    ['profile_picture'],
-                                name: controller.listOfUserRequests[index]
-                                            ['performer']['user_details']
-                                        ['first_name'] +
-                                    " " +
-                                    controller.listOfUserRequests[index]
-                                            ['performer']['user_details']
-                                        ['last_name'],
-                                rating: "${ controller.listOfUserRequests[index]['performer']['user_ratings'][0]['average_ratings']}"),
-                          )),
-                ),
-              ]))
+          Obx(
+            () => Expanded(
+                child: controller.isLoading.value
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.red,
+                        ),
+                      )
+                    : ListView(
+                        padding: EdgeInsets.only(
+                            left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
+                        children: [
+                            Column(
+                              children: List.generate(
+                                  controller.listOfUserRequests.length,
+                                  (index) => InkWell(
+                                        onTap: () {
+                                          if (controller.isInvite.value ==
+                                              false) {
+                                            UserServices.instance
+                                                .sentRehireRequest(
+                                                    jobId: controller.jobId,
+                                                    performer_id: controller
+                                                            .listOfUserRequests[
+                                                        index]['performer_id'],
+                                                    context: context);
+                                          }
+                                        },
+                                        child: inviteUserCard(
+                                            isInvited: controller.isInvite.value,
+                                            isVerified: true,
+                                            image: controller
+                                                    .listOfUserRequests[index]
+                                                ['profile_picture'],
+                                            name: controller.listOfUserRequests[
+                                                    index]['first_name'] +
+                                                " " +
+                                                controller.listOfUserRequests[
+                                                    index]['last_name'],
+                                            rating:
+                                                "${controller.listOfUserRequests[index]['average_ratings']}"),
+                                      )),
+                            ),
+                          ])),
+          )
         ],
       ));
     });

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_is_empty, depend_on_referenced_packages
+// ignore_for_file: prefer_const_constructors, prefer_is_empty, depend_on_referenced_packages, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
 import 'dart:developer';
@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import "package:http/http.dart" as http;
+import "package:http/http.dart" as http; 
 import 'package:local_saviors/controllers/professional_controllers/p_home_controller.dart';
 import 'package:local_saviors/controllers/user_controllers/jobs_screen_controller.dart';
 import 'package:local_saviors/models/bookmark_model.dart';
@@ -22,6 +22,7 @@ import 'package:local_saviors/utils/color_utils.dart';
 import 'package:local_saviors/utils/constant.dart';
 import 'package:local_saviors/utils/images/image_assets.dart';
 import 'package:local_saviors/utils/routes/routes.dart';
+import '../../controllers/user_controllers/invite_user_screen_controller.dart';
 import '../../controllers/user_controllers/posted_job_screen_controller.dart';
 import '../../models/job_provider_model/job_provider_model.dart';
 import '../../resources/ prefrences/auth_prefrences.dart';
@@ -1065,21 +1066,11 @@ class UserServices {
     }
   }
 
-  deleteJob({required String jobId, context}) async {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: Colors.transparent,
-            content: SizedBox(
-              child: spinkit,
-            ),
-          );
-        });
+  getReHire({required String jobId}) async {
     try {
       var headers = {'Authorization': token.value};
-      var request = http.Request(
-          'DELETE', Uri.parse(UserUrls.getSingleJobDetail + jobId));
+      var request =
+          http.Request('GET', Uri.parse("${UserUrls.getRehireUsers}$jobId"));
 
       request.headers.addAll(headers);
 
@@ -1087,17 +1078,15 @@ class UserServices {
 
       if (response.statusCode == 200) {
         String jobsResponse = await response.stream.bytesToString();
-        jobsResponse;
-        Get.close(4);
-        var jobsController = Get.find<JobsScreenController>();
-        jobsController.getJobs("OPEN");
+        var jobMap = json.decode(jobsResponse);
+
+        return jobMap['data'];
       } else {
-        Get.back();
+        return {};
       }
     } catch (e) {
       debugPrint("====> error: ${e}");
-      Get.back();
-      // return {};
+      return {};
     }
   }
 
@@ -1135,6 +1124,81 @@ class UserServices {
            Get.snackbar('Success', 'Job Saved Successfully',
             backgroundColor: ColorUtils.white);
         }
+        
+      } else {
+        Get.close(1);
+        Get.snackbar("Alert", jobMap['message'],
+            backgroundColor: ColorUtils.white);
+      }
+    } catch (e) {
+      debugPrint("====> error: ${e}");
+      Get.close(1);
+    }
+  }
+
+  deleteJob({required String jobId, context}) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: SizedBox(
+              child: spinkit,
+            ),
+          );
+        });
+    try {
+      var headers = {'Authorization': token.value};
+      var request = http.Request(
+          'DELETE', Uri.parse(UserUrls.getSingleJobDetail + jobId));
+
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        String jobsResponse = await response.stream.bytesToString();
+        jobsResponse;
+        Get.close(4);
+        var jobsController = Get.find<JobsScreenController>();
+        jobsController.getJobs("OPEN");
+      } else {
+        Get.back();
+      }
+    } catch (e) {
+      debugPrint("====> error: ${e}");
+      Get.back();
+      // return {};
+    }
+  }
+
+  sentRehireRequest({required String jobId, required String performer_id , context}) async {
+    final iniviteController = Get.put(InviteUserScreenController());
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: SizedBox(
+              child: spinkit,
+            ),
+          );
+        });
+    try {
+      var headers = {'Authorization': token.value};
+      var request =
+          http.Request('POST', Uri.parse('${UserUrls.sendHireRequest}${jobId}&performer_id=${performer_id}'));
+
+      request.headers.addAll(headers);
+
+      http.StreamedResponse sentInvite = await request.send();
+      String jobsResponse = await sentInvite.stream.bytesToString();
+      var jobMap = json.decode(jobsResponse);
+
+      if (sentInvite.statusCode == 200) {
+        Get.close(1);
+        iniviteController.isInvite.value =true;
+     
         
       } else {
         Get.close(1);

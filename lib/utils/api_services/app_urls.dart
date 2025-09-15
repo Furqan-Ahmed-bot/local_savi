@@ -87,6 +87,13 @@ class UserUrls {
   static const termsAnsConditions = "${baseUrl}terms_and_conditions";
   static const privacyPolicy = "${baseUrl}privacy_policy";
   static const aboutApp = "${baseUrl}about-app";
+
+
+  //rehire users
+  static const getRehireUsers = "${baseUrl}job/rehire/users?job_id=";
+  static const sendHireRequest = "${baseUrl}job/invite?job_id=";
+
+
 }
 
 // class ProfessionalUrls {

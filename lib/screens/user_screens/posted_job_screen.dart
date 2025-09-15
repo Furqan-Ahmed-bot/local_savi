@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
@@ -633,7 +634,7 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Get.toNamed(RouteName.inviteUserScreenPath, arguments: {"users": controller.jobDetailData['invite_users']});
+                                Get.toNamed(RouteName.inviteUserScreenPath, arguments: {"jobid": controller.jobDetailData['id']});
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
@@ -687,8 +688,10 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                         Column(
                           children: controller.jobDetailData['invite_users'].isNotEmpty
                               ? List.generate(
+
                                   controller.jobDetailData['invite_users'].length,
                                   (index) => shortlistUserCard(
+                                    showMessageButton: controller.jobDetailData['invite_users'][index]['is_applied'],
                                       id: controller.jobDetailData['invite_users'][index]['performer_id'],
                                       jobId: controller.jobDetailData['invite_users'][index]['job_id'],
                                       context: context,
