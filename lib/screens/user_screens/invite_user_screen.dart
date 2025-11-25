@@ -33,10 +33,14 @@ class InviteUserScreen extends GetWidget<InviteUserScreenController> {
                             Column(
                               children: List.generate(
                                   controller.listOfUserRequests.length,
-                                  (index) => InkWell(
+                                  (index){
+                                    final user = controller.listOfUserRequests[index];
+                                final performerId = user['performer_id'];
+                                final isInvited = controller.isUserInvited(performerId);
+
+                                     return InkWell(
                                         onTap: () {
-                                          if (controller.isInvite.value ==
-                                              false) {
+                                          if (!isInvited) {
                                             UserServices.instance
                                                 .sentRehireRequest(
                                                     jobId: controller.jobId,
@@ -47,7 +51,7 @@ class InviteUserScreen extends GetWidget<InviteUserScreenController> {
                                           }
                                         },
                                         child: inviteUserCard(
-                                            isInvited: controller.isInvite.value,
+                                            isInvited: isInvited,
                                             isVerified: true,
                                             image: controller
                                                     .listOfUserRequests[index]
@@ -59,7 +63,8 @@ class InviteUserScreen extends GetWidget<InviteUserScreenController> {
                                                     index]['last_name'],
                                             rating:
                                                 "${controller.listOfUserRequests[index]['average_ratings']}"),
-                                      )),
+                                      );
+                                  }),
                             ),
                           ])),
           )

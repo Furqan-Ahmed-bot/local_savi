@@ -59,6 +59,8 @@ class ImageAssets {
   static String bottomchat = 'assets/icons/bottomchat.png';
   static String filterIcon = 'assets/icons/filter_icon.png';
   static String saveIcon = 'assets/icons/save_icon.png';
+    static String unsaveIcon = 'assets/icons/unsaved_icon.png';
+
   static String bigCross = 'assets/icons/big_cross.png';
   static String sendIcon = 'assets/icons/send_icon.png';
   static String attachIcon = 'assets/icons/attach_icon.png';

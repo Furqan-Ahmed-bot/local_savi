@@ -1197,7 +1197,9 @@ class UserServices {
 
       if (sentInvite.statusCode == 200) {
         Get.close(1);
-        iniviteController.isInvite.value =true;
+        //iniviteController.isInvite.value =true;
+              iniviteController.markAsInvited(performer_id);
+
      
         
       } else {

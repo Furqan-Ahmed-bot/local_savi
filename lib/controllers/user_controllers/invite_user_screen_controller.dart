@@ -7,7 +7,8 @@ class InviteUserScreenController extends GetxController {
   RxBool isInvite = false.obs;
    var jobId;
 
-    RxBool isLoading = false.obs;
+  RxBool isLoading = false.obs;
+  RxSet<String> invitedUsers = <String>{}.obs;
 
 
   @override
@@ -33,5 +34,15 @@ class InviteUserScreenController extends GetxController {
       update();
     });
     isLoading.value = false;
+  }
+
+
+    void markAsInvited(String performerId) {
+    invitedUsers.add(performerId);
+    update();
+  }
+
+  bool isUserInvited(String performerId) {
+    return invitedUsers.contains(performerId);
   }
 }

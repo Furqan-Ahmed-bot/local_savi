@@ -1171,7 +1171,7 @@ Widget shortlistUserCard(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SizedBox(
-                        width: 145,
+                        width: 115,
                         child: Text(
                           "${name}",
                           style: TextStyle(
@@ -1541,8 +1541,8 @@ Widget activeJobCard({
             ),
             Text(
               workerType != null
-                  ? "For ${workerType} | ${date != null ? DateFormat("d MMMM").format(DateTime.parse(date)) : ""}"
-                  : "${date != null ? DateFormat("d MMMM").format(DateTime.parse(date)) : ""}",
+                  ? "For ${workerType} | ${date != null ? DateFormat("d MMM").format(DateTime.parse(date)) : ""}"
+                  : "${date != null ? DateFormat("d MMM").format(DateTime.parse(date)) : ""}",
               style: TextStyle(fontSize: 11.sp, color: ColorUtils.borderColor),
             )
           ],
@@ -1935,8 +1935,8 @@ Widget applyJobCard(
                 },
                 child: pHomeController.allBookMarked.contains(id)
                     ? Image.asset(
-                        ImageAssets.shareIcon,
-                        scale: 2,
+                        ImageAssets.unsaveIcon,
+                        scale: 3,
                       )
                     : Image.asset(
                         ImageAssets.saveIcon,

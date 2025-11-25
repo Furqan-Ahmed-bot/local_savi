@@ -696,7 +696,7 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                       jobId: controller.jobDetailData['invite_users'][index]['job_id'],
                                       context: context,
                                       chatId: controller.jobDetailData['chat_id'],
-                                      profilePicture: controller.jobDetailData['user_requests'][0]['performer']['user_details']['profile_picture'],
+                                      profilePicture: controller.jobDetailData['invite_users'][index]['performer']['user_details']['profile_picture'],
                                       showSelectJobButton: controller.jobDetailData['invite_users'][index]['invite_status'] == "ACCEPTED",
                                       isVerified: controller.listOfBestPerformers[index]['isVerified'],
                                       image: controller.jobDetailData['invite_users'][index]['performer']['user_details']['profile_picture'],
@@ -704,7 +704,7 @@ class PostedJobScreen extends GetWidget<PostedJobScreenController> {
                                           " " +
                                           controller.jobDetailData['invite_users'][index]['performer']['user_details']['last_name'],
                                       rating:
-                                          controller.jobDetailData['user_requests'][0]['performer']['user_ratings'][0]['average_ratings'].toString()))
+                                         controller.jobDetailData['invite_users'][index]['performer']['user_ratings'][0]['average_ratings'].toString()))
                               : [const Text("No shortlist users")],
                         )
                       ],
